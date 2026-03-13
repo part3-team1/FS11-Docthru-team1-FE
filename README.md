@@ -43,6 +43,12 @@
 ### - Components: UI 컴포넌트
 
 `.
+├── eslint.config.mjs
+├── jsconfig.json
+├── next.config.mjs
+├── package.json
+├── pnpm-lock.yaml
+├── pnpm-workspace.yaml
 ├── public
 │   └── Images
 │       ├── Icon
@@ -51,7 +57,6 @@
 │           └── logo.svg
 ├── README.md
 └── src
-
     ├── app
     │   ├── (admin)
     │   │   ├── challenge-management
