@@ -42,6 +42,7 @@
 
 ### - Components: UI 컴포넌트
 
+```
 .
 ├── public
 │ └── Images
@@ -151,3 +152,4 @@
 └── styles
 ├── globals.css.js
 └── reset.css.js
+```
