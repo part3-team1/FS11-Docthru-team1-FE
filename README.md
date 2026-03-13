@@ -48,7 +48,8 @@
 
 ### - Components: UI 컴포넌트
 
-`.
+```
+.
 ├── eslint.config.mjs
 ├── jsconfig.json
 ├── next.config.mjs
@@ -173,3 +174,4 @@
     └── styles
         ├── globals.css.js
         └── reset.css.js`
+```
