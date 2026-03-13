@@ -1,4 +1,4 @@
-import Button from '@/components/Button/button';
+import Button from '@/components/Button/Button.jsx';
 import * as styles from './HeroSection.css.jsx';
 import Link from 'next/link.js';
 

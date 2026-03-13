@@ -1,4 +1,4 @@
-import UserHeader from '@/components/Layout/userHeader/userHeader';
+import UserHeader from '@/components/Layout/UserHeader/UserHeader.jsx';
 
 export default function WithUserHeaderLayout({ children }) {
   return (

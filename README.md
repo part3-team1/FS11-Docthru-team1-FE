@@ -1,4 +1,10 @@
-# DocThru
+# git clone 후 작업 순서
+### - `pnpm install` 로 의존성 패키지 설치
+### - 각자 `develop` 브랜치로 이동하여 `feature/기능명` 으로 브랜치를 생성하여 진행하여 주세요
+### - 기능 개발이 끝나면 `develop` 브랜치로 `git push origin` ( merge 아닙니다 )
+### - **주의** : `develop` 브랜치에 업데이트가 있을 경우 항상 develop브랜치와 현재 개발중인 본인의 브랜치를 최신화하고 진행합니다
+
+## DocThru
 
 ## Sprint 중급 프로젝트 1팀
 

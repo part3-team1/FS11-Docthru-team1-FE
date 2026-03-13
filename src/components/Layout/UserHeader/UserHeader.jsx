@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import logoImage from '@/../public/Images/Logo/logo.svg';
 import Image from 'next/image';
-import * as styles from './userHeader.css.js';
+import * as styles from './UserHeader.css.jsx';
 
 export default function UserHeader() {
   return (
