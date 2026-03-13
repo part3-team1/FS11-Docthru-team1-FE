@@ -1,4 +1,4 @@
-import ChallengeManagement from '../Components/challengeManagement';
+import ChallengeManagement from '../Components/ChallengeManagement';
 
 export default function ChallengeManagementContainer() {
   return <ChallengeManagement />;

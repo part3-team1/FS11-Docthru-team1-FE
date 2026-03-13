@@ -1,5 +1,5 @@
 import Button from '@/components/Button/button';
-import * as styles from './herosection.css.js';
+import * as styles from './HeroSection.css.jsx';
 import Link from 'next/link.js';
 
 export default function HeroSection() {

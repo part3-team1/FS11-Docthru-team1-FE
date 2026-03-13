@@ -1,5 +1,5 @@
 import Button from '@/components/Button/button';
-import * as styles from './CTASection.css.js';
+import * as styles from './CTASection.css.jsx';
 import Link from 'next/link.js';
 export default function CTASection() {
   return (

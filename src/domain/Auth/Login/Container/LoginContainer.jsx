@@ -1,5 +1,5 @@
 import Link from 'next/link.js';
-import LoginForm from '../Components/loginComponent.js';
+import LoginForm from '../Components/LoginComponent.jsx';
 
 export default function LoginContainer() {
   return (

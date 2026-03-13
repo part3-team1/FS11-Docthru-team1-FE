@@ -1,4 +1,4 @@
-import ChallengeManagementContainer from '@/domain/ChallengeManagement/Container/challengeManagementContainer';
+import ChallengeManagementContainer from '@/domain/ChallengeManagement/Container/ChallengeManagementContainer.jsx';
 
 export default function Page() {
   return <ChallengeManagementContainer />;

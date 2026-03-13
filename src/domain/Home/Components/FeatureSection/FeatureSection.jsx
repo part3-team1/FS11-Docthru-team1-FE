@@ -1,4 +1,4 @@
-import * as styles from './featureSection.css.js'
+import * as styles from './FeatureSection.css.jsx';
 
 export default function FeatureSection() {
   return (

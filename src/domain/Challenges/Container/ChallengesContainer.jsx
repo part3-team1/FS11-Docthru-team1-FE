@@ -1,5 +1,5 @@
-import Challenges from '../Components/challenges.js';
-import AdminChallenges from '../Components/adminChallenges.js';
+import Challenges from '../Components/Challenges.jsx';
+import AdminChallenges from '../Components/AdminChallenges.jsx';
 
 export default function ChallengesContainer({ mode }) {
   return mode === 'admin' ? <AdminChallenges /> : <Challenges />;

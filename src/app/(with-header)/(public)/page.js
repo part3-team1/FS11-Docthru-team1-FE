@@ -1,4 +1,4 @@
-import HomeContainer from '@/domain/Home/Container/homeContainer.js';
+import HomeContainer from '@/domain/Home/Container/HomeContainer.jsx';
 
 export default function Page() {
   return <HomeContainer />;

@@ -1,4 +1,4 @@
-import ChallengeDetailContainer from '@/domain/ChallengeDetail/Container/challengeDetailContainer';
+import ChallengeDetailContainer from '@/domain/ChallengeDetail/Container/ChallengeDetailContainer';
 
 export default async function Page({ params }) {
   const { id } = await params;
