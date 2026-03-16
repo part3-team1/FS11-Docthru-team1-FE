@@ -18,7 +18,7 @@ export const base = style({
 });
 
 export const solid = {
-  standard: {
+  size: {
     pcLarge: style({
       padding: '0.90625rem 3.03125rem',
     }),
@@ -57,7 +57,17 @@ export const solid = {
 };
 
 export const outline = {
-  standard: {
+  size: {
+    pcLarge: style({
+      padding: '0.125rem 1rem 0.1875rem 1rem',
+      border: `1px solid ${vars.color.gray800}`,
+      color: vars.color.gray800,
+    }),
+    pcMedium: style({
+      padding: '0.125rem 1rem 0.1875rem 1rem',
+      border: `1px solid ${vars.color.gray800}`,
+      color: vars.color.gray800,
+    }),
     tablet: style({
       padding: '0.125rem 1rem 0.1875rem 1rem',
       border: `1px solid ${vars.color.gray800}`,
@@ -85,10 +95,16 @@ export const outlineIcon = style({
 });
 
 export const transparent = {
-  standard: {
-    pcLarge: style({}),
+  size: {
+    pcLarge: style({
+      backgroundColor: 'rgba(246, 248, 250, 0.50)',
+      display: 'inline-flex',
+    }),
 
-    pcMedium: style({}),
+    pcMedium: style({
+      backgroundColor: 'rgba(246, 248, 250, 0.50)',
+      display: 'inline-flex',
+    }),
 
     tablet: style({
       backgroundColor: 'rgba(246, 248, 250, 0.50)',
@@ -113,7 +129,7 @@ export const transparent = {
 };
 
 export const filledTonal = {
-  standard: {
+  size: {
     pcLarge: style({
       backgroundColor: '#FFE7E7',
       padding: '0.6875rem 3.03125rem',

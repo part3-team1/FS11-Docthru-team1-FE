@@ -3,8 +3,8 @@ import * as styles from './Button.css.jsx';
 export default function Button({
   children,
   variant = 'solid',
-  standard = 'pcMedium',
-  status,
+  size = 'pcMedium',
+  status = 'active',
   className = '',
   ...props
 }) {
@@ -12,7 +12,7 @@ export default function Button({
     <button
       className={`
         ${styles.base}
-        ${styles[variant]?.standard?.[standard] ?? ''}
+        ${styles[variant]?.size?.[size] ?? ''}
         ${styles[variant]?.status?.[status] ?? ''}
         ${className}
       `}
