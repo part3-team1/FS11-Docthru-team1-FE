@@ -7,7 +7,7 @@ export default function FeatureSection() {
       <div className={styles.section}>
         <div className={styles.content}>
           <Image
-            src="/images/Logo/trophy.svg"
+            src="/images/Icon/trophy.svg"
             alt="트로피 아이콘"
             width={24}
             height={24}
@@ -37,7 +37,7 @@ export default function FeatureSection() {
       <div className={styles.centerSection}>
         <div className={styles.content}>
           <Image
-            src="/images/Logo/heart.svg"
+            src="/images/Icon/heart.svg"
             alt="트로피 아이콘"
             width={24}
             height={24}
@@ -66,7 +66,7 @@ export default function FeatureSection() {
       <div className={styles.section}>
         <div className={styles.content}>
           <Image
-            src="/images/Logo/feedback.svg"
+            src="/images/Icon/feedback.svg"
             alt="트로피 아이콘"
             width={24}
             height={24}
