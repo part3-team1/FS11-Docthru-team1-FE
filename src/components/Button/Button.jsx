@@ -1,5 +1,24 @@
 import * as styles from './Button.css.jsx';
 
-export default function Button({ children }) {
-  return <button className={styles.button}>{children}</button>;
+export default function Button({
+  children,
+  variant = 'solid',
+  standard,
+  status,
+  className = '',
+  ...props
+}) {
+  return (
+    <button
+      className={`
+        ${styles.base}
+        ${styles[variant]?.standard?.[standard] ?? ''}
+        ${styles[variant]?.status?.[status] ?? ''}
+        ${className}
+      `}
+      {...props}
+    >
+      {children}
+    </button>
+  );
 }
