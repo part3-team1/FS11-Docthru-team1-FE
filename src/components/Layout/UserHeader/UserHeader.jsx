@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import logoImage from '@/../public/Images/Logo/logo.svg';
+import bell_empty from '@/../public/Images/Icon/status=empty.png';
 import Image from 'next/image';
 import * as styles from './UserHeader.css.jsx';
 
@@ -12,7 +13,7 @@ export default function UserHeader() {
           <div>docThru</div>
         </Link>
         <div className={styles.menu}>
-          <div>알림아이콘</div>
+          <Image src={bell_empty} alt="bell_empty.png" />
           <div>유저 헤더</div>
         </div>
       </div>
