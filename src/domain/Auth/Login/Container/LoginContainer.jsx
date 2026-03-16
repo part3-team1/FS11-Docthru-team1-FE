@@ -20,9 +20,8 @@ export default function LoginContainer() {
       <LoginForm />
 
       <div className={styles.signup}>
-        회원이 아니신가요?{' '}
+        회원이 아니신가요?
         <Link href="/signup" className={styles.link}>
-          {' '}
           회원가입하기
         </Link>
       </div>
