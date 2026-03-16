@@ -3,7 +3,7 @@ import * as styles from './Button.css.jsx';
 export default function Button({
   children,
   variant = 'solid',
-  standard,
+  standard = 'pcMedium',
   status,
   className = '',
   ...props

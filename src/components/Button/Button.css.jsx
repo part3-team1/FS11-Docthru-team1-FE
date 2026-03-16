@@ -6,7 +6,6 @@ export const base = style({
   justifyContent: 'center',
   alignItems: 'center',
   cursor: 'pointer',
-
   backgroundColor: vars.color.white,
 
   fontFamily: 'Pretendard',
@@ -28,7 +27,7 @@ export const solid = {
       padding: '0.65625rem 2.03125rem 0.65625rem 1.96875rem',
     }),
 
-    pcMobile: style({
+    tablet: style({
       padding: '0.4375rem 1.40625rem 0.4375rem 1.34375rem',
       fontSize: '0.875rem',
       fontWeight: '700',
@@ -59,7 +58,7 @@ export const solid = {
 
 export const outline = {
   standard: {
-    pcTablet: style({
+    tablet: style({
       padding: '0.125rem 1rem 0.1875rem 1rem',
       border: `1px solid ${vars.color.gray800}`,
       color: vars.color.gray800,
@@ -87,7 +86,11 @@ export const outlineIcon = style({
 
 export const transparent = {
   standard: {
-    pc: style({
+    pcLarge: style({}),
+
+    pcMedium: style({}),
+
+    tablet: style({
       backgroundColor: 'rgba(246, 248, 250, 0.50)',
       display: 'inline-flex',
       gap: '0.125rem',
@@ -104,36 +107,30 @@ export const transparent = {
       fontSize: '0.875rem',
       letterSpacing: '0.0175rem',
       fontWeight: '700',
+      color: vars.color.gray700,
     }),
   },
 };
 
 export const filledTonal = {
   standard: {
-    l: style({
+    pcLarge: style({
       backgroundColor: '#FFE7E7',
       padding: '0.6875rem 3.03125rem',
       lineHeight: '1.625rem',
       color: '#F24744',
     }),
 
-    pc: style({
-      backgroundColor: '#FFE7E7',
-      padding: '0.5rem 0.75rem',
-      color: '#F24744',
-    }),
-
-    pcTablet: style({
-      backgroundColor: '#FFE7E7',
-      padding: '0.5rem',
-      flexShrink: 0,
-      borderRadius: '0.625rem',
-    }),
-
     pcMedium: style({
       backgroundColor: '#FFE7E7',
       padding: '0.6875rem 0.75rem',
       borderRadius: '0.625rem',
+      color: '#F24744',
+    }),
+
+    tablet: style({
+      backgroundColor: '#FFE7E7',
+      padding: '0.5rem 0.75rem',
       color: '#F24744',
     }),
 
