@@ -27,6 +27,7 @@ export const container = style({
 
 export const mainWord = style({
   textAlign: 'center',
+  fontSize:'1.5rem',
   fontWeight: '600',
   lineHeight: '2.25rem',
   marginTop: '0.98rem',
