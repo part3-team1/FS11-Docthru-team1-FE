@@ -42,8 +42,8 @@ export const vars = createGlobalTheme(':root', {
 });
 
 export const media = {
-  tablat: 'screen and (max-width:1280px)',
-  mobile: 'screen and (max-width:744px',
+  tablet: 'screen and (max-width:1280px)',
+  mobile: 'screen and (max-width:744px)',
 };
 
 
