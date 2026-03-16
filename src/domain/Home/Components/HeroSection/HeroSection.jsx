@@ -9,7 +9,7 @@ export default function HeroSection() {
       <Image
         src="Images/Logo/homeLogo.svg"
         alt="로고"
-        width={115}
+        width={126}
         height={28}
       />
       <h2 className={styles.mainWord}>
