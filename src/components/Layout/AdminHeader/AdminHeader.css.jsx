@@ -1,3 +1,4 @@
+import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const header = style({
