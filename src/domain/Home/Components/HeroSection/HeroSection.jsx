@@ -1,15 +1,24 @@
-import Button from '@/components/Button/Button.jsx';
+
 import * as styles from './HeroSection.css.jsx';
 import Link from 'next/link.js';
+import Image from 'next/image.js';
 
 export default function HeroSection() {
   return (
-    <>
-      <div>함께 번역하며 성장하는</div>
-      <div>개발자의 새로운 영어 습관</div>
+    <div className={styles.container}>
+      <Image
+        src="Images/Logo/homeLogo.svg"
+        alt="로고"
+        width={126}
+        height={28}
+      />
+      <h2 className={styles.mainWord}>
+        함께 번역하며 성장하는
+        <br /> 개발자의 새로운 영어 습관
+      </h2>
       <Link href="/login">
-        <Button>번역 시작하기</Button>
+        <Link href='/challenges' className={styles.moveBtn}>번역 시작하기</Link>
       </Link>
-    </>
+    </div>
   );
 }
