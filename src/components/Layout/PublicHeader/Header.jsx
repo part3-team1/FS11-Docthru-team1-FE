@@ -1,21 +1,27 @@
 import Link from 'next/link';
-import logoImage from '@/../public/Images/Logo/logo.svg';
 import Image from 'next/image';
 import * as styles from './Header.css.jsx';
 
 export default function PublicHeader() {
   return (
-    <div className={styles.header}>
-      <div className={styles.nav}>
-        <Link href="/" className={styles.logoWrapper}>
-          <Image src={logoImage} alt="logo.png" />
-          <div>docThru</div>
-        </Link>
+    <div className={styles.container}>
 
-        <div className={styles.menu}>
-          <Link href="/login">로그인</Link>
-        </div>
-      </div>
+
+      <Link href="/" className={styles.logoContainer}>
+        <Image
+          src="Images/Logo/logo.svg"
+          alt="로고"
+          width={17.55}
+          height={20.25}
+          className={styles.logo}
+          />
+        <span className={styles.logoName}>Docthru</span>
+      </Link>
+
+      <Link href="/login" className={styles.loginBtn}>
+        로그인
+      </Link>
+
     </div>
   );
 }
