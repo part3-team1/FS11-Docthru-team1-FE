@@ -9,7 +9,7 @@ import * as styles from './UserHeader.css.jsx';
 
 export default function UserHeader() {
   const hasNotification = true;
-  const isExpert = true;
+  const isExpert = false;
   return (
     <div className={styles.container}>
       <Link href="/" className={styles.logoContainer}>

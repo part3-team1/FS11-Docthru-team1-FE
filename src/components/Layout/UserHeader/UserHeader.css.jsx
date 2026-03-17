@@ -30,6 +30,7 @@ export const logoContainer = style({
   justifyContent: 'center',
   alignItems: 'center',
   gap: '0.34rem',
+  flexShrink: '0',
   '@media': {
     [media.mobile]: {
       gap: '0.22rem',
