@@ -25,6 +25,21 @@ export const container = style({
   },
 });
 
+export const logoContainer = style({
+  display: 'flex',
+  alignItems: 'center',
+  
+})
+
+export const logoName = style({
+  fontFamily: 'Quantico',
+  fontSize: '1.4rem',
+  color:vars.color.gray300
+})
+
+
+
+
 export const mainWord = style({
   textAlign: 'center',
   fontSize:'1.5rem',

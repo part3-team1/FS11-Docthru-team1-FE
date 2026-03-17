@@ -27,8 +27,8 @@ export default function FeatureSection() {
         <Image
           src="/images/home1.png"
           alt="챌린지카드 예시"
-          width={570}
-          height={411}
+          width={400}
+          height={300}
           className={styles.img}
         />
       </div>
@@ -56,14 +56,14 @@ export default function FeatureSection() {
         <Image
           src="/images/home2.png"
           alt="챌린지카드 예시"
-          width={570}
-          height={411}
-          className={styles.img}
+          width={400}
+          height={300}
+          className={styles.img2}
         />
       </div>
 
       {/*  */}
-      <div className={styles.section}>
+      <div className={styles.FeedbackSection}>
         <div className={styles.content}>
           <Image
             src="/images/Icon/feedback.svg"
@@ -81,8 +81,8 @@ export default function FeatureSection() {
         <Image
           src="/images/home3.png"
           alt="챌린지카드 예시"
-          width={505}
-          height={346}
+          width={395}
+          height={280}
           className={styles.feedbackImg}
         />
       </div>
