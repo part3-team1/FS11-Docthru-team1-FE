@@ -7,6 +7,7 @@ export default function LoginContainer() {
   return (
     <main className={styles.container}>
       <Link href="/" className={styles.logoContainer}>
+        {/* 로고 */}
         <Image
           src="/images/Logo/logo.svg"
           alt="독스루 로고"
@@ -20,6 +21,7 @@ export default function LoginContainer() {
       {/* 로그인 폼 */}
       <LoginForm />
 
+      {/* 회원가입 이동 */}
       <div className={styles.signup}>
         회원이 아니신가요?
         <Link href="/signup" className={styles.link}>

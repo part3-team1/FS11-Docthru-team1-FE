@@ -19,10 +19,12 @@ export default function LoginForm() {
   return (
     <form
       noValidate
+      // 이거 확인용임.. 추후 지울예정
       onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
     >
       <div className={styles.container}>
         {/* 이메일 */}
+
         <div className={styles.section}>
           <label htmlFor="email" className={styles.label}>
             이메일
@@ -38,11 +40,14 @@ export default function LoginForm() {
                 message: '이메일 형식에 맞지 않습니다.',
               },
             })}
+            // error이면 테두리 빨간색 짜잔
+            // 맞는 양식이면 초록색 짜잔
             aria-invalid={
               isSubmitted ? (errors.email ? 'true' : 'false') : undefined
             }
             className={styles.input}
           />
+          {/* error 상황시 나오는 메세지 input 하단에 나옴 */}
           {errors.email && (
             <small role="alert" className={styles.message}>
               {errors.email.message}
@@ -62,10 +67,13 @@ export default function LoginForm() {
             {...register('password', {
               required: '비밀번호는 필수 입니다.',
               minLength: {
+                // 임시 비밀번호 제한 글자 수
                 value: 8,
                 message: '비밀번호가 틀렸습니다.',
               },
             })}
+            // error이면 테두리 빨간색 짜잔
+            // 맞는 양식이면 초록색 짜잔
             aria-invalid={
               isSubmitted ? (errors.password ? 'true' : 'false') : undefined
             }
@@ -85,7 +93,7 @@ export default function LoginForm() {
             onClick={togglePassword}
             className={styles.passwordBtn}
           />
-
+          {/* error 상황시 나오는 메세지 input 하단에 나옴 */}
           {errors.password && (
             <small role="alert" className={styles.message}>
               {errors.password.message}
@@ -101,18 +109,17 @@ export default function LoginForm() {
         >
           로그인
         </button>
-
-          </div>
-        {/* 구글 */}
-        <button type="button" className={styles.googleBtn}>
-          <Image
-            src="/images/icon/google.svg"
-            alt="구글아이콘"
-            width={19}
-            height={19}
-          />
-          Google로 시작하기
-        </button>
+      </div>
+      {/* 구글 */}
+      <button type="button" className={styles.googleBtn}>
+        <Image
+          src="/images/icon/google.svg"
+          alt="구글아이콘"
+          width={19}
+          height={19}
+        />
+        Google로 시작하기
+      </button>
     </form>
   );
 }

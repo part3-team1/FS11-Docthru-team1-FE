@@ -7,6 +7,7 @@ export const container = style({
   alignItems: 'center',
   justifyContent: 'center',
   padding: '7.78rem 0 30.8rem',
+  backgroundColor:vars.color.gray100,
   '@media': {
     [media.tablet]: {
         padding: '7.78rem 0 34.22rem',
