@@ -12,6 +12,7 @@ export default function SignupContainer() {
           alt="독스루"
           width={47}
           height={54}
+          className={styles.img}
         />
         <span className={styles.logoName}>Docthru</span>
       </Link>
@@ -19,7 +20,9 @@ export default function SignupContainer() {
 
       <div className={styles.login}>
         회원이신가요?
-        <Link href="/login" className={styles.moveLogin}>로그인하기</Link>
+        <Link href="/login" className={styles.moveLogin}>
+          로그인하기
+        </Link>
       </div>
     </main>
   );
