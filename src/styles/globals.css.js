@@ -30,6 +30,6 @@ globalFontFace('Pretendard', {
 });
 
 globalStyle('body', {
-  fontFamily: 'Pretendard ,sans-serif',
+  fontFamily: 'Pretendard, sans-serif',
   fontWeight: 400,
 });
