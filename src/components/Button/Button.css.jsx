@@ -56,6 +56,51 @@ export const solid = {
   },
 };
 
+export const solidIcon = {
+  size: {
+    pcLarge: style({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+
+      color: vars.color.white,
+      textAlign: 'center',
+      borderRadius: '1.21875rem',
+      background: vars.color.brandBlack,
+    }),
+    pcMedium: style({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+
+      color: vars.color.white,
+      textAlign: 'center',
+      borderRadius: '1.21875rem',
+      background: vars.color.brandBlack,
+    }),
+    tablet: style({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+
+      color: vars.color.white,
+      textAlign: 'center',
+      borderRadius: '1.21875rem',
+      background: vars.color.brandBlack,
+    }),
+    mobile: style({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+
+      color: vars.color.white,
+      textAlign: 'center',
+      borderRadius: '1.21875rem',
+      background: vars.color.brandBlack,
+    }),
+  },
+};
+
 export const outline = {
   size: {
     pcLarge: style({
