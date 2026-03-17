@@ -1,3 +1,4 @@
+import { globalFontFace } from '@vanilla-extract/css';
 import { globalStyle } from '@vanilla-extract/css';
 
 globalStyle('html, body', {
@@ -14,17 +15,15 @@ globalStyle('*', {
   boxSizing: 'border-box',
 });
 
-globalStyle('@font-face', {
-  fontFamily: 'Quantico',
-  src: "url('/fonts/Quantico-Bold.woff2') format('woff2')",
+globalFontFace('Quantico', {
+  src: "url('/Font/Quantico-Bold.woff2') format('woff2')",
   fontWeight: 700,
   fontStyle: 'normal',
   fontDisplay: 'swap',
 });
 
-globalStyle('@font-face', {
-  fontFamily: 'Pretendard',
-  src: "url('/fonts/Pretendard-Regular.woff2') format('woff2')",
+globalFontFace('Pretendard', {
+  src: "url('/Font/Pretendard-Regular.woff2') format('woff2')",
   fontWeight: 400,
   fontStyle: 'normal',
   fontDisplay: 'swap',
