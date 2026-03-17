@@ -1,14 +1,32 @@
+import Image from 'next/image.js';
+import LoginForm from '../Components/LoginForm.jsx';
+import * as styles from './LoginContainer.css.js';
 import Link from 'next/link.js';
-import LoginForm from '../Components/LoginComponent.jsx';
 
 export default function LoginContainer() {
   return (
-    <main>
-      <h1>로그인</h1>
+    <main className={styles.container}>
+      <Link href="/" className={styles.logoContainer}>
+        {/* 로고 */}
+        <Image
+          src="/images/Logo/logo.svg"
+          alt="독스루 로고"
+          width={47}
+          height={54}
+          className={styles.img}
+        />
+        <span className={styles.logoName}>Docthru</span>
+      </Link>
+
+      {/* 로그인 폼 */}
       <LoginForm />
-      <Link href="/signup">회원가입</Link>
-      <div>
-        <Link href="/challenges">챌린지 페이지 (임시)</Link>
+
+      {/* 회원가입 이동 */}
+      <div className={styles.signup}>
+        회원이 아니신가요?
+        <Link href="/signup" className={styles.link}>
+          회원가입하기
+        </Link>
       </div>
     </main>
   );
