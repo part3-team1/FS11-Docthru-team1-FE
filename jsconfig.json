@@ -11,6 +11,7 @@
     "moduleResolution": "bundler",
     "skipLibCheck": true,
     "strict": false,
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
