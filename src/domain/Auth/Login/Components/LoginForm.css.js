@@ -1,4 +1,4 @@
-import { vars } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
@@ -12,6 +12,11 @@ export const section = style({
   flexDirection: 'column',
   width: '32.375rem',
   gap: vars.space.sm,
+  '@media': {
+    [media.mobile]: {
+      width: '21.4375rem',
+    },
+  },
 });
 
 export const label = style({
@@ -39,6 +44,11 @@ export const passwordBtn = style({
   transform: 'translateX(2014%) translateY(129%)',
   color: vars.color.gray300,
   cursor: 'pointer',
+  '@media': {
+    [media.mobile]: {
+        transform: 'translateX(1280%) translateY(129%)',
+    }
+  }
 });
 
 export const message = style({
@@ -57,14 +67,23 @@ export const loginBtn = style({
 });
 
 export const googleBtn = style({
+  width: '32.375rem',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   gap: vars.space.md,
+  marginTop: '1rem',
   padding: '0.69rem 1.25rem',
   border: `1px solid ${vars.color.gray200}`,
   borderRadius: vars.radius.xl,
   backgroundColor: vars.color.white,
   fontWeight: 400,
   cursor: 'pointer',
+
+  '@media': {
+    [media.mobile]: {
+      marginTop: '0.75rem',
+      width: '21.4375rem',
+    },
+  },
 });

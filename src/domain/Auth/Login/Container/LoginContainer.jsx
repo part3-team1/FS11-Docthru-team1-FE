@@ -6,14 +6,15 @@ import Link from 'next/link.js';
 export default function LoginContainer() {
   return (
     <main className={styles.container}>
-      <Link href="/">
+      <Link href="/" className={styles.logoContainer}>
         <Image
-          src="/images/Logo/loginLogo.png"
+          src="/images/Logo/logo.svg"
           alt="독스루 로고"
-          width={320}
-          height={72}
+          width={47}
+          height={54}
           className={styles.img}
         />
+        <span className={styles.logoName}>Docthru</span>
       </Link>
 
       {/* 로그인 폼 */}

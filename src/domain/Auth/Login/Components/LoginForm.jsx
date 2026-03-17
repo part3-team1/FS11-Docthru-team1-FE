@@ -76,8 +76,8 @@ export default function LoginForm() {
           <Image
             src={
               showPassword
-                ? '/images/icon/password-eye.svg'
-                : '/images/icon/passwordOn-eye.svg'
+                ? '/images/icon/passwordOn-eye.svg'
+                : '/images/icon/password-eye.svg'
             }
             alt="비밀번호 확인"
             width={24}
@@ -102,8 +102,9 @@ export default function LoginForm() {
           로그인
         </button>
 
+          </div>
         {/* 구글 */}
-        <button type="button" className={styles.googleBtn} >
+        <button type="button" className={styles.googleBtn}>
           <Image
             src="/images/icon/google.svg"
             alt="구글아이콘"
@@ -112,7 +113,6 @@ export default function LoginForm() {
           />
           Google로 시작하기
         </button>
-      </div>
     </form>
   );
 }
