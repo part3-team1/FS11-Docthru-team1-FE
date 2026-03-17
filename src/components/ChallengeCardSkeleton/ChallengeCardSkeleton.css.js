@@ -10,7 +10,8 @@ export const challengeCard = style({
   border: `2px solid ${vars.color.gray800}`,
   background: `${vars.color.white}`,
   width:'62.25rem',
-  height:'11.1875rem'
+  height:'11.1875rem',
+  padding: '1.5rem'
 });
 
 export const challengeTop = style({
@@ -18,6 +19,8 @@ export const challengeTop = style({
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: '0.875rem',
+  width:'57.5rem',
+  height:'4.125rem',
 });
 
 export const chipWrapper = style({
@@ -35,5 +38,7 @@ export const infoWrapper = style({
 
 export const challengeBottom = style({
   borderTop: `1px solid ${vars.color.gray200}`,
-  paddingTop: `${vars.space.lg}`
+  paddingTop: `${vars.space.lg}`,
+  width:'59.25rem',
+  height: '3.0625rem'
 });
