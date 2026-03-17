@@ -39,7 +39,7 @@ export const logoContainer = style({
 });
 
 export const logoName = style({
-  ontFamily: 'Quantico',
+  fontFamily: 'Quantico',
   fontSize: '1.35rem',
   fontWeight: 700,
   textAlign: 'justify',
