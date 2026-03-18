@@ -4,10 +4,43 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 //  사용 방법
-//  수정시 페이지 이동으로 수정할때
+//  삭제 : 해당api명 (id) / id = ex) commentId , challengeId
+
+//  수정시 페이지 이동으로 수정 및 삭제할때
 // <EditAndDeleteDropdown editHref={'/링크'} onDelete={() => api호출함수(id)} />;
-//  수정시 그페이지  수정할때
+
+//  해당 페이지에서 수정 및 삭제할때
 // <EditAndDeleteDropdown onEdit={()=>setIsEditing(true)} onDelete={() => api호출함수(id)} />;
+
+//  어드민 권한으로 삭제 (isHidden 처리)
+//  어드민 호출 예시 
+// const handleAdminDelete = async (commentId) => {
+//   await fetch(`/api/comments/${commentId}`, {
+//     method: 'PATCH',
+//     body: JSON.stringify({ isHidden: true }),
+//   });
+//   queryClient.invalidateQueries({ queryKey: ['comments'] });
+// };
+//  return(
+// <EditAndDeleteDropdown onDelete={() => handleAdminDelete(id)} />
+//  )
+
+
+// 쿼리 사용시 
+// const { mutate: DeleteComment } = useMutation({
+//   mutationFn: (commentId) => fetch(`/api/comments/${commentId}`, {
+//     method: 'PATCH',
+//     body: JSON.stringify({ isHidden: true }), <-이게 블러처리
+//   }),
+//   onSuccess: () => {
+//     queryClient.invalidateQueries({ queryKey: ['comments'] });
+//   },
+// });
+//
+//  return(
+// <EditAndDeleteDropdown onDelete={() => DeleteComment(id)} />
+//  )
+
 
 export default function EditAndDeleteDropdown({ editHref, onEdit, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
