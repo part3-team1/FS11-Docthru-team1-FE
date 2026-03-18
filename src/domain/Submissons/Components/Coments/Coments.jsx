@@ -39,8 +39,11 @@ export default function Coments() {
         // onClick={handleSubmit}
       />
 
-      {/* map */}
+      {/* 댓글 카드map */}
       <ComentCard />
+
+      {/* 더보기 */}
+      <button className={styles.moreBtn}>더보기</button>
     </div>
   );
 }
