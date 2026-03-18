@@ -58,7 +58,7 @@ export default function CategoryDropdown({ onSelect }) {
   return (
     <div ref={wrapperRef} className={styles.dropdownContainer}>
       <button onClick={handleToggle} className={styles.dropdownButton}>
-        <span>카테고리</span>
+        <span>{selected ? selected : '카테고리'}</span>
         <span>
           <Image src={isOpen ? toggle_up : toggle_down} alt="toggle_down.png" />
         </span>

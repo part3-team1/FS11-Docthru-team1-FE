@@ -7,10 +7,12 @@ export const dropdownContainer = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
+
+  position: 'relative',
   gap: '0.625rem',
   alignSelf: 'stretch',
-  width: '50rem',
   height: '3.5rem',
+  width: '100%',
 
   fontFamily: 'Pretendard',
   fontSize: '1rem',
@@ -30,11 +32,11 @@ border-radius: 0.25rem 0.25rem 0 0;
 
 export const dropdownButton = style({
   display: 'flex',
-  flexDirection: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
 
-  width: '50rem',
+  width: '100%',
+
   padding: `${vars.space.xs} 0 ${vars.space.xs} 0`,
   backgroundColor: vars.color.white,
 
