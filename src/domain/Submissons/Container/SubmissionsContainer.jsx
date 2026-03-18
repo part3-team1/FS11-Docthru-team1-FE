@@ -6,7 +6,7 @@ export default function SubmissonsContainer() {
   return (
     <div className={styles.container}>
       <Content />
-      <FeedInput />;
+      <FeedInput />
     </div>
   );
 }

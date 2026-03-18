@@ -37,12 +37,12 @@ export const moreBtn = style({
   borderRadius: vars.radius.xl,
   display: 'flex',
   alignSelf: 'center',
-  justifyContent:'center',
+  justifyContent: 'center',
   marginTop: vars.space.xl,
   border: 'none',
   cursor: 'pointer',
-  ":hover": {
+  ':hover': {
     backgroundColor: vars.color.brandBlack,
-    color:vars.color.brandYellow
-  }
+    color: vars.color.brandYellow,
+  },
 });

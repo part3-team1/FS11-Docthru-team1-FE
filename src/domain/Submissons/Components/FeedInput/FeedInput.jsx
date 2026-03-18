@@ -4,6 +4,10 @@ import * as styles from './FeedInput.css';
 import Image from 'next/image';
 import ComentCard from '../FeedbackCard/FeedbackCard';
 
+
+const feedback = ['테스트 내용']
+
+
 export default function FeedInput() {
   const [coment, setComent] = useState('');
 
@@ -40,10 +44,11 @@ export default function FeedInput() {
       />
 
       {/* 댓글 카드map */}
-      <ComentCard />
+      {/* currentUser={currentUser} 서버 연결시 삽입 */}
+      <ComentCard feedback={feedback} currentUser='ADMIN'  />
 
       {/* 더보기 */}
       <button className={styles.moreBtn}>더보기</button>
     </div>
-  );
+  )
 }

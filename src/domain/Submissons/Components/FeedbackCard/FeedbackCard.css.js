@@ -11,6 +11,7 @@ export const infoContainer = style({
   display: 'flex',
   gap: vars.space.sm,
   alignItems: 'center',
+  justifyContent:'space-between'
 });
 
 export const info = style({
@@ -37,21 +38,41 @@ export const content = style({
 });
 
 // isBlocked
-export const blocked = style({
+
+
+export const blockedContainer = style({
   padding: vars.space.lg,
   borderRadius: vars.radius.xl,
   backgroundColor: vars.color.gray50,
-  filter: 'blur(0.25rem)',
-  position: 'relative',
+  position: 'relative', 
+});
+
+export const blockOverlay = style({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backdropFilter: 'blur(0.25rem)', 
+  borderRadius: vars.radius.xl,
+  zIndex: 2,
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
 });
 
 export const blockComent = style({
-  position: 'absolute',
-  transform: 'translateX(109%) translateY(266%)',
-  zIndex: 2,
   fontSize: '1.25rem',
   color: vars.color.gray500,
+  zIndex: 3,
 });
+
+export const dropdownWrapperBlocked = style({
+  position: 'relative',
+  zIndex: 4,
+});
+
+
 
 //isEditing
 
@@ -72,5 +93,24 @@ export const editContent = style({
   color: vars.color.gray700,
   resize: 'none',
   width: '100%',
-  border:'none'
+  border: 'none',
 });
+
+export const btnContainer = style({
+  display: 'flex',
+  gap: vars.space.sm
+})
+
+export const btn = style({
+  padding:'0 0.5rem',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems:'center',
+  border: `1px solid ${vars.color.gray300}`,
+  borderRadius:vars.radius.lg,
+  backgroundColor: vars.color.white,
+  ':hover': {
+    backgroundColor: vars.color.brandBlack,
+    color: vars.color.brandYellow
+  }
+})

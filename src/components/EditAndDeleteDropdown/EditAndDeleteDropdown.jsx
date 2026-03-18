@@ -48,6 +48,7 @@ export default function EditAndDeleteDropdown({
   editHref,
   onEdit,
   onDelete,
+  isBlocked,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
@@ -87,13 +88,13 @@ export default function EditAndDeleteDropdown({
               className={styles.btnDelete}
               onClick={async () => {
                 try {
-                  await onDelete();
+                  await onDelete?.();
                 } finally {
                   setIsOpen(false);
                 }
               }}
             >
-              가리기
+              {isBlocked ? '해제하기' : '가리기'}
             </button>
           ) : (
             <>
