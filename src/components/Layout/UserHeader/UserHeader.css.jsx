@@ -10,6 +10,10 @@ export const container = style({
   padding: '0 22.5rem',
   height: '3.75rem',
 
+  position: 'sticky',
+  top: 0,
+  zIndex: 999,
+
   backgroundColor: vars.color.white,
   borderBottom: '1px solid #eee',
 
