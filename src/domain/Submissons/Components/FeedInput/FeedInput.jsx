@@ -1,10 +1,10 @@
 'use client';
 import { useState } from 'react';
-import * as styles from './Coments.css';
+import * as styles from './FeedInput.css';
 import Image from 'next/image';
 import ComentCard from '../FeedbackCard/FeedbackCard';
 
-export default function Coments() {
+export default function FeedInput() {
   const [coment, setComent] = useState('');
 
   // const handleSubmit = async () => {
