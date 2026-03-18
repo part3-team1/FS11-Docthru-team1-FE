@@ -40,5 +40,9 @@ export const moreBtn = style({
   justifyContent:'center',
   marginTop: vars.space.xl,
   border: 'none',
-  cursor:'pointer',
+  cursor: 'pointer',
+  ":hover": {
+    backgroundColor: vars.color.brandBlack,
+    color:vars.color.brandYellow
+  }
 });
