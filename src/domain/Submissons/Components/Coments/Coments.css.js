@@ -3,6 +3,9 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   paddingTop: vars.space.xl,
+  display: 'flex',
+  flexDirection: 'column',
+  gap: vars.space.lg,
 });
 
 export const input = style({
@@ -20,5 +23,6 @@ export const input = style({
 
 export const addBtn = style({
   position: 'absolute',
-  transform: 'translateX(-151%) translateY(113%)',
+  transform: 'translateX(2100%) translateY(113%)',
+  cursor:'pointer'
 });
