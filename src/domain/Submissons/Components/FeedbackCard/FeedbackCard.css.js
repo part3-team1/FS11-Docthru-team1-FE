@@ -37,3 +37,6 @@ export const content = style({
   marginTop: vars.space.md,
   
 })
+
+
+// 블러처리

@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import * as styles from './Coments.css';
 import Image from 'next/image';
-import ComentCard from '../ComentCard/ComentCard';
+import ComentCard from '../FeedbackCard/FeedbackCard';
 
 export default function Coments() {
   const [coment, setComent] = useState('');

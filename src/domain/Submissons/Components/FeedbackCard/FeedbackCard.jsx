@@ -1,8 +1,16 @@
 import Image from 'next/image';
-import * as styles from './ComentCard.css';
+import * as styles from './FeedbackCard.css';
+import { useState } from 'react';
 
 export default function ComentCard() {
+  const [isEditing, setIsEditing] = useState(false);
+  
   return (
+
+
+
+
+    // 순수 댓글 모습
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <Image
