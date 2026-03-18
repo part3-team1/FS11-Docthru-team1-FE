@@ -19,7 +19,6 @@ export const btn = style({
   padding: '0.75rem 1.08rem',
   width: '8.69rem',
   border: 'none',
-  textAlign: 'left',
   backgroundColor: 'transparent',
   cursor: 'pointer',
   fontSize: '1rem',
