@@ -1,9 +1,13 @@
+'use client';
 import { CategoryChip, TypeChip } from '@/components/Chip';
 import Image from 'next/image';
 import * as styles from './Content.css';
+import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 
-export default function Content() {
+export default function Content({ currentUser }) {
   const isOwner = true;
+
+  const isAdmin = currentUser?.role === 'ADMIN';
 
   return (
     <div className={styles.container}>
@@ -15,12 +19,11 @@ export default function Content() {
             <div className={styles.submissionTitle}>작업물title</div>
           </div>
 
-          {isOwner ? (
-            <Image
-              src="/images/Icon/Meatballs_menu.svg"
-              alt="수정 및 삭제"
-              width={24}
-              height={24}
+          {isOwner && isAdmin ? (
+            <EditAndDeleteDropdown
+              userRole={currentUser?.role}
+              editHref={'/링크'}
+              onDelete={() => api호출함수(id)}
             />
           ) : undefined}
         </div>
