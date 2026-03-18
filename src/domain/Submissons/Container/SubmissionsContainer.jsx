@@ -10,7 +10,7 @@ export default function SubmissonsContainer() {
   return (
     <>
       <div className={styles.container}>
-        <CategoryDropdown onSelect={setValue} />
+
         <EditAndDeleteDropdown editHref={'/login'} onDelete={()=> api호출함수(id)} />
       </div>
     </>

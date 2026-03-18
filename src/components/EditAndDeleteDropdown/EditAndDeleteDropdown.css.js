@@ -1,17 +1,18 @@
-import { vars } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
   position: 'relative',
 });
 
-export const seleteContainer = style({
+export const selectContainer = style({
   display: 'flex',
   flexDirection: 'column',
   border: `1px solid ${vars.color.gray300}`,
   borderRadius: '0.5rem',
   position: 'absolute',
   transform: 'translateX(-88%)',
+  zIndex: 10,
 });
 
 export const btn = style({
@@ -27,6 +28,13 @@ export const btn = style({
   textAlign: 'center',
   position: 'relative',
   top: '0.1rem',
+  '@media': {
+    [media.mobile]: {
+      padding: '0.5rem 0.75rem',
+      width: '5rem',
+      fontSize: '0.75rem',
+    },
+  },
 });
 
 export const btnDelete = style({
@@ -43,4 +51,11 @@ export const btnDelete = style({
   textAlign: 'center',
   position: 'relative',
   top: '0.1rem',
+  '@media': {
+    [media.mobile]: {
+      padding: '0.5rem 0.75rem',
+      width: '5rem',
+      fontSize: '0.75rem',
+    },
+  },
 });

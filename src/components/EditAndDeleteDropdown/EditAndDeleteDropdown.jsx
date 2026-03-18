@@ -4,10 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 //  사용 방법
-//  부모에서 내려줌
-// <EditAndDeleteDropdown editHref={'/login'} onDelete={() => api호출함수(id)} />;
+//  수정시 페이지 이동으로 수정할때
+// <EditAndDeleteDropdown editHref={'/링크'} onDelete={() => api호출함수(id)} />;
+//  수정시 그페이지  수정할때
+// <EditAndDeleteDropdown onEdit={()=>setIsEditing(true)} onDelete={() => api호출함수(id)} />;
 
-export default function EditAndDeleteDropdown({ editHref, onDelete }) {
+export default function EditAndDeleteDropdown({ editHref, onEdit, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
   const handleToggle = () => setIsOpen((prev) => !prev);
@@ -38,11 +40,33 @@ export default function EditAndDeleteDropdown({ editHref, onDelete }) {
       />
 
       {isOpen && (
-        <div className={styles.seleteContainer}>
-          <Link href={editHref} className={styles.btn}>
-            수정하기
-          </Link>
-          <button className={styles.btnDelete} onClick={onDelete}>
+        <div className={styles.selectContainer}>
+          {editHref ? (
+            <Link href={editHref} className={styles.btn}>
+              수정하기
+            </Link>
+          ) : (
+            <button
+              onClick={() => {
+                onEdit?.();
+                setIsOpen(false);
+              }}
+              className={styles.btn}
+            >
+              수정하기
+            </button>
+          )}
+
+          <button
+            className={styles.btnDelete}
+            onClick={async () => {
+              try {
+                await onDelete();
+              } finally {
+                setIsOpen(false);
+              }
+            }}
+          >
             삭제하기
           </button>
         </div>
