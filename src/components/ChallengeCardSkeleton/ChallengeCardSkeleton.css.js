@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/token.css.js';
+import { media, vars } from '@/styles/token.css.js';
 
 export const challengeCard = style({
   display: 'flex',
@@ -9,9 +9,19 @@ export const challengeCard = style({
   borderRadius: `${vars.radius.xl}`,
   border: `2px solid ${vars.color.gray800}`,
   background: `${vars.color.white}`,
-  width:'62.25rem',
-  height:'11.1875rem',
-  padding: '1.5rem'
+  width: '62.25rem',
+  height: '11.1875rem',
+  padding: '1.5rem',
+
+  '@media': {
+    [media.tablet]: {
+      width: '43.5rem',
+    },
+    [media.mobile]: {
+      width: '21.4375rem',
+      height: '13.625rem',
+    },
+  },
 });
 
 export const challengeTop = style({
@@ -19,8 +29,14 @@ export const challengeTop = style({
   flexDirection: 'column',
   alignItems: 'flex-start',
   gap: '0.875rem',
-  width:'57.5rem',
-  height:'4.125rem',
+  width: '100%',
+  height: '4.125rem',
+
+  '@media': {
+    [media.mobile]: {
+      height: '5.5rem',
+    },
+  },
 });
 
 export const chipWrapper = style({
@@ -39,6 +55,12 @@ export const infoWrapper = style({
 export const challengeBottom = style({
   borderTop: `1px solid ${vars.color.gray200}`,
   paddingTop: `${vars.space.lg}`,
-  width:'59.25rem',
-  height: '3.0625rem'
+  width: '100%',
+  height: '3.0625rem',
+
+  '@media': {
+    [media.mobile]: {
+      height: '3.875rem',
+    },
+  },
 });
