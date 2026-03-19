@@ -4,15 +4,17 @@ import { useState } from 'react';
 import { useQueryClient, useMutation } from '@tanstack/react-query';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 
-export default function ComentCard({ feedback, currentUser }) {
+export default function ComentCard({
+  feedback,
+  currentUser,
+  challengeId,
+  submissionId,
+}) {
   // useState(feedback.content)으로 수정 예정
-  const [editValue, setEditValue] = useState(feedback);
+  const [editValue, setEditValue] = useState(feedback?.content);
   const [isEditing, setIsEditing] = useState(false);
-  const [isBlocked, setIsBlocked] = useState(false);
-
-  const isOwner = feedback.userId === currentUser?.id;
-  const isAdmin = currentUser?.role === 'ADMIN';
-  const isOther = !isOwner && !isAdmin;
+  // 목데이터용
+  const [isBlocked, setIsBlocked] = useState(feedback?.is_blocked);
 
   const handleCancel = () => {
     setEditValue(feedback);
@@ -39,8 +41,14 @@ export default function ComentCard({ feedback, currentUser }) {
     <>
       {/* 기본 feedback / 가리기 */}
       {!isEditing && (
-        <div className={isBlocked ? styles.blockedContainer : styles.container}>
+        <div
+          // className={feedback?.is_blocked ? styles.blockedContainer : styles.container} api연결시 이거로 교체 지금 보이는건 목데이터용
+          className={isBlocked ? styles.blockedContainer : styles.container}
+        >
           {/* 블러 오버레이 */}
+
+          {/* {feedback?.is_blocked && (    데이터연결용*/}
+          {/* 목데이터용 */}
           {isBlocked && (
             <div className={styles.blockOverlay}>
               <span className={styles.blockComent}>
@@ -58,33 +66,34 @@ export default function ComentCard({ feedback, currentUser }) {
                 height={32}
               />
               <div className={styles.info}>
-                <div className={styles.nickName}>닉네임</div>
-                <div className={styles.creatDate}>26/01/29 14:30</div>
+                <div className={styles.nickName}>{feedback.nickname}</div>
+                <div className={styles.creatDate}>{feedback.created_at}</div>
               </div>
             </div>
 
             <div
               className={
-                isBlocked
+                // 앞은 데이터용 뒤는 목데이터용
+                feedback?.is_blocked || isBlocked
                   ? styles.dropdownWrapperBlocked
                   : styles.dropdownWrapper
               }
             >
-              {/* userRole={currentUser?.role} onEdit onDelete 서버 연결시 주석 해제 */}
-              {(isOwner || isAdmin) && (
-                <EditAndDeleteDropdown
-                  userRole={currentUser?.userId}
-                  onEdit={() => setIsEditing(true)}
-                  onDelete={
-                    isAdmin ? () => setIsBlocked((prev) => !prev) : () => {}
-                  }
-                  isBlocked={isBlocked}
-                />
-              )}
+              <EditAndDeleteDropdown
+                currentUser={currentUser}
+                content={{
+                  type: 'feedback',
+                  authorId: feedback?.user_id,
+                  isBlocked: feedback?.is_blocked || isBlocked,
+                }}
+                onEdit={() => setIsEditing(true)}
+                // 목데이터 버전
+                onDelete={() => setIsBlocked((prev) => !prev)}
+              />
             </div>
           </div>
 
-          <div className={styles.content}>내용</div>
+          <div className={styles.content}>{feedback.content}</div>
         </div>
       )}
 
@@ -100,8 +109,8 @@ export default function ComentCard({ feedback, currentUser }) {
                 height={32}
               />
               <div className={styles.info}>
-                <div className={styles.nickName}>닉네임</div>
-                <div className={styles.creatDate}> 26/01/29 14:30</div>
+                <div className={styles.nickName}>{feedback.nickName}</div>
+                <div className={styles.creatDate}> {feedback.created_at}</div>
               </div>
             </div>
 

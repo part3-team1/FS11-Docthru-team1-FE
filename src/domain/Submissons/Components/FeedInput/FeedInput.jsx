@@ -6,7 +6,7 @@ import ComentCard from '../FeedbackCard/FeedbackCard';
 
 const feedback = ['테스트 내용'];
 
-export default function FeedInput() {
+export default function FeedInput({ currentUser, submission }) {
   const [coment, setComent] = useState('');
 
   // const handleSubmit = async () => {
@@ -46,7 +46,16 @@ export default function FeedInput() {
 
       {/* 댓글 카드map */}
       {/* currentUser={currentUser} 서버 연결시 삽입 */}
-      <ComentCard feedback={feedback} currentUser="ADMIN" />
+
+      {submission?.feedbacks?.map((feedback) => (
+        <ComentCard
+          key={feedback.id}
+          feedback={feedback}
+          currentUser={currentUser}
+          challengeId={submission.challenge_Id}
+          submission={submission}
+        />
+      ))}
 
       {/* 더보기 */}
       <button className={styles.moreBtn}>더보기</button>

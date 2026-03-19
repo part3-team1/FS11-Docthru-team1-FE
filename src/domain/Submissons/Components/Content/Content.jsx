@@ -4,27 +4,29 @@ import Image from 'next/image';
 import * as styles from './Content.css';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 
-export default function Content({ currentUser }) {
-  const isOwner = currentUser?.role === 'me';
-  const isAdmin = currentUser?.role === 'ADMIN';
-
+export default function Content({ currentUser, submission }) {
   return (
     <div className={styles.container}>
       {/* top */}
       <div className={styles.titleContainer}>
         <div className={styles.totalTitle}>
           <div>
-            <div className={styles.challengeTitle}>첼린지 title</div>
-            <div className={styles.submissionTitle}>작업물title</div>
+            <div className={styles.challengeTitle}>{submission.challenge.title}</div>
+            <div className={styles.submissionTitle}>{submission.title}</div>
           </div>
 
-          {isOwner && isAdmin ? (
-            <EditAndDeleteDropdown
-              userRole={currentUser?.role}
-              editHref={'/링크'}
-              onDelete={() => api호출함수(id)}
-            />
-          ) : undefined}
+          <EditAndDeleteDropdown
+            currentUser={currentUser}
+            content={{
+              type: 'submission',
+              authorId: submission.user_id,
+              status: null,
+              current_participants: 0,
+              isBlocked: false,
+            }}
+            editHref={`/submissions/${submission.id}/edit`}
+            // onDelete={() => deleteSubmission(submission.id)} 추후 연결
+          />
         </div>
 
         <div className={styles.categoryContainer}>
@@ -44,7 +46,7 @@ export default function Content({ currentUser }) {
               width={24}
               height={24}
             />
-            <div className={styles.nickName}>닉네임</div>
+            <div className={styles.nickName}>{submission.nickname}</div>
           </div>
           <div className={styles.like}>
             <Image
@@ -53,17 +55,15 @@ export default function Content({ currentUser }) {
               width={16}
               height={16}
             />
-            <div className={styles.likeCount}>9999</div>
+            <div className={styles.likeCount}>{submission.heart_count}</div>
           </div>
         </div>
 
-        <div className={styles.creatDate}>26/3/17</div>
+        <div className={styles.creatDate}>{submission.created_at}</div>
       </div>
 
       <div className={styles.content}>
-        내용들....sfasdasdfasdfasdfsafsdfasdffsadfsdfsdfsdssfasdasdfasdfasdfsafsdfasdffsadfsdfsdfsdssssssfasdasdfasdfasdfsafsdfasdffsadfsdfsdfsdssssssfasdasdfasdfasdfsafsdfasdffsadfsdfsdfsdsssss
-        fasdasdfasdfasdfsafsdfasdffsadfsdfsdfsdssssssfasdasdfasdfasdfsafsdfasdffsadfs
-        dfsdfsdsssssssss
+        {submission.content}
       </div>
     </div>
   );

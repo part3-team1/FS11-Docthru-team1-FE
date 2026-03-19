@@ -7,14 +7,12 @@ export const container = style({
   flexDirection: 'column',
   justifyContent: 'center',
   gap: vars.space.lg,
-
-}); 
+});
 
 export const inputContainer = style({
   position: 'relative',
-  width:'100%'
-})
-
+  width: '100%',
+});
 
 export const input = style({
   width: '100%',
@@ -24,6 +22,10 @@ export const input = style({
   position: 'relative',
   padding: '1rem 3.5rem 1rem 1rem',
   resize: 'none',
+  ':focus': {
+    outline: 'none',
+    border: `3px solid ${vars.color.brandYellow}`,
+  },
 
   '::placeholder': {
     color: vars.color.gray400,
@@ -33,10 +35,10 @@ export const input = style({
 
 export const addBtn = style({
   border: 'none',
-  backgroundColor:'transparent',
+  backgroundColor: 'transparent',
   position: 'absolute',
-  bottom: '0.3rem', 
-  right: 0, 
+  bottom: '0.3rem',
+  right: 0,
   cursor: 'pointer',
 });
 
