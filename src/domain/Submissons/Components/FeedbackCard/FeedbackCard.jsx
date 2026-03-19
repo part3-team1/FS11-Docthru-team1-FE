@@ -73,7 +73,7 @@ export default function ComentCard({ feedback, currentUser }) {
               {/* userRole={currentUser?.role} onEdit onDelete 서버 연결시 주석 해제 */}
               {(isOwner || isAdmin) && (
                 <EditAndDeleteDropdown
-                  userRole={currentUser?.user}
+                  userRole={currentUser?.userId}
                   onEdit={() => setIsEditing(true)}
                   onDelete={
                     isAdmin ? () => setIsBlocked((prev) => !prev) : () => {}
