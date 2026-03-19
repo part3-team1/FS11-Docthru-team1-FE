@@ -30,7 +30,7 @@ export default function AdminHeader() {
   };
 
   const handleClickAdminHeaderDropdown = () => {
-    setIsHeaderDropdownOpen(true);
+    setIsHeaderDropdownOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -74,7 +74,7 @@ export default function AdminHeader() {
           </Link>
         </div>
       </div>
-      <div ref={wrapperRef}>
+      <div ref={wrapperRef} className={styles.dropdownWrapper}>
         <Image
           src={admin_img}
           alt="admin.png"

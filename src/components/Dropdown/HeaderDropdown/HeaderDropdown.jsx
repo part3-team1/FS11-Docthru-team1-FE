@@ -18,6 +18,7 @@ export default function HeaderDropdown({ userStatus, nickname }) {
                 : admin_img
           }
           alt="user_img.png"
+          className={styles.dropdownUserImg}
         />
         <div className={styles.nameTag}>
           <span className={styles.nickname}>{nickname}</span>
@@ -32,7 +33,9 @@ export default function HeaderDropdown({ userStatus, nickname }) {
       </div>
       <div className={styles.lower}>
         {userStatus !== 'admin' && (
-          <Link className={styles.linkToMyChallenge}>나의 챌린지</Link>
+          <Link href="/my-challenge" className={styles.linkToMyChallenge}>
+            나의 챌린지
+          </Link>
         )}
         <span>로그아웃</span>
       </div>

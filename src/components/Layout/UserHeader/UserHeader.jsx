@@ -23,7 +23,7 @@ export default function UserHeader() {
   const [isHeaderDropdownOpen, setIsHeaderDropdownOpen] = useState(false);
 
   const handleClickUserHeaderDropdown = () => {
-    setIsHeaderDropdownOpen(true);
+    setIsHeaderDropdownOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function UserHeader() {
           src={hasNotification ? bell_noti : bell_empty}
           alt="bell.png"
         />
-        <div ref={wrapperRef}>
+        <div ref={wrapperRef} className={styles.dropdownWrapper}>
           <Image
             className={styles.userImage}
             src={isExpert ? expert_img : user_img}
