@@ -14,10 +14,7 @@ export default function EditAndDeleteDropdown({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
-
   const actions = useDropdownActions({ currentUser, content });
-  if (actions.length === 0) return null;
-
   const handleToggle = () => setIsOpen((prev) => !prev);
 
   // 빈공간 누르면 dropdown접힘
@@ -29,6 +26,8 @@ export default function EditAndDeleteDropdown({
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  if (actions.length === 0) return null;
 
   // 액션에 따른  함수
   async function handleAction(action) {
