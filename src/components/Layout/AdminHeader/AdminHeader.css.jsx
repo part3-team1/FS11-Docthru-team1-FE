@@ -86,10 +86,10 @@ export const management = style({
   marginLeft: '1.5rem',
 });
 
-export const headerDropdown = style({
-  position: 'absolute',
-  opacity: 0,
-  pointerEvents: 'none',
+export const dropdownWrapper = style({
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
 });
 
 export const adminImage = style({

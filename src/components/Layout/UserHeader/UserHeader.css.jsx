@@ -68,6 +68,12 @@ export const notiImage = style({
   height: '1.5rem',
 });
 
+export const dropdownWrapper = style({
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+});
+
 export const userImage = style({
   width: '2rem',
   height: '2rem',
