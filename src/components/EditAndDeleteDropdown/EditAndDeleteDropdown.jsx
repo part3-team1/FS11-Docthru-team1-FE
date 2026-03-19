@@ -5,6 +5,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 import useDropdownActions from '@/hooks/dropdwonActioons.js';
 
+// 사용법
+// 첼린지 상세 
+{/* <EditAndDeleteDropdown
+  currentUser={currentUser}
+  content={{
+    type: 'challenge',
+    authorId: challenge?.requested_by,
+    status: challenge?.status,
+    current_participants: challenge?.current_participants,
+    isBlocked: false,
+  }}
+  editHref={`/challenges/${challenge?.id}/edit`}
+  onDelete={() => {}} // TODO: deleteChallenge 연결
+/> */}
+
 export default function EditAndDeleteDropdown({
   currentUser,
   content,
