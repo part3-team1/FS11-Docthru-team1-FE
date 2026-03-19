@@ -5,8 +5,7 @@ import * as styles from './Content.css';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 
 export default function Content({ currentUser }) {
-  const isOwner = true;
-
+  const isOwner = currentUser?.role === 'me';
   const isAdmin = currentUser?.role === 'ADMIN';
 
   return (

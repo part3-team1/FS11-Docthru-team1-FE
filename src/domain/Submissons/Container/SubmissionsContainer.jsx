@@ -8,7 +8,7 @@ export default function SubmissonsContainer() {
   return (
     <div className={styles.container}>
       <Content currentUser={{ id: 1, role: 'ADMIN' }} />
-      <FeedInput />
+      <FeedInput  currentUser={{ id: 1, role: 'ADMIN' }}/>
     </div>
   );
 }
