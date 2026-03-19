@@ -1,8 +1,8 @@
 import clsx from 'clsx';
 import Link from 'next/link';
-import ChallengeParticipantStatus from '../ChallengeParticipantStatus';
-import { CategoryChip, TypeChip } from '../Chip';
-import DueDate from '../DueDate';
+import { ChallengeParticipantStatus } from '@/components/Participants';
+import { CategoryChip, TypeChip } from '@/components/Chip';
+import DueDate from '@/components/DueDate';
 import * as styles from './ChallengeCard.css';
 
 export default function ChallengeCard({
@@ -38,8 +38,8 @@ export default function ChallengeCard({
             />
           </div>
           {action && <div className={styles.action}>{action}</div>}
-      </div>
         </div>
+      </div>
     </Link>
   );
 }
