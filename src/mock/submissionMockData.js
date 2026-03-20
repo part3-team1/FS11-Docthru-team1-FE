@@ -1,16 +1,16 @@
 // mock/data.js
 
-export const mockCurrentUser = {
-  id: 2,
-  role: 'USER',
-  nickname: '이작성자',
-};
-
 // export const mockCurrentUser = {
-//   id: 1,
-//   role: 'ADMIN',
-//   nickname: '김관리자',
+//   id: 2,
+//   role: 'USER',
+//   nickname: '이작성자',
 // };
+
+export const mockCurrentUser = {
+  id: 1,
+  role: 'ADMIN',
+  nickname: '김관리자',
+};
 
 // export const mockCurrentUser = {
 //   id: 99,
