@@ -10,8 +10,7 @@ export const container = style({
   padding: '0 22.5rem',
   height: '3.75rem',
 
-  position: 'sticky',
-  top: 0,
+  position: 'fixed',
   zIndex: 999,
 
   backgroundColor: vars.color.white,
@@ -67,6 +66,12 @@ export const menuContainer = style({
 export const notiImage = style({
   width: '1.5rem',
   height: '1.5rem',
+});
+
+export const dropdownWrapper = style({
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
 });
 
 export const userImage = style({
