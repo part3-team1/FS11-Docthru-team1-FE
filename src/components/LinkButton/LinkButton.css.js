@@ -69,8 +69,6 @@ export const black = style({
   background: `${vars.color.brandBlack}`,
 });
 
-export const icon = style({});
-
 export const content = style({
   display: 'flex',
   justifyContent: 'center',
