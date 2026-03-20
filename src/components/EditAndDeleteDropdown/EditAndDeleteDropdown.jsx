@@ -1,74 +1,65 @@
+'use client';
 import { useEffect, useRef, useState } from 'react';
 import * as styles from './EditAndDeleteDropdown.css.js';
 import Image from 'next/image';
 import Link from 'next/link';
+import useDropdownActions from '@/domain/Submissons/utils/dropdwonActioons.js';
 
-//  사용 방법
-//  삭제 : 해당api명 (id) / id = ex) commentId , challengeId
-//
-//  수정시 페이지 이동으로 수정 및 삭제할때
-// <EditAndDeleteDropdown userRole={data?.role} editHref={'/링크'} onDelete={() => api호출함수(id)} />
-
-//  해당 페이지에서 수정 및 삭제할때
-// <EditAndDeleteDropdown userRole={data?.role} onEdit={()=>setIsEditing(true)} onDelete={() => api호출함수(id)} />
-
-//  어드민은 userRole="ADMIN" 넘기면 가리기 버튼만 노출
-// <EditAndDeleteDropdown userRole={data?.role} onDelete={() => api호출함수(id)} />
-
-//  어드민 권한으로 삭제 (isHidden 처리)
-//  어드민 호출 예시
-// const handleAdminDelete = async (commentId) => {
-//   await fetch(`/api/comments/${commentId}`, {
-//     method: 'PATCH',
-//     body: JSON.stringify({ isBlocked: true }),
-//   });
-//   queryClient.invalidateQueries({ queryKey: ['comments'] });
-// };
-//  return(
-// <EditAndDeleteDropdown onDelete={() => handleAdminDelete(id)} />
-//  )
-
-// 쿼리 사용시
-// const { mutate: DeleteComment } = useMutation({
-//   mutationFn: (commentId) => fetch(`/api/comments/${commentId}`, {
-//     method: 'PATCH',
-//     body: JSON.stringify({ isBlocked: true }), <-이게 블러처리
-//   }),
-//   onSuccess: () => {
-//     queryClient.invalidateQueries({ queryKey: ['comments'] });
-//   },
-// });
-//
-//  return(
-// <EditAndDeleteDropdown onDelete={() => DeleteComment(id)} />
-//  )
+// 사용법
+// 첼린지 상세 
+{/* <EditAndDeleteDropdown
+  currentUser={currentUser}
+  content={{
+    type: 'challenge',
+    authorId: challenge?.requested_by,
+    status: challenge?.status,
+    current_participants: challenge?.current_participants,
+    isBlocked: false,
+  }}
+  editHref={`/challenges/${challenge?.id}/edit`}
+  onDelete={() => {}} // TODO: deleteChallenge 연결
+/> */}
 
 export default function EditAndDeleteDropdown({
-  userRole,
+  currentUser,
+  content,
   editHref,
   onEdit,
   onDelete,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
+  const actions = useDropdownActions({ currentUser, content });
   const handleToggle = () => setIsOpen((prev) => !prev);
-
-  const isAdmin = userRole === 'ADMIN';
 
   // 빈공간 누르면 dropdown접힘
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (!wrapperRef.current) return;
-      if (!wrapperRef.current.contains(e.target)) {
-        setIsOpen(false);
-      }
+      if (!wrapperRef.current.contains(e.target)) setIsOpen(false);
     };
     document.addEventListener('mousedown', handleClickOutside);
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  if (actions.length === 0) return null;
+
+  // 액션에 따른  함수
+  async function handleAction(action) {
+    // 액션~ 하면 드롭다운 접음
+    setIsOpen(false);
+    // 상태가 수정이면 수정
+    if (action === 'edit') {
+      onEdit?.();
+    }
+    if (action === 'delete' || action === 'hide' || action === 'unhide') {
+      try {
+        await onDelete?.();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+  }
 
   return (
     <div ref={wrapperRef} className={styles.container}>
@@ -80,52 +71,39 @@ export default function EditAndDeleteDropdown({
         onClick={handleToggle}
       />
 
+      {/* 챌린지,작업물 수정은 링크로 연결해서 수정페이지로 이동 / 피드백 = input자체에서 수정 */}
       {isOpen && (
         <div className={styles.selectContainer}>
-          {isAdmin ? (
-            <button
-              className={styles.btnDelete}
-              onClick={async () => {
-                try {
-                  await onDelete();
-                } finally {
-                  setIsOpen(false);
-                }
-              }}
-            >
-              가리기
-            </button>
-          ) : (
-            <>
-              {editHref ? (
-                <Link href={editHref} className={styles.btn}>
-                  수정하기
+          {actions.map(({ label, action }) => {
+            if (action === 'edit') {
+              return editHref ? (
+                <Link key={action} href={editHref} className={styles.btn}>
+                  {label}
                 </Link>
-              ) : onEdit ? (
+              ) : (
                 <button
+                  key={action}
                   onClick={() => {
-                    onEdit?.();
-                    setIsOpen(false);
+                    handleAction(action);
                   }}
                   className={styles.btn}
                 >
-                  수정하기
+                  {label}
                 </button>
-              ) : null}
+              );
+            }
+
+            // 삭제/ 가리기/ 해제하기
+            return (
               <button
+                key={action}
                 className={styles.btnDelete}
-                onClick={async () => {
-                  try {
-                    await onDelete?.();
-                  } finally {
-                    setIsOpen(false);
-                  }
-                }}
+                onClick={() => handleAction(action)}
               >
-                삭제하기
+                {label}
               </button>
-            </>
-          )}
+            );
+          })}
         </div>
       )}
     </div>
