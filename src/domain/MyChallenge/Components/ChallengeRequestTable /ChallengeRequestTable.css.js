@@ -1,20 +1,31 @@
-import { vars } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
   fontSize: '0.8125rem',
-  marginTop: '10rem',
-  width:'100%',
   display: 'flex',
-  flexDirection:'column'
-});
-
-export const tableColumn = style({
-  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
   width: '100%',
-  flex: 1,
+  justifyContent: 'center',
+  '@media': {
+    [media.tablet]: {
+      fontSize: '0.7rem',
+    },
+  },
 });
 
-export const deleteRow = style({
-  backgroundColor: vars.color.gray50,
+export const columnContainer = style({
+  display: 'flex',
+  justifyContent: 'center',
+  '@media': {
+    [media.mobile]: {
+      justifyContent:'flex-start'
+    }
+  }
+});
+
+export const columnScroll = style({
+  overflowX: 'auto',
+  width:'100%'
 });
