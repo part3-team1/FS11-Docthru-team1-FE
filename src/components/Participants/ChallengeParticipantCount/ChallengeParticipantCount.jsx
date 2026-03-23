@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import * as styles from './ChallengeParticipantCount.css';
 
-export default function ChallengeParticipantCount({ current, max }) {
+export default function ChallengeParticipantCount({ max }) {
   
   return (
     <div className={styles.challengeParticipant}>
@@ -13,7 +13,7 @@ export default function ChallengeParticipantCount({ current, max }) {
         height={24}
       />
       <span className={styles.status}>
-        {current}/{max}명
+        {max}명
       </span>
     </div>
   );
