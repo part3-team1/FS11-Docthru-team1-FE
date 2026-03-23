@@ -9,6 +9,7 @@ import Image from 'next/image';
 import * as styles from './UserHeader.css.jsx';
 import { useEffect, useRef, useState } from 'react';
 import HeaderDropdown from '@/components/Dropdown/HeaderDropdown/HeaderDropdown.jsx';
+import NotificationDropdown from '@/components/Dropdown/NotificationDropdown/NotificationDropdown.jsx';
 
 /*
   페이지 메인 부분, 
@@ -21,9 +22,14 @@ export default function UserHeader() {
   const hasNotification = true;
   const isExpert = true;
   const [isHeaderDropdownOpen, setIsHeaderDropdownOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const handleClickUserHeaderDropdown = () => {
     setIsHeaderDropdownOpen((prev) => !prev);
+  };
+
+  const handleClickNotification = () => {
+    setIsNotificationOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -32,6 +38,7 @@ export default function UserHeader() {
 
       if (!wrapperRef.current.contains(e.target)) {
         setIsHeaderDropdownOpen(false);
+        setIsNotificationOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -44,15 +51,19 @@ export default function UserHeader() {
     <div className={styles.container}>
       <Link href="/" className={styles.logoContainer}>
         <Image src={logoImage} alt="logo.png" width={17.55} height={20.25} />
-        <span className={styles.logoName}>docThru</span>
+        <span className={styles.logoName}>Docthru</span>
       </Link>
-      <div className={styles.menuContainer}>
-        <Image
-          className={styles.notiImage}
-          src={hasNotification ? bell_noti : bell_empty}
-          alt="bell.png"
-        />
-        <div ref={wrapperRef} className={styles.dropdownWrapper}>
+      <div className={styles.menuContainer} ref={wrapperRef}>
+        <div className={styles.dropdownWrapper}>
+          <Image
+            className={styles.notificationImage}
+            src={hasNotification ? bell_noti : bell_empty}
+            alt="bell.png"
+            onClick={handleClickNotification}
+          />
+          {isNotificationOpen && <NotificationDropdown />}
+        </div>
+        <div className={styles.dropdownWrapper}>
           <Image
             className={styles.userImage}
             src={isExpert ? expert_img : user_img}
