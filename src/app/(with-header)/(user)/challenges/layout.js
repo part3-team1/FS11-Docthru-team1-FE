@@ -1,5 +1,5 @@
 import LinkButton from '@/components/LinkButton/LinkButton.jsx';
-import * as styles from './Challenges.css.js';
+import * as styles from '@/domain/Challenges/Components/Challenges.css.js';
 import SearchBar from '@/components/SearchBar/SearchBar.jsx';
 import { ChallengeCardList } from '@/components/ChallengeCard/index.js';
 import { mockChallenges } from '@/mock/mockChallenges.js';
