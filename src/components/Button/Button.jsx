@@ -7,7 +7,7 @@ Button 사용법
   <Button variant="solid" standard="pcLarge" status="active">확인</Button>
 
 - variant 종류
-  solid | outline | transparent | filledTonal
+  solid | solidIcon | outline | transparent | filledTonal 
 
 - standard (사이즈)
   pcLarge | pcMedium | tablet | mobile

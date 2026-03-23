@@ -46,7 +46,6 @@ export const media = {
   mobile: 'screen and (max-width:744px)',
 };
 
-
 /*
 반응형 작성 예시
 export const container = style({
