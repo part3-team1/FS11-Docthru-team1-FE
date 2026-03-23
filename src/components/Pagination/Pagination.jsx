@@ -33,7 +33,7 @@ export default function Pagination({
   pageSize,
   onPageChange,
 }) {
-  const totalPages = Math.ceil(totalCount ?? 0 / pageSize);
+  const totalPages = Math.ceil((totalCount ?? 0) / pageSize);
   if (!totalPages || totalPages <= 1) return null;
 
   const groupSize = 5;
