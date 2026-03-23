@@ -26,11 +26,17 @@ const PRESET_MAP = {
     iconSrc: '/Images/Icon/icon_plus.svg',
     iconSize: 16,
   },
+  transparent: {
+    label: '링크 열기',
+    variant:styles.transparent,
+    iconSrc: '/Images/Icon/icon_click.svg',
+    iconSize: 24
+  }
 };
 
 /**
  *
- * @typedef {'original' | 'continue' | 'mySubmission' | 'apply'} PresetKey
+ * @typedef {'original' | 'continue' | 'mySubmission' | 'apply' | 'transparent'} PresetKey
  */
 
 /**
