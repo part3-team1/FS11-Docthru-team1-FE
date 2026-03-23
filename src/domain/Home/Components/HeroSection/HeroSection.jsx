@@ -13,10 +13,9 @@ export default function HeroSection() {
         함께 번역하며 성장하는
         <br /> 개발자의 새로운 영어 습관
       </h2>
-      <Link href="/login">
-        <Link href="/challenges" className={styles.moveBtn}>
-          번역 시작하기
-        </Link>
+
+      <Link href="/challenges" className={styles.moveBtn}>
+        번역 시작하기
       </Link>
     </div>
   );
