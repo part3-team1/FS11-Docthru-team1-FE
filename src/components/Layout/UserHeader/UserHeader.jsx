@@ -51,7 +51,7 @@ export default function UserHeader() {
     <div className={styles.container}>
       <Link href="/" className={styles.logoContainer}>
         <Image src={logoImage} alt="logo.png" width={17.55} height={20.25} />
-        <span className={styles.logoName}>docThru</span>
+        <span className={styles.logoName}>Docthru</span>
       </Link>
       <div className={styles.menuContainer} ref={wrapperRef}>
         <div className={styles.dropdownWrapper}>
