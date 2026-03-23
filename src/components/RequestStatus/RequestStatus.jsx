@@ -1,8 +1,11 @@
 import * as styles from './RequestStatus.css';
 
 /* 사용법
-import할때  상태 / 이유
-<RequestStatus status='rejected' rejectionReason='마음에안듬' />
+import할때
+  <RequestStatus
+    status={data.status}
+    rejectionReason={data.rejection_reason}
+  />
 */
 
 const statusMap = {
