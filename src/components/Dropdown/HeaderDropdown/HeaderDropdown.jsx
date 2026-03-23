@@ -6,6 +6,11 @@ import Image from 'next/image.js';
 import Link from 'next/link.js';
 
 export default function HeaderDropdown({ userStatus, nickname }) {
+
+  const handleLogout = () => {
+    window.alert('로그아웃 되었습니다!');
+  }
+
   return (
     <div className={styles.dropdownContainer}>
       <div className={styles.upper}>
@@ -31,13 +36,14 @@ export default function HeaderDropdown({ userStatus, nickname }) {
           </span>
         </div>
       </div>
+      <div className={styles.divider} />
       <div className={styles.lower}>
         {userStatus !== 'admin' && (
           <Link href="/my-challenge" className={styles.linkToMyChallenge}>
             나의 챌린지
           </Link>
         )}
-        <span>로그아웃</span>
+        <span className={styles.logoutButton} onClick={handleLogout}>로그아웃</span>
       </div>
     </div>
   );
