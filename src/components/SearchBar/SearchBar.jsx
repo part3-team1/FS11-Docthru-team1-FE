@@ -14,7 +14,7 @@ import Image from 'next/image';
      </Suspense> */
 }
 
-export default function SearchBar({ onChange }) {
+export default function SearchBar({ onChange, placeholder = '챌린지 이름을 검색해보세요' }) {
   const searchParams = useSearchParams();
   const keywordUrl = searchParams.get('keyword') || '';
   const [search, setSearch] = useState(keywordUrl);
@@ -42,7 +42,7 @@ export default function SearchBar({ onChange }) {
         type="text"
         value={search}
         onChange={handleChange}
-        placeholder="챌린지 이름을 검색해보세요"
+        placeholder={placeholder}
         className={styles.searchInput}
       />
     </div>
