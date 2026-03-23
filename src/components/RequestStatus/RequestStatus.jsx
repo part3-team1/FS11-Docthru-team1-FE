@@ -6,27 +6,27 @@ import할때  상태 / 이유
 */
 
 const statusMap = {
-  approved: {
+  APPROVED: {
     className: styles.approved,
     message: '신청이 승인되 챌린지입니다.',
   },
-  rejected: {
+  REJECTED: {
     className: styles.rejected,
     message: '신청이 거절된 챌린지입니다.',
   },
-  pending: { className: styles.pending, message: '승인 대기중 입니다.' },
-  deleted: { className: styles.deleted, message: '삭제된 챌린지입니다.' },
+  PENDING: { className: styles.pending, message: '승인 대기중 입니다.' },
+  DELETED: { className: styles.deleted, message: '삭제된 챌린지입니다.' },
 };
 
 export default function RequestStatus({ status, rejectionReason }) {
   const currentStatus = statusMap[status];
-  const isDelete = status === 'deleted';
-  const isRejected = status === 'rejected';
+  const isDelete = status === 'DELETED';
+  const isRejected = status === 'REJECTED';
   return (
     <div className={styles.container}>
       <div className={currentStatus.className}>{currentStatus.message}</div>
 
-      {(isDelete || isRejected)&& (
+      {(isDelete || isRejected) && (
         <div className={styles.reasonContainer}>
           <div className={styles.title}>
             {isDelete ? '삭제 사유' : '신청 거절 사유'}

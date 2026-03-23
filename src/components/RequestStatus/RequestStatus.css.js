@@ -12,7 +12,7 @@ export const container = style({
 
 //카드별 base스타일
 const base = style({
-  padding: '0.5rem 22.25rem',
+  padding: '0.5rem',
   fontWeight: 600,
   borderRadius: vars.radius.xxl,
   textAlign: 'center',
@@ -55,21 +55,20 @@ export const deleted = style([
   },
 ]);
 
-
 export const reasonContainer = style({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   gap: vars.space.md,
-  
+
   border: `1px solid ${vars.color.gray200}`,
   borderRadius: vars.radius.xl,
 
   backgroundColor: vars.color.gray50,
   width: '100%',
-  height:'7.3125rem'
-})
+  height: '7.3125rem',
+});
 
 export const title = style({
   fontSize: '0.875rem',
