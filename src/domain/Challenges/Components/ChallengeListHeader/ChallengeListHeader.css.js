@@ -1,4 +1,4 @@
-import { media, vars } from '@/styles/token.css';
+import { vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const titleBar = style({
@@ -8,7 +8,7 @@ export const titleBar = style({
 });
 
 export const title = style({
-  color: `${vars.color.gray800}`,
+  color: vars.color.gray800,
   fontSize: '1.25rem',
   fontStyle: 'normal',
   fontWeight: '600',
@@ -17,5 +17,6 @@ export const title = style({
 
 export const filterBar = style({
   display: 'flex',
-  gap: `${vars.radius.md}`
+  gap: vars.space.md,
+  margin: `${vars.space.lg} auto ${vars.space.xl}`
 });

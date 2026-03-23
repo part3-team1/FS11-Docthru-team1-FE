@@ -28,10 +28,10 @@ const PRESET_MAP = {
   },
   transparent: {
     label: '링크 열기',
-    variant:styles.transparent,
+    variant: styles.transparent,
     iconSrc: '/Images/Icon/icon_click.svg',
-    iconSize: 24
-  }
+    iconSize: 24,
+  },
 };
 
 /**
@@ -49,21 +49,16 @@ export default function LinkButton({ href, preset }) {
 
   return (
     <Link href={href} className={clsx(button.variant, button.color)}>
-      
-      
-      <span className={styles.content}>
-        {button.label}
-      </span>
-        {button.iconSrc && (
-          <Image
-            src={button.iconSrc}
-            alt=""
-            aria-hidden="true"
-            className={styles.icon}
-            width={button.iconSize}
-            height={button.iconSize}
-          />
-        )}
+      <span className={styles.content}>{button.label}</span>
+      {button.iconSrc && (
+        <Image
+          src={button.iconSrc}
+          alt=""
+          aria-hidden="true"
+          width={button.iconSize}
+          height={button.iconSize}
+        />
+      )}
     </Link>
   );
 }

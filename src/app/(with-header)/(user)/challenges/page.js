@@ -1,5 +1,5 @@
-import ChallengesContainer from '@/domain/Challenges/Container/ChallengesContainer.jsx';
+import UserChallengesContainer from '@/domain/Challenges/Container';
 
 export default function Page() {
-  return <ChallengesContainer />;
+  return <UserChallengesContainer />;
 }

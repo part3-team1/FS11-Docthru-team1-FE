@@ -5,23 +5,14 @@ export const challengeCard = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'flex-start',
-  gap: `${vars.space.lg}`,
-  borderRadius: `${vars.radius.xl}`,
+  gap: vars.space.lg,
+  borderRadius: vars.radius.xl,
   border: `2px solid ${vars.color.gray800}`,
-  background: `${vars.color.white}`,
-  width: '62.25rem',
+  background: vars.color.white,
   padding: '1.5rem',
   overflow: 'hidden',
-
-  '@media': {
-    [media.tablet]: {
-      width: '43.5rem',
-    },
-    [media.mobile]: {
-      width: '21.4375rem',
-    },
   },
-});
+);
 
 export const heightDefault = style({
   height: '11.1875rem',
@@ -71,12 +62,12 @@ export const topRight = style({
 export const chipWrapper = style({
   display: 'flex',
   alignItems: 'flex-start',
-  gap: `${vars.space.sm}`,
+  gap: vars.space.sm,
 });
 
 export const challengeBottom = style({
   borderTop: `1px solid ${vars.color.gray200}`,
-  paddingTop: `${vars.space.lg}`,
+  paddingTop: vars.space.lg,
   width: '100%',
   display: 'flex',
   justifyContent: 'space-between',
@@ -89,7 +80,7 @@ export const challengeBottom = style({
       flexDirection: 'column',
       alignItems: 'flex-start',
       justifyContent: 'flex-start',
-      paddingTop: `${vars.space.md}`,
+      paddingTop: vars.space.md,
     },
   },
 });
@@ -97,7 +88,7 @@ export const challengeBottom = style({
 export const infoWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  gap: `${vars.space.sm}`,
+  gap: vars.space.sm,
   height: '2.0625rem',
   
   '@media': {
@@ -117,7 +108,7 @@ export const action = style({
 });
 
 export const title = style({
-  color: `${vars.color.gray700}`,
+  color: vars.color.gray700,
   fontSize: '1.375rem',
   fontStyle: 'normal',
   fontWeight: '600',
