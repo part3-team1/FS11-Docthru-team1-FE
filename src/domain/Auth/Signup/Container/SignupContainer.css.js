@@ -20,13 +20,13 @@ export const container = style({
 
 export const logoContainer = style({
   display: 'flex',
-  alignItems: 'center',
+  alignItems: 'flex-start',
   gap: vars.space.lg,
 
   '@media': {
     [media.mobile]: {
       gap: vars.space.sm,
-      alignItems:'flex-start'
+      alignItems: 'flex-start',
     },
   },
 });
@@ -58,6 +58,8 @@ export const login = style({
   display: 'flex',
   gap: vars.space.sm,
   marginTop: '1.5rem',
+
+  whiteSpace: 'nowrap',
 });
 
 export const moveLogin = style({
