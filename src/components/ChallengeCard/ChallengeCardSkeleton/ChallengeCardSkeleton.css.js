@@ -7,7 +7,7 @@ export const challengeCard = style({
   alignItems: 'flex-start',
   gap: `${vars.space.lg}`,
   borderRadius: `${vars.radius.xl}`,
-  border: `2px solid ${vars.color.gray800}`,
+  border: `2px solid ${vars.color.gray100}`,
   background: `${vars.color.white}`,
   width: '62.25rem',
   height: '11.1875rem',
