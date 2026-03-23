@@ -6,6 +6,7 @@ import { ChallengeParticipantCount } from '@/components/Participants';
 
 // mock data.
 import { data } from '@/mock/myChallengeDetailMockData';
+import LinkButton from '@/components/LinkButton';
 
 export default function MyChallengeDetail() {
   return (
@@ -27,6 +28,9 @@ export default function MyChallengeDetail() {
       {/* 링크 */}
       <div className={styles.linkContainer}>
         <div className={styles.link}>원문링크</div>
+        <div className={styles.linkBtn}>
+          <LinkButton href={data.doc_url} preset="transparent" />
+        </div>
         <iframe src={data.doc_url} className={styles.frame} />
       </div>
     </div>

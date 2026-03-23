@@ -36,5 +36,13 @@ export const link = style({
 
 export const frame = style({
   width: '100%',
-  height:'30rem',
+  height: '30rem',
+  position:'relative'
+})
+
+export const linkBtn = style({
+  position: 'absolute',
+  zIndex:3,
+  left: '83rem', 
+
 })
