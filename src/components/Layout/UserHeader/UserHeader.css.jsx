@@ -63,9 +63,10 @@ export const menuContainer = style({
   flexShrink: '0',
 });
 
-export const notiImage = style({
+export const notificationImage = style({
   width: '1.5rem',
   height: '1.5rem',
+  cursor: 'pointer',
 });
 
 export const dropdownWrapper = style({
@@ -77,6 +78,7 @@ export const dropdownWrapper = style({
 export const userImage = style({
   width: '2rem',
   height: '2rem',
+  cursor: 'pointer',
 });
 // export const header = style({
 //   display: 'flex',
