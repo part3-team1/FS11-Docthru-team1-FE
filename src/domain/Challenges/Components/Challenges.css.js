@@ -35,5 +35,10 @@ export const headerTitle = style({
   fontWeight: 600,
   lineHeight: 'normal',
 });
+export const filterWrapper = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.75rem',
+});
 
 export const searchBar = style({});
