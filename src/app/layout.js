@@ -1,6 +1,7 @@
 import '@/styles/reset.css';
 import '@/styles/globals.css';
 import '@/styles/token.css';
+import Providers from '@/Providers/Providers';
 
 export const metadata = {
   title: 'Docthru',
@@ -13,7 +14,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
