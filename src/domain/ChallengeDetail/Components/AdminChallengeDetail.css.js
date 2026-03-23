@@ -9,6 +9,61 @@ export const container = style({
   margin: '0 auto',
 });
 
+export const rejectReasonBox = style({
+  width: '55.625rem',
+  height: '7.3125rem',
+  borderRadius: '1rem',
+  border: `1px solid ${vars.color.gray200}`,
+  backgroundColor: vars.color.gray50,
+  marginTop: '1rem',
+  padding: '1rem',
+  boxSizing: 'border-box',
+});
+
+export const rejectReasonDivider = style({
+  width: '55.625rem',
+  height: 0,
+  border: 'none',
+  borderTop: `1px solid ${vars.color.gray200}`,
+  marginTop: '1rem',
+});
+
+export const rejectBanner = style({
+  width: '55.625rem',
+  height: '2.1875rem',
+  flexShrink: 0,
+  borderRadius: '1.09375rem',
+  backgroundColor: '#FFF0F0',
+  marginTop: '1rem',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '#E54946',
+  fontFamily: 'Pretendard',
+  fontSize: '1rem',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  lineHeight: 'normal',
+});
+
+export const approveBanner = style({
+  width: '55.625rem',
+  height: '2.1875rem',
+  flexShrink: 0,
+  borderRadius: '1.09375rem',
+  backgroundColor: '#DFF0FF',
+  marginTop: '1rem',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: '#4095DE',
+  fontFamily: 'Pretendard',
+  fontSize: '1rem',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  lineHeight: 'normal',
+});
+
 export const challengeDetailWrapper = style({
   marginTop: '1rem',
 });
@@ -96,3 +151,4 @@ export const arrowRight = style({
   transform: 'rotate(-90deg)',
   cursor: 'pointer',
 });
+
