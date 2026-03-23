@@ -1,0 +1,58 @@
+// /mock/listMockData.js
+
+export const challengesMockData = [
+  {
+    id: 1,
+    title: '프론트엔드 포트폴리오 챌린지',
+    type: 'DOCUMENT',
+    category: 'FRONTEND',
+    dueDate: '2024-04-10',
+    current_participants: 3,
+    max_participants: 10,
+  },
+  {
+    id: 2,
+    title: '디자인 시스템 구축 챌린지',
+    type: 'DOCUMENT',
+    category: 'DESIGN',
+    dueDate: '2024-04-12',
+    current_participants: 5,
+    max_participants: 8,
+  },
+  {
+    id: 3,
+    title: '알고리즘 문제풀이 챌린지',
+    type: 'DOCUMENT',
+    category: 'ALGORITHM',
+    dueDate: '2024-04-15',
+    current_participants: 2,
+    max_participants: 6,
+  },
+  {
+    id: 4,
+    title: '백엔드 API 설계 챌린지',
+    type: 'DOCUMENT',
+    category: 'BACKEND',
+    dueDate: '2024-04-18',
+    current_participants: 4,
+    max_participants: 12,
+  },
+  {
+    id: 5,
+    title: 'CS 기초 스터디 챌린지',
+    type: 'DOCUMENT',
+    category: 'CS',
+    dueDate: '2024-04-20',
+    current_participants: 6,
+    max_participants: 10,
+  },
+  {
+    id: 6,
+    title: 'React 심화 프로젝트 챌린지',
+    type: 'DOCUMENT',
+    category: 'FRONTEND',
+    dueDate: '2024-04-25',
+    current_participants: 1,
+    max_participants: 5,
+  },
+];
