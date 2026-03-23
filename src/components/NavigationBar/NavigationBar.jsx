@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link.js';
-import * as styles from './NavigationBar.css.jsx';
+import * as styles from './NavigationBar.css.js';
 import { useState } from 'react';
 
 export default function NavigationBar() {
