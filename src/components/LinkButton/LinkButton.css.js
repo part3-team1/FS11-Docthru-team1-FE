@@ -45,6 +45,23 @@ export const capsule = style({
   lineHeight: 'normal',
 });
 
+export const transparent = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  alignSelf: 'stretch',
+  borderRadius: `${vars.radius.lg}`,
+  background: 'rgba(246, 248, 250, 0.80)',
+  width: '6rem',
+  height: '2rem',
+  color: `${vars.color.gray700}`,
+  fontSize: '0.875rem',
+  fontStyle: 'normal',
+  fontWeight: '700',
+  lineHeight: '1.625rem',
+  letterSpacing: '0.0175rem',
+});
+
 export const yellow = style({
   border: `2px solid ${vars.color.brandBlack}`,
   background: `${vars.color.brandYellow}`,
@@ -75,5 +92,5 @@ export const content = style({
   alignItems: 'center',
   alignSelf: 'stretch',
   paddingLeft: '0.4rem',
-  paddingTop: '0.15rem'
+  paddingTop: '0.15rem',
 });
