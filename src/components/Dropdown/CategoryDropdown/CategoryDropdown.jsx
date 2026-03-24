@@ -64,20 +64,20 @@ export default function CategoryDropdown({ onSelect, options = [] }) {
       >
         <span>{selected ? selected : '카테고리'}</span>
         <span>
-          <Image src={isOpen ? toggle_up : toggle_down} alt="toggle_down.png" />
+          <Image className={styles.arrowImage} src={isOpen ? toggle_up : toggle_down} alt="toggle_down.png" />
         </span>
       </button>
 
       {isOpen && (
         <div className={styles.dropdownMenu}>
           {options?.map((option) => (
-            <button
+            <span
               key={option}
               className={styles.dropdownOption}
               onClick={() => handleSelect(option)}
             >
               {option}
-            </button>
+            </span>
           ))}
         </div>
       )}
