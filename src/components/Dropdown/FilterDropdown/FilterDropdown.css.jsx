@@ -2,6 +2,7 @@ import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const dropdownContainer = style({
+  position: 'relative',
   fontFamily: 'Pretendard',
   fontStyle: 'normal',
   fontWeight: 400,
@@ -42,6 +43,10 @@ export const filterContainer = style({
   backgroundColor: vars.color.white,
 
   width: '21.4375rem',
+
+  position: 'absolute',
+  left: 0,
+  zIndex: 10,
 });
 
 export const filterHeader = style({
