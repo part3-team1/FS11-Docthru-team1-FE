@@ -6,8 +6,8 @@ import SearchBar from '@/components/SearchBar/SearchBar';
 import * as styles from './ChallengeListHeader.css';
 
 export default function ChallengeListHeader({
-  onKeywordChange,
   onFilterChange,
+  onKeywordChange,
 }) {
   return (
     <section>
