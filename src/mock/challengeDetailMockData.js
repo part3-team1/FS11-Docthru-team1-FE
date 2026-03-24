@@ -1,4 +1,11 @@
 // mock/challengeDetailMockData.js
+export const currentUserMock = {
+  id: 'clxu1a2b3c4d5e6f7g8h', // 개발life — 참여자 테스트
+  nickname: '개발life',
+  grade: 'EXPERT',
+  role: 'USER',
+};
+
 
 export const challengeDetailResponse = {
   status: 200,

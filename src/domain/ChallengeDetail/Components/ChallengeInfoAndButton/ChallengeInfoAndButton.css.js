@@ -12,14 +12,3 @@ export const nicknameContainer = style({
   gap:vars.space.sm,
 })
 
-export const buttonContainer = style({
-  display: 'flex',
-  flexDirection: 'column',
-  border: `1px solid ${vars.color.gray100}`,
-  borderRadius:vars.radius.xl,
-})
-
-export const dateAndPerson = style({
-  display: 'flex',
-
-})
