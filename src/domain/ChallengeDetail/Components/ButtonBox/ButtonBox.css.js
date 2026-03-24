@@ -1,13 +1,13 @@
-import { vars } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
   display: 'flex',
   flexDirection: 'column',
   border: `1px solid ${vars.color.gray100}`,
-  borderRadius: vars.radius.xl, 
+  borderRadius: vars.radius.xl,
   padding: '1.5rem 1rem',
-  backgroundColor:vars.color.white
+  backgroundColor: vars.color.white,
 });
 
 export const dateAndPerson = style({
@@ -20,21 +20,28 @@ export const dateAndPerson = style({
 export const btnContainer = style({
   display: 'flex',
   flexDirection: 'column',
-  gap:vars.space.sm,
-})
-
+  gap: vars.space.sm,
+  '@media': {
+    [media.mobile]: {
+      flexDirection: 'row',
+      gap: vars.space.sm,
+    },
+  },
+});
 
 const baseBtn = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   alignSelf: 'stretch',
-  padding: '0.44rem 5.53rem',
+  width:'100%',
   borderRadius: `${vars.radius.xl}`,
   height: '2.5rem',
   fontSize: '0.875rem',
   fontWeight: 700,
   border: 'none',
+  whiteSpace:'nowrap',
+
 });
 
 export const cta = style([
