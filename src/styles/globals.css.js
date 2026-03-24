@@ -24,7 +24,7 @@ globalFontFace('Quantico', {
 });
 
 globalFontFace('Pretendard', {
-  src: "url('/Font/Pretendard-Regular.woff2') format('woff2')",
+  src: "url('/Font/PretendardVariable.woff2') format('woff2')",
   fontWeight: 400,
   fontStyle: 'normal',
   fontDisplay: 'swap',
