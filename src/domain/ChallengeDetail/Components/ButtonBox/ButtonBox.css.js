@@ -31,17 +31,18 @@ export const btnContainer = style({
 
 const baseBtn = style({
   display: 'flex',
+  flex: 1,
+  height: '2.5rem',
+  padding: '0.4375rem 0',
   justifyContent: 'center',
   alignItems: 'center',
   alignSelf: 'stretch',
-  width:'100%',
-  borderRadius: `${vars.radius.xl}`,
-  height: '2.5rem',
+  borderRadius: vars.radius.xl,
+  border: `2px solid ${vars.color.brandBlack}`,
   fontSize: '0.875rem',
-  fontWeight: 700,
-  border: 'none',
-  whiteSpace:'nowrap',
-
+  fontStyle: 'normal',
+  fontWeight: '700',
+  lineHeight: '1.625rem',
 });
 
 export const cta = style([

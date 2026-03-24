@@ -26,9 +26,17 @@ export default function ButtonBox({ data, currentUser, isParticipating }) {
     }
 
     if (isParticipating) {
-      return <button className={styles.clickBtn}>도전 계속하기</button>;
+      return (
+        <Link href="/edit" className={styles.clickBtn}>
+          도전 계속하기
+        </Link>
+      );
     }
-    return <button className={styles.clickBtn}>작업 도전하기</button>;
+    return (
+      <Link href="/edit" className={styles.clickBtn}>
+        작업 도전하기
+      </Link>
+    );
   };
 
   return (
