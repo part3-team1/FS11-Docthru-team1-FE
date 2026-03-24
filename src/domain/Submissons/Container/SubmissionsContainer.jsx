@@ -1,18 +1,24 @@
-'use client';
-import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
-import CategoryDropdown from '@/components/Dropdown/CategoryDropdown/CategoryDropdown';
-import { useState } from 'react';
-import * as styles from './SubmissionsContainer.css'
+import { mockCurrentUser, mockSubmission } from '@/mock/submissionMockData.js';
+import Content from '../Components/Content/Content.jsx';
+import FeedInput from '../Components/FeedInput/FeedInput.jsx';
+import * as styles from './SubmissonsContainer.css.js';
 
+// 여기서 쿼리로 데이터 가져옴
 
-export default function SubmissonsContainer() {
-  const [value, setValue] = useState('');
+export default function SubmissonsContainer({ challengeId, submissionId }) {
+  // 현재 로그인 한 사람 체크하는 훅 만들고, 여기에 그 훅 가져다 쓰고
+
+  // useQuery로 데이터 가져오고   /api/challenges/${challengeId}/submissions/${submissionId}
+
+  const currentUser = mockCurrentUser;
+  const submission = mockSubmission;
+
+  if (!currentUser || !submission) return null;
+
   return (
-    <>
-      <div className={styles.container}>
-
-        <EditAndDeleteDropdown editHref={'/login'} onDelete={()=> api호출함수(id)} />
-      </div>
-    </>
+    <div className={styles.container}>
+      <Content currentUser={currentUser} submission={submission} />
+      <FeedInput currentUser={currentUser} submission={submission} />
+    </div>
   );
 }

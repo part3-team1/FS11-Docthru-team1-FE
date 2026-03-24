@@ -10,8 +10,7 @@ export const container = style({
   padding: '0 22.5rem',
   height: '3.75rem',
 
-  position: 'sticky',
-  top: 0,
+  position: 'fixed',
   zIndex: 999,
 
   backgroundColor: vars.color.white,
@@ -64,14 +63,22 @@ export const menuContainer = style({
   flexShrink: '0',
 });
 
-export const notiImage = style({
+export const notificationImage = style({
   width: '1.5rem',
   height: '1.5rem',
+  cursor: 'pointer',
+});
+
+export const dropdownWrapper = style({
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
 });
 
 export const userImage = style({
   width: '2rem',
   height: '2rem',
+  cursor: 'pointer',
 });
 // export const header = style({
 //   display: 'flex',

@@ -6,17 +6,7 @@ export default function WithUserHeaderLayout({ children }) {
   return (
     <>
       <UserHeader />
-
       {children}
-      <FilterDropdown
-        onApply={({ category, type, status }) => {
-          console.log({
-            category,
-            type,
-            status,
-          });
-        }}
-      />
     </>
   );
 }

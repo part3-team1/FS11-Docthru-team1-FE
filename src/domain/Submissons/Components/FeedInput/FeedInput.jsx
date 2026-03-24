@@ -1,0 +1,64 @@
+'use client';
+import { useState } from 'react';
+import * as styles from './FeedInput.css';
+import Image from 'next/image';
+import ComentCard from '../FeedbackCard/FeedbackCard';
+
+const feedback = ['테스트 내용'];
+
+export default function FeedInput({ currentUser, submission }) {
+  const [coment, setComent] = useState('');
+
+  // const handleSubmit = async () => {
+  //   if (!coment.trim()) return;
+  //   await creatComent(coment);
+  //   setComent('');
+  // }
+
+  const handleChange = (e) => {
+    setComent(e.target.value);
+  };
+
+  return (
+    <div className={styles.container}>
+      <div className={styles.inputContainer}>
+        <textarea
+          value={coment}
+          onChange={handleChange}
+          placeholder="피드백을 남겨주세요"
+          className={styles.input}
+        />
+
+        <button type="button" className={styles.addBtn}>
+          <Image
+            src={
+              coment
+                ? '/images/icon/comentBtn-active.png'
+                : '/images/icon/comentBtn-inacitve.png'
+            }
+            alt="댓글등록버튼"
+            width={40}
+            height={40}
+            // onClick={handleSubmit}
+          />
+        </button>
+      </div>
+
+      {/* 댓글 카드map */}
+      {/* currentUser={currentUser} 서버 연결시 삽입 */}
+
+      {submission?.feedbacks?.map((feedback) => (
+        <ComentCard
+          key={feedback.id}
+          feedback={feedback}
+          currentUser={currentUser}
+          challengeId={submission.challenge_Id}
+          submission={submission}
+        />
+      ))}
+
+      {/* 더보기 */}
+      <button className={styles.moreBtn}>더보기</button>
+    </div>
+  );
+}

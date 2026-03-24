@@ -11,7 +11,7 @@ export const dropdownContainer = style({
   position: 'relative',
   gap: '0.625rem',
   alignSelf: 'stretch',
-  height: '3.5rem',
+  // height: '3.5rem',
   width: '100%',
 
   fontFamily: 'Pretendard',

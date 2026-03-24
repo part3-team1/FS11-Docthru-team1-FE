@@ -1,0 +1,257 @@
+'use client';
+import CategoryDropdown from '@/components/Dropdown/CategoryDropdown/CategoryDropdown';
+import * as styles from './NewChallengeForm.css';
+import { Controller, useForm } from 'react-hook-form';
+
+export default function NewChallengeForm() {
+  const {
+    register,
+    handleSubmit,
+    control,
+    clearErrors,
+    formState: { isSubmitting, isSubmitted, errors },
+  } = useForm({ mode: 'onSubmit' });
+
+  // 서버 연결시  이런 느낌스..
+  // const onSubmit = async (data) => {
+  //   try {
+  //     const response = await fetch('/challenge-requests', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(data),
+  //     });
+
+  //     if (!response.ok) throw new Error('신청 실패');
+  //     alert('신청 완료!');
+  //      reset()
+  //   } catch (error) {
+  //     console.error(error);
+  //     alert('신청 중 오류가 발생했습니다.');
+  //   }
+  // };
+
+  return (
+    <>
+      <form
+        noValidate
+        // onSubmit={handleSubmit(onSubmit)} 연결시 수정
+        onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
+      >
+        <div className={styles.container}>
+          <div className={styles.title}>신규 챌린지 신청</div>
+          <div className={styles.section}>
+            {/* 제목 */}
+            <label htmlFor="title" className={styles.label}>
+              제목
+            </label>
+            <input
+              type="text"
+              placeholder="제목을 입력해주세요"
+              {...register('title', {
+                required: '제목은 필수 입니다.',
+                minLength: {
+                  value: 10,
+                  message: '제목은 최소 10자 이상부터 가능합니다.',
+                },
+                maxLength: {
+                  value: 50,
+                  message: '최대 50자 까지 가능합니다.',
+                },
+              })}
+              aria-invalid={
+                isSubmitted ? (errors.title ? 'true' : 'false') : undefined
+              }
+              className={styles.input}
+            />
+            {errors.title && (
+              <small role="alert" className={styles.message}>
+                {errors.title.message}
+              </small>
+            )}
+          </div>
+
+          {/* 원문링크 */}
+          <div className={styles.section}>
+            <label htmlFor="doc_url" className={styles.label}>
+              원문링크
+            </label>
+            <input
+              type="url"
+              placeholder="원문 링크를 입력해주세요"
+              {...register('doc_url', {
+                required: '원문 링크는 필수 입니다.',
+                pattern: {
+                  value: /^https?:\/\/.+/,
+                  message: '올바른 URL 형식을 입력해주세요',
+                },
+              })}
+              aria-invalid={
+                isSubmitted ? (errors.doc_url ? 'true' : 'false') : undefined
+              }
+              className={styles.input}
+            />
+            {errors.doc_url && (
+              <small role="alert" className={styles.message}>
+                {errors.doc_url.message}
+              </small>
+            )}
+          </div>
+
+          {/* 분야 카테고리 */}
+          <div className={styles.section}>
+            <label htmlFor="category" className={styles.label}>
+              분야
+            </label>
+            <Controller
+              name="category"
+              control={control}
+              rules={{ required: '분야 선택은 필수입니다' }}
+              render={({ field }) => (
+                <CategoryDropdown
+                  onSelect={(value) => {
+                    field.onChange(value);
+                    clearErrors('category');
+                  }}
+                  options={['Next.js', 'API', 'Career', 'Modern JS', 'Web']}
+                />
+              )}
+            />
+            {errors.category && (
+              <small role="alert" className={styles.message}>
+                {errors.category.message}
+              </small>
+            )}
+          </div>
+
+          {/* 문서 타입 카테고리 */}
+          <div className={styles.section}>
+            <label htmlFor="document_type" className={styles.label}>
+              문서타입
+            </label>
+            <Controller
+              name="document_type"
+              control={control}
+              rules={{ required: '문서타입은 필수 입니다' }}
+              render={({ field }) => (
+                <CategoryDropdown
+                  onSelect={(value) => {
+                    field.onChange(value);
+                    clearErrors('document_type');
+                  }}
+                  options={['공식문서', '블로그']}
+                />
+              )}
+            />
+            {errors.document_type && (
+              <small role="alert" className={styles.message}>
+                {errors.document_type.message}
+              </small>
+            )}
+          </div>
+
+          {/* 마감일 */}
+          <div className={styles.section}>
+            <label htmlFor="due_date" className={styles.label}>
+              마감일
+            </label>
+            <input
+              type="date"
+              placeholder="YY/MM/DD"
+              {...register('due_date', {
+                required: '마감일은 필수 입니다',
+                validate: (value) => {
+                  return (
+                    new Date(value) > new Date() ||
+                    '마감일은 오늘 이후여야 합니다.'
+                  );
+                },
+              })}
+              aria-invalid={
+                isSubmitted ? (errors.due_date ? 'true' : 'false') : undefined
+              }
+              className={styles.input}
+            />
+            {errors.due_date && (
+              <small role="alert" className={styles.message}>
+                {errors.due_date.message}
+              </small>
+            )}
+          </div>
+
+          {/* 최대 인원 */}
+          <div className={styles.section}>
+            <label htmlFor="max_participants" className={styles.label}>
+              최대 인원
+            </label>
+            <input
+              type="number"
+              placeholder="인원을 입력해주세요"
+              {...register('max_participants', {
+                required: '참여 인원수는 필수입니다',
+                min: {
+                  value: 5,
+                  message: '최소 인원은 5명 입니다.',
+                },
+                max: {
+                  value: 20,
+                  message: '최대 인원은 20명 입니다',
+                },
+              })}
+              aria-invalid={
+                isSubmitted
+                  ? errors.max_participants
+                    ? 'true'
+                    : 'false'
+                  : undefined
+              }
+              className={styles.input}
+            />
+            {errors.max_participants && (
+              <small role="alert" className={styles.message}>
+                {errors.max_participants.message}
+              </small>
+            )}
+          </div>
+
+          {/* 내용 */}
+          <div className={styles.section}>
+            <label htmlFor="description" className={styles.label}>
+              내용
+            </label>
+            <textarea
+              placeholder="내용을 입력해주세요"
+              {...register('description', {
+                required: '내용은 필수 입니다.',
+
+                maxLength: {
+                  value: 150,
+                  message: '최대 150자 까지 가능합니다.',
+                },
+              })}
+              aria-invalid={
+                isSubmitted
+                  ? errors.description
+                    ? 'true'
+                    : 'false'
+                  : undefined
+              }
+              className={styles.textarea}
+            />
+            {errors.description && (
+              <small role="alert" className={styles.message}>
+                {errors.description.message}
+              </small>
+            )}
+          </div>
+
+          {/* 신청하기 버튼 */}
+          <button type="submit" disabled={isSubmitting} className={styles.btn}>
+            신청하기
+          </button>
+        </div>
+      </form>
+    </>
+  );
+}
