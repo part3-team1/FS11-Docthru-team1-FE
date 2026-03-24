@@ -4,7 +4,7 @@ import * as styles from './LinkButton.css';
 import Image from 'next/image';
 
 const PRESET_MAP = {
-  original: { label: '원문 보기', variant: styles.cta, color: styles.yellow },
+  original: { label: '원문 보기', variant: styles.cta},
   continue: {
     label: '도전 계속하기',
     variant: styles.secondary,
