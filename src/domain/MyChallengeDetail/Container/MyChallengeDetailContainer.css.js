@@ -34,15 +34,20 @@ export const link = style({
 
 })
 
+export const linkPostion = style({
+  position:'relative'
+})
+
+
 export const frame = style({
   width: '100%',
   height: '30rem',
-  position:'relative'
+
 })
 
 export const linkBtn = style({
   position: 'absolute',
   zIndex:3,
-  left: '83rem', 
+  right:vars.space.sm
 
 })

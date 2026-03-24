@@ -7,19 +7,23 @@ export const container = style({
   gap: vars.space.lg,
 });
 
-export const title = style({
+const baseTitle = style({
   fontSize: '1.5rem',
   fontWeight: 600,
-  marginTop:vars.space.lg,
+  marginTop: vars.space.lg,
+  display: 'flex',
+  justifyContent: 'space-between',
 });
 
-export const showReason = style({
-  borderTop: `1px solid ${vars.color.gray200}`,
-  paddingTop: vars.space.lg,
-  marginTop: vars.space.lg, 
-    fontSize: '1.5rem',
-  fontWeight: 600,
-})
+export const title = baseTitle;
+
+export const showReason = style([
+  baseTitle,
+  {
+    borderTop: `1px solid ${vars.color.gray200}`,
+    paddingTop: vars.space.lg,
+  },
+]);
 
 export const chips = style({
   display: 'flex',
