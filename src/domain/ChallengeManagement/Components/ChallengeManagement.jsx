@@ -51,7 +51,7 @@ export default function ChallengeManagement() {
               <td className={styles.tableBodyCell}>{item.field}</td>
               <td className={styles.tableBodyCell}>{item.category}</td>
               <td className={`${styles.tableBodyCell} ${styles.tableBodyCellTitle}`}>
-                <Link href={`/admin/challenges/${item.id}`}>{item.title}</Link>
+                <Link href={`/admin/challenge-management/${item.id}`}>{item.title}</Link>
               </td>
               <td className={styles.tableBodyCell}>{item.participants}</td>
               <td className={styles.tableBodyCell}>{item.applyDate}</td>

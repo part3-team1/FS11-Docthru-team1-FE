@@ -1,6 +1,5 @@
 import { globalFontFace } from '@vanilla-extract/css';
 import { globalStyle } from '@vanilla-extract/css';
-import { vars } from './token.css';
 
 globalStyle('html, body', {
   margin: 0,
@@ -33,5 +32,4 @@ globalFontFace('Pretendard', {
 globalStyle('body', {
   fontFamily: 'Pretendard, sans-serif',
   fontWeight: 400,
-  background: vars.color.gray50,
 });

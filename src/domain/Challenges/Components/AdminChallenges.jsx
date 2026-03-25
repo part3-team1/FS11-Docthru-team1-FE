@@ -1,23 +1,27 @@
 'use client';
-import { Suspense, useState } from 'react';
-import Image from 'next/image';
+import { Suspense, useEffect, useState } from 'react';
 import SearchBar from '@/components/SearchBar/SearchBar.jsx';
 import Pagination from '@/components/Pagination/Pagination.jsx';
 import ChallengeCard from '@/components/ChallengeCard/ChallengeCard/ChallengeCard.jsx';
 import AdminChallengeDropdown from './AdminChallengeDropdown.jsx';
+import FilterDropdown from '@/components/Dropdown/FilterDropdown/FilterDropdown.jsx';
 import { adminChallengesMockData } from '@/mock/adminChallengesMockData.js';
 import * as styles from './AdminChallenges.css.js';
 
 export default function AdminChallenges() {
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = 'var(--gray-gray50, #FAFAFA)';
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
+  }, []);
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>챌린지 목록</h1>
       <div className={styles.controlsWrapper}>
-        <button className={styles.filterButton}>
-          <span className={styles.filterButtonText}>필터</span>
-          <Image src='/Images/Icon/ic_filter_black.png' alt='filter' width={16} height={16} />
-        </button>
+        <FilterDropdown onApply={() => {}} />
         <div className={styles.searchBarWrapper}>
           <Suspense fallback={null}>
             <SearchBar />
@@ -29,18 +33,15 @@ export default function AdminChallenges() {
           <li key={challenge.id}>
             <ChallengeCard
               challenge={challenge}
-              topRight={
-                <AdminChallengeDropdown
-                  onDelete={() => {}}
-                />
-              }
+              href={`/admin/challenges/${challenge.id}`}
+              topRight={<AdminChallengeDropdown onDelete={() => {}} />}
             />
           </li>
         ))}
       </ul>
       <Pagination
         page={page}
-        totalCount={100} //To Do: 현재 100은 임시 설정. API 연결 후 조정.
+        totalCount={100}
         pageSize={5}
         onPageChange={(p) => setPage(p)}
       />

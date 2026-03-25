@@ -1,6 +1,6 @@
-import ChallengeDetailContainer from '@/domain/ChallengeDetail/Container/ChallengeDetailContainer.jsx';
+import AdminSubmissionsList from '@/domain/AdminSubmissionsList/Components/AdminSubmissionsList';
 
 export default async function Page({ params }) {
   const { id } = await params;
-  return <ChallengeDetailContainer id={id} mode='admin' />;
+  return <AdminSubmissionsList id={id} />;
 }

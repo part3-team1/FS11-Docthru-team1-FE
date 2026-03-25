@@ -15,24 +15,28 @@ export default function AdminChallengeDetail({ id }) {
   const challenge = challengeManagementMockData.find((item) => item.id === Number(id));
   const no = challenge?.no ?? id;
 
+  // To Do: API 연결 후 실제 이전/다음 여부로 교체
+  const hasPrev = true;
+  const hasNext = true;
+
   return (
     <div className={styles.container}>
       <div className={styles.topRow}>
         <span className={styles.challengeNo}>No. {no}</span>
         <div className={styles.arrowWrapper}>
           <Image
-            src='/Images/Icon/icon_arrow_right.svg'
+            src={hasPrev ? '/Images/Icon/icon_arrow_flow.svg' : '/Images/Icon/icon_arrow_stop.svg'}
             alt='이전'
-            width={16}
-            height={16}
-            className={styles.arrowLeft}
+            width={24}
+            height={24}
+            className={`${styles.arrowBtn} ${styles.arrowLeft}`}
           />
           <Image
-            src='/Images/Icon/icon_arrow_right.svg'
+            src={hasNext ? '/Images/Icon/icon_arrow_flow.svg' : '/Images/Icon/icon_arrow_stop.svg'}
             alt='다음'
-            width={16}
-            height={16}
-            className={styles.arrowRight}
+            width={24}
+            height={24}
+            className={`${styles.arrowBtn} ${styles.arrowRight}`}
           />
         </div>
       </div>

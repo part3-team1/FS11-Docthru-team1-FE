@@ -10,9 +10,10 @@ export default function ChallengeCard({
   statusBadge,
   topRight,
   action,
+  href,
 }) {
   return (
-    <Link href={`/challenges/${challenge.id}`}>
+    <Link href={href ?? `/challenges/${challenge.id}`}>
       <div
         className={clsx(
           styles.challengeCard,
