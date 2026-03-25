@@ -1,8 +1,33 @@
-import { style } from "@vanilla-extract/css";
+import { media, vars } from '@/styles/token.css';
+import { style } from '@vanilla-extract/css';
 
-
-export const table = style({
+export const container = style({
+  fontSize: '0.8125rem',
   display: 'flex',
-   width: '100%'
+  flexDirection: 'column',
+  alignItems: 'center',
+  width: '100%',
+  justifyContent: 'center',
+  '@media': {
+    [media.tablet]: {
+      fontSize: '0.7rem',
+    },
+  },
+});
 
-})
+export const columnContainer = style({
+  display: 'flex',
+  justifyContent: 'center',
+    width: 'max-content', 
+    minWidth: '100%',
+  '@media': {
+    [media.mobile]: {
+      justifyContent: 'flex-start',
+    },
+  },
+});
+
+export const columnScroll = style({
+  overflowX: 'auto',
+  width: '100%',
+});

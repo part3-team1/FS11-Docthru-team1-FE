@@ -1,7 +1,7 @@
 'use client';
 import TableColumn from '@/components/TableColumn/TableColumn';
 import { likeSubmissionsData } from '@/mock/myActivityMockData';
-import * as styles from './LikeSubmissionContainer.css';
+import * as styles from '../../FeedbackSubmission/Container/FeedbackSubmissionContainer.css';
 import { useState } from 'react';
 import Pagination from '@/components/Pagination/Pagination';
 
@@ -21,8 +21,10 @@ export default function LikeSubmissionContainer() {
     }));
 
   return (
-    <div>
-      <div className={styles.table}>
+    <div className={styles.container}>
+      <div className={styles.columnScroll}>
+
+      <div className={styles.columnContainer}>
         <TableColumn option="분야" data={list} field="category" />
         <TableColumn option="카테고리" data={list} field="document_type" />
         <TableColumn option="챌린지 제목" data={list} field="submissionTitle" />
@@ -31,6 +33,7 @@ export default function LikeSubmissionContainer() {
         <TableColumn option="좋아요" data={list} field="heartCount" />
       </div>
 
+      </div>
       <Pagination
         page={page}
         totalCount={likeSubmissionsData.totalCount}
