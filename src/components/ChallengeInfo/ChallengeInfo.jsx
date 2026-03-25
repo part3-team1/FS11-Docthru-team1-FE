@@ -1,4 +1,4 @@
-import CancelDropdown from '@/domain/MyChallengeDetail/Components/CancelDropdown/CancelDropdown';
+
 import { CategoryChip, TypeChip } from '../Chip';
 import * as styles from './ChallengeInfo.css';
 
