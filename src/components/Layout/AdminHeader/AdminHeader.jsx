@@ -17,16 +17,25 @@ export default function AdminHeader() {
   const wrapperRef = useRef();
   const [isManagementPage, setIsManagementPage] = useState(true);
   const [isListPage, setIsListPage] = useState(false);
+  const [isUserListPage, setIsUserListPage] = useState(false);
   const [isHeaderDropdownOpen, setIsHeaderDropdownOpen] = useState(false);
 
   const handleClickAdminManagement = () => {
     setIsManagementPage(true);
     setIsListPage(false);
+    setIsUserListPage(false);
   };
 
   const handleClickAdminList = () => {
     setIsListPage(true);
     setIsManagementPage(false);
+    setIsUserListPage(false);
+  };
+
+  const handleClickAdminUserList = () => {
+    setIsUserListPage(true);
+    setIsManagementPage(false);
+    setIsListPage(false);
   };
 
   const handleClickAdminHeaderDropdown = () => {
@@ -71,6 +80,15 @@ export default function AdminHeader() {
             className={isListPage ? styles.focused : ''}
           >
             챌린지 목록
+          </Link>
+        </div>
+        <div className={styles.headerMenu}>
+          <Link
+            href="/admin/users"
+            onClick={handleClickAdminUserList}
+            className={isUserListPage ? styles.focused : ''}
+          >
+            유저 목록
           </Link>
         </div>
       </div>
