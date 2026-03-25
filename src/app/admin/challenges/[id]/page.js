@@ -2,5 +2,5 @@ import ChallengeDetailContainer from '@/domain/ChallengeDetail/Container/Challen
 
 export default async function Page({ params }) {
   const { id } = await params;
-  return <ChallengeDetailContainer id={id} />;
+  return <ChallengeDetailContainer id={id} mode='admin' />;
 }

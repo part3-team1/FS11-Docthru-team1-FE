@@ -22,7 +22,7 @@ export const challengeDetailResponse = {
     due_date: '2024-02-28T23:59:00.000Z',
     max_participants: 15,
     current_participants: 14,
-    status: 'CLOSED',  //CLOSED
+    status: 'OPEN',  //CLOSED
     approved_at: '2024-02-01T00:00:00.000Z',
     requester: {
       id: 'clxu9z8y7x6w5v4u3t2s1r',
