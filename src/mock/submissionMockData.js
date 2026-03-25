@@ -19,8 +19,8 @@ export const mockCurrentUser = {
 // };
 
 export const mockSubmission = {
-  id: 7,
-  challenge_id: 3,
+  id: 1,
+  challenge_id: 1,
   user_id: 2,
   nickname: '이작성자',
   title: '어린왕자 번역본',
