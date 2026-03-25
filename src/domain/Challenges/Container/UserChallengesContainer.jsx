@@ -2,7 +2,7 @@
 // TODO: 카드 반응형 태블릿 -> 모바일 어색함 수정
 // TODO: 백엔드 api와 맞춰봐야함
 // TODO: 디버깅 후 서스펜스로 로딩, 에러 관리
-// TODO: 레이아웃 적용해야 헤더에 안가려짐
+// TODO: 목데이터 -> 서버 연결
 // 추후 컨테이너 컴포넌트 이름 바뀔 가능성 있음
 
 'use client';
@@ -28,15 +28,21 @@ export default function UserChallengesContainer({}) {
   const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(1);
   const PAGESIZE = 5;
+  const TOTALCOUNT = challenges.length;
 
-  const { data, isLoading } = useQuery({
-    queryKey: ['challenges', filter, keyword, page],
-    queryFn: () => {
-      const URL = `/api/challenges?page=${page}&limit=${PAGESIZE}&category=${filter.category.join(',')}&type=${filter.type}&status=${filter.status}&keyword=${keyword}`;
-      console.log(URL);
-      return fetch(URL).then((r) => r.json());
-    },
-  });
+  const startIndex = (page - 1) * PAGESIZE;
+const endIndex = startIndex + PAGESIZE;
+
+const paginatedChallenges = challenges.slice(startIndex, endIndex);
+
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ['challenges', filter, keyword, page],
+  //   queryFn: () => {
+  //     const URL = `/api/challenges?page=${page}&limit=${PAGESIZE}&category=${filter.category.join(',')}&type=${filter.type}&status=${filter.status}&keyword=${keyword}`;
+  //     console.log(URL);
+  //     return fetch(URL).then((r) => r.json());
+  //   },
+  // });
 
   useEffect(() => {
     setPage(1);
@@ -48,7 +54,7 @@ export default function UserChallengesContainer({}) {
         onFilterChange={setFilter}
         onKeywordChange={setKeyword}
       />
-      {isLoading && <ChallengeCardSkeletonList />}
+      {/* {isLoading && <ChallengeCardSkeletonList />}
       {!isLoading && data?.totalCount === 0 && <div>챌린지 없음</div>}
       {!isLoading && data?.totalCount > 0 && (
         <>
@@ -60,7 +66,14 @@ export default function UserChallengesContainer({}) {
             onPageChange={setPage}
           />
         </>
-      )}
+      )} */}
+      <ChallengeCardList challenges={paginatedChallenges} />
+      <Pagination
+            page={page}
+            totalCount={TOTALCOUNT}
+            pageSize={PAGESIZE}
+            onPageChange={setPage}
+          />
     </>
   );
 }

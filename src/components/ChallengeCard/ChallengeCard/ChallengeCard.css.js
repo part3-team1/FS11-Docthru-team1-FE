@@ -11,6 +11,7 @@ export const challengeCard = style({
   background: vars.color.white,
   padding: '1.5rem',
   overflow: 'hidden',
+  width:'100%'
   },
 );
 

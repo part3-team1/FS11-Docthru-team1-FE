@@ -48,7 +48,7 @@ export default function UserHeader() {
     };
   }, []);
   return (
-    <div className={styles.container}>
+    <header className={styles.container}>
       <Link href="/" className={styles.logoContainer}>
         <Image src={logoImage} alt="logo.png" width={17.55} height={20.25} />
         <span className={styles.logoName}>Docthru</span>
@@ -78,6 +78,6 @@ export default function UserHeader() {
           )}
         </div>
       </div>
-    </div>
+    </header>
   );
 }

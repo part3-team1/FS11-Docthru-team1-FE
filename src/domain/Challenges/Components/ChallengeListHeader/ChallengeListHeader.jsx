@@ -10,7 +10,7 @@ export default function ChallengeListHeader({
   onKeywordChange,
 }) {
   return (
-    <section>
+    <section className={styles.challengeListHeader}>
       <div className={styles.titleBar}>
         <h2 className={styles.title}>챌린지 목록</h2>
         <LinkButton preset="apply" href="/new-challenge" />

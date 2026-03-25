@@ -39,7 +39,7 @@ export default function HeaderDropdown({ userStatus, nickname }) {
       <div className={styles.divider} />
       <div className={styles.lower}>
         {userStatus !== 'admin' && (
-          <Link href="/my-challenge" className={styles.linkToMyChallenge}>
+          <Link href="/my-page/my-challenge" className={styles.linkToMyChallenge}>
             나의 챌린지
           </Link>
         )}
