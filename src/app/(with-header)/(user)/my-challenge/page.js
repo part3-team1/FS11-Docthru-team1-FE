@@ -1,5 +1,5 @@
-import MyChallengeContainer from '@/domain/MyChallenge/Container/MyChallengeContainer';
+import MyChallengeDetail from '@/domain/MyChallengeDetail/Container/MyChallengeDetailContainer';
 
 export default function Page() {
-  return <MyChallengeContainer />;
+  return <MyChallengeDetail />;
 }
