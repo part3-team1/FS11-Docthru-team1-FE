@@ -1,7 +1,9 @@
+import ParticipatedContainer from "@/domain/MyChallenge/Container/ParticipatedContainer";
+
 export default function Page() {
   return (
     <>
-      참여중인 챌린지
+      <ParticipatedContainer />
     </>
   );
 }

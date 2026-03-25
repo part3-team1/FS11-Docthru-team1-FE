@@ -56,7 +56,7 @@ export const focused = style({
 });
 
 export const focusedUnderline = style({
-  borderBottom: `1px solid ${vars.color.brandBlack}`,
+  borderBottom: `3px solid ${vars.color.brandBlack}`,
 });
 
 export const underLine = style({

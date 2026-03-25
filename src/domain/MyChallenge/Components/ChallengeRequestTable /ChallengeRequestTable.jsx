@@ -5,7 +5,6 @@ import Pagination from '@/components/Pagination/Pagination';
 import TableColumn from '@/components/TableColumn/TableColumn';
 import { useState } from 'react';
 
-
 {
   /* 
   사용법

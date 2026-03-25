@@ -1,4 +1,3 @@
-
 import ChallengeRequestTable from '../Components/ChallengeRequestTable /ChallengeRequestTable.jsx';
 import { mockData } from '@/mock/listMockData.js';
 

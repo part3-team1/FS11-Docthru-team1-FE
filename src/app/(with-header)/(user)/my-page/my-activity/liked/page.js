@@ -1,7 +1,9 @@
+import LikeSubmissionContainer from "@/domain/MyActivity/LikeSubmission/Container/LikeSubmissionContainer";
+
 export default function Page() {
   return (
     <>
-      내 좋아요 모아보기
+      <LikeSubmissionContainer />
     </>
   );
 }
