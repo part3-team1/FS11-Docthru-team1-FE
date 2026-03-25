@@ -1,6 +1,10 @@
 import { vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
+export const challengeListHeader = style({
+  width:'100%',
+});
+
 export const titleBar = style({
   display: 'flex',
   justifyContent: 'space-between',

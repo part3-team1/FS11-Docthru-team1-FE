@@ -5,4 +5,6 @@ export const challengeCardList = style({
   display: 'flex',
   flexDirection: 'column',
   gap: `${vars.space.xl}`,
+  alignItems: 'stretch',
+  width:'100%'
 });
