@@ -41,12 +41,17 @@ export default function AdminChallengeDetail({ id }) {
           ? <div className={styles.approveBanner}>신청이 승인된 챌린지입니다.</div>
           : <>
               <div className={styles.rejectBanner}>신청이 거절된 챌린지입니다.</div>
-              <div className={styles.rejectReasonBox}>{rejectReason}</div>
+              <div className={styles.rejectReasonBox}>
+                <span className={styles.rejectReasonTitle}>신청 거절 사유</span>
+                <span className={styles.rejectReasonText}>{rejectReason}</span>
+                {/* To Do: API 연결 후 실제 거절 처리 날짜/시간으로 교체 */}
+                <span className={styles.rejectReasonDate}>{challenge?.applyDate} 00:00</span>
+              </div>
               <hr className={styles.rejectReasonDivider} />
             </>
       )}
       <div className={styles.challengeDetailWrapper}>
-        {/* TODO: ChallengeDetail 컴포넌트 연결 */}
+        {/* To Do: 유저의 ChallengeDetail 컴포넌트 연결 필요 */}
         <ChallengeDetail id={id} />
       </div>
       <hr className={styles.divider} />

@@ -9,25 +9,6 @@ export const container = style({
   margin: '0 auto',
 });
 
-export const rejectReasonBox = style({
-  width: '55.625rem',
-  height: '7.3125rem',
-  borderRadius: '1rem',
-  border: `1px solid ${vars.color.gray200}`,
-  backgroundColor: vars.color.gray50,
-  marginTop: '1rem',
-  padding: '1rem',
-  boxSizing: 'border-box',
-});
-
-export const rejectReasonDivider = style({
-  width: '55.625rem',
-  height: 0,
-  border: 'none',
-  borderTop: `1px solid ${vars.color.gray200}`,
-  marginTop: '1rem',
-});
-
 export const rejectBanner = style({
   width: '55.625rem',
   height: '2.1875rem',
@@ -62,6 +43,59 @@ export const approveBanner = style({
   fontStyle: 'normal',
   fontWeight: 600,
   lineHeight: 'normal',
+});
+
+export const rejectReasonBox = style({
+  width: '55.625rem',
+  height: '7.3125rem',
+  borderRadius: '1rem',
+  border: `1px solid ${vars.color.gray200}`,
+  backgroundColor: vars.color.gray50,
+  marginTop: '1rem',
+  padding: '1.13rem 1rem 1rem 1rem',
+  boxSizing: 'border-box',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+});
+
+export const rejectReasonTitle = style({
+  color: vars.color.gray800,
+  fontFamily: 'Pretendard',
+  fontSize: '0.875rem',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  lineHeight: 'normal',
+});
+
+export const rejectReasonText = style({
+  color: vars.color.gray700,
+  textAlign: 'center',
+  fontFamily: 'Pretendard',
+  fontSize: '1rem',
+  fontStyle: 'normal',
+  fontWeight: 500,
+  lineHeight: 'normal',
+  marginTop: '0.75rem',
+});
+
+export const rejectReasonDate = style({
+  color: vars.color.gray500,
+  fontFamily: 'Pretendard',
+  fontSize: '0.875rem',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: 'normal',
+  marginTop: '1.12rem',
+  alignSelf: 'flex-end',
+});
+
+export const rejectReasonDivider = style({
+  width: '55.625rem',
+  height: 0,
+  border: 'none',
+  borderTop: `1px solid ${vars.color.gray200}`,
+  marginTop: '1rem',
 });
 
 export const challengeDetailWrapper = style({
