@@ -8,6 +8,12 @@ export const container = style({
   borderRadius: vars.radius.xl,
   padding: '1.5rem 1rem',
   backgroundColor: vars.color.white,
+  minWidth: '17.8125rem',
+  '@media': {
+    [media.mobile]: {
+      maxWidth: '100%',
+    },
+  },
 });
 
 export const dateAndPerson = style({

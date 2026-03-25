@@ -1,14 +1,33 @@
+'use client';
 import Image from 'next/image';
 import * as styles from './ChallengeInfoAndButton.css';
-import DueDate from '@/components/DueDate';
-import { ChallengeParticipants } from '@/components/Participants';
 import ButtonBox from '../ButtonBox/ButtonBox';
+import ChallengeInfo from '@/components/ChallengeInfo/ChallengeInfo';
+import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 
-export function ChallengeInfoAndButton({ data,currentUser,isParticipating }) {
+export function ChallengeInfoAndButton({ data, currentUser, isParticipating }) {
   return (
     <div className={styles.infoContainer}>
       <div>
-        {/* <ChallengeInfo /> */}
+        <ChallengeInfo
+          data={data}
+          dropdown={
+            currentUser ? (
+              <EditAndDeleteDropdown
+                currentUser={currentUser}
+                content={{
+                  type: 'challenge',
+                  authorId: data?.requester?.id,
+                  status: data?.status,
+                  current_participants: data?.current_participants,
+                  isBlocked: false,
+                }}
+                editHref={`/challenges/${data?.id}/edit-callenge`}
+                onDelete={() => {}}
+              />
+            ) : null
+          }
+        />
         <div className={styles.nicknameContainer}>
           {data.requester.grade === 'NORMAL' ? (
             <Image
@@ -29,7 +48,11 @@ export function ChallengeInfoAndButton({ data,currentUser,isParticipating }) {
         </div>
       </div>
       <div>
-        <ButtonBox data={data} currentUser={currentUser} isParticipating={isParticipating} />
+        <ButtonBox
+          data={data}
+          currentUser={currentUser}
+          isParticipating={isParticipating}
+        />
       </div>
     </div>
   );

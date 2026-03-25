@@ -20,4 +20,5 @@ export const nicknameContainer = style({
   display: 'flex',
   alignItems: 'center',
   gap: vars.space.sm,
+  marginTop:vars.space.md,
 });

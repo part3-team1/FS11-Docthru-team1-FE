@@ -1,8 +1,9 @@
 // mock/challengeDetailMockData.js
-export const currentUserMock = {
-  id: 'clxu1a2b3c4d5e6f7g8h',
+export const currentUserMock = 
+{
+  id: 'clxp1a2b3c4d5e6f7g8h',
   nickname: '개발life',
-  grade: 'EXPERT',
+  grade: 'NORMAL',
   role: 'USER',
 };
 
@@ -21,13 +22,14 @@ export const challengeDetailResponse = {
     due_date: '2024-02-28T23:59:00.000Z',
     max_participants: 15,
     current_participants: 14,
-    status: 'OPENED',  //CLOSED
+    status: 'CLOSED',  //CLOSED
     approved_at: '2024-02-01T00:00:00.000Z',
     requester: {
       id: 'clxu9z8y7x6w5v4u3t2s1r',
       nickname: '컵왼조율',
       grade: 'EXPERT',
     },
+    
     participations: {
       total_count: 10,
       total_pages: 2, // ✅ 10개 / 5개 = 2페이지
@@ -226,6 +228,38 @@ export const challengeDetailResponse = {
           },
         },
       ],
+    },
+  },
+};
+
+
+export const challengeDetailNoParticipants = {
+  status: 200,
+  statusText: 'OK',
+  data: {
+    id: 'clx1a2b3c4d5e6f7g8h9i0j',
+    request_id: 'clxr9z8y7x6w5v4u3t2s1r',
+    title: 'Next.js - App Router : Routing Fundamentals',
+    doc_url: 'https://nextjs.org/docs/app/building-your-application/routing',
+    description:
+      'Next.js App Router 공식 문서 중 Routing Fundamentals 내용입니다! 라우팅에 따른 폴더와 파일이 구성되는 법칙과 컨벤션 등에 대해 공부할 수 있을 것 같아요~! 다들 챌린지 많이 참여해 주세요 :)',
+    category: 'NEXTJS',
+    document_type: 'DOCUMENTATION',
+    due_date: '2024-02-28T23:59:00.000Z',
+    max_participants: 15,
+    current_participants: 0,
+    status: 'OPENED',
+    approved_at: '2024-02-01T00:00:00.000Z',
+    requester: {
+      id: 'clxu9z8y7x6w5v4u3t2s1r',
+      nickname: '컵왼조율',
+      grade: 'EXPERT',
+    },
+    participations: {
+      total_count: 0,
+      total_pages: 0,
+      current_page: 1,
+      items: [],
     },
   },
 };

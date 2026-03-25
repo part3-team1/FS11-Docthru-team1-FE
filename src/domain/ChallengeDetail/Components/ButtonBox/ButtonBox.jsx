@@ -20,7 +20,7 @@ export default function ButtonBox({ data, currentUser, isParticipating }) {
     if (!currentUser) {
       return (
         <Link href="/login" className={styles.clickBtn}>
-          회원가입 후 도전하기
+          로그인 후 도전하기
         </Link>
       );
     }

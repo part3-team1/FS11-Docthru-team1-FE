@@ -6,11 +6,11 @@ import Image from 'next/image';
 import clsx from 'clsx';
 
 export default function ParticipationSubmissionList({ data }) {
-  const [currentPage, setCurrentPage] = useState(data.current_page);
-  const totalPage = data.total_pages;
+  const [currentPage, setCurrentPage] = useState(data?.current_page);
+  const totalPage = data?.total_pages;
   const itemsPerPage = 5;
   
-  const paginatedItems = data.items.slice(
+  const paginatedItems = data?.items.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
@@ -63,7 +63,7 @@ export default function ParticipationSubmissionList({ data }) {
       </div>
 
       <div>
-        {paginatedItems.map((item, index) => (
+        {paginatedItems?.map((item, index) => (
           <SubmissionsCard
             key={item.id}
             item={item}

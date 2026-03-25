@@ -74,9 +74,12 @@ export const like = style({
   fontSize: '0.875rem',
   fontWeight: 500,
   color: vars.color.gray500,
+
 });
 
 export const link = style({
   fontSize: '0.75rem',
   fontWeight: 500,
+  position: 'relative',
+  top:'0.1rem'
 });

@@ -1,11 +1,12 @@
 //수정 삭제 드롭다운 사용자 확인 훅
 
 export default function useDropdownActions({ currentUser, content }) {
+  if (!currentUser) return [];
   const { id: userId, role } = currentUser;
   const {
     type,
     authorId,
-    current_participants = [],
+    current_participants = 0,
     status,
     isBlocked,
   } = content;
@@ -15,7 +16,7 @@ export default function useDropdownActions({ currentUser, content }) {
   // 작성자이니...?
   const isOwner = userId === authorId;
   // 참여했니..?
-  const hasParticipants = current_participants.length > 0;
+  const hasParticipants = current_participants > 0;
 
   // 어드민
   if (isAdmin) {
