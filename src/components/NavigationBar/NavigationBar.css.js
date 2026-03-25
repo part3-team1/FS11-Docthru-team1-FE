@@ -19,7 +19,6 @@ export const container = style({
   display: 'inline-flex',
   flexDirection: 'row',
   alignItems: 'flex-start',
-  borderBottom: `1px solid ${vars.color.gray500}`,
 });
 
 export const menu = style({
@@ -53,6 +52,13 @@ export const menu = style({
 });
 
 export const focused = style({
-  borderBottom: `1px solid ${vars.color.brandBlack}`,
   color: vars.color.gray800,
+});
+
+export const focusedUnderline = style({
+  borderBottom: `1px solid ${vars.color.brandBlack}`,
+});
+
+export const underLine = style({
+  borderBottom: `1px solid ${vars.color.gray500}`,
 });
