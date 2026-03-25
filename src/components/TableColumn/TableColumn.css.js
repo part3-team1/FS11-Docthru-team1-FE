@@ -1,6 +1,12 @@
 import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
+export const container = style({
+  flex:1,
+})
+
+
+
 export const titleName = style({
   backgroundColor: vars.color.brandBlack,
   display: 'flex',
@@ -21,7 +27,8 @@ export const list = style({
   color: vars.color.gray500,
   fontWeight: 500,
   whiteSpace: 'nowrap',
-  minHeight:'3rem'
+  minHeight: '3rem',
+
 });
 
 export const deleteBox = style({

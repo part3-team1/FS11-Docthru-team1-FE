@@ -12,7 +12,7 @@ export default function TableColumn({ option, data, field, className }) {
   const isDate = field.includes('At') || field.includes('date');
 
   return (
-    <div>
+    <div className={styles.container}>
       <ul>
         <div className={styles.titleName}>{option}</div>
 
