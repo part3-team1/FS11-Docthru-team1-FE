@@ -1,4 +1,4 @@
-import ChallengeRequestTable from '../Components/ChallengeRequestTable /ChallengeRequestTable.jsx';
+import ChallengeRequestTable from '../Components/ChallengeRequestTable/ChallengeRequestTable.jsx';
 import { mockData } from '@/mock/listMockData.js';
 
 export default function RequestedContainer() {
