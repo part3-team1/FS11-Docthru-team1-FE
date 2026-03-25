@@ -4,7 +4,7 @@ import SearchBar from '@/components/SearchBar/SearchBar';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { mockChallenges } from '@/mock/mockChallenges';
-import ChallengeRequestTable from '@/domain/MyChallenge/Components/ChallengeRequestTable /ChallengeRequestTable.jsx';
+import ChallengeRequestTable from '@/domain/MyChallenge/Components/ChallengeRequestTable/ChallengeRequestTable.jsx';
 
 export default function MySubmissionContainer({}) {
   const [keyword, setKeyword] = useState('');
