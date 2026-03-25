@@ -15,23 +15,27 @@ export default function AdminChallengeDetail({ id }) {
   const challenge = challengeManagementMockData.find((item) => item.id === Number(id));
   const no = challenge?.no ?? id;
 
+  // To Do: API 연결 후 실제 이전/다음 여부로 교체
+  const hasPrev = true;
+  const hasNext = true;
+
   return (
     <div className={styles.container}>
       <div className={styles.topRow}>
         <span className={styles.challengeNo}>No. {no}</span>
         <div className={styles.arrowWrapper}>
           <Image
-            src='/Images/Icon/icon_arrow_right.svg'
+            src='/Images/Icon/icon_arrow_left(2).svg'
             alt='이전'
-            width={16}
-            height={16}
+            width={24}
+            height={24}
             className={styles.arrowLeft}
           />
           <Image
-            src='/Images/Icon/icon_arrow_right.svg'
+            src='/Images/Icon/icon_arrow_right(2).svg'
             alt='다음'
-            width={16}
-            height={16}
+            width={24}
+            height={24}
             className={styles.arrowRight}
           />
         </div>

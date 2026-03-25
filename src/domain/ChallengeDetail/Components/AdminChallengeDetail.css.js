@@ -173,16 +173,24 @@ export const challengeNo = style({
 export const arrowWrapper = style({
   display: 'flex',
   alignItems: 'center',
-  gap: '0.5rem',
+  gap: '0.62rem',
 });
 
 export const arrowLeft = style({
-  transform: 'rotate(90deg)',
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '0.625rem',
   cursor: 'pointer',
+  width: '1.5rem',
+  height: '1.5rem',
 });
 
 export const arrowRight = style({
-  transform: 'rotate(-90deg)',
+  display: 'flex',
+  alignItems: 'flex-start',
+  gap: '0.625rem',
   cursor: 'pointer',
+  width: '1.5rem',
+  height: '1.5rem',
 });
 
