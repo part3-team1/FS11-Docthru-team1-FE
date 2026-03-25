@@ -25,10 +25,8 @@ export default function SubmissionsCard({ item, rank }) {
               height={16}
             />
           ) : null}
-          <div className={styles.rank}>
 
           {String(rank).padStart(2, '0')}
-          </div>
         </div>
 
         {/* 유저 아이콘, 이름, 등급 */}
@@ -66,7 +64,7 @@ export default function SubmissionsCard({ item, rank }) {
             height={16}
           />
 
-          <div >{item.submission.heart_count}</div>
+          <div>{item.submission.heart_count}</div>
         </div>
         <Link href="/submissons" className={styles.link}>
           {' '}

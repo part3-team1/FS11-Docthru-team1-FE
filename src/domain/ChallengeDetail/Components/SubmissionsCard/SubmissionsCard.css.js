@@ -46,11 +46,6 @@ export const best = style({
   fontWeight: 500,
 });
 
-export const rank = style({
-  position: 'relative',
-  top: '0.08rem',
-});
-
 export const userBox = style({
   display: 'flex',
   alignItems: 'center',

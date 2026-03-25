@@ -30,14 +30,15 @@ export const pages = style({
 
 export const currentPage = style({
   color: vars.color.brandYellow,
-
+  
 });
 
 export const totalPage = style({
   position: 'relative',
-  top: '0.2rem',
+  top: '0.1rem',
   fontSize: '0.8125rem',
-  fontWeight:500
+  fontWeight:500,
+  letterSpacing:'0.3rem'
 });
 
 
