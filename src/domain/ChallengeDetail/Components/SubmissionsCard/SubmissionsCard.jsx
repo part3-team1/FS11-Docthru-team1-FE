@@ -66,7 +66,7 @@ export default function SubmissionsCard({ item, rank }) {
 
           <div>{item.submission.heart_count}</div>
         </div>
-        <Link href={`/submissions/${item.submission.id}`} className={styles.link}>
+        <Link href={`/challenges/1/submissions/${item.submission.id}`} className={styles.link}>
           {' '}
           작업물 보기 &gt;
         </Link>

@@ -28,6 +28,12 @@ export default function UserChallengesContainer({}) {
   const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(1);
   const PAGESIZE = 5;
+  const TOTALCOUNT = challenges.length;
+
+  const startIndex = (page - 1) * PAGESIZE;
+const endIndex = startIndex + PAGESIZE;
+
+const paginatedChallenges = challenges.slice(startIndex, endIndex);
 
   // const { data, isLoading } = useQuery({
   //   queryKey: ['challenges', filter, keyword, page],
@@ -61,7 +67,13 @@ export default function UserChallengesContainer({}) {
           />
         </>
       )} */}
-      <ChallengeCardList challenges={challenges} />
+      <ChallengeCardList challenges={paginatedChallenges} />
+      <Pagination
+            page={page}
+            totalCount={TOTALCOUNT}
+            pageSize={PAGESIZE}
+            onPageChange={setPage}
+          />
     </>
   );
 }
