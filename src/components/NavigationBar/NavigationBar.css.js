@@ -1,11 +1,25 @@
 import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
+export const wrapper = style({
+  display:'flex',
+  flexDirection:'column',
+  width:'100%'
+});
+
+export const title = style({
+  color: vars.color.gray800,
+  fontSize: '1.25rem',
+  fontStyle: 'normal',
+  fontWeight: '600',
+  lineHeight: 'normal',
+});
+
 export const container = style({
   display: 'inline-flex',
   flexDirection: 'row',
   alignItems: 'flex-start',
-  backgroundColor: vars.color.white,
+  borderBottom: `1px solid ${vars.color.gray500}`,
 });
 
 export const menu = style({
