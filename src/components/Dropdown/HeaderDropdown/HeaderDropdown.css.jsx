@@ -84,4 +84,6 @@ export const logoutButton = style({
 
   display: 'flex',
   padding: '0.375rem 5rem 0.4375rem 1rem',
+  marginTop: '0.5rem',
+  marginBottom: '0.5rem',
 });
