@@ -21,7 +21,7 @@ export default function NavigationBar({ title, menus, underBar = true }) {
             className={clsx(
               styles.menu,
               pathname.startsWith(menu.href) && styles.focused,
-              underBar && styles.focusedUnderline
+              underBar && pathname.startsWith(menu.href) && styles.focusedUnderLine,
             )}
           >
             {menu.label}

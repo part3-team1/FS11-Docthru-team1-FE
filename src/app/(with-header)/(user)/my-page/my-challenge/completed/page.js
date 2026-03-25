@@ -1,7 +1,9 @@
+import CompletedContainer from "@/domain/MyChallenge/Container/CompletedContainer";
+
 export default function Page() {
   return (
     <>
-      완료한 챌린지
+      <CompletedContainer />
     </>
   );
 }

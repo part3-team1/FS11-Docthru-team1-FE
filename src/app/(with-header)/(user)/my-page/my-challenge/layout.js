@@ -1,5 +1,5 @@
 import NavigationBar from '@/components/NavigationBar/NavigationBar';
-import * as styles from '@/domain/Challenges/Components/Challenges.css.js';
+import * as styles from './layout.css';
 
 const menus = [
   {
@@ -22,7 +22,7 @@ const menus = [
 
 export default function Layout({children}) {
   return (
-    <main className={styles.challengesContainer}>
+    <main className={styles.myChallengesContainer}>
       <NavigationBar menus={menus} />
       <div className={styles.childrenContainer}>
         {children}
