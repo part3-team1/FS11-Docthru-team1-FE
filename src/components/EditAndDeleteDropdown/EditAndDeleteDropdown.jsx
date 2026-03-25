@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as styles from './EditAndDeleteDropdown.css.js';
 import Image from 'next/image';
 import Link from 'next/link';
-import useDropdownActions from '@/utils/dropdwonActioons.js';
+import useDropdownActions from '@/utils/useDropdownActions.js';
 
 // 사용법
 // 첼린지 상세 
