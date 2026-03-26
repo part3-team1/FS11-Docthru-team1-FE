@@ -16,6 +16,20 @@ export async function challengeList(params = {}) {
   return await response.json();
 }
 
+//챌린지 상세조회
+export async function challengeById(id) {
+  const response = await fetch(`${BASE_URL}/challenges/${id}`, {
+    method: 'GET',
+    credentials: 'include',
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
+
+  return await response.json();
+}
+
 //챌린지 신청
 export async function challengeRequests(data) {
   const categoryMap = {
