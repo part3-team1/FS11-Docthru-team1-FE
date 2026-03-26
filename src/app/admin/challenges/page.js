@@ -1,6 +1,5 @@
-import ChallengesContainer from '@/domain/Challenges/Container/challengesContainer';
+import AdminChallenges from '@/domain/Challenges/Components/AdminChallenges';
 
 export default function Page() {
-  const mode = 'admin';
-  return <ChallengesContainer mode={mode} />;
+  return <AdminChallenges />;
 }

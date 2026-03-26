@@ -1,0 +1,76 @@
+import Link from 'next/link';
+import * as styles from './SubmissionsCard.css';
+
+import Image from 'next/image';
+
+export default function SubmissionsCard({ item, rank }) {
+  const isBest = item.submission.is_best;
+  const formatGrade = (grade) => {
+    const gradeMap = {
+      EXPERT: '전문가',
+      NORMAL: '일반',
+    };
+    return gradeMap[grade] ?? grade;
+  };
+  return (
+    <div className={styles.container}>
+      {/* 순위 */}
+      <div className={styles.left}>
+        <div className={styles.best}>
+          {isBest ? (
+            <Image
+              src="/images/Icon/free-icon-gold-medal-1910528.png"
+              alt="1등"
+              width={16}
+              height={16}
+            />
+          ) : null}
+
+          {String(rank).padStart(2, '0')}
+        </div>
+
+        {/* 유저 아이콘, 이름, 등급 */}
+        <div className={styles.userBox}>
+          {item.user.grade === 'EXPERT' ? (
+            <Image
+              src="/images/Icon/user_expert.png"
+              alt="유저 아이콘"
+              width={24}
+              height={24}
+            />
+          ) : (
+            <Image
+              src="/images/Icon/user.png"
+              alt="유저 아이콘"
+              width={24}
+              height={24}
+            />
+          )}
+
+          <div className={styles.nameAndGrade}>
+            <div className={styles.nickname}>{item.user.nickname}</div>
+            <div className={styles.grade}>{formatGrade(item.user.grade)}</div>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.right}>
+        {/* 좋아요카운터 */}
+        <div className={styles.like}>
+          <Image
+            src="/images/Icon/icon_heart.svg"
+            alt="좋아요"
+            width={16}
+            height={16}
+          />
+
+          <div>{item.submission.heart_count}</div>
+        </div>
+        <Link href={`/challenges/1/submissions/${item.submission.id}`} className={styles.link}>
+          {' '}
+          작업물 보기 &gt;
+        </Link>
+      </div>
+    </div>
+  );
+}

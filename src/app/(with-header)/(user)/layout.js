@@ -1,3 +1,4 @@
+'use client';
 import UserHeader from '@/components/Layout/UserHeader/UserHeader.jsx';
 
 export default function WithUserHeaderLayout({ children }) {
