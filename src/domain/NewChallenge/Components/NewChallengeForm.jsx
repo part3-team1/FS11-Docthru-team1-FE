@@ -2,8 +2,11 @@
 import CategoryDropdown from '@/components/Dropdown/CategoryDropdown/CategoryDropdown';
 import * as styles from './NewChallengeForm.css';
 import { Controller, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { challengeRequests } from '@/api/challenges.API';
 
 export default function NewChallengeForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -12,32 +15,21 @@ export default function NewChallengeForm() {
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ mode: 'onSubmit' });
 
-  // 서버 연결시  이런 느낌스..
-  // const onSubmit = async (data) => {
-  //   try {
-  //     const response = await fetch('/challenge-requests', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     if (!response.ok) throw new Error('신청 실패');
-  //     alert('신청 완료!');
-  //      reset()
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert('신청 중 오류가 발생했습니다.');
-  //   }
-  // };
+  const onSubmit = async (data) => {
+    try {
+      await challengeRequests(data);
+      router.push('/my-page/my-challenge/participated');
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <>
       <form
         noValidate
         // onSubmit={handleSubmit(onSubmit)} 연결시 수정
-        onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className={styles.container}>
           <div className={styles.title}>신규 챌린지 신청</div>
