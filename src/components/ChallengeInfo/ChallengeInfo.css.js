@@ -31,5 +31,10 @@ export const chips = style({
 });
 
 export const content = style({
+  color: vars.color.gray700,
+  fontSize: '1rem',
+  fontWeight: 400,
+  fontStyle: 'normal',
+
   lineHeight: '130%',
 });
