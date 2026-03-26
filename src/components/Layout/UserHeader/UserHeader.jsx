@@ -10,6 +10,7 @@ import * as styles from './UserHeader.css.jsx';
 import { useEffect, useRef, useState } from 'react';
 import HeaderDropdown from '@/components/Dropdown/HeaderDropdown/HeaderDropdown.jsx';
 import NotificationDropdown from '@/components/Dropdown/NotificationDropdown/NotificationDropdown.jsx';
+import { useMe } from '@/lib/queryKeys.js';
 
 /*
   페이지 메인 부분, 
@@ -18,9 +19,15 @@ import NotificationDropdown from '@/components/Dropdown/NotificationDropdown/Not
 */
 
 export default function UserHeader() {
+  // 로그인 유저 데이터 가져옴
+  const { data } = useMe();
+  const user = data?.data;
+
   const wrapperRef = useRef();
   const hasNotification = true;
-  const isExpert = true;
+  //api로 수정
+  const isExpert = user?.role === 'EXPERT';
+  
   const [isHeaderDropdownOpen, setIsHeaderDropdownOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
@@ -49,7 +56,7 @@ export default function UserHeader() {
   }, []);
   return (
     <header className={styles.container}>
-      <Link href="/" className={styles.logoContainer}>
+      <Link href="/challenges" className={styles.logoContainer}>
         <Image src={logoImage} alt="logo.png" width={17.55} height={20.25} />
         <span className={styles.logoName}>Docthru</span>
       </Link>
@@ -73,7 +80,7 @@ export default function UserHeader() {
           {isHeaderDropdownOpen && (
             <HeaderDropdown
               userStatus={isExpert ? 'expert' : 'user'}
-              nickname={'JohnDoe'}
+              nickname={user?.nickname}
             />
           )}
         </div>

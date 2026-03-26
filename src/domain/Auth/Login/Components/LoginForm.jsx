@@ -3,24 +3,39 @@ import { useForm } from 'react-hook-form';
 import * as styles from './LoginForm.css.js';
 import Image from 'next/image.js';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation.js';
+import { userLogin } from '@/api/authAPI.js';
 
 export default function LoginForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const [serverError, SetServerError] = useState(false);
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      SetServerError(false);
+      await userLogin(data);
+      router.push('/challenges');
+    } catch (error) {
+      SetServerError(true);
+      console.error(error);
+    }
   };
 
   return (
     <form
       noValidate
       // 이거 확인용임.. 추후 지울예정
-      onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className={styles.container}>
         {/* 이메일 */}
@@ -71,11 +86,16 @@ export default function LoginForm() {
                 value: 8,
                 message: '비밀번호가 틀렸습니다.',
               },
+              onChange: () => SetServerError(false),
             })}
             // error이면 테두리 빨간색 짜잔
             // 맞는 양식이면 초록색 짜잔
             aria-invalid={
-              isSubmitted ? (errors.password ? 'true' : 'false') : undefined
+              isSubmitted
+                ? errors.password || serverError
+                  ? 'true'
+                  : 'false'
+                : undefined
             }
             className={styles.input}
           />
@@ -97,6 +117,11 @@ export default function LoginForm() {
           {errors.password && (
             <small role="alert" className={styles.message}>
               {errors.password.message}
+            </small>
+          )}
+          {serverError && (
+            <small role="alert" className={styles.message}>
+              이메일 또는 비밀번호가 올바르지 않습니다.
             </small>
           )}
         </div>
