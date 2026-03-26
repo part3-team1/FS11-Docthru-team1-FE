@@ -1,8 +1,10 @@
 'use client';
 import { Suspense, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import SearchBar from '@/components/SearchBar/SearchBar.jsx';
 import Pagination from '@/components/Pagination/Pagination.jsx';
+import ConfirmModal from '@/components/Modal/ConfirmModal/ConfirmModal.jsx';
 import * as styles from './UserManagement.css.js';
 
 const ROWS = Array.from({ length: 10 }, (_, i) => i);
@@ -16,6 +18,7 @@ const ROLE_IMAGE = {
 export default function UserManagement() {
   const [page, setPage] = useState(1);
   const [checkedRows, setCheckedRows] = useState([]);
+  const [showOverlay, setShowOverlay] = useState(false);
   const isAllChecked = checkedRows.length === ROWS.length;
 
   const handleAllCheck = () => {
@@ -30,6 +33,14 @@ export default function UserManagement() {
 
   return (
     <div className={styles.container}>
+      {showOverlay && createPortal(
+        <ConfirmModal
+          message='선택한 유저를 차단하시겠어요?'
+          onConfirm={() => setShowOverlay(false)}
+          onCancel={() => setShowOverlay(false)}
+        />,
+        document.body
+      )}
       <h1 className={styles.title}>유저 목록</h1>
       <div className={styles.controlsWrapper}>
         <button className={styles.filterButton}>
@@ -41,6 +52,13 @@ export default function UserManagement() {
             <SearchBar placeholder='유저의 닉네임을 검색해보세요' />
           </Suspense>
         </div>
+        <button
+          className={styles.blockButton}
+          onClick={() => setShowOverlay(true)}
+          disabled={checkedRows.length === 0}
+        >
+          차단하기
+        </button>
       </div>
       <table className={styles.table}>
         <colgroup>

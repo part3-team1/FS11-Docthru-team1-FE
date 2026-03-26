@@ -115,6 +115,46 @@ export const colName = style({ width: '12.875rem' });
 export const colEmail = style({ width: '17.875rem' });
 export const colChallenges = style({ width: '23rem' });
 
+export const overlay = style({
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100vw',
+  height: '100vh',
+  backgroundColor: 'rgba(0, 0, 0, 0.50)',
+  zIndex: 10,
+});
+
+export const blockButton = style({
+  display: 'flex',
+  width: '8.75rem',
+  padding: '0.5rem 0.5rem 0.5rem 0.75rem',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '0.625rem',
+  flexShrink: 0,
+
+  borderRadius: '2rem',
+  border: `1px solid ${vars.color.gray800}`,
+  backgroundColor: vars.color.white,
+
+  color: vars.color.gray800,
+  fontFamily: 'Pretendard',
+  fontSize: '1rem',
+  fontWeight: 600,
+  lineHeight: 'normal',
+  cursor: 'pointer',
+
+  selectors: {
+    '&:active': {
+      backgroundColor: vars.color.brandBlack,
+      border: `1px solid ${vars.color.brandBlack}`,
+      color: vars.color.white,
+    },
+  },
+});
+
 export const title = style({
   color: vars.color.gray800,
   fontFamily: 'Pretendard',
