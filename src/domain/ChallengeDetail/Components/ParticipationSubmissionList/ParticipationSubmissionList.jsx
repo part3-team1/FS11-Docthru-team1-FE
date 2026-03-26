@@ -6,7 +6,7 @@ import Image from 'next/image';
 import clsx from 'clsx';
 
 export default function ParticipationSubmissionList({ data }) {
-  const items = data ?? [];
+  const items = (data ?? []).sort((a,b)=> b.heartCount - a.heartCount)
   const itemsPerPage = 5;
   const totalPage = Math.ceil(items.length / itemsPerPage)
   const [currentPage, setCurrentPage] = useState(1);

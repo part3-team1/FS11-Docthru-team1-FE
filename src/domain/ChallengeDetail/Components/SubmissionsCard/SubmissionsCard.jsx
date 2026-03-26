@@ -4,7 +4,7 @@ import * as styles from './SubmissionsCard.css';
 import Image from 'next/image';
 
 export default function SubmissionsCard({ item, rank }) {
-  const isBest = item.submission.is_best;
+  const isBest = rank === 1;
   const formatGrade = (grade) => {
     const gradeMap = {
       EXPERT: '전문가',
@@ -17,7 +17,7 @@ export default function SubmissionsCard({ item, rank }) {
       {/* 순위 */}
       <div className={styles.left}>
         <div className={styles.best}>
-          {isBest ? (
+          {isBest  ? (
             <Image
               src="/images/Icon/free-icon-gold-medal-1910528.png"
               alt="1등"
@@ -64,9 +64,9 @@ export default function SubmissionsCard({ item, rank }) {
             height={16}
           />
 
-          <div>{item.submission.heart_count}</div>
+          <div>{item.heartCount}</div>
         </div>
-        <Link href={`/challenges/1/submissions/${item.submission.id}`} className={styles.link}>
+        <Link href={`/challenges/${item.challengeId}/submissions/${item.id}`} className={styles.link}>
           {' '}
           작업물 보기 &gt;
         </Link>
