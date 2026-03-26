@@ -19,6 +19,27 @@ export async function challengeById(id) {
 
 //챌린지 신청
 export async function challengeRequests(data) {
-  const res = await instance.post(`/challengeRequests`, data);
+  const categoryMap = {
+    'Next.js': 'NEXTJS',
+    API: 'API',
+    Career: 'CAREER',
+    'Modern JS': 'MODERNJS',
+    Web: 'WEB',
+  };
+
+  const documentTypeMap = {
+    공식문서: 'DOCUMENTATION',
+    블로그: 'BLOG',
+  };
+  const payload = {
+    ...data,
+    category: categoryMap[data.category],
+    documentType: documentTypeMap[data.documentType],
+    maxParticipants: Number(data.maxParticipants),
+    dueDate: new Date(data.dueDate + 'T00:00:00.000Z').toISOString(),
+  };
+  console.log('payload:', payload); 
+  const res = await instance.post(`/challengeRequests`, payload);
+
   return res.data;
 }
