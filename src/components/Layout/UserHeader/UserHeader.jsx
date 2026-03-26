@@ -10,7 +10,7 @@ import * as styles from './UserHeader.css.jsx';
 import { useEffect, useRef, useState } from 'react';
 import HeaderDropdown from '@/components/Dropdown/HeaderDropdown/HeaderDropdown.jsx';
 import NotificationDropdown from '@/components/Dropdown/NotificationDropdown/NotificationDropdown.jsx';
-import { useMe } from '@/lib/queryKeys.js';
+import { useAuth } from '@/Providers/AuthProvider.js';
 
 /*
   페이지 메인 부분, 
@@ -20,8 +20,8 @@ import { useMe } from '@/lib/queryKeys.js';
 
 export default function UserHeader() {
   // 로그인 유저 데이터 가져옴
-  const { data } = useMe();
-  const user = data?.data;
+  const { user, logout } = useAuth()
+
 
   const wrapperRef = useRef();
   const hasNotification = true;
