@@ -1,3 +1,7 @@
-export default function Page() {
-  return <>번역물 도전하기</>;
+import EditContainer from '@/domain/Edit/Container/EditContainer';
+
+export default async function Page({ searchParams }) {
+  const { challengeId } = await searchParams;
+
+  return <EditContainer mode="create" challengeId={challengeId} />;
 }
