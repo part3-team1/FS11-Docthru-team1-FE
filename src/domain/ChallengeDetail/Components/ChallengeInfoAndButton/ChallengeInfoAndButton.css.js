@@ -21,4 +21,8 @@ export const nicknameContainer = style({
   alignItems: 'center',
   gap: vars.space.sm,
   marginTop:vars.space.md,
+
+  color: vars.color.gray800,
+  fontSize: '0.75rem',
+  fontWeight: 500,
 });
