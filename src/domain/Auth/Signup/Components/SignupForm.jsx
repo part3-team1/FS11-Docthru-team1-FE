@@ -3,8 +3,11 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as styles from './SignupForm.css';
+import { signup } from '@/api/authAPI';
+import { useRouter } from 'next/navigation';
 
 export default function SignupForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -17,11 +20,18 @@ export default function SignupForm() {
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
   };
+
+  const onSubmit = async (data) => {
+    try {
+      const { passwordConfirm, ...rest } = data;
+      await signup(rest);
+      router.push('/challenges');
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
-    <form
-      noValidate
-      onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
-    >
+    <form noValidate onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.container}>
         {/* 이메일 */}
         <div className={styles.section}>
@@ -57,10 +67,10 @@ export default function SignupForm() {
             닉네임
           </label>
           <input
-            id="nickName"
+            id="nickname"
             type="text"
             placeholder="닉네임을 입력해주세요"
-            {...register('nickName', {
+            {...register('nickname', {
               required: '닉네임은 필수 입력입니다.',
               minLength: {
                 value: 2,
@@ -68,13 +78,13 @@ export default function SignupForm() {
               },
             })}
             aria-invalid={
-              isSubmitted ? (errors.nickName ? 'true' : 'false') : undefined
+              isSubmitted ? (errors.nickname ? 'true' : 'false') : undefined
             }
             className={styles.input}
           />
-          {errors.nickName && (
+          {errors.nickname && (
             <small role="alert" className={styles.message}>
-              {errors.nickName.message}
+              {errors.nickname.message}
             </small>
           )}
         </div>
@@ -92,8 +102,15 @@ export default function SignupForm() {
               required: '비밀번호는 필수 입력입니다.',
               minLength: {
                 value: 8,
-                message: '비밀번호가 틀렸습니다.',
+                message: '8자 이상 작성해주세요',
               },
+              maxLength: {
+                value: 12,
+                message: '12자 이하로 작성해주세요',
+              },
+              validate: (value) =>
+                /[~!@#$%^&*]/.test(value) ||
+                '특수문자(~!@#$%^&*)를 하나 이상 포함해야 합니다.',
             })}
             aria-invalid={
               isSubmitted ? (errors.password ? 'true' : 'false') : undefined

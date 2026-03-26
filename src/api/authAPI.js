@@ -32,8 +32,25 @@ export async function userLogin(data) {
 }
 
 //회원가입
+export async function signup(data) {
+  const response = await fetch(`${BASE_URL}/auth/signup`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  });
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message);
+  }
 
-//소셜회원가입
+  return await response.json();
+}
+
+//소셜 로그인 + 회원가입
+// export function googleLogin() {
+//   window.location.href = `http://localhost:5005/api/auth/login/google`
+// }
 
 //로그아웃
 export async function logout() {
