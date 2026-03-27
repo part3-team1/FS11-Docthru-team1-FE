@@ -3,17 +3,29 @@ import { useState } from 'react';
 import * as styles from './FeedInput.css';
 import Image from 'next/image';
 import ComentCard from '../FeedbackCard/FeedbackCard';
+import MoreBtn from '@/components/MoreBtn/MoreBtn';
+import { addFeedback } from '@/api/challenges.API';
+import { useQueryClient } from '@tanstack/react-query';
 
-const feedback = ['테스트 내용'];
-
-export default function FeedInput({ currentUser, submission }) {
+export default function FeedInput({
+  currentUser,
+  feedbacks,
+  fetchNextPage,
+  hasNextPage,
+  isLoading,
+  submissionId,
+}) {
+  const queryClient = useQueryClient();
   const [coment, setComent] = useState('');
 
-  // const handleSubmit = async () => {
-  //   if (!coment.trim()) return;
-  //   await creatComent(coment);
-  //   setComent('');
-  // }
+  const handleSubmit = async () => {
+    if (!coment.trim()) return;
+    await addFeedback(submissionId, coment);
+    setComent('');
+    queryClient.invalidateQueries({
+      queryKey: ['submissions', submissionId, 'feedbacks'],
+    });
+  };
 
   const handleChange = (e) => {
     setComent(e.target.value);
@@ -29,7 +41,7 @@ export default function FeedInput({ currentUser, submission }) {
           className={styles.input}
         />
 
-        <button type="button" className={styles.addBtn}>
+        <button type="button" onClick={handleSubmit} className={styles.addBtn}>
           <Image
             src={
               coment
@@ -39,26 +51,28 @@ export default function FeedInput({ currentUser, submission }) {
             alt="댓글등록버튼"
             width={40}
             height={40}
-            // onClick={handleSubmit}
           />
         </button>
       </div>
 
       {/* 댓글 카드map */}
-      {/* currentUser={currentUser} 서버 연결시 삽입 */}
 
-      {submission?.feedbacks?.map((feedback) => (
+      {feedbacks?.map((data) => (
         <ComentCard
-          key={feedback.id}
-          feedback={feedback}
+          key={data.id}
+          feedbacks={data}
           currentUser={currentUser}
-          challengeId={submission.challenge_Id}
-          submission={submission}
+          challengeId={data.id}
+          submission={data}
         />
       ))}
 
       {/* 더보기 */}
-      <button className={styles.moreBtn}>더보기</button>
+      <MoreBtn
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isFetchingNextPage={isLoading}
+      />
     </div>
   );
 }
