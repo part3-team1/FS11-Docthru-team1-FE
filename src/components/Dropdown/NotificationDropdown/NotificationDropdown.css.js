@@ -46,10 +46,36 @@ export const dropdownContent = style({
   gap: vars.space.sm,
   margin: `${vars.space.md} ${vars.space.lg}`,
   borderBottom: `2px solid  ${vars.color.gray200}`,
+  paddingBottom: vars.space.md,
+
+  selectors: {
+    '&:last-child': {
+      borderBottom: 'none',
+    },
+  },
 });
 
 export const message = style({});
 
+export const dateAndDeleteButton = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+});
+
 export const date = style({
   color: vars.color.gray400,
+});
+
+export const deleteButton = style({
+  backgroundColor: vars.color.white,
+  border: 0,
+  cursor: 'pointer',
+
+  selectors: {
+    '&:hover': {
+      border: `1px solid ${vars.color.brandYellow}`,
+      borderRadius: vars.radius.sm,
+      color: vars.color.brandYellow,
+    },
+  },
 });
