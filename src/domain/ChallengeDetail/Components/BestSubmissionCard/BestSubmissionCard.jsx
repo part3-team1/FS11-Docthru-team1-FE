@@ -2,6 +2,7 @@ import Image from 'next/image';
 import * as styles from './BestSubmissionCard.css';
 
 export default function BestSubmissionCard({ item }) {
+  if (!item) return null;
   const formatGrade = (grade) => {
     const gradeMap = {
       EXPERT: '전문가',
@@ -51,7 +52,7 @@ export default function BestSubmissionCard({ item }) {
                 />
               )}
 
-              <div className={styles.nickname}>{item.user.nickname}</div>
+              <div className={styles.nickname}>{item.nickname}</div>
               <div className={styles.grade}>{formatGrade(item.user.grade)}</div>
             </div>
 

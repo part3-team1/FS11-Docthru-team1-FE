@@ -6,6 +6,7 @@ import ChallengeInfo from '@/components/ChallengeInfo/ChallengeInfo';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 
 export function ChallengeInfoAndButton({ data, currentUser, isParticipating }) {
+  const challengeUser = data?.request?.user
   return (
     <div className={styles.infoContainer}>
       <div>
@@ -17,9 +18,9 @@ export function ChallengeInfoAndButton({ data, currentUser, isParticipating }) {
                 currentUser={currentUser}
                 content={{
                   type: 'challenge',
-                  authorId: data?.requester?.id,
+                  authorId: data?.id,
                   status: data?.status,
-                  current_participants: data?.current_participants,
+                  currentParticipants: data?.currentParticipants,
                   isBlocked: false,
                 }}
                 editHref={`/challenges/${data?.id}/edit-callenge`}
@@ -29,7 +30,7 @@ export function ChallengeInfoAndButton({ data, currentUser, isParticipating }) {
           }
         />
         <div className={styles.nicknameContainer}>
-          {data.requester.grade === 'NORMAL' ? (
+          {challengeUser?.grade === 'NORMAL' ? (
             <Image
               src="/images/icon/user.png"
               alt="일반유저 아이콘"
@@ -44,7 +45,7 @@ export function ChallengeInfoAndButton({ data, currentUser, isParticipating }) {
               height={24}
             />
           )}
-          <div>{data.requester.nickname}</div>
+          <div>{challengeUser?.nickname}</div>
         </div>
       </div>
       <div>

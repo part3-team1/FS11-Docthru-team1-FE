@@ -5,9 +5,11 @@ import Image from 'next/image.js';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation.js';
 import { userLogin } from '@/api/authAPI.js';
+import { useAuth } from '@/Providers/AuthProvider.js';
 
 export default function LoginForm() {
   const router = useRouter();
+  const { setUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -23,7 +25,8 @@ export default function LoginForm() {
   const onSubmit = async (data) => {
     try {
       SetServerError(false);
-      await userLogin(data);
+      const res = await userLogin(data);
+      setUser(res.data);
       router.push('/challenges');
     } catch (error) {
       SetServerError(true);

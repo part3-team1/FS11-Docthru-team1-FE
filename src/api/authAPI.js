@@ -1,50 +1,27 @@
-const BASE_URL = '/api';
+// const BASE_URL = '/api';
+import axios from 'axios';
+
+const instance = axios.create({
+  baseURL: '/api',
+  withCredentials: true,
+});
 
 //로그인 유저
 export async function getMe() {
-  const response = await fetch(`${BASE_URL}/auth/me`, {
-    method: 'GET',
-    credentials: 'include',
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
-  return await response.json();
+  const res = await instance.get('/auth/me');
+  return res.data;
 }
 
 //유저 로그인
 export async function userLogin(data) {
-  const response = await fetch(`${BASE_URL}/auth/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
-
-  return await response.json();
+  const res = await instance.post('/auth/login', data);
+  return res.data;
 }
 
 //회원가입
 export async function signup(data) {
-  const response = await fetch(`${BASE_URL}/auth/signup`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify(data),
-  });
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
-
-  return await response.json();
+  const res = await instance.post('/auth/signup', data);
+  return res.data;
 }
 
 //소셜 로그인 + 회원가입
@@ -54,13 +31,6 @@ export async function signup(data) {
 
 //로그아웃
 export async function logout() {
-  const response = await fetch(`${BASE_URL}/auth/logout`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-  });
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
+  const res = await instance.post('/auth/logout');
+  return res.data;
 }

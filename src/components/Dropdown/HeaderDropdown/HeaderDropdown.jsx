@@ -5,9 +5,10 @@ import admin_img from '@/../public/Images/Icon/admin.png';
 import Image from 'next/image.js';
 import Link from 'next/link.js';
 import { useRouter } from 'next/navigation.js';
-import { logout } from '@/api/authAPI.js';
+import { useAuth } from '@/Providers/AuthProvider.js';
 
 export default function HeaderDropdown({ userStatus, nickname }) {
+    const { logout } = useAuth();
   const router = useRouter();
 
   const handleLogout = async () => {

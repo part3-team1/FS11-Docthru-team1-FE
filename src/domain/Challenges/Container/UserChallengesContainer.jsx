@@ -15,7 +15,8 @@ import ChallengeListHeader from '../Components/ChallengeListHeader';
 import Pagination from '@/components/Pagination/Pagination';
 import { mockChallenges } from '@/mock/mockChallenges';
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useChallengeList } from '@/lib/queryKeys';
+
 
 const challenges = mockChallenges;
 
@@ -28,13 +29,17 @@ export default function UserChallengesContainer({}) {
   const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(1);
   const PAGESIZE = 5;
-  const TOTALCOUNT = challenges.length;
 
-  const startIndex = (page - 1) * PAGESIZE;
-const endIndex = startIndex + PAGESIZE;
-
-const paginatedChallenges = challenges.slice(startIndex, endIndex);
-
+  const { data, isLoading } = useChallengeList({
+    skip: (page - 1) * PAGESIZE,
+    take: PAGESIZE,
+    category: filter.category.join(','),
+    status: filter.status,
+    keyword,
+  })
+  const challenge = data?.data?.challenges ?? [];
+  const totalCount = data?.data?.totalCount ?? 0;
+  console.log('challenge',challenge)
   // const { data, isLoading } = useQuery({
   //   queryKey: ['challenges', filter, keyword, page],
   //   queryFn: () => {
@@ -54,26 +59,26 @@ const paginatedChallenges = challenges.slice(startIndex, endIndex);
         onFilterChange={setFilter}
         onKeywordChange={setKeyword}
       />
-      {/* {isLoading && <ChallengeCardSkeletonList />}
-      {!isLoading && data?.totalCount === 0 && <div>챌린지 없음</div>}
-      {!isLoading && data?.totalCount > 0 && (
+      {isLoading && <ChallengeCardSkeletonList />}
+      {!isLoading && totalCount === 0 && <div>챌린지 없음</div>}
+      {!isLoading && totalCount > 0 && (
         <>
-          <ChallengeCardList challenges={data?.items ?? []} />
+          <ChallengeCardList challenges={challenge ?? []} />
           <Pagination
             page={page}
-            totalCount={data?.totalCount ?? 0}
+            totalCount={totalCount ?? 0}
             pageSize={PAGESIZE}
             onPageChange={setPage}
           />
         </>
-      )} */}
-      <ChallengeCardList challenges={paginatedChallenges} />
+      )}
+      {/* <ChallengeCardList challenges={paginatedChallenges} />
       <Pagination
             page={page}
             totalCount={TOTALCOUNT}
             pageSize={PAGESIZE}
             onPageChange={setPage}
-          />
+          /> */}
     </>
   );
 }

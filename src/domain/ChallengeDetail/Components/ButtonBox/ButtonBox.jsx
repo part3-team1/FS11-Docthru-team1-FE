@@ -42,15 +42,15 @@ export default function ButtonBox({ data, currentUser, isParticipating }) {
   return (
     <div className={styles.container}>
       <div className={styles.dateAndPerson}>
-        <DueDate dueDate={data.due_date} />
+        <DueDate dueDate={data.dueDate} />
         <ChallengeParticipants
-          current={data.current_participants}
-          max={data.max_participants}
+          current={data.currentParticipants}
+          max={data.maxParticipants}
         />
       </div>
 
       <div className={styles.btnContainer}>
-        <LinkButton href={data.doc_url} preset="original" />
+        <LinkButton href={data.docUrl} preset="original" />
 
         {randerButton()}
       </div>
