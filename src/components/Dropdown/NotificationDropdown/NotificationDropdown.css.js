@@ -44,9 +44,8 @@ export const dropdownContent = style({
   flexDirection: 'column',
 
   gap: vars.space.sm,
-  margin: `${vars.space.md} ${vars.space.lg}`,
   borderBottom: `2px solid  ${vars.color.gray200}`,
-  paddingBottom: vars.space.md,
+  padding: vars.space.md,
 
   selectors: {
     '&:last-child': {
@@ -67,14 +66,17 @@ export const date = style({
 });
 
 export const deleteButton = style({
+  border: `1px solid ${vars.color.white}`,
+  borderRadius: vars.radius.sm,
   backgroundColor: vars.color.white,
-  border: 0,
   cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 
   selectors: {
     '&:hover': {
       border: `1px solid ${vars.color.brandYellow}`,
-      borderRadius: vars.radius.sm,
       color: vars.color.brandYellow,
     },
   },

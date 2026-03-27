@@ -51,12 +51,15 @@ export async function readNotification(id) {
 
 //DELETE /notifications/:id
 export async function deleteNotification(id) {
-  const response = await fetch(`${BASE_URL}/notifications/${id}`);
+  const response = await fetch(`${BASE_URL}/notifications/${id}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
 
   if (!response.ok) {
     const error = await response.json();
     throw new Error(error.message);
   }
 
-  return await response.json();
+  return;
 }
