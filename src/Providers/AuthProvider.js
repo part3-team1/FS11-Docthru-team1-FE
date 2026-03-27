@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { logout as logoutAPI, getMe } from '@/api/authAPI';
 import { createContext, useContext, useEffect, useState } from 'react';
 
@@ -9,7 +9,9 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     getMe()
-      .then((res)=>setUser(res.data))
+      .then((res) => {
+        setUser(res.data);
+      })
       .catch(() => setUser(null));
   }, []);
 
@@ -25,9 +27,8 @@ export function AuthProvider({ children }) {
   );
 }
 
-
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error('useAuth는 AuthProvider안에서 사용해야 합니다.');
-  return ctx
+  return ctx;
 }
