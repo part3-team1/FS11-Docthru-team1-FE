@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState } from 'react';
 import * as styles from './FilterDropdown.css.jsx';
 import Image from 'next/image';
 import filter_black from '@/../public/Images/Icon/ic_filter_black.png';
@@ -121,13 +121,11 @@ export default function FilterDropdown({ onApply }) {
         <div className={styles.filterContainer}>
           <div className={styles.filterHeader}>
             <span className={styles.filterTitle}>필터</span>
-            <span>
-              <Image src={ic_out} alt="ic_out.png" onClick={handleClickClose} />
-            </span>
+            <Image src={ic_out} alt="ic_out.png" onClick={handleClickClose} width={24} height={24} style={{ cursor: 'pointer' }} />
           </div>
           <div className={styles.filterBoxWrapper}>
             <div>
-              <span>분야</span>
+              <span className={styles.categoryLabel}>분야</span>
               <div className={styles.labelContainer}>
                 {checkboxCategory.map((item) => (
                   <label key={item.value} className={styles.labelItem}>
@@ -146,7 +144,7 @@ export default function FilterDropdown({ onApply }) {
                       alt="checkbox.png"
                       className={styles.customImage}
                     />
-                    <span>{item.label}</span>
+                    <span className={styles.labelText}>{item.label}</span>
                   </label>
                 ))}
               </div>
@@ -154,7 +152,7 @@ export default function FilterDropdown({ onApply }) {
           </div>
           <div className={styles.filterBoxWrapper}>
             <div>
-              <span>문서타입</span>
+              <span className={styles.categoryLabel}>문서타입</span>
               <div className={styles.labelContainer}>
                 {radioType.map((item) => (
                   <label key={item.value} className={styles.labelItem}>
@@ -170,7 +168,7 @@ export default function FilterDropdown({ onApply }) {
                       alt="radio.png"
                       className={styles.customImage}
                     />
-                    <span>{item.label}</span>
+                    <span className={styles.labelText}>{item.label}</span>
                   </label>
                 ))}
               </div>
@@ -178,7 +176,7 @@ export default function FilterDropdown({ onApply }) {
           </div>
           <div className={`${styles.filterBoxWrapper} ${styles.lastBox}`}>
             <div>
-              <span>상태</span>
+              <span className={styles.categoryLabel}>상태</span>
               <div className={styles.labelContainer}>
                 {radioStatus.map((item) => (
                   <label key={item.value} className={styles.labelItem}>
@@ -194,7 +192,7 @@ export default function FilterDropdown({ onApply }) {
                       alt="radio.png"
                       className={styles.customImage}
                     />
-                    <span>{item.label}</span>
+                    <span className={styles.labelText}>{item.label}</span>
                   </label>
                 ))}
               </div>
@@ -204,11 +202,17 @@ export default function FilterDropdown({ onApply }) {
             <Button
               variant="outline"
               size="pcMedium"
+              className={styles.resetButton}
               onClick={handleClickReset}
             >
               초기화
             </Button>
-            <Button variant="solid" size="pcMedium" onClick={handleClickApply}>
+            <Button
+              variant="solid"
+              size="pcMedium"
+              className={styles.applyButton}
+              onClick={handleClickApply}
+            >
               적용하기
             </Button>
           </div>

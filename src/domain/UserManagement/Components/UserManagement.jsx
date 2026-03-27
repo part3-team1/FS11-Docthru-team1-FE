@@ -1,5 +1,5 @@
 'use client';
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import SearchBar from '@/components/SearchBar/SearchBar.jsx';
@@ -7,37 +7,73 @@ import Pagination from '@/components/Pagination/Pagination.jsx';
 import ConfirmModal from '@/components/Modal/ConfirmModal/ConfirmModal.jsx';
 import * as styles from './UserManagement.css.js';
 
-const ROWS = Array.from({ length: 10 }, (_, i) => i);
+const PAGE_SIZE = 10;
 
 const ROLE_IMAGE = {
-  admin: '/Images/Icon/admin.png',
-  user_expert: '/Images/Icon/user_expert.png',
-  user: '/Images/Icon/user.png',
+  ADMIN: '/Images/Icon/admin.png',
+  MASTER: '/Images/Icon/admin.png',
+  USER: '/Images/Icon/user.png',
+};
+
+const GRADE_IMAGE = {
+  EXPERT: '/Images/Icon/user_expert.png',
+  NORMAL: '/Images/Icon/user.png',
 };
 
 export default function UserManagement() {
   const [page, setPage] = useState(1);
+  const [users, setUsers] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [checkedRows, setCheckedRows] = useState([]);
-  const [showOverlay, setShowOverlay] = useState(false);
-  const isAllChecked = checkedRows.length === ROWS.length;
+  const [showBlockOverlay, setShowBlockOverlay] = useState(false);
+  const [showPromoteOverlay, setShowPromoteOverlay] = useState(false);
+
+  const isAllChecked = users.length > 0 && checkedRows.length === users.length;
+
+  useEffect(() => {
+    const skip = (page - 1) * PAGE_SIZE;
+    fetch(`/api/users?skip=${skip}&take=${PAGE_SIZE}`, { credentials: 'include' })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success) {
+          setUsers(json.data.users);
+          setTotalCount(json.data.totalCount);
+          setCheckedRows([]);
+        }
+      })
+      .catch(console.error);
+  }, [page]);
 
   const handleAllCheck = () => {
-    setCheckedRows(isAllChecked ? [] : ROWS.map((i) => i));
+    setCheckedRows(isAllChecked ? [] : users.map((u) => u.id));
   };
 
-  const handleRowCheck = (i) => {
+  const handleRowCheck = (id) => {
     setCheckedRows((prev) =>
-      prev.includes(i) ? prev.filter((r) => r !== i) : [...prev, i]
+      prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id]
     );
+  };
+
+  const getRoleImage = (user) => {
+    if (user.role === 'ADMIN' || user.role === 'MASTER') return ROLE_IMAGE[user.role];
+    return GRADE_IMAGE[user.grade] ?? ROLE_IMAGE['USER'];
   };
 
   return (
     <div className={styles.container}>
-      {showOverlay && createPortal(
+      {showBlockOverlay && createPortal(
         <ConfirmModal
           message='선택한 유저를 차단하시겠어요?'
-          onConfirm={() => setShowOverlay(false)}
-          onCancel={() => setShowOverlay(false)}
+          onConfirm={() => setShowBlockOverlay(false)}
+          onCancel={() => setShowBlockOverlay(false)}
+        />,
+        document.body
+      )}
+      {showPromoteOverlay && createPortal(
+        <ConfirmModal
+          message='선택한 유저를 승격하시겠어요?'
+          onConfirm={() => setShowPromoteOverlay(false)}
+          onCancel={() => setShowPromoteOverlay(false)}
         />,
         document.body
       )}
@@ -52,13 +88,22 @@ export default function UserManagement() {
             <SearchBar placeholder='유저의 닉네임을 검색해보세요' />
           </Suspense>
         </div>
-        <button
-          className={styles.blockButton}
-          onClick={() => setShowOverlay(true)}
-          disabled={checkedRows.length === 0}
-        >
-          차단하기
-        </button>
+        <div className={styles.buttonGroup}>
+          <button
+            className={styles.promoteButton}
+            onClick={() => setShowPromoteOverlay(true)}
+            disabled={checkedRows.length === 0}
+          >
+            승격하기
+          </button>
+          <button
+            className={styles.blockButton}
+            onClick={() => setShowBlockOverlay(true)}
+            disabled={checkedRows.length === 0}
+          >
+            차단하기
+          </button>
+        </div>
       </div>
       <table className={styles.table}>
         <colgroup>
@@ -88,13 +133,13 @@ export default function UserManagement() {
           </tr>
         </thead>
         <tbody>
-          {Array.from({ length: 10 }).map((_, i) => (
-            <tr key={i}>
+          {users.map((user) => (
+            <tr key={user.id} className={checkedRows.includes(user.id) ? styles.tableBodyRowChecked : undefined}>
               <td className={`${styles.tableBodyCell} ${styles.checkboxCell}`}>
                 <label className={styles.checkboxLabel}>
-                  <input type='checkbox' className={styles.hideDefault} checked={checkedRows.includes(i)} onChange={() => handleRowCheck(i)} />
+                  <input type='checkbox' className={styles.hideDefault} checked={checkedRows.includes(user.id)} onChange={() => handleRowCheck(user.id)} />
                   <Image
-                    src={checkedRows.includes(i) ? '/Images/Icon/checkbox_checked.svg' : '/Images/Icon/checkbox_normal.svg'}
+                    src={checkedRows.includes(user.id) ? '/Images/Icon/checkbox_checked.svg' : '/Images/Icon/checkbox_normal.svg'}
                     alt='선택'
                     width={20}
                     height={20}
@@ -103,24 +148,40 @@ export default function UserManagement() {
               </td>
               <td className={styles.tableBodyCell}>
                 <Image
-                  src={ROLE_IMAGE['user']} // To Do: API 연결 후 ROLE_IMAGE[user.role] 교체하면 해당 아이디의 프로필 이미지 연동
-                  alt='role'
-                  width={40}
-                  height={40}
+                  src={getRoleImage(user)}
+                  alt={user.role}
+                  width={37}
+                  height={37}
                 />
               </td>
-              {/* 저녁에 BE 폴더 업데이트 예정. 최신화 후 각 컬럼 등 값 GET/api/admin/users로 연결 예정. */}
-              <td className={styles.tableBodyCell}>-</td>
-              <td className={styles.tableBodyCell}>-</td>
-              <td className={styles.tableBodyCell}>-</td>
+              <td className={styles.tableBodyCell}>{user.nickname}</td>
+              <td className={styles.tableBodyCell}>{user.email}</td>
+              <td className={`${styles.tableBodyCell} ${styles.challengeCell}`}>
+                {user.participations?.length > 0 ? (
+                  <>
+                    <span className={styles.challengeTitle}>
+                      {user.participations[0].challenge?.title}
+                    </span>
+                    {user.participations.length > 1 && (
+                      <div className={styles.challengeDropdown}>
+                        {user.participations.slice(1).map((p, idx) => (
+                          <div key={idx} className={styles.challengeDropdownItem}>
+                            {p.challenge?.title}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ) : '-'}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
       <Pagination
         page={page}
-        totalCount={100}
-        pageSize={10}
+        totalCount={totalCount}
+        pageSize={PAGE_SIZE}
         onPageChange={(p) => setPage(p)}
       />
     </div>
