@@ -3,21 +3,22 @@ import * as styles from './FeedbackCard.css';
 import { useState } from 'react';
 
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
+import { useDeleteFeedback, usePatchFeedback } from '@/lib/queryKeys';
 
 export default function ComentCard({
-  feedback,
+  feedbacks,
   currentUser,
   challengeId,
-  submissionId,
+  submission,
 }) {
-  // useState(feedback.content)으로 수정 예정
-  const [editValue, setEditValue] = useState(feedback?.content);
+  const { mutate: editFeedbacks } = usePatchFeedback();
+  const { mutate: deleteFeedback } = useDeleteFeedback();
+  const [editValue, setEditValue] = useState(feedbacks?.content);
   const [isEditing, setIsEditing] = useState(false);
-  // 목데이터용
-  const [isBlocked, setIsBlocked] = useState(feedback?.is_blocked);
+  const [isBlocked, setIsBlocked] = useState(feedbacks?.isBlocked);
 
   const handleCancel = () => {
-    setEditValue(feedback);
+    setEditValue(feedbacks.content);
     setIsEditing(false);
   };
 
@@ -25,30 +26,24 @@ export default function ComentCard({
     setEditValue(e.target.value);
   };
 
-  // 서버 연결시 주석 헤제
-  // const { mutate: editFeedback } = useMutation({
-  //   mutationFn: () => fetch(`/api/feedback/${feedbackId}`, {
-  //     method: 'PATCH',
-  //     body:JSON.stringify({content:editValue})
-  //   }),
-  //   onSuccess: () => {
-  //     QueryClient.invalidateQueries({ query: key: ['feedback']})
-  //     setIsEditing(false)
-  //   }
-  // })
+  // 수정
+  const handleEdit = () => {
+    editFeedbacks({ id: feedbacks.id, content: editValue });
+    setIsEditing(false);
+  };
+
+  //삭제
+  const handleDelete = () => {
+    deleteFeedback(feedbacks.id);
+  };
 
   return (
     <>
-      {/* 기본 feedback / 가리기 */}
+      {/*  가리기 */}
       {!isEditing && (
-        <div
-          // className={feedback?.is_blocked ? styles.blockedContainer : styles.container} api연결시 이거로 교체 지금 보이는건 목데이터용
-          className={isBlocked ? styles.blockedContainer : styles.container}
-        >
+        <div className={isBlocked ? styles.blockedContainer : styles.container}>
           {/* 블러 오버레이 */}
 
-          {/* {feedback?.is_blocked && (    데이터연결용*/}
-          {/* 목데이터용 */}
           {isBlocked && (
             <div className={styles.blockOverlay}>
               <span className={styles.blockComent}>
@@ -57,24 +52,33 @@ export default function ComentCard({
             </div>
           )}
 
+          {/* 기본 feedback */}
           <div className={styles.infoContainer}>
             <div className={styles.infoContainer}>
-              <Image
-                src="/images/icon/user.png"
-                alt="유저 아이콘"
-                width={32}
-                height={32}
-              />
+              {feedbacks?.user.grade === 'NORMAL' ? (
+                <Image
+                  src="/images/icon/user.png"
+                  alt="일반유저 아이콘"
+                  width={24}
+                  height={24}
+                />
+              ) : (
+                <Image
+                  src="/images/icon/user_expert.png"
+                  alt="전문가 아이콘"
+                  width={24}
+                  height={24}
+                />
+              )}
               <div className={styles.info}>
-                <div className={styles.nickName}>{feedback.nickname}</div>
-                <div className={styles.creatDate}>{feedback.created_at}</div>
+                <div className={styles.nickName}>{feedbacks.user.nickname}</div>
+                <div className={styles.creatDate}>{feedbacks.createdAt}</div>
               </div>
             </div>
 
             <div
               className={
-                // 앞은 데이터용 뒤는 목데이터용
-                feedback?.is_blocked || isBlocked
+                feedbacks?.isBlocked || isBlocked
                   ? styles.dropdownWrapperBlocked
                   : styles.dropdownWrapper
               }
@@ -83,17 +87,17 @@ export default function ComentCard({
                 currentUser={currentUser}
                 content={{
                   type: 'feedback',
-                  authorId: feedback?.user_id,
-                  isBlocked: feedback?.is_blocked || isBlocked,
+                  authorId: feedbacks?.userId,
+                  isBlocked: feedbacks?.isBlocked || isBlocked,
                 }}
                 onEdit={() => setIsEditing(true)}
                 // 목데이터 버전
-                onDelete={() => setIsBlocked((prev) => !prev)}
+                onDelete={handleDelete}
               />
             </div>
           </div>
 
-          <div className={styles.content}>{feedback.content}</div>
+          <div className={styles.content}>{feedbacks.content}</div>
         </div>
       )}
 
@@ -102,15 +106,24 @@ export default function ComentCard({
         <div className={styles.editContainer}>
           <div className={styles.infoTotalContainer}>
             <div className={styles.infoContainer}>
-              <Image
-                src="/images/icon/user.png"
-                alt="유저 아이콘"
-                width={32}
-                height={32}
-              />
+              {feedbacks?.user.grade === 'NORMAL' ? (
+                <Image
+                  src="/images/icon/user.png"
+                  alt="일반유저 아이콘"
+                  width={24}
+                  height={24}
+                />
+              ) : (
+                <Image
+                  src="/images/icon/user_expert.png"
+                  alt="전문가 아이콘"
+                  width={24}
+                  height={24}
+                />
+              )}
               <div className={styles.info}>
-                <div className={styles.nickName}>{feedback.nickName}</div>
-                <div className={styles.creatDate}> {feedback.created_at}</div>
+                <div className={styles.nickName}>{feedbacks.user.nickname}</div>
+                <div className={styles.creatDate}> {feedbacks.createdAt}</div>
               </div>
             </div>
 
@@ -123,8 +136,7 @@ export default function ComentCard({
                 취소
               </button>
 
-              {/* onClick={editFeedback} 서버 연결시 삽입 */}
-              <button type="button" className={styles.btn}>
+              <button type="button" onClick={handleEdit} className={styles.btn}>
                 수정
               </button>
             </div>

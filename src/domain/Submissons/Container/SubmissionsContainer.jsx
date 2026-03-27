@@ -13,12 +13,13 @@ export default function SubmissonsContainer({ id }) {
     fetchNextPage,
     hasNextPage,
     isLoading: isFeedbackLoading,
+    error:feedbackError,
   } = useFeedbacksList(id);
+
 
   const data = submissionData?.data;
   const feedbacks = feedbackData?.pages.flatMap(page=>page.data.feedbacks)??[]
 
-  console.log({ id, isLoading, submissionData, error });
 
   if (isLoading) return <div>로딩중...</div>;
   if (!data) return null;
@@ -35,6 +36,7 @@ export default function SubmissonsContainer({ id }) {
         hasNextPage={hasNextPage}
         isLoading={isFeedbackLoading}
         submissionId={data.id}
+        error={feedbackError}
       />
     </div>
   );

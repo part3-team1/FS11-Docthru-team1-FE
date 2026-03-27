@@ -5,6 +5,7 @@ import Image from 'next/image';
 import ComentCard from '../FeedbackCard/FeedbackCard';
 import MoreBtn from '@/components/MoreBtn/MoreBtn';
 import { addFeedback } from '@/api/challenges.API';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function FeedInput({
   currentUser,
@@ -14,12 +15,16 @@ export default function FeedInput({
   isLoading,
   submissionId,
 }) {
+  const queryClient = useQueryClient();
   const [coment, setComent] = useState('');
 
   const handleSubmit = async () => {
     if (!coment.trim()) return;
     await addFeedback(submissionId, coment);
     setComent('');
+    queryClient.invalidateQueries({
+      queryKey: ['submissions', submissionId, 'feedbacks'],
+    });
   };
 
   const handleChange = (e) => {

@@ -48,22 +48,31 @@ export default function Content({ currentUser, submission }) {
         </div>
 
         <div className={styles.categoryContainer}>
-          {/* 분야 / 데이터 가져와야함 현재는 임시로 지정 */}
-          <TypeChip type="CAREER" />
+          {/* 분야 */}
+          <TypeChip type={submission.challenge.category} />
           {/* 문서타입 */}
-          <CategoryChip category="BLOG" />
+          <CategoryChip category={submission.challenge.documentType} />
         </div>
       </div>
       {/* middle */}
       <div className={styles.infoContainer}>
         <div className={styles.leftContainer}>
           <div className={styles.user}>
+          {submission?.user.grade === 'NORMAL' ? (
             <Image
               src="/images/icon/user.png"
-              alt="유저 아이콘"
+              alt="일반유저 아이콘"
               width={24}
               height={24}
             />
+          ) : (
+            <Image
+              src="/images/icon/user_expert.png"
+              alt="전문가 아이콘"
+              width={24}
+              height={24}
+            />
+          )}
             <div className={styles.nickName}>{submission.user.nickname}</div>
           </div>
           <div className={styles.like}>
