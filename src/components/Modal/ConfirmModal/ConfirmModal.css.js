@@ -50,7 +50,7 @@ export const message = style({
 
 export const buttonGroup = style({
   display: 'flex',
-  gap: vars.space.xl,
+  gap: '0.5rem',
 });
 
 export const cancelBtn = style({
