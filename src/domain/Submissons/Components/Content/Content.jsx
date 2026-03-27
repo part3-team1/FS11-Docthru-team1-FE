@@ -1,17 +1,35 @@
-'use client';
 import { CategoryChip, TypeChip } from '@/components/Chip';
 import Image from 'next/image';
 import * as styles from './Content.css';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
+import { deleteSubmissionById } from '@/api/challenges.API';
+import { useRouter } from 'next/navigation';
 
 export default function Content({ currentUser, submission }) {
+  const router = useRouter()
+  const formatDate = (dateStr) => {
+    const date = new Date(dateStr);
+    const yy = String(date.getFullYear()).slice(2);
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
+    return `${yy}/${mm}/${dd}`;
+  };
+
+  const handleDelete = async () => {
+    await deleteSubmissionById(submission.id);
+    router.back()
+  }
+
+
   return (
     <div className={styles.container}>
       {/* top */}
       <div className={styles.titleContainer}>
         <div className={styles.totalTitle}>
           <div>
-            <div className={styles.challengeTitle}>{submission.challenge.title}</div>
+            <div className={styles.challengeTitle}>
+              {submission.challenge.title}
+            </div>
             <div className={styles.submissionTitle}>{submission.title}</div>
           </div>
 
@@ -19,13 +37,13 @@ export default function Content({ currentUser, submission }) {
             currentUser={currentUser}
             content={{
               type: 'submission',
-              authorId: submission.user_id,
+              authorId: submission.userId,
               status: null,
               current_participants: 0,
               isBlocked: false,
             }}
             editHref={`/submissions/${submission.id}/edit`}
-            // onDelete={() => deleteSubmission(submission.id)} 추후 연결
+            onDelete={() => handleDelete()} 
           />
         </div>
 
@@ -46,7 +64,7 @@ export default function Content({ currentUser, submission }) {
               width={24}
               height={24}
             />
-            <div className={styles.nickName}>{submission.nickname}</div>
+            <div className={styles.nickName}>{submission.user.nickname}</div>
           </div>
           <div className={styles.like}>
             <Image
@@ -55,15 +73,19 @@ export default function Content({ currentUser, submission }) {
               width={16}
               height={16}
             />
-            <div className={styles.likeCount}>{submission.heart_count}</div>
+            <div className={styles.likeCount}>{submission.heartCount}</div>
           </div>
         </div>
 
-        <div className={styles.creatDate}>{submission.created_at}</div>
+        <div className={styles.creatDate}>
+          {formatDate(submission.createdAt)}
+        </div>
       </div>
 
       <div className={styles.content}>
-        {submission.content}
+        {submission.content.blocks.map((block, i) => (
+          <div key={i}> {block.text}</div>
+        ))}
       </div>
     </div>
   );

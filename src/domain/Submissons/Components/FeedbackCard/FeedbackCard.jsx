@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import * as styles from './FeedbackCard.css';
 import { useState } from 'react';
-import { useQueryClient, useMutation } from '@tanstack/react-query';
+
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 
 export default function ComentCard({

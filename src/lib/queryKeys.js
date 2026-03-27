@@ -1,32 +1,54 @@
-import { getMe } from "@/api/authAPI"
-import { challengeById, challengeList } from "@/api/challenges.API"
-import { useQuery } from "@tanstack/react-query"
-
+import { getMe } from '@/api/authAPI';
+import {
+  challengeById,
+  challengeList,
+  feedbacksList,
+  submissionById,
+} from '@/api/challenges.API';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 //챌린지 리스트 +페이지네이션
-export const useChallengeList = (params={}) => {
+export const useChallengeList = (params = {}) => {
   return useQuery({
     queryKey: ['challenges', params],
-    queryFn:()=>challengeList(params)
-  })
-}
+    queryFn: () => challengeList(params),
+  });
+};
 
 //챌린지 상세 페이지
 export const useChallengeDetail = (id) => {
   return useQuery({
     queryKey: ['challenges', id],
-    queryFn:()=>challengeById(id)
-  })
-}
+    queryFn: () => challengeById(id),
+  });
+};
 
+//서브미션 상세페이지
+export const useSubmissionDetail = (id) => {
+  return useQuery({
+    queryKey: ['submissions', id],
+    queryFn: () => submissionById(id),
+  });
+};
 
+//서브미션 상세페이지의 피드백 목록 조회 + 무한스크롤 페이지네이션
+export const useFeedbacksList = (id) => {
+  return useInfiniteQuery({
+    queryKey: ['submissions', id, 'feedbacks'],
+    queryFn: ({ pageParam = 0 }) => feedbacksList(id, { skip, pageParam, take: 5 }),
+    getNextPageParam: (lastPage, allPages) => {
+      const fetched = allPages.length * 5;
+      return fetched < lastPage.data.totalCount ? fetched : undefined;
+    }
+  });
+};
 
-//로그인 상태 쿼리키 
+//로그인 상태 쿼리키
 export const useMe = () => {
   return useQuery({
     queryKey: ['me'],
     queryFn: getMe,
     retry: false,
     throwOnError: false,
-  })
-}
+  });
+};

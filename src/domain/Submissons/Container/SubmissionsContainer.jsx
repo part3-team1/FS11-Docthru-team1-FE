@@ -1,24 +1,41 @@
-import { mockCurrentUser, mockSubmission } from '@/mock/submissionMockData.js';
+'use client';
 import Content from '../Components/Content/Content.jsx';
 import FeedInput from '../Components/FeedInput/FeedInput.jsx';
 import * as styles from './SubmissonsContainer.css.js';
+import { useAuth } from '@/Providers/AuthProvider.js';
+import { useFeedbacksList, useSubmissionDetail } from '@/lib/queryKeys.js';
 
-// 여기서 쿼리로 데이터 가져옴
+export default function SubmissonsContainer({ id }) {
+  const { user: currentUser } = useAuth();
+  const { data: submissionData, isLoading, error } = useSubmissionDetail(id);
+  const {
+    data: feedbackData,
+    fetchNextPage,
+    hasNextPage,
+    isLoading: isFeedbackLoading,
+  } = useFeedbacksList(id);
 
-export default function SubmissonsContainer({ challengeId, submissionId }) {
-  // 현재 로그인 한 사람 체크하는 훅 만들고, 여기에 그 훅 가져다 쓰고
+  const data = submissionData?.data;
+  const feedbacks = feedbackData?.pages.flatMap(page=>page.data.feedbacks)??[]
 
-  // useQuery로 데이터 가져오고   /api/challenges/${challengeId}/submissions/${submissionId}
+  console.log({ id, isLoading, submissionData, error });
 
-  const currentUser = mockCurrentUser;
-  const submission = mockSubmission;
+  if (isLoading) return <div>로딩중...</div>;
+  if (!data) return null;
 
-  if (!currentUser || !submission) return null;
+  if (!currentUser || !data) return null;
 
   return (
     <div className={styles.container}>
-      <Content currentUser={currentUser} submission={submission} />
-      <FeedInput currentUser={currentUser} submission={submission} />
+      <Content currentUser={currentUser} submission={data} />
+      <FeedInput
+        currentUser={currentUser}
+        feedbacks={feedbacks}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        isLoading={isFeedbackLoading}
+        submissionId={data.id}
+      />
     </div>
   );
 }
