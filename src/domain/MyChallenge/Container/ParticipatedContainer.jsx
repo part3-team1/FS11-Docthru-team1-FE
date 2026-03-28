@@ -1,3 +1,15 @@
+import { ChallengeCardList } from '@/components/ChallengeCard';
+import SearchBar from '@/components/SearchBar/SearchBar';
+import { mockChallenges } from '@/mock/mockChallenges';
+import * as styles from './container.css';
+
 export default function ParticipatedContainer({}) {
-    return <>참여중인 챌린지 페이지</>
+  const challenges = mockChallenges;
+
+  return (
+    <div className={styles.container}>
+      <SearchBar />
+      <ChallengeCardList challenges={challenges} />
+    </div>
+  );
 }

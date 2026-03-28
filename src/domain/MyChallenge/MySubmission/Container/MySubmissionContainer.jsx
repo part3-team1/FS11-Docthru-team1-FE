@@ -1,5 +1,5 @@
 'use client';
-import * as styles from '../Components/MySubmission.css.js';
+import * as styles from '../../Container/container.css';
 import SearchBar from '@/components/SearchBar/SearchBar';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
