@@ -25,8 +25,8 @@ export default function ChallengeCard({
           {topRight && <div className={styles.topRight}>{topRight}</div>}
           <h2 className={styles.title}>{challenge.title}</h2>
           <div className={styles.chipWrapper}>
-            <TypeChip type={challenge.type} />
-            <CategoryChip category={challenge.category} />
+            <TypeChip type={challenge.category} />
+            <CategoryChip category={challenge.documentType} />
           </div>
         </div>
 
@@ -34,8 +34,8 @@ export default function ChallengeCard({
           <div className={styles.infoWrapper}>
             <DueDate dueDate={challenge.dueDate} />
             <ChallengeParticipantStatus
-              current={challenge.current_participants}
-              max={challenge.max_participants}
+              current={challenge.currentParticipants}
+              max={challenge.maxParticipants}
             />
           </div>
           {action && <div className={styles.action}>{action}</div>}

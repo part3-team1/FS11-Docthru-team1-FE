@@ -42,7 +42,8 @@ export const filterContainer = style({
   border: `2px solid ${vars.color.gray200}`,
   backgroundColor: vars.color.white,
 
-  width: '21.4375rem',
+  width: '21.19rem',
+  paddingBottom: vars.space.lg,
 
   position: 'absolute',
   left: 0,
@@ -54,6 +55,7 @@ export const filterHeader = style({
   justifyContent: 'space-between',
   alignItems: 'center',
   marginTop: vars.space.lg,
+  marginBottom: vars.space.lg,
   paddingLeft: vars.space.lg,
   paddingRight: vars.space.lg,
 });
@@ -61,26 +63,48 @@ export const filterHeader = style({
 export const filterTitle = style({
   color: vars.color.gray800,
   fontFamily: 'Pretendard',
-  fontSize: '0.875rem',
+  fontSize: '1rem',
   fontStyle: 'normal',
   fontWeight: '600',
   lineHeight: 'normal',
 });
 
 export const filterBoxWrapper = style({
-  paddingTop: vars.space.md,
-  paddingLeft: vars.space.lg,
-  paddingBottom: vars.space.md,
-  borderBottom: '2px solid var(--gray-gray200, #E5E5E5);',
+  display: 'flex',
+  width: '21.19rem',
+  padding: '0.75rem 14.1875rem 0.875rem 1rem',
+  alignItems: 'center',
+  borderBottom: `2px solid ${vars.color.gray200}`,
 });
 export const lastBox = style({
   borderBottom: 0,
 });
 
+export const categoryLabel = style({
+  color: vars.color.gray800,
+  fontFamily: 'Pretendard',
+  fontSize: '0.875rem',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  lineHeight: 'normal',
+});
+
+/* 상단 'filterContainer' 부터 각 카테고리를 컨테이너로 치부, 각 컨테이너 간의 gap과 padding값으로 여백 처리 */
 export const labelContainer = style({
   display: 'flex',
   flexDirection: 'column',
+  alignItems: 'flex-start',
+  gap: vars.space.xs,
   marginTop: vars.space.md,
+});
+
+export const labelText = style({
+  color: vars.color.gray800,
+  fontFamily: 'Pretendard',
+  fontSize: '0.875rem',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: 'normal',
 });
 
 export const labelItem = style({
@@ -102,11 +126,46 @@ export const customImage = style({
   height: vars.space.xl,
 });
 
+/* '초기화'와 '적용하기' 버튼은 크기와 내부 텍스트 값이 의도적으로 동일하지 않음. */
+export const resetButton = style({
+  width: '8.375rem',
+  height: '2.5rem',
+  padding: '0.125rem 1rem 0.1875rem 1rem',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '0.25rem',
+  flexShrink: 0,
+
+  color: vars.color.gray800,
+  fontFamily: 'Pretendard',
+  fontSize: '1rem',
+  fontStyle: 'normal',
+  fontWeight: 600,
+  lineHeight: 'normal',
+});
+
+export const applyButton = style({
+  width: '10.5625rem',
+  padding: '0.4375rem 0',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexShrink: 0,
+  alignSelf: 'stretch',
+
+  color: vars.color.white,
+  fontFamily: 'Pretendard',
+  fontSize: '0.875rem',
+  fontStyle: 'normal',
+  fontWeight: 700,
+  lineHeight: '1.625rem',
+});
+
 export const buttonContainer = style({
   display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'center',
+  height: '3.5rem',
   padding: `${vars.space.sm} ${vars.space.lg}`,
+  justifyContent: 'center',
   alignItems: 'flex-start',
-  gap: vars.space.sm,
+  gap: '0.5rem',
+  marginTop: vars.space.md,
 });

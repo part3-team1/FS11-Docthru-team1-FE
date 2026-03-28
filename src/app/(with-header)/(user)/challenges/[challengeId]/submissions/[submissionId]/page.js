@@ -1,6 +1,6 @@
 import SubmissonsContainer from '@/domain/Submissons/Container/SubmissionsContainer';
 
-export default function Page({ params }) {
-  const { submissionId } = params;
+export default async function Page({ params }) {
+  const { submissionId } = await params;
   return <SubmissonsContainer id={submissionId} />;
 }

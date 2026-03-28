@@ -5,9 +5,11 @@ import { useForm } from 'react-hook-form';
 import * as styles from './SignupForm.css';
 import { signup } from '@/api/authAPI';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/Providers/AuthProvider';
 
 export default function SignupForm() {
   const router = useRouter();
+  const { setUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -24,7 +26,8 @@ export default function SignupForm() {
   const onSubmit = async (data) => {
     try {
       const { passwordConfirm, ...rest } = data;
-      await signup(rest);
+      const res = await signup(rest);
+      setUser(res.data);
       router.push('/challenges');
     } catch (error) {
       console.error(error);

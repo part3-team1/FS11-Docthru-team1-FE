@@ -2,49 +2,45 @@ const BASE_URL = '/api';
 
 //로그인 유저
 export async function getMe() {
-  const response = await fetch(`${BASE_URL}/auth/me`, {
-    method: 'GET',
+  const res = await fetch(`${BASE_URL}/auth/me`, {
     credentials: 'include',
   });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
 
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
-  return await response.json();
+  return json();
 }
 
 //유저 로그인
 export async function userLogin(data) {
-  const response = await fetch(`${BASE_URL}/auth/login`, {
+  const res = await fetch(`${BASE_URL}/auth/login`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+    },
     credentials: 'include',
     body: JSON.stringify(data),
   });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
 
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
-
-  return await response.json();
+  return json();
 }
 
 //회원가입
 export async function signup(data) {
-  const response = await fetch(`${BASE_URL}/auth/signup`, {
+  const res = await fetch(`${BASE_URL}/auth/signup`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+    },
     credentials: 'include',
     body: JSON.stringify(data),
   });
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
 
-  return await response.json();
+  return json();
 }
 
 //소셜 로그인 + 회원가입
@@ -54,13 +50,10 @@ export async function signup(data) {
 
 //로그아웃
 export async function logout() {
-  const response = await fetch(`${BASE_URL}/auth/logout`, {
+  const res = await fetch(`${BASE_URL}/auth/logout`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
   });
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
-  }
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
 }
