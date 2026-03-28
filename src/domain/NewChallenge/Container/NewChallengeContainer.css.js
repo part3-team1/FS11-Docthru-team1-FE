@@ -2,7 +2,7 @@ import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  padding: '5.75rem 0 2.31rem',
+  paddingBottom: '2.31rem',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

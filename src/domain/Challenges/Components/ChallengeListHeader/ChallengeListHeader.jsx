@@ -13,7 +13,7 @@ export default function ChallengeListHeader({
     <section className={styles.challengeListHeader}>
       <div className={styles.titleBar}>
         <h2 className={styles.title}>챌린지 목록</h2>
-        <LinkButton preset="apply" href="/new-challenge" />
+        <LinkButton preset="apply" href="/challenges/new" />
       </div>
       <div className={styles.filterBar}>
         <FilterDropdown onApply={onFilterChange} />
