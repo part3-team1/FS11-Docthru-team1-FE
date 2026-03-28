@@ -60,5 +60,12 @@ export const focusedUnderline = style({
 });
 
 export const underLine = style({
-  borderBottom: `1px solid ${vars.color.gray500}`,
+  borderBottom: `1px solid ${vars.color.gray300}`,
 });
+
+export const row = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  
+  });
