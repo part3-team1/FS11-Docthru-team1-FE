@@ -1,9 +1,9 @@
-import Header from '@/components/Layout/PublicHeader/Header';
+import AdaptiveHeader from "@/components/Layout/AdaptiveHeader/AdaptiveHeader";
 
 export default function WithHeaderLayout({ children }) {
   return (
     <>
-      <Header />
+      <AdaptiveHeader />
       {children}
     </>
   );
