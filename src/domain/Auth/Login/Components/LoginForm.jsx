@@ -5,6 +5,7 @@ import Image from 'next/image.js';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation.js';
 import { useLogin } from '../../hooks/useLogin.js';
+import { googleLogin } from '@/api/authAPI.js';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -141,7 +142,7 @@ export default function LoginForm() {
         </button>
       </div>
       {/* 구글 */}
-      <button type="button" className={styles.googleBtn}>
+      <button type="button" onClick={()=>googleLogin()} className={styles.googleBtn}>
         <Image
           src="/images/icon/google.svg"
           alt="구글아이콘"
