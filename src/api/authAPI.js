@@ -8,7 +8,7 @@ export async function getMe() {
   const json = await res.json();
   if (!res.ok) throw new Error(json.message);
 
-  return json();
+  return json;
 }
 
 //유저 로그인
@@ -24,7 +24,7 @@ export async function userLogin(data) {
   const json = await res.json();
   if (!res.ok) throw new Error(json.message);
 
-  return json();
+  return json;
 }
 
 //회원가입
@@ -40,7 +40,7 @@ export async function signup(data) {
   const json = await res.json();
   if (!res.ok) throw new Error(json.message);
 
-  return json();
+  return json;
 }
 
 //소셜 로그인 + 회원가입
@@ -54,6 +54,9 @@ export async function logout() {
     method: 'POST',
     credentials: 'include',
   });
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.message);
+  if (!res.ok) {
+    const json = await res.json();
+    throw new Error(json.message);
+  }
+  return;
 }

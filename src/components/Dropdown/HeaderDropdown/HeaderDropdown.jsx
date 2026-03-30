@@ -12,12 +12,10 @@ export default function HeaderDropdown({ userStatus, nickname }) {
   const router = useRouter();
 
   const handleLogout = async () => {
-    try {
-      await logout();
-      router.push('/');
-    } catch (error) {
-      console.error(error);
-    }
+    logout(undefined, {
+      onSuccess: () => router.push('/'),
+      onError:(error)=>console.error(error)
+    })
   };
 
   return (
