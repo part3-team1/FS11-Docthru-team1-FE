@@ -4,34 +4,36 @@ import * as styles from './LoginForm.css.js';
 import Image from 'next/image.js';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation.js';
-import { userLogin } from '@/api/authAPI.js';
-import { useAuth } from '@/Providers/AuthProvider.js';
+import { useLogin } from '../../hooks/useLogin.js';
 
 export default function LoginForm() {
   const router = useRouter();
-  const { setUser } = useAuth();
+  const { mutate: login, isPending } = useLogin();
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
-  const [serverError, SetServerError] = useState(false);
+  const [serverError, setServerError] = useState(false);
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit = async (data) => {
-    try {
-      SetServerError(false);
-      const res = await userLogin(data);
-      setUser(res.data);
-      router.push('/challenges');
-    } catch (error) {
-      SetServerError(true);
-      console.error(error);
-    }
+  const onSubmit = (data) => {
+    setServerError(false);
+    login(data, {
+      onSuccess: (data) => {
+        const role = data.data.role;
+        if (role === 'ADMIN' || role === 'MASTER') {
+          router.push('/admin/challenge-management');
+        } else {
+          router.push('/challenges');
+        }
+      },
+      onError: () => setServerError(true),
+    });
   };
 
   return (
@@ -89,7 +91,7 @@ export default function LoginForm() {
                 value: 8,
                 message: '비밀번호가 틀렸습니다.',
               },
-              onChange: () => SetServerError(false),
+              onChange: () => setServerError(false),
             })}
             // error이면 테두리 빨간색 짜잔
             // 맞는 양식이면 초록색 짜잔
