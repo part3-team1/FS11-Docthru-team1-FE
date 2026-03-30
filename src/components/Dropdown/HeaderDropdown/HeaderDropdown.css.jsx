@@ -25,7 +25,7 @@ export const upper = style({
   display: 'flex',
   flexDirection: 'row',
 
-  padding: '1rem 2.94rem 1rem 1rem',
+  padding: '1rem 2.94rem 0.5rem 1rem',
   gap: vars.space.sm,
 });
 
@@ -65,7 +65,10 @@ export const divider = style({
 export const lower = style({
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'center',
+  gap: vars.space.md,
+  paddingTop: '0.94rem',
+  paddingLeft: '1rem',
+  paddingBottom: '0.94rem',
 });
 
 export const linkToMyChallenge = style({
@@ -75,7 +78,7 @@ export const linkToMyChallenge = style({
   fontSize: '1rem',
 
   display: 'flex',
-  padding: '0.4375rem 3.875rem 0.375rem 1rem',
+  // padding: '0.4375rem 3.875rem 0.375rem 1rem',
 });
 
 export const logoutButton = style({
@@ -83,7 +86,7 @@ export const logoutButton = style({
   cursor: 'pointer',
 
   display: 'flex',
-  padding: '0.375rem 5rem 0.4375rem 1rem',
-  // marginTop: '0.5rem',
-  // marginBottom: '0.5rem',
+  // padding: '0.375rem 5rem 0.4375rem 1rem',
+  // // marginTop: '0.5rem',
+  // // marginBottom: '0.5rem',
 });
