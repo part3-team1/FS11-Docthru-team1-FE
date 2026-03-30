@@ -13,12 +13,8 @@ import {
 } from '@/components/ChallengeCard';
 import ChallengeListHeader from '../Components/ChallengeListHeader';
 import Pagination from '@/components/Pagination/Pagination';
-import { mockChallenges } from '@/mock/mockChallenges';
 import { useEffect, useState } from 'react';
-import { useChallengeList } from '@/lib/queryKeys';
-
-
-const challenges = mockChallenges;
+import { useChallengeList } from '../hooks/useChallengeList';
 
 export default function UserChallengesContainer({}) {
   const [filter, setFilter] = useState({
@@ -28,46 +24,38 @@ export default function UserChallengesContainer({}) {
   });
   const [keyword, setKeyword] = useState('');
   const [page, setPage] = useState(1);
-  const PAGESIZE = 5;
 
-  const { data, isLoading } = useChallengeList({
-    skip: (page - 1) * PAGESIZE,
-    take: PAGESIZE,
-    category: filter.category.join(','),
-    status: filter.status,
+  const { challenges, totalCount, pageSize, isLoading } = useChallengeList({
+    filter,
     keyword,
-  })
-  const challenge = data?.data?.challenges ?? [];
-  const totalCount = data?.data?.totalCount ?? 0;
-  console.log('challenge',challenge)
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ['challenges', filter, keyword, page],
-  //   queryFn: () => {
-  //     const URL = `/api/challenges?page=${page}&limit=${PAGESIZE}&category=${filter.category.join(',')}&type=${filter.type}&status=${filter.status}&keyword=${keyword}`;
-  //     console.log(URL);
-  //     return fetch(URL).then((r) => r.json());
-  //   },
-  // });
+    page,
+  });
 
-  useEffect(() => {
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+    setPage(1)
+  };
+
+  const handleKeywordChange = (newKeyword) => {
+    setKeyword(newKeyword);
     setPage(1);
-  }, [filter, keyword]);
+  }
 
   return (
     <>
       <ChallengeListHeader
-        onFilterChange={setFilter}
-        onKeywordChange={setKeyword}
+        onFilterChange={handleFilterChange}
+        onKeywordChange={handleKeywordChange}
       />
       {isLoading && <ChallengeCardSkeletonList />}
       {!isLoading && totalCount === 0 && <div>챌린지 없음</div>}
       {!isLoading && totalCount > 0 && (
         <>
-          <ChallengeCardList challenges={challenge ?? []} />
+          <ChallengeCardList challenges={challenges ?? []} />
           <Pagination
             page={page}
             totalCount={totalCount ?? 0}
-            pageSize={PAGESIZE}
+            pageSize={pageSize}
             onPageChange={setPage}
           />
         </>
