@@ -44,12 +44,40 @@ export const dropdownContent = style({
   flexDirection: 'column',
 
   gap: vars.space.sm,
-  margin: `${vars.space.md} ${vars.space.lg}`,
   borderBottom: `2px solid  ${vars.color.gray200}`,
+  padding: vars.space.md,
+
+  selectors: {
+    '&:last-child': {
+      borderBottom: 'none',
+    },
+  },
 });
 
 export const message = style({});
 
+export const dateAndDeleteButton = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+});
+
 export const date = style({
   color: vars.color.gray400,
+});
+
+export const deleteButton = style({
+  border: `1px solid ${vars.color.white}`,
+  borderRadius: vars.radius.sm,
+  backgroundColor: vars.color.white,
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+
+  selectors: {
+    '&:hover': {
+      border: `1px solid ${vars.color.brandYellow}`,
+      color: vars.color.brandYellow,
+    },
+  },
 });
