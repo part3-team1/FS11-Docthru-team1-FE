@@ -3,7 +3,6 @@ import CategoryDropdown from '@/components/Dropdown/CategoryDropdown/CategoryDro
 import * as styles from './NewChallengeForm.css';
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { challengeRequests } from '@/api/challenges.API';
 import { useRequest } from '../hooks/useRequest';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 
