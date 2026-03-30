@@ -1,31 +1,23 @@
 'use client';
 import TableColumn from '@/components/TableColumn/TableColumn';
-import { commentedSubmissionsData } from '@/mock/myActivityMockData';
 import * as styles from './FeedbackSubmissionContainer.css';
 import { useState } from 'react';
 import Pagination from '@/components/Pagination/Pagination';
+import { useFeedbackSubmission } from '../hook/useFeedbackSubmission';
 
 export default function FeedbackSubmissionContainer() {
   const [page, setPage] = useState(1);
   const pageSize = 10;
+  const { list, totalCount, isLoading } = useFeedbackSubmission({ page, pageSize })
 
-  const list = commentedSubmissionsData.feedbacks
-    .slice((page - 1) * pageSize, page * pageSize)
-    .map((feedback) => ({
-      nickName: feedback.nickname,
-      submissionTitle: feedback.submission_title,
-      challengeTitle: feedback.challenge_title,
-      heartCount: feedback.heart_count,
-      category: feedback.category,
-      document_type: feedback.document_type,
-    }));
+  if(isLoading) return <div>로딩중...</div>
 
   return (
     <div className={styles.container}>
       <div className={styles.columnScroll}>
         <div className={styles.columnContainer}>
-          <TableColumn option="분야" data={list} field="category" />
-          <TableColumn option="카테고리" data={list} field="document_type" />
+          <TableColumn option="분야" data={list} field="documentType" />
+          <TableColumn option="카테고리" data={list} field="category" />
           <TableColumn
             option="챌린지 제목"
             data={list}
@@ -44,7 +36,7 @@ export default function FeedbackSubmissionContainer() {
       {/* 페이지네이션 */}
       <Pagination
         page={page}
-        totalCount={commentedSubmissionsData.totalCount}
+        totalCount={totalCount}
         pageSize={pageSize}
         onPageChange={(p) => setPage(p)}
       />

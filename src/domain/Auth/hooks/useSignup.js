@@ -7,7 +7,7 @@ export const useSignup = () => {
   return useMutation({
     mutationFn: signup,
     onSuccess: (data) => {
-      queryClient.setQueryData(queryKeys.auth.me(), data.data);
+      queryClient.setQueryData(queryKeys.auth.me(), data);
     },
   });
 };
