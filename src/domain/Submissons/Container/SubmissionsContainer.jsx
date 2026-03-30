@@ -1,30 +1,26 @@
 'use client';
+import { useRequireAuth } from '@/hooks/useRequireAuth.js';
 import Content from '../Components/Content/Content.jsx';
 import FeedInput from '../Components/FeedInput/FeedInput.jsx';
+import { useSubmissionDetail } from '../hooks/useSubmissionDetail.js';
 import * as styles from './SubmissonsContainer.css.js';
-import { useAuth } from '@/Providers/AuthProvider.js';
-import { useFeedbacksList, useSubmissionDetail } from '@/lib/queryKeys.js';
+
 
 export default function SubmissonsContainer({ id }) {
-  const { user: currentUser } = useAuth();
-  const { data: submissionData, isLoading, error } = useSubmissionDetail(id);
+    const { user } = useRequireAuth();
   const {
-    data: feedbackData,
+    currentUser,
+    data,
+    feedbacks,
     fetchNextPage,
     hasNextPage,
-    isLoading: isFeedbackLoading,
-    error:feedbackError,
-  } = useFeedbacksList(id);
-
-
-  const data = submissionData?.data;
-  const feedbacks = feedbackData?.pages.flatMap(page=>page.data.feedbacks)??[]
-
+    isLoading,
+    isFeedbackLoading,
+    feedbackError,
+  } = useSubmissionDetail(id);
 
   if (isLoading) return <div>로딩중...</div>;
-  if (!data) return null;
-
-  if (!currentUser || !data) return null;
+  if (!currentUser || !data || !user) return null;
 
   return (
     <div className={styles.container}>

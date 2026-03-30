@@ -7,8 +7,8 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const { data: user, isLoading } = useMe();
-
+  const { data, isLoading } = useMe();
+  const user = data?.data;
   const { mutate: logout } = useLogout();
 
   return (
