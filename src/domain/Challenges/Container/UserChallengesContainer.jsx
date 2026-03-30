@@ -13,7 +13,7 @@ import {
 } from '@/components/ChallengeCard';
 import ChallengeListHeader from '../Components/ChallengeListHeader';
 import Pagination from '@/components/Pagination/Pagination';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useChallengeList } from '../hooks/useChallengeList';
 
 export default function UserChallengesContainer({}) {

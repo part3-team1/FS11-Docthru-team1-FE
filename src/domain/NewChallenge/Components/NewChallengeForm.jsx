@@ -5,9 +5,12 @@ import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { challengeRequests } from '@/api/challenges.API';
 import { useRequest } from '../hooks/useRequest';
+import { useRequireAuth } from '@/hooks/useRequireAuth';
 
 export default function NewChallengeForm() {
   const router = useRouter();
+  const { user, isLoading } = useRequireAuth();
+
   const { mutate: request, isPending } = useRequest();
   const {
     register,
@@ -17,11 +20,13 @@ export default function NewChallengeForm() {
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ mode: 'onSubmit' });
 
+  if (isLoading || !user) return null;
+
   const onSubmit = (data) => {
     request(data, {
       onSuccess: () => router.push('/my-page/my-challenge/participated'),
-      onError:(error)=>console.error(error),
-    })
+      onError: (error) => console.error(error),
+    });
   };
 
   return (
