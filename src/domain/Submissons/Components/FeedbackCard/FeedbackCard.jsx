@@ -1,18 +1,16 @@
 import Image from 'next/image';
 import * as styles from './FeedbackCard.css';
 import { useState } from 'react';
-
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
-import { useDeleteFeedback, usePatchFeedback } from '@/lib/queryKeys';
+import { useFeedback } from '../../hooks/useFeedback';
+
 
 export default function ComentCard({
   feedbacks,
   currentUser,
-  challengeId,
-  submission,
+  submissionId
 }) {
-  const { mutate: editFeedbacks } = usePatchFeedback();
-  const { mutate: deleteFeedback } = useDeleteFeedback();
+  const { editFeedback, removeFeedback } = useFeedback(submissionId);
   const [editValue, setEditValue] = useState(feedbacks?.content);
   const [isEditing, setIsEditing] = useState(false);
   const [isBlocked, setIsBlocked] = useState(feedbacks?.isBlocked);
@@ -28,13 +26,14 @@ export default function ComentCard({
 
   // 수정
   const handleEdit = () => {
-    editFeedbacks({ id: feedbacks.id, content: editValue });
+     console.log('handleEdit 실행', feedbacks.id, editValue) 
+    editFeedback({ id: feedbacks.id, content: editValue });
     setIsEditing(false);
   };
 
   //삭제
   const handleDelete = () => {
-    deleteFeedback(feedbacks.id);
+    removeFeedback(feedbacks.id);
   };
 
   return (
@@ -91,7 +90,6 @@ export default function ComentCard({
                   isBlocked: feedbacks?.isBlocked || isBlocked,
                 }}
                 onEdit={() => setIsEditing(true)}
-                // 목데이터 버전
                 onDelete={handleDelete}
               />
             </div>
