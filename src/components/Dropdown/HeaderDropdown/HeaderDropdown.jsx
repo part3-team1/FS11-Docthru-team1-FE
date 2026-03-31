@@ -8,14 +8,14 @@ import { useRouter } from 'next/navigation.js';
 import { useAuth } from '@/Providers/AuthProvider.js';
 
 export default function HeaderDropdown({ userStatus, nickname }) {
-    const { logout } = useAuth();
+  const { logout } = useAuth();
   const router = useRouter();
 
   const handleLogout = async () => {
     logout(undefined, {
       onSuccess: () => router.push('/'),
-      onError:(error)=>console.error(error)
-    })
+      onError: (error) => console.error(error),
+    });
   };
 
   return (
@@ -46,12 +46,20 @@ export default function HeaderDropdown({ userStatus, nickname }) {
       <div className={styles.divider} />
       <div className={styles.lower}>
         {userStatus !== 'admin' && (
-          <Link
-            href="/my-page/my-challenge"
-            className={styles.linkToMyChallenge}
-          >
-            나의 챌린지
-          </Link>
+          <>
+            <Link
+              href="/my-page/my-challenge"
+              className={styles.linkToMyChallenge}
+            >
+              나의 챌린지
+            </Link>
+            <Link
+              href="/my-page/my-activity/liked"
+              className={styles.linkToMyChallenge}
+            >
+              나의 활동
+            </Link>
+          </>
         )}
         <span className={styles.logoutButton} onClick={handleLogout}>
           로그아웃
