@@ -3,16 +3,19 @@ import { queryKeys } from '@/lib/queryKeys'; // ✅ 추가
 import { useAuth } from '@/Providers/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 
-export const useFeedbackSubmission = ({ page = 1, pageSize = 10 }) => { // ✅ 대문자
+export const useFeedbackSubmission = ({ page = 1, pageSize = 10 }) => {
+  // ✅ 대문자
   const { user } = useAuth();
   const { data, isLoading } = useQuery({
     queryKey: [...queryKeys.user.meFeedbacks(), { page, pageSize }],
-    queryFn: () => feedbackSubmission({ skip: (page - 1) * pageSize, take: pageSize }),
+    queryFn: () =>
+      feedbackSubmission({ skip: (page - 1) * pageSize, take: pageSize }),
     enabled: !!user,
   });
 
   const list = (data?.data?.items ?? []).map((feedback) => ({
-    id: feedback.id,
+    id: feedback.submission.id,
+    challengeId: feedback.submission.challenge.id,
     nickName: feedback.submission.user.nickname,
     submissionTitle: feedback.submission.title,
     challengeTitle: feedback.submission.challenge.title,

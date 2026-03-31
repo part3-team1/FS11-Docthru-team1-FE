@@ -68,6 +68,11 @@ export const like = style({
   alignItems: 'center',
 });
 
+export const heartIcon = style({
+  position: 'relative',
+  top:'0.1rem'
+})
+
 export const likeCount = style({
   fontSize: '0.875rem',
   fontWeight: 500,

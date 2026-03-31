@@ -4,13 +4,15 @@ import * as styles from '../../FeedbackSubmission/Container/FeedbackSubmissionCo
 import { useState } from 'react';
 import Pagination from '@/components/Pagination/Pagination';
 import { useLikeSubmission } from '../hook/useLikeSubmission';
+import { useRouter } from 'next/navigation';
 
 export default function LikeSubmissionContainer() {
+  const router = useRouter();
   const [page, setPage] = useState(1);
   const pageSize = 10;
-  const { list, totalCount, isLoading } = useLikeSubmission({ page, pageSize })
-
-  if(isLoading) return <div>로딩중...</div>
+  const { list, totalCount, isLoading } = useLikeSubmission({ page, pageSize });
+  console.log('list', list);
+  if (isLoading) return <div>로딩중...</div>;
 
   return (
     <div className={styles.container}>
@@ -21,12 +23,18 @@ export default function LikeSubmissionContainer() {
           <TableColumn
             option="챌린지 제목"
             data={list}
-            field="submissionTitle"
+            field="challengeTitle"
+            onClick={(item) => router.push(`/challenges/${item.challengeId}`)}
           />
           <TableColumn
             option="작업물 제목"
             data={list}
-            field="challengeTitle"
+            field="submissionTitle"
+            onClick={(item) =>
+              router.push(
+                `/challenges/${item.challengeId}/submissions/${item.id}`,
+              )
+            }
           />
           <TableColumn option="닉네임" data={list} field="nickName" />
           <TableColumn option="좋아요" data={list} field="heartCount" />
