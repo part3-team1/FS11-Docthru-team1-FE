@@ -15,7 +15,7 @@ const menus = [
 export default function Layout({ children }) {
   return (
     <main className={styles.challengesContainer}>
-      <NavigationBar menus={menus} underBar={false} />
+      <NavigationBar menus={menus} underBar={false} hasButton={true} />
       <div className={styles.childrenContainer}>{children}</div>
     </main>
   );

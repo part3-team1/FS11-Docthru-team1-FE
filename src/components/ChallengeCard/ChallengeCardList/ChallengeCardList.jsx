@@ -1,3 +1,4 @@
+import InfoLabel from '@/components/InfoLabel';
 import ChallengeCard from '../ChallengeCard/ChallengeCard';
 import * as styles from './ChallengeCardList.css';
 
