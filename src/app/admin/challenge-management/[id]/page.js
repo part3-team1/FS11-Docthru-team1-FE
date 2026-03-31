@@ -1,6 +1,7 @@
 import AdminChallengeDetail from '@/domain/ChallengeDetail/Components/AdminChallengeDetail';
 
-export default async function Page({ params }) {
+export default async function Page({ params, searchParams }) {
   const { id } = await params;
-  return <AdminChallengeDetail id={id} />;
+  const { no, totalCount } = await searchParams;
+  return <AdminChallengeDetail id={id} no={no} totalCount={totalCount} />;
 }

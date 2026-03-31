@@ -5,7 +5,7 @@ export const container = style({
   display: 'flex',
   flexDirection: 'column',
   margin: '0 auto',
-  paddingTop: '5.25rem',
+  paddingTop: 'calc(3.75rem + 2.13rem)',
   width: '62.25rem',
   gap: vars.space.xl,
 

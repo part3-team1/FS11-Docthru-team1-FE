@@ -1,35 +1,51 @@
+'use client';
+import { useEffect, useState } from 'react';
 import { ChallengeInfoAndButton } from '@/domain/ChallengeDetail/Components/ChallengeInfoAndButton/ChallengeInfoAndButton';
 import BestSubmissionCard from '@/domain/ChallengeDetail/Components/BestSubmissionCard/BestSubmissionCard';
 import ParticipationSubmissionList from '@/domain/ChallengeDetail/Components/ParticipationSubmissionList/ParticipationSubmissionList';
 import * as styles from '@/domain/ChallengeDetail/Container/ChallengeDetailContainer.css.js';
-import {
-  challengeDetailResponse,
-  currentUserMock,
-} from '@/mock/challengeDetailMockData.js';
 
 export default function AdminSubmissionsList({ id }) {
-  const data = challengeDetailResponse.data;
-  const currentUser = currentUserMock;
-  const bestItem = data?.participations?.items?.find(
-    (p) => p.submission.is_best === true,
-  );
-  const isClosed = data.status === 'CLOSED';
+  const [challenge, setChallenge] = useState(null);
 
-  const isParticipating = currentUser
-    ? data?.participations?.items?.some((p) => p.user.id === currentUser.id)
-    : false;
+  useEffect(() => {
+    fetch(`/api/challenges/${id}`, { credentials: 'include' })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success) setChallenge(json.data);
+      })
+      .catch(console.error);
+  }, [id]);
+
+  if (!challenge) return null;
+
+  const submissions = challenge.submissions ?? [];
+  const isClosed = challenge.status === 'CLOSED';
+
+  const bestSubmission = submissions.find((s) => s.isBest);
+  const bestItem = bestSubmission
+    ? {
+        user: bestSubmission.user,
+        nickname: bestSubmission.user?.nickname,
+        submission: {
+          heart_count: bestSubmission.heartCount,
+          created_at: bestSubmission.createdAt,
+          content: bestSubmission.content,
+        },
+      }
+    : null;
 
   return (
     <div className={styles.container}>
       <ChallengeInfoAndButton
-        data={data}
-        currentUser={currentUser}
-        isParticipating={isParticipating}
+        data={challenge}
+        currentUser={null}
+        isParticipating={false}
       />
 
       {isClosed && <BestSubmissionCard item={bestItem} />}
 
-      <ParticipationSubmissionList data={data.participations} />
+      <ParticipationSubmissionList data={submissions} />
     </div>
   );
 }

@@ -98,8 +98,44 @@ export const rejectReasonDivider = style({
   marginTop: '1rem',
 });
 
-export const challengeDetailWrapper = style({
-  marginTop: '1rem',
+export const requestStatusWrapper = style({
+  marginTop: '1.5rem',
+});
+
+export const challengeInfoWrapper = style({
+  marginTop: '0.06rem',
+});
+
+export const dataAndPerson = style({
+  display: 'flex',
+  gap: vars.space.sm,
+  paddingBottom: vars.space.lg,
+  borderBottom: `1px solid ${vars.color.gray200}`,
+});
+
+export const linkContainer = style({
+  paddingTop: vars.space.lg,
+});
+
+export const link = style({
+  fontSize: '1.125rem',
+  fontWeight: 600,
+  marginBottom: vars.space.lg,
+});
+
+export const linkPosition = style({
+  position: 'relative',
+});
+
+export const frame = style({
+  width: '100%',
+  height: '30rem',
+});
+
+export const linkBtn = style({
+  position: 'absolute',
+  zIndex: 3,
+  right: vars.space.sm,
 });
 
 export const divider = style({
@@ -180,11 +216,19 @@ export const arrowBtn = style({
   width: '1.5rem',
   height: '1.5rem',
   cursor: 'pointer',
+  background: 'none',
+  border: 'none',
+  padding: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 });
 
 export const arrowLeft = style({
   transform: 'scaleX(-1)',
 });
 
-export const arrowRight = style({});
+export const arrowRight = style({
+  transform: 'scaleX(-1)',
+});
 

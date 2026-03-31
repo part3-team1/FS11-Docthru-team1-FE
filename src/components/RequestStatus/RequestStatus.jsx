@@ -11,7 +11,7 @@ import할때
 const statusMap = {
   APPROVED: {
     className: styles.approved,
-    message: '신청이 승인되 챌린지입니다.',
+    message: '신청이 승인된 챌린지입니다.',
   },
   REJECTED: {
     className: styles.rejected,
