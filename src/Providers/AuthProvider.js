@@ -11,6 +11,8 @@ export function AuthProvider({ children }) {
   const user = data?.data;
   const { mutate: logout } = useLogout();
 
+  //
+
   return (
     <AuthContext.Provider value={{ user, logout, isLoading }}>
       {children}

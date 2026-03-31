@@ -82,6 +82,18 @@ export async function deleteSubmissionById(id) {
   return;
 }
 
+//좋아요
+export async function heartSubmissionById(id) {
+  const res = await fetch(`${BASE_URL}/submissions/${id}/heart`, {
+    method: 'POST',
+    credentials: 'include',
+  });
+
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
+}
+
 //feedback
 //서브미션 상세페이지의 피드백 목록 조회 + 무한스크롤 페이지네이션
 export async function feedbacksList(id, params = {}) {
