@@ -34,7 +34,7 @@ export async function getUnreadNotificationsCount() {
   return await response.json();
 }
 
-//GET /notifications/:id/read
+//PATCH /notifications/:id/read
 export async function readNotification(id) {
   const response = await fetch(`${BASE_URL}/notifications/${id}/read`, {
     method: 'PATCH',
