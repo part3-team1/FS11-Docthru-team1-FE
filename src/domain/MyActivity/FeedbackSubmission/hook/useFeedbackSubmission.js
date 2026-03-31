@@ -15,7 +15,7 @@ export const useFeedbackSubmission = ({ page = 1, pageSize = 10 }) => {
 
   const list = (data?.data?.items ?? []).map((feedback) => ({
     id: feedback.submission.id,
-    challengeId: feedback.submission.challengeId,
+    challengeId: feedback.submission.challenge.id,
     nickName: feedback.submission.user.nickname,
     submissionTitle: feedback.submission.title,
     challengeTitle: feedback.submission.challenge.title,

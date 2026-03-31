@@ -7,11 +7,11 @@ import { useRouter } from 'next/navigation';
 import { submissionFormatDate } from '@/utils/format';
 import { useState } from 'react';
 import { useHeart } from '../../hooks/useHeart';
-import { style } from '@vanilla-extract/css';
+
 
 export default function Content({ currentUser, submission }) {
   const router = useRouter();
-  const [isHeart, setIsHeart] = useState(false);
+  const [isHeart, setIsHeart] = useState(submission.isHearted ?? false);
   const [heartCount, setHeartCount] = useState(submission.heartCount);
   const { mutate: toggleHeart } = useHeart(submission.id);
 
@@ -21,6 +21,9 @@ export default function Content({ currentUser, submission }) {
       onSuccess: (res) => {
         setIsHeart(res.data.liked);
         setHeartCount(res.data.heartCount)
+      },
+      onError: (error) => {
+        alert(error.message);
       }
     })
   }
@@ -93,7 +96,7 @@ export default function Content({ currentUser, submission }) {
               height={16}
               className={styles.heartIcon}
             />
-            <div className={styles.likeCount}>{submission.heartCount}</div>
+            <div className={styles.likeCount}>{heartCount}</div>
           </div>
         </div>
 
