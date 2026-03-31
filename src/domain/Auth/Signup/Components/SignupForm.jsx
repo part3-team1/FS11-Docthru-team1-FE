@@ -3,13 +3,12 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as styles from './SignupForm.css';
-import { signup } from '@/api/authAPI';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@/Providers/AuthProvider';
+import { useSignup } from '../../hooks/useSignup';
 
 export default function SignupForm() {
   const router = useRouter();
-  const { setUser } = useAuth();
+  const { mutate: signup, isPending } = useSignup();
   const {
     register,
     handleSubmit,
@@ -23,15 +22,12 @@ export default function SignupForm() {
     setShowPassword((prev) => !prev);
   };
 
-  const onSubmit = async (data) => {
-    try {
-      const { passwordConfirm, ...rest } = data;
-      const res = await signup(rest);
-      setUser(res.data);
-      router.push('/challenges');
-    } catch (error) {
-      console.error(error);
-    }
+  const onSubmit = (data) => {
+    const { passwordConfirm, ...rest } = data;
+    signup(rest, {
+      onSuccess: () => router.push('/challenges'),
+      onError: (error) => console.error(error),
+    });
   };
   return (
     <form noValidate onSubmit={handleSubmit(onSubmit)}>

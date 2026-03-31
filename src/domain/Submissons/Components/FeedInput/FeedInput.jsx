@@ -1,11 +1,9 @@
 'use client';
-import { useState } from 'react';
 import * as styles from './FeedInput.css';
 import Image from 'next/image';
 import ComentCard from '../FeedbackCard/FeedbackCard';
 import MoreBtn from '@/components/MoreBtn/MoreBtn';
-import { addFeedback } from '@/api/challenges.API';
-import { useQueryClient } from '@tanstack/react-query';
+import { useFeedback } from '../../hooks/useFeedback';
 
 export default function FeedInput({
   currentUser,
@@ -15,27 +13,14 @@ export default function FeedInput({
   isLoading,
   submissionId,
 }) {
-  const queryClient = useQueryClient();
-  const [coment, setComent] = useState('');
-
-  const handleSubmit = async () => {
-    if (!coment.trim()) return;
-    await addFeedback(submissionId, coment);
-    setComent('');
-    queryClient.invalidateQueries({
-      queryKey: ['submissions', submissionId, 'feedbacks'],
-    });
-  };
-
-  const handleChange = (e) => {
-    setComent(e.target.value);
-  };
+  const { comment, isPending, handleSubmit, handleChange } =
+    useFeedback(submissionId);
 
   return (
     <div className={styles.container}>
       <div className={styles.inputContainer}>
         <textarea
-          value={coment}
+          value={comment}
           onChange={handleChange}
           placeholder="피드백을 남겨주세요"
           className={styles.input}
@@ -44,7 +29,7 @@ export default function FeedInput({
         <button type="button" onClick={handleSubmit} className={styles.addBtn}>
           <Image
             src={
-              coment
+              comment
                 ? '/images/icon/comentBtn-active.png'
                 : '/images/icon/comentBtn-inacitve.png'
             }
@@ -64,15 +49,19 @@ export default function FeedInput({
           currentUser={currentUser}
           challengeId={data.id}
           submission={data}
+          submissionId={submissionId}
         />
       ))}
 
       {/* 더보기 */}
+      <div className={styles.moreBtn}>
+
       <MoreBtn
         fetchNextPage={fetchNextPage}
         hasNextPage={hasNextPage}
         isFetchingNextPage={isLoading}
-      />
+        />
+        </div>
     </div>
   );
 }

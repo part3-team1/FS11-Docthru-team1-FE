@@ -3,10 +3,14 @@ import CategoryDropdown from '@/components/Dropdown/CategoryDropdown/CategoryDro
 import * as styles from './NewChallengeForm.css';
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import { challengeRequests } from '@/api/challenges.API';
+import { useRequest } from '../hooks/useRequest';
+import { useRequireAuth } from '@/hooks/useRequireAuth';
 
 export default function NewChallengeForm() {
   const router = useRouter();
+  const { user, isLoading } = useRequireAuth();
+
+  const { mutate: request, isPending } = useRequest();
   const {
     register,
     handleSubmit,
@@ -15,15 +19,13 @@ export default function NewChallengeForm() {
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ mode: 'onSubmit' });
 
-  const onSubmit = async (data) => {
-      console.log('폼 데이터:', data);
-    try {
-      await challengeRequests(data);
+  if (isLoading || !user) return null;
 
-      router.push('/my-page/my-challenge/participated');
-    } catch (error) {
-      console.error(error);
-    }
+  const onSubmit = (data) => {
+    request(data, {
+      onSuccess: () => router.push('/my-page/my-challenge/participated'),
+      onError: (error) => console.error(error),
+    });
   };
 
   return (
@@ -241,7 +243,7 @@ export default function NewChallengeForm() {
           </div>
 
           {/* 신청하기 버튼 */}
-          <button type="submit" disabled={isSubmitting} className={styles.btn}>
+          <button type="submit" disabled={isPending} className={styles.btn}>
             신청하기
           </button>
         </div>

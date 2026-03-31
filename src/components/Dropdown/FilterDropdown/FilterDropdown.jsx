@@ -101,7 +101,6 @@ export default function FilterDropdown({ onApply }) {
     setIsOpen(false);
   };
 
-
   return (
     <div ref={wrapperRef} className={styles.dropdownContainer}>
       <button
@@ -110,10 +109,7 @@ export default function FilterDropdown({ onApply }) {
       >
         <span>{filterCount === 0 ? '필터' : `필터(${filterCount})`}</span>
         <span>
-          <Image
-            src={isFilterSelected ? filter_white : filter_black}
-            alt="filter.png"
-          />
+          <Image src={isFilterSelected ? filter_white : filter_black} alt="" />
         </span>
       </button>
 
@@ -121,7 +117,14 @@ export default function FilterDropdown({ onApply }) {
         <div className={styles.filterContainer}>
           <div className={styles.filterHeader}>
             <span className={styles.filterTitle}>필터</span>
-            <Image src={ic_out} alt="ic_out.png" onClick={handleClickClose} width={24} height={24} style={{ cursor: 'pointer' }} />
+            <Image
+              src={ic_out}
+              alt="ic_out.png"
+              onClick={handleClickClose}
+              width={24}
+              height={24}
+              style={{ cursor: 'pointer' }}
+            />
           </div>
           <div className={styles.filterBoxWrapper}>
             <div>

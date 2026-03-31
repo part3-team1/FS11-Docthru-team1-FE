@@ -27,7 +27,7 @@ export const list = style({
   color: vars.color.gray500,
   fontWeight: 500,
   whiteSpace: 'nowrap',
-  minHeight: '3rem',
+  minHeight: '3.7rem',
 
 });
 

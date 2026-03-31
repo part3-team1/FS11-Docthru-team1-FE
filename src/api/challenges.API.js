@@ -7,7 +7,9 @@ export async function challengeList(params = {}) {
   const res = await fetch(`${BASE_URL}/challenges?${query}`, {
     credentials: 'include',
   });
-  return res.json();
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }
 
 //챌린지 상세조회
@@ -15,7 +17,9 @@ export async function challengeById(id) {
   const res = await fetch(`${BASE_URL}/challenges/${id}`, {
     credentials: 'include',
   });
-  return res.json();
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }
 
 //챌린지 신청
@@ -49,7 +53,9 @@ export async function challengeRequests(data) {
     body: JSON.stringify(payload),
   });
 
-  return res.json();
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }
 
 //서브미션
@@ -58,7 +64,9 @@ export async function submissionById(id) {
   const res = await fetch(`${BASE_URL}/submissions/${id}`, {
     credentials: 'include',
   });
-  return res.json();
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }
 
 //서브미션 삭제
@@ -67,6 +75,11 @@ export async function deleteSubmissionById(id) {
     method: 'DELETE',
     credentials: 'include',
   });
+  if (!res.ok) {
+    const json = await res.json();
+    throw new Error(json.message);
+  }
+  return;
 }
 
 //feedback
@@ -76,7 +89,9 @@ export async function feedbacksList(id, params = {}) {
   const res = await fetch(`${BASE_URL}/submissions/${id}/feedbacks?${query}`, {
     credentials: 'include',
   });
-  return res.json();
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }
 
 //피드백 생성
@@ -89,7 +104,9 @@ export async function addFeedback(id, content) {
     credentials: 'include',
     body: JSON.stringify({ content }),
   });
-  return res.json();
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }
 
 //피드백 수정
@@ -102,7 +119,9 @@ export async function patchFeedback(id, content) {
     credentials: 'include',
     body: JSON.stringify({ content }),
   });
-  return res.json();
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }
 
 //피드백 삭제
@@ -111,4 +130,9 @@ export async function deleteFeedback(id) {
     method: 'DELETE',
     credentials: 'include',
   });
+  if (!res.ok) {
+    const json = await res.json();
+    throw new Error(json.message);
+  }
+  return;
 }

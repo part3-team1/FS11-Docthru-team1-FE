@@ -1,27 +1,18 @@
 'use client';
-import { logout as logoutAPI, getMe } from '@/api/authAPI';
+
+import { useLogout } from '@/domain/Auth/hooks/useLogout';
+import { useMe } from '@/domain/Auth/hooks/useMe';
 import { createContext, useContext, useEffect, useState } from 'react';
 
 const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    getMe()
-      .then((res) => {
-        setUser(res.data);
-      })
-      .catch(() => setUser(null));
-  }, []);
-
-  const logout = async () => {
-    await logoutAPI();
-    setUser(null);
-  };
+  const { data, isLoading } = useMe();
+  const user = data?.data;
+  const { mutate: logout } = useLogout();
 
   return (
-    <AuthContext.Provider value={{ user, setUser, logout }}>
+    <AuthContext.Provider value={{ user, logout, isLoading }}>
       {children}
     </AuthContext.Provider>
   );
