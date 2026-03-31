@@ -7,7 +7,8 @@ export const useLogin = () => {
   return useMutation({
     mutationFn: userLogin,
     onSuccess: (data) => {
-      queryClient.setQueryData(queryKeys.auth.me(), data.data);
+      console.log('login 응답:', data)
+      queryClient.setQueryData(queryKeys.auth.me(), data);
     },
   });
 };

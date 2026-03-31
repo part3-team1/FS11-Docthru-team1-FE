@@ -1,4 +1,4 @@
-  const formatGrade = (grade) => {
+export const formatGrade = (grade) => {
     const gradeMap = {
       EXPERT: '전문가',
       NORMAL: '일반',
@@ -6,7 +6,7 @@
     return gradeMap[grade] ?? grade;
   };
 
-  const formatDate = (dateString) => {
+export const formatDate = (dateString) => {
     const date = new Date(dateString);
     const yy = String(date.getFullYear()).slice(2);
     const mm = String(date.getMonth() + 1).padStart(2, '0');

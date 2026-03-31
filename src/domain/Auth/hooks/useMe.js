@@ -6,13 +6,11 @@ import { useQuery } from '@tanstack/react-query';
 export const useMe = () => {
   return useQuery({
     queryKey: queryKeys.auth.me(),
-    queryFn: async () => {
-      const data = await getMe()
-      console.log('getMe 응답:', data) // ✅ 여기
-      return data
-    },
+    queryFn: getMe,
+
     retry: false,
     throwOnError: false,
+    //캐시 1시간
     staleTime: 1000 * 60 * 60 * 24,
     gcTime: 1000 * 60 * 60 * 24,
   });

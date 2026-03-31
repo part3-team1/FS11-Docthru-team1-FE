@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import * as styles from './BestSubmissionCard.css';
-import { formatGrade, formatDate } from '@/utils/format'
+import { formatGrade, formatDate } from '@/utils/format.js'
 
 export default function BestSubmissionCard({ item }) {
   if (!item) return null;
@@ -36,7 +36,7 @@ export default function BestSubmissionCard({ item }) {
                 />
               )}
 
-              <div className={styles.nickname}>{item.nickname}</div>
+              <div className={styles.nickname}>{item.user.nickname}</div>
               <div className={styles.grade}>{formatGrade(item.user.grade)}</div>
             </div>
 
@@ -48,16 +48,16 @@ export default function BestSubmissionCard({ item }) {
                 height={24}
               />
               <div className={styles.count}>
-                {item.submission.heart_count.toLocaleString()}
+                {item.heartCount.toLocaleString()}
               </div>
             </div>
           </div>
 
-          <div className={styles.date}>{formatDate(item.submission.created_at)}</div>
+          <div className={styles.date}>{formatDate(item.createdAt)}</div>
         </div>
 
         <div className={styles.contentContainer}>
-          {item.submission.content?.blocks?.map((block, index) => (
+          {item.content?.blocks?.map((block, index) => (
             <div key={index} className={styles.content}>{block.text}</div>
           ))}
         </div>

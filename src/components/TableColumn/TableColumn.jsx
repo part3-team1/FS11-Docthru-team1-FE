@@ -1,4 +1,4 @@
-import { StatusChip } from '@/components/Chip';
+import { CategoryChip, StatusChip, TypeChip } from '@/components/Chip';
 import * as styles from './TableColumn.css';
 import clsx from 'clsx';
 
@@ -10,7 +10,11 @@ function formatDate(dateTime) {
 
 export default function TableColumn({ option, data, field, className }) {
   const isDate = field.includes('At') || field.includes('date');
-
+  //카테고리이면 카테고리 칩
+  const isCategory = field === 'category';
+  //도큐먼트타입이면 도큐먼트 칩으로
+  const isDocumentType = field === 'documentType';
+  console.log('field:', field, 'isCategory:', isCategory, 'isDocumentType:', isDocumentType)
   return (
     <div className={styles.container}>
       <ul>
@@ -30,6 +34,10 @@ export default function TableColumn({ option, data, field, className }) {
               formatDate(item[field])
             ) : field === 'status' ? (
               <StatusChip status={item[field]} />
+            ) : isCategory  ? (
+              <TypeChip type={item[field]} /> 
+            ) :isDocumentType ? (
+              <CategoryChip category={item[field]} />
             ) : (
               item[field]
             )}
