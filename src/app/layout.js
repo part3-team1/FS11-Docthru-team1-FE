@@ -2,6 +2,7 @@ import '@/styles/reset.css';
 import '@/styles/globals.css';
 import '@/styles/token.css';
 import Providers from '@/Providers/Providers';
+import BackgroundWrapper from '@/components/BackgroundWrapper';
 
 export const metadata = {
   title: 'Docthru',
@@ -15,7 +16,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ko">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <BackgroundWrapper>{children}</BackgroundWrapper>
+        </Providers>
       </body>
     </html>
   );
