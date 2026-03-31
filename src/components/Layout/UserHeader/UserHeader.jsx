@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 import HeaderDropdown from '@/components/Dropdown/HeaderDropdown/HeaderDropdown.jsx';
 import NotificationDropdown from '@/components/Dropdown/NotificationDropdown/NotificationDropdown.jsx';
 import { useAuth } from '@/Providers/AuthProvider.js';
+import { useUnreadNotificationsCount } from '@/domain/Notification/hooks/useNotification.js';
 
 /*
   페이지 메인 부분, 
@@ -22,9 +23,12 @@ export default function UserHeader() {
   // 로그인 유저 데이터 가져옴
   const { user, logout } = useAuth()
 
+  const { data } = useUnreadNotificationsCount();
+  const unreadCount = data?.unreadCount ?? 0;
+  const hasNotification = unreadCount > 0;
+
 
   const wrapperRef = useRef();
-  const hasNotification = true;
   //api로 수정
   const isExpert = user?.role === 'EXPERT';
   
