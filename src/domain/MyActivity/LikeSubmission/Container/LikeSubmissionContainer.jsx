@@ -11,7 +11,6 @@ export default function LikeSubmissionContainer() {
   const [page, setPage] = useState(1);
   const pageSize = 10;
   const { list, totalCount, isLoading } = useLikeSubmission({ page, pageSize });
-  console.log('list', list);
   if (isLoading) return <div>로딩중...</div>;
 
   return (

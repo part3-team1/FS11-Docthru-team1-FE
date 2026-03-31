@@ -55,7 +55,7 @@ export default function SortDropdown({ onApply }) {
   };
 
   const handleClickApply = () => {
-    onApply?.({ status, order });
+    onApply?.({ status, orderBy });
     setIsSelected(true);
     setIsOpen(false);
   };
