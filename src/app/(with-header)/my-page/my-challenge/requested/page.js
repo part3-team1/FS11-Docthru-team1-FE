@@ -1,7 +1,9 @@
+import RequestedContainer from "@/domain/MyChallenge/Container/RequestedContainer";
+
 export default function Page() {
   return (
     <>
-      신청한 챌린지
+      <RequestedContainer />
     </>
   );
 }
