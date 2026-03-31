@@ -4,17 +4,21 @@ import { useAuth } from '@/Providers/AuthProvider';
 import { submissionFormatDate } from '@/utils/format';
 import { useQuery } from '@tanstack/react-query';
 
-export const useChallengeRequest = ({ page = 1, pageSize = 10 }) => {
+export const useChallengeRequest = ({ page = 1, pageSize = 10, keyword = '', status = '', sortBy = '', sortOrder = '' }) => {
   const { user } = useAuth();
   const { data, isLoading } = useQuery({
     queryKey: [
       ...queryKeys.user.meChallenges(),
-      { page, pageSize},
+      { page, pageSize, keyword, status, sortBy, sortOrder },
     ],
     queryFn: () =>
       myChallengeRequest({
         skip: (page - 1) * pageSize,
         take: pageSize,
+        keyword,
+        status,
+        sortBy,
+        sortOrder,
       }),
     enabled: !!user,
   });

@@ -1,7 +1,7 @@
 import * as styles from './ChallengeRequestTable.css';
 import Pagination from '@/components/Pagination/Pagination';
 import TableColumn from '@/components/TableColumn/TableColumn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useChallengeRequest } from '../../hooks/useChallengeRequet';
 import { useRouter } from 'next/navigation';
 
@@ -12,16 +12,13 @@ import { useRouter } from 'next/navigation';
 }
 
 // 테이블
-export default function ChallengeRequestTable({ keyword, status, orderBy }) {
+export default function ChallengeRequestTable({ keyword, status, sortBy, sortOrder }) {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const pageSize = 10;
+  
   const { list, totalCount, isLoading } = useChallengeRequest({
-    page,
-    pageSize,
-    keyword,
-    status,
-    orderBy,
+    page, pageSize, keyword, status, sortBy, sortOrder,
   });
 
   if (isLoading) return <div>로딩중...</div>;
@@ -33,7 +30,7 @@ export default function ChallengeRequestTable({ keyword, status, orderBy }) {
           {/* 이곳에서 자유롭게 import해서 사용 / 지금 보이는건 챌린지 신청관리의 모습 */}
           <TableColumn option="문서타입" data={list} field="documentType" />
           <TableColumn option="분야" data={list} field="category" />
-          <TableColumn option="제목" data={list} field="title" onClick={(item)=> router.push(`/my-page/my-challenge/requested/${id}`)} />
+          <TableColumn option="제목" data={list} field="title" onClick={(item)=> router.push(`/my-page/my-challenge/requested/${item.id}`)} />
           <TableColumn option="인원" data={list} field="maxParticipants" />
           <TableColumn option="신청일" data={list} field="createdAt" />
           <TableColumn option="마감일" data={list} field="dueDate" />

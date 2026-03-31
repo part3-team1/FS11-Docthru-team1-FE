@@ -22,7 +22,11 @@ export async function feedbackSubmission() {
 
 //내가 신청한 챌린지
 export async function myChallengeRequest(params = {}) {
-  const query = new URLSearchParams(params).toString();
+  const filtered = Object.fromEntries(
+    Object.entries(params).filter(([_, v]) => v !== '' && v !== undefined)
+  );
+
+  const query = new URLSearchParams(filtered).toString();
   const res = await fetch(`${BASE_URL}/users/me/challengeRequests?${query}`, {
     credentials: 'include',
   });

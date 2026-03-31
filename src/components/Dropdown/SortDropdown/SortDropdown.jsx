@@ -20,10 +20,10 @@ const radioStatus = [
 ];
 
 const radioOrderBy = [
-  { label: '신청 시간 빠른 순', value: 'APPLY_ASCENDING' },
-  { label: '신청 시간 느린 순', value: 'APPLY_DESCENDING' },
-  { label: '마감 기한 빠른 순', value: 'DUE_ASCENDING' },
-  { label: '마감 기한 느린 순', value: 'DUE_DESCENDING' },
+  { label: '신청 시간 빠른 순', value: 'createdAt_asc' },
+  { label: '신청 시간 느린 순', value: 'createdAt_desc' },
+  { label: '마감 기한 빠른 순', value: 'dueDate_asc' },
+  { label: '마감 기한 느린 순', value: 'dueDate_desc' },
 ];
 
 export default function SortDropdown({ onApply }) {
@@ -55,7 +55,8 @@ export default function SortDropdown({ onApply }) {
   };
 
   const handleClickApply = () => {
-    onApply?.({ status, orderBy });
+    const [sortBy, sortOrder] = orderBy ? orderBy.split('_') : [];
+    onApply?.({ status, sortBy, sortOrder });
     setIsSelected(true);
     setIsOpen(false);
   };
