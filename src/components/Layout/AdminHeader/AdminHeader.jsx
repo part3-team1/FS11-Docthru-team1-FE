@@ -104,7 +104,7 @@ export default function AdminHeader() {
         />
         {isHeaderDropdownOpen && (
           <HeaderDropdown
-            userStatus={isAdmin ? 'admin' : 'expert'}
+            userStatus={isAdmin && 'admin' }
             nickname={user?.nickname}
           />
         )}
