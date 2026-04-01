@@ -65,8 +65,8 @@ export const queryKeys = {
     detail: (id) => [...queryKeys.submissions.all, id],
     //피드백이랑같이
     withFeedback: (id) => [...queryKeys.submissions.all, id, 'feedbacks'],
-    //하트 
-    addHeart:(id)=>[...queryKeys.submissions.all,id,'heart']
+    //하트
+    addHeart: (id) => [...queryKeys.submissions.all, id, 'heart'],
   },
 
   //피드백 쿼리키
