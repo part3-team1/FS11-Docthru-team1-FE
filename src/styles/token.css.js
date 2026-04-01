@@ -12,7 +12,7 @@ export const vars = createGlobalTheme(':root', {
     error: '#eb3e3e',
 
     gray50: '#fafafa',
-    gray100: '#e8ebed',
+    gray100: '#f5f5f5',
     gray200: '#e5e5e5',
     gray300: '#d4d4d4',
     gray400: '#a3a3a3',
