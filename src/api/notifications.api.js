@@ -10,28 +10,27 @@ export async function getNotifications({ skip = 0, take = 10 }) {
       credentials: 'include',
     },
   );
-
+  const data = await response.json();
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
+    throw new Error(data.message || '알림 불러오기 실패');
   }
 
-  return await response.json();
+  return data;
 }
 
-//GET /notifications/unread-count
+//GET /notifications/unreadCount
 export async function getUnreadNotificationsCount() {
-  const response = await fetch(`${BASE_URL}/notifications/unread-count`, {
+  const response = await fetch(`${BASE_URL}/notifications/unreadCount`, {
     method: 'GET',
     credentials: 'include',
   });
 
+  const data = response.json();
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
+    throw new Error(data.message || '읽지 않은 알림 불러오기 실패');
   }
 
-  return await response.json();
+  return data;
 }
 
 //PATCH /notifications/:id/read
@@ -41,12 +40,12 @@ export async function readNotification(id) {
     credentials: 'include',
   });
 
+  const data = response.json();
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
+    throw new Error(data.message || '알림 읽기 처리 실패');
   }
 
-  return await response.json();
+  return data;
 }
 
 //DELETE /notifications/:id
@@ -56,9 +55,9 @@ export async function deleteNotification(id) {
     credentials: 'include',
   });
 
+  const data = response.json();
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message);
+    throw new Error(data.message || '알림 삭제 실패');
   }
 
   return;

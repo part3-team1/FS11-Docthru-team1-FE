@@ -18,6 +18,7 @@ export default function NotificationDropdown() {
     skip: 0,
     take: 10,
   });
+
   const deleteMutation = useDeleteNotification();
   const readMutation = useReadNotification();
 
