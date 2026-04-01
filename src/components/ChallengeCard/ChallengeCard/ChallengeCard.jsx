@@ -12,13 +12,18 @@ import { useRouter } from 'next/navigation';
 function getAction(challenge, preset, submissionId) {
   if (!preset) return null;
 
+  if (!submissionId) {
+    console.warn('submissionId is missing');
+    return null;
+  }
+
+
   const presetToHref = {
     continue: `/challenges/${challenge.id}/submissions/${submissionId}/edit`,
     mySubmission: `/challenges/${challenge.id}/submissions/${submissionId}`,
   };
 
   const href = presetToHref[preset];
-  if (!href) return null;
 
   return <LinkButton href={href} preset={preset} />;
 }
