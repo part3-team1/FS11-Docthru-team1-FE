@@ -3,15 +3,25 @@ import { ChallengeParticipants } from '@/components/Participants';
 import * as styles from './ButtonBox.css';
 import LinkButton from '@/components/LinkButton';
 import Link from 'next/link';
+import { useJoinLeave } from '../../hooks/useJoinLeave';
 
-export default function ButtonBox({ data, currentUser, isParticipating, hasSubmission }) {
-
+export default function ButtonBox({
+  data,
+  currentUser,
+  isParticipating: initialIsParticipating,
+  hasSubmission,
+}) {
   const isClosed = data.status === 'CLOSED';
 
   const challengeId = data.id;
 
+  const { join, leave, isParticipating, currentParticipants } = useJoinLeave(
+    challengeId,
+    initialIsParticipating,
+    data.currentParticipants
+  );
+
   const randerButton = () => {
-     console.log('isParticipating:', isParticipating, 'hasSubmission:', hasSubmission);
     //챌린지 마감..
     if (isClosed) {
       return (
@@ -21,6 +31,7 @@ export default function ButtonBox({ data, currentUser, isParticipating, hasSubmi
       );
     }
 
+    //비회원
     if (!currentUser) {
       return (
         <Link href="/login" className={styles.clickBtn}>
@@ -29,17 +40,42 @@ export default function ButtonBox({ data, currentUser, isParticipating, hasSubmi
       );
     }
 
-    if (hasSubmission) {
+    //작업물 작성한사람
+    if (isParticipating && hasSubmission) {
       return (
-        <button className={styles.hasBtn}>
-          도전 계속하기
-        </button>
+        <div className={styles.twoBtn}>
+          <button onClick={() => leave()} className={styles.leaveBtn}>
+            포기하기
+          </button>
+          <button className={styles.cta} disabled>
+            도전중...
+          </button>
+        </div>
       );
     }
+    //참가자
+    if (isParticipating) {
+      return (
+        <div className={styles.twoBtn}>
+          <button onClick={() => leave()} className={styles.leaveBtn}>
+            포기하기
+          </button>
+          <Link
+            href={`/challenges/${challengeId}/submissions/new`}
+            className={styles.clickBtn}
+          >
+            작업 도전하기
+          </Link>
+        </div>
+      );
+    }
+
     return (
-      <Link href={`/challenges/${challengeId}/submissions/new`} className={styles.clickBtn}>
-        작업 도전하기
-      </Link>
+      <>
+        <button onClick={() => join()} className={styles.clickBtn}>
+          참가하기
+        </button>
+      </>
     );
   };
 
@@ -48,7 +84,7 @@ export default function ButtonBox({ data, currentUser, isParticipating, hasSubmi
       <div className={styles.dateAndPerson}>
         <DueDate dueDate={data.dueDate} />
         <ChallengeParticipants
-          current={data.currentParticipants}
+          current={currentParticipants}
           max={data.maxParticipants}
         />
       </div>
