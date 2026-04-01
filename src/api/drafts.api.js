@@ -12,7 +12,7 @@ export async function getDraftList(challengeId) {
     throw new Error(result.message || '임시저장 목록 조회 실패.');
   }
 
-  return result;
+  return result.data;
 }
 
 // GET /drafts/:id
@@ -27,7 +27,7 @@ export async function getDraft(id) {
     throw new Error(result.message || '임시저장 불러오기 실패.');
   }
 
-  return result;
+  return result.data;
 }
 
 // POST /drafts/challenges/:challengeId
