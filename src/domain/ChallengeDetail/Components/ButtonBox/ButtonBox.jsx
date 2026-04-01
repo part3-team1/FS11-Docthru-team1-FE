@@ -7,6 +7,8 @@ import Link from 'next/link';
 export default function ButtonBox({ data, currentUser, isParticipating }) {
   const isClosed = data.status === 'CLOSED';
 
+  const challengeId = data.id;
+
   const randerButton = () => {
     //챌린지 마감..
     if (isClosed) {
@@ -27,13 +29,13 @@ export default function ButtonBox({ data, currentUser, isParticipating }) {
 
     if (isParticipating) {
       return (
-        <Link href="/edit" className={styles.clickBtn}>
+        <Link href={`/challenges/${challengeId}/submissions/new`} className={styles.clickBtn}>
           도전 계속하기
         </Link>
       );
     }
     return (
-      <Link href="/edit" className={styles.clickBtn}>
+      <Link href={`/challenges/${challengeId}/submissions/new`} className={styles.clickBtn}>
         작업 도전하기
       </Link>
     );

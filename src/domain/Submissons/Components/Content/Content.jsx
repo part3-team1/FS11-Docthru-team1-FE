@@ -5,9 +5,10 @@ import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDel
 import { deleteSubmissionById } from '@/api/challenges.API';
 import { useRouter } from 'next/navigation';
 import { submissionFormatDate } from '@/utils/format';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useHeart } from '../../hooks/useHeart';
-
+import { useEditor, EditorContent } from '@tiptap/react';
+import StarterKit from '@tiptap/starter-kit';
 
 export default function Content({ currentUser, submission }) {
   const router = useRouter();
@@ -15,19 +16,30 @@ export default function Content({ currentUser, submission }) {
   const [heartCount, setHeartCount] = useState(submission.heartCount);
   const { mutate: toggleHeart } = useHeart(submission.id);
 
-
   const handleHeart = () => {
     toggleHeart(undefined, {
       onSuccess: (res) => {
         setIsHeart(res.data.liked);
-        setHeartCount(res.data.heartCount)
+        setHeartCount(res.data.heartCount);
       },
       onError: (error) => {
         alert(error.message);
-      }
-    })
-  }
+      },
+    });
+  };
 
+  const viewer = useEditor({
+    editable: false,
+    extensions: [StarterKit],
+    content: submission?.content,
+    immediatelyRender: false,
+  });
+
+  useEffect(() => {
+    if (viewer && submission?.content) {
+      viewer.commands.setContent(submission.content);
+    }
+  }, [submission?.content, viewer]);
 
   const handleDelete = async () => {
     await deleteSubmissionById(submission.id);
@@ -55,7 +67,7 @@ export default function Content({ currentUser, submission }) {
               current_participants: 0,
               isBlocked: false,
             }}
-            editHref={`/submissions/${submission.id}/edit`}
+            editHref={`/challenges/${submission.challengeId}/submissions/${submission.id}/edit`}
             onDelete={() => handleDelete()}
           />
         </div>
@@ -90,7 +102,11 @@ export default function Content({ currentUser, submission }) {
           </div>
           <div onClick={handleHeart} className={styles.like}>
             <Image
-              src={!isHeart ? "/images/icon/heart_white.svg" : '/images/icon/love.png' }
+              src={
+                !isHeart
+                  ? '/images/icon/heart_white.svg'
+                  : '/images/icon/love.png'
+              }
               alt="좋아요"
               width={16}
               height={16}
@@ -106,9 +122,7 @@ export default function Content({ currentUser, submission }) {
       </div>
 
       <div className={styles.content}>
-        {submission.content.blocks.map((block, i) => (
-          <div key={i}> {block.text}</div>
-        ))}
+        <EditorContent editor={viewer} />
       </div>
     </div>
   );
