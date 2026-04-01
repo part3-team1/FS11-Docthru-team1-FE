@@ -3,50 +3,62 @@
 import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEditorStore } from '@/domain/Edit/store/editor.store.js';
-// import { queryKeys } from '@/lib/queryKeys';
-// import { editorApi } from '@/services/editorApi';
+import { queryKeys } from '@/lib/queryKeys';
+import { submissionById } from '@/api/challenges.API';
+import * as draftApi from '@/api/drafts.api';
 
-// api, react-query 설정 완료 후 전체적으로 수정 예정
-export function useEditor({ initialData, mode, submissionId, challengeId }) {
+export function useEditor({ mode, submissionId, challengeId }) {
   const queryClient = useQueryClient();
   const { title, setTitle, content, setContent, resetEditor, setEditorData } =
     useEditorStore();
 
   const [editor, setEditor] = useState(null);
-  const [showNotification, setShowNotification] = useState(false);
+
+  const [isNotificationClosed, setIsNotificationClosed] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [deletingDraftId, setDeletingDraftId] = useState(null);
 
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const toggleViewer = () => setIsViewerOpen((prev) => !prev);
 
-  useEffect(() => {
-    if (mode === 'edit' && initialData) {
-      setEditorData(initialData);
-    } else {
-      resetEditor();
-    }
-  }, [mode, initialData, setEditorData, resetEditor]);
-
-  // 임시저장 데이터
-  const { data: drafts } = useQuery({
-    queryKey: ['drafts', 'list', challengeId], // queryKeys 작성 후 수정
-    queryFn: () => {
-      // editorApi.getDraftList(challengeId), // api 작성 후 수정
-      return [];
-    },
-    enabled: !!challengeId && mode === 'create',
+  const { data: initialData } = useQuery({
+    queryKey: ['submission', submissionId],
+    queryFn: () => submissionById(submissionId),
+    enabled: mode === 'edit' && !!submissionId,
   });
 
   useEffect(() => {
-    if (drafts?.length > 0 && mode === 'create') {
-      setShowNotification(true);
+    if (mode === 'edit' && initialData?.data) {
+      setEditorData(initialData.data);
+
+      if (editor) {
+        editor.commands.setContent(initialData.data.content);
+      }
+    } else {
+      resetEditor();
+
+      if (editor) {
+        editor.commands.clearContent();
+      }
     }
-  }, [drafts, mode]);
+  }, [mode, initialData, setEditorData, resetEditor, editor]);
+
+  // 임시저장 데이터
+  const { data: draftList } = useQuery({
+    queryKey: queryKeys.drafts.list(challengeId),
+    queryFn: () => draftApi.getDraftList(challengeId),
+    enabled: !!challengeId && mode === 'create',
+  });
+
+  const drafts = draftList?.items || [];
+  const totalCount = draftList?.totalCount || 0;
+
+  const showNotification =
+    totalCount > 0 && mode === 'create' && !isNotificationClosed;
 
   // 임시저장 불러오기
   const selectDraftMutation = useMutation({
-    mutationFn: (id) => editorApi.getDraft(id), // api 작성 후 수정
+    mutationFn: (id) => draftApi.getDraft(id),
     onSuccess: (data) => {
       setEditorData(data);
 
@@ -63,11 +75,16 @@ export function useEditor({ initialData, mode, submissionId, challengeId }) {
 
   // 임시저장 삭제
   const deleteDraftMutation = useMutation({
-    mutationFn: (id) => editorApi.deleteDraft(id),
+    mutationFn: (id) => draftApi.deleteDraft(id),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.drafts.list(challengeId), // queryKeys 작성 후 수정
+        queryKey: queryKeys.drafts.list(challengeId),
       });
+
+      if (drafts.length <= 1) {
+        setShowModal(false);
+      }
+
       setDeletingDraftId(null);
     },
     onError: () => {
@@ -109,7 +126,7 @@ export function useEditor({ initialData, mode, submissionId, challengeId }) {
 
     drafts,
     showNotification,
-    setShowNotification,
+    setIsNotificationClosed,
     showModal,
     setShowModal,
     deletingDraftId,
