@@ -34,7 +34,7 @@ const PRESET_MAP = {
   },
   participatedChallenge: {
     label: '참여한 챌린지',
-    variant: styles.secondary,
+    variant: styles.participatedChallenge,
     color: styles.white,
     iconSrc: '/Images/Icon/icon_arrow_right.svg',
     iconSize: 24,
