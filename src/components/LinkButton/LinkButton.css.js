@@ -91,3 +91,19 @@ export const content = style({
   paddingLeft: '0.4rem',
   paddingTop: '0.15rem',
 });
+
+export const participatedChallenge = style({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  alignSelf: 'stretch',
+  borderRadius: '1.90625rem',
+  width: '8.25rem',
+  height: '2.0625rem',
+  gap: '0.38rem',
+  color: vars.color.gray800,
+  fontSize: '0.875rem',
+  fontStyle: 'normal',
+  fontWeight: '700',
+  lineHeight: 'normal',
+});
