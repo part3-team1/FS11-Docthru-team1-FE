@@ -20,7 +20,7 @@ export async function submitSubmission(challengeId, data) {
     throw new Error(result.message || '작업물 제출 실패.');
   }
 
-  return result.data;
+  return result;
 }
 
 // PATCH /submissions/:id
@@ -43,5 +43,5 @@ export async function updateSubmission(submissionId, data) {
     throw new Error(result.message || '작업물 수정 실패.');
   }
 
-  return result.data;
+  return result;
 }
