@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useEditorStore } from '@/domain/Edit/store/editor.store.js';
 import { queryKeys } from '@/lib/queryKeys';
-import { submissionById } from '@/api/challenges.API';
+import { challengeById, submissionById } from '@/api/challenges.API';
 import * as draftApi from '@/api/drafts.api';
 
 export function useEditor({ mode, submissionId, challengeId }) {
@@ -21,8 +21,16 @@ export function useEditor({ mode, submissionId, challengeId }) {
   const [isViewerOpen, setIsViewerOpen] = useState(false);
   const toggleViewer = () => setIsViewerOpen((prev) => !prev);
 
+  const { data: challengeData } = useQuery({
+    queryKey: queryKeys.challenges.detail(challengeId),
+    queryFn: () => challengeById(challengeId),
+    enabled: !!challengeId,
+  });
+
+  const originalUrl = challengeData?.data?.docUrl || '';
+
   const { data: initialData } = useQuery({
-    queryKey: ['submission', submissionId],
+    queryKey: queryKeys.submissions.detail(submissionId),
     queryFn: () => submissionById(submissionId),
     enabled: mode === 'edit' && !!submissionId,
   });
@@ -121,6 +129,7 @@ export function useEditor({ mode, submissionId, challengeId }) {
     mode,
     initialData,
 
+    originalUrl,
     isViewerOpen,
     toggleViewer,
 
