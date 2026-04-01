@@ -11,7 +11,7 @@ import할때
 const statusMap = {
   APPROVED: {
     className: styles.approved,
-    message: '신청이 승인되 챌린지입니다.',
+    message: '신청이 승인된 챌린지입니다.',
   },
   REJECTED: {
     className: styles.rejected,
@@ -35,7 +35,7 @@ export default function RequestStatus({ status, rejectionReason }) {
             {isDelete ? '삭제 사유' : '신청 거절 사유'}
           </div>
           <div className={styles.reason}>{rejectionReason}</div>{' '}
-          {/* ✅ 2. styles.reason */}
+
         </div>
       )}
     </div>

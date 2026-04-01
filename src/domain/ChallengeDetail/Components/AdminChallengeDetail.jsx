@@ -1,74 +1,151 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { challengeManagementMockData } from '@/mock/challengeManagementMockData.js';
-import ChallengeDetail from './ChallengeDetail.jsx';
 import RejectModal from '@/components/Modal/RejectModal/RejectModal.jsx';
+import RequestStatus from '@/components/RequestStatus/RequestStatus';
+import ChallengeInfo from '@/components/ChallengeInfo/ChallengeInfo';
+import DueDate from '@/components/DueDate';
+import { ChallengeParticipantCount } from '@/components/Participants';
+import LinkButton from '@/components/LinkButton/LinkButton';
 import * as styles from './AdminChallengeDetail.css.js';
 
-export default function AdminChallengeDetail({ id }) {
+export default function AdminChallengeDetail({ id, no, totalCount }) {
+  const router = useRouter();
+  const [request, setRequest] = useState(null);
   const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
-  const [isApproved, setIsApproved] = useState(false);
-  const [isDecided, setIsDecided] = useState(false);
-  const [rejectReason, setRejectReason] = useState('');
-  // To Do: API 연결 후 실제 챌린지 데이터로 교체
-  const challenge = challengeManagementMockData.find((item) => item.id === Number(id));
-  const no = challenge?.no ?? id;
+  const [noToId, setNoToId] = useState({});
 
-  // To Do: API 연결 후 실제 이전/다음 여부로 교체
-  const hasPrev = true;
-  const hasNext = true;
+  const noNum = Number(no);
+  const totalNum = Number(totalCount);
+  const isPrevDisabled = !noNum || noNum >= totalNum || !noToId[noNum + 1];
+  const isNextDisabled = !noNum || noNum <= 1 || !noToId[noNum - 1];
+
+  useEffect(() => {
+    const stored = sessionStorage.getItem('challengeRequestNoToId');
+    if (stored) setNoToId(JSON.parse(stored));
+  }, []);
+
+  const handlePrev = () => {
+    const prevNo = noNum + 1;
+    const prevId = noToId[prevNo];
+    if (prevId) router.push(`/admin/challenge-management/${prevId}?no=${prevNo}&totalCount=${totalCount}`);
+  };
+
+  const handleNext = () => {
+    const nextNo = noNum - 1;
+    const nextId = noToId[nextNo];
+    if (nextId) router.push(`/admin/challenge-management/${nextId}?no=${nextNo}&totalCount=${totalCount}`);
+  };
+
+  useEffect(() => {
+    fetch(`/api/admin/requests/${id}`, { credentials: 'include' })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success) setRequest(json.data);
+      })
+      .catch(console.error);
+  }, [id]);
+
+  const handleApprove = () => {
+    fetch(`/api/admin/requests/${id}/approve`, {
+      method: 'PATCH',
+      credentials: 'include',
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success) setRequest((prev) => ({ ...prev, status: 'APPROVED' }));
+      })
+      .catch(console.error);
+  };
+
+  const handleReject = (reason) => {
+    fetch(`/api/admin/requests/${id}/reject`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({ reason }),
+    })
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success)
+          setRequest((prev) => ({ ...prev, status: 'REJECTED', rejectionReason: reason }));
+      })
+      .catch(console.error);
+  };
+
+  if (!request) return null;
+
+  const isPending = request.status === 'PENDING';
 
   return (
     <div className={styles.container}>
       <div className={styles.topRow}>
-        <span className={styles.challengeNo}>No. {no}</span>
+        <span className={styles.challengeNo}>No. {no ?? '-'}</span>
         <div className={styles.arrowWrapper}>
-          <Image
-            src={hasPrev ? '/Images/Icon/icon_arrow_flow.svg' : '/Images/Icon/icon_arrow_stop.svg'}
-            alt='이전'
-            width={24}
-            height={24}
-            className={`${styles.arrowBtn} ${styles.arrowLeft}`}
-          />
-          <Image
-            src={hasNext ? '/Images/Icon/icon_arrow_flow.svg' : '/Images/Icon/icon_arrow_stop.svg'}
-            alt='다음'
-            width={24}
-            height={24}
-            className={`${styles.arrowBtn} ${styles.arrowRight}`}
-          />
+          <button className={styles.arrowBtn} disabled={isPrevDisabled} onClick={handlePrev}>
+            <Image
+              src={isPrevDisabled ? '/Images/Icon/icon_arrow_stop.svg' : '/Images/Icon/icon_arrow_flow.svg'}
+              alt='이전'
+              width={24}
+              height={24}
+              className={isPrevDisabled ? undefined : styles.arrowLeft}
+            />
+          </button>
+          <button className={styles.arrowBtn} disabled={isNextDisabled} onClick={handleNext}>
+            <Image
+              src={isNextDisabled ? '/Images/Icon/icon_arrow_stop.svg' : '/Images/Icon/icon_arrow_flow.svg'}
+              alt='다음'
+              width={24}
+              height={24}
+              className={isNextDisabled ? styles.arrowRight : undefined}
+            />
+          </button>
         </div>
       </div>
-      {isDecided && (
-        isApproved
-          ? <div className={styles.approveBanner}>신청이 승인된 챌린지입니다.</div>
-          : <>
-              <div className={styles.rejectBanner}>신청이 거절된 챌린지입니다.</div>
-              <div className={styles.rejectReasonBox}>
-                <span className={styles.rejectReasonTitle}>신청 거절 사유</span>
-                <span className={styles.rejectReasonText}>{rejectReason}</span>
-                {/* To Do: API 연결 후 실제 거절 처리 날짜/시간으로 교체 */}
-                <span className={styles.rejectReasonDate}>{challenge?.applyDate} 00:00</span>
-              </div>
-              <hr className={styles.rejectReasonDivider} />
-            </>
-      )}
-      <div className={styles.challengeDetailWrapper}>
-        {/* To Do: 유저의 ChallengeDetail 컴포넌트 연결 필요 */}
-        <ChallengeDetail id={id} />
+
+      <div className={styles.requestStatusWrapper}>
+        <RequestStatus
+          status={request.status}
+          rejectionReason={request.rejectionReason}
+        />
       </div>
-      <hr className={styles.divider} />
-      {!isDecided && (
+
+      <div className={styles.challengeInfoWrapper}>
+        <ChallengeInfo data={request} />
+      </div>
+
+      <div className={styles.dataAndPerson}>
+        <DueDate dueDate={request.dueDate} />
+        <ChallengeParticipantCount max={request.maxParticipants} />
+      </div>
+
+      <div className={styles.linkContainer}>
+        <div className={styles.link}>원문링크</div>
+        <div className={styles.linkPosition}>
+          <div className={styles.linkBtn}>
+            <LinkButton href={request.docUrl} preset='transparent' />
+          </div>
+          <iframe src={request.docUrl} className={styles.frame} />
+        </div>
+      </div>
+
+      {isPending && <hr className={styles.divider} />}
+
+      {isPending && (
         <div className={styles.buttonWrapper}>
           <button className={styles.buttonReject} onClick={() => setIsRejectModalOpen(true)}>거절하기</button>
-          <button className={styles.buttonApprove} onClick={() => { setIsApproved(true); setIsDecided(true); }}>승인하기</button>
+          <button className={styles.buttonApprove} onClick={handleApprove}>승인하기</button>
         </div>
       )}
+
       {isRejectModalOpen && (
         <RejectModal
           onClose={() => setIsRejectModalOpen(false)}
-          onSubmit={(reason) => { setRejectReason(reason); setIsDecided(true); }}
+          onSubmit={(reason) => {
+            handleReject(reason);
+            setIsRejectModalOpen(false);
+          }}
         />
       )}
     </div>

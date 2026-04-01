@@ -12,7 +12,7 @@ import CancelDropdown from '../Components/CancelDropdown/CancelDropdown';
 export default function MyChallengeDetail() {
   const isPending = data.status === 'PENDING';
   return (
-    <div className={styles.container}>
+    <div>
       {/* 챌린지 상태 */}
       <RequestStatus
         status={data.status}

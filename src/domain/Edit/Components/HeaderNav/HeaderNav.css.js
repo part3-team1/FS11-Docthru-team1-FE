@@ -71,6 +71,8 @@ export const baseBtn = style({
   fontWeight: '600',
   color: vars.color.white,
 
+  cursor: 'pointer',
+
   '@media': {
     [media.mobile]: {
       width: '5rem',

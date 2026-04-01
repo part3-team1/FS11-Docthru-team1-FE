@@ -33,7 +33,7 @@ export default function EditContainer({
         {editor.showNotification && (
           <DraftNotification
             onOpenModal={() => editor.setShowModal(true)}
-            onClose={() => editor.setShowNotification(false)}
+            onClose={() => editor.setIsNotificationClosed(true)}
           />
         )}
       </div>
