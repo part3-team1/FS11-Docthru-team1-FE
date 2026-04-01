@@ -6,7 +6,7 @@ import toggle_up from '@/../public/Images/Icon/ic_toggle_up.png';
 import Image from 'next/image.js';
 import { useEffect, useState, useRef } from 'react';
 
-export default function CategoryDropdown({ onSelect, options = [] }) {
+export default function CategoryDropdown({ onSelect, options = [], placeholder = '카테고리' }) {
   /*
   Category Dropdown 사용 예시
   사용하는 파일에서: 
@@ -62,7 +62,7 @@ export default function CategoryDropdown({ onSelect, options = [] }) {
         onClick={handleToggle}
         className={styles.dropdownButton}
       >
-        <span>{selected ? selected : '카테고리'}</span>
+        <span>{selected ? selected : placeholder}</span>
         <span>
           <Image className={styles.arrowImage} src={isOpen ? toggle_up : toggle_down} alt="toggle_down.png" />
         </span>

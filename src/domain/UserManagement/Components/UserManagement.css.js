@@ -12,6 +12,48 @@ export const controlsWrapper = style({
   marginTop: '1.5rem',
 });
 
+export const filterWrapper = style({
+  position: 'relative',
+  flexShrink: 0,
+});
+
+export const roleDropdownMenu = style({
+  display: 'flex',
+  width: '8.6875rem',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  position: 'absolute',
+  top: '110%',
+  left: 0,
+  zIndex: 10,
+  border: `1px solid ${vars.color.gray200}`,
+  borderRadius: vars.radius.xl,
+  overflow: 'hidden',
+  backgroundColor: vars.color.white,
+});
+
+export const roleDropdownOption = style({
+  display: 'flex',
+  padding: '0.75rem 2.4375rem 0.75rem 1rem',
+  alignItems: 'center',
+  gap: '0.625rem',
+  alignSelf: 'stretch',
+  borderBottom: `1px solid ${vars.color.gray200}`,
+  backgroundColor: vars.color.white,
+  color: vars.color.gray500,
+  textAlign: 'center',
+  fontFamily: 'Pretendard',
+  fontSize: '1rem',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: 'normal',
+  cursor: 'pointer',
+  selectors: {
+    '&:hover': { backgroundColor: vars.color.gray50 },
+    '&:last-child': { borderBottom: 'none' },
+  },
+});
+
 export const filterButton = style({
   display: 'flex',
   width: '7rem',
