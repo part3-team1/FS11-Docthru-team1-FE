@@ -1,7 +1,7 @@
-import * as styles from './ChallengeRequestTable.css';
+import * as styles from './ChallengeRequestTable.css'
 import Pagination from '@/components/Pagination/Pagination';
 import TableColumn from '@/components/TableColumn/TableColumn';
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { useChallengeRequest } from '../../hooks/useChallengeRequet';
 import { useRouter } from 'next/navigation';
 
@@ -23,6 +23,7 @@ export default function ChallengeRequestTable({ keyword, status, sortBy, sortOrd
 
   if (isLoading) return <div>로딩중...</div>;
 
+  if(list.length === 0) return <div>아직 신청한 챌린지가 없습니다</div>
   return (
     <div className={styles.container}>
       <div className={styles.columnScroll}>
