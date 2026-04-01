@@ -125,6 +125,7 @@ export const labelText = style({
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  whiteSpace: 'nowrap',
 });
 
 export const resetButton = style({

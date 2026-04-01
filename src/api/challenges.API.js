@@ -1,4 +1,4 @@
-const BASE_URL = '/api';
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 
 //챌린지
 //챌린지 리스트 불러오기 + 페이지네이션

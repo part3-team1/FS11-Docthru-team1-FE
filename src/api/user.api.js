@@ -1,4 +1,4 @@
-const BASE_URL = '/api';
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 
 //내가 좋아요 한 서브미션
 export async function likeSubmission() {
