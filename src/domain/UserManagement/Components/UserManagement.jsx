@@ -1,5 +1,5 @@
 'use client';
-import { Suspense, useEffect, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import SearchBar from '@/components/SearchBar/SearchBar.jsx';
@@ -22,17 +22,38 @@ const GRADE_IMAGE = {
 
 export default function UserManagement() {
   const [page, setPage] = useState(1);
+  const [keyword, setKeyword] = useState('');
+  const [roleFilter, setRoleFilter] = useState('');
   const [users, setUsers] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
+
+  const ROLE_FILTER_MAP = { '관리자': 'ADMIN', '전문가': 'EXPERT', '유저': 'USER' };
+  const ROLE_FILTER_LABEL = { ADMIN: '관리자', EXPERT: '전문가', USER: '유저' };
+  const [isRoleFilterOpen, setIsRoleFilterOpen] = useState(false);
+  const roleFilterRef = useRef(null);
   const [checkedRows, setCheckedRows] = useState([]);
   const [showBlockOverlay, setShowBlockOverlay] = useState(false);
   const [showPromoteOverlay, setShowPromoteOverlay] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const isAllChecked = users.length > 0 && checkedRows.length === users.length;
 
   useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (roleFilterRef.current && !roleFilterRef.current.contains(e.target)) {
+        setIsRoleFilterOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  useEffect(() => {
     const skip = (page - 1) * PAGE_SIZE;
-    fetch(`/api/users?skip=${skip}&take=${PAGE_SIZE}`, { credentials: 'include' })
+    const params = new URLSearchParams({ skip, take: PAGE_SIZE });
+    if (keyword) params.set('keyword', keyword);
+    if (roleFilter) params.set('role', roleFilter);
+    fetch(`/api/users?${params}`, { credentials: 'include' })
       .then((res) => res.json())
       .then((json) => {
         if (json.success) {
@@ -42,7 +63,7 @@ export default function UserManagement() {
         }
       })
       .catch(console.error);
-  }, [page]);
+  }, [page, keyword, roleFilter, refreshKey]);
 
   const handleAllCheck = () => {
     setCheckedRows(isAllChecked ? [] : users.map((u) => u.id));
@@ -52,6 +73,36 @@ export default function UserManagement() {
     setCheckedRows((prev) =>
       prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id]
     );
+  };
+
+  const handlePromoteConfirm = async () => {
+    await Promise.all(
+      checkedRows.map((id) =>
+        fetch(`/api/users/${id}/role`, {
+          method: 'PATCH',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ role: 'ADMIN' }),
+        })
+      )
+    );
+    setShowPromoteOverlay(false);
+    setCheckedRows([]);
+    setRefreshKey((k) => k + 1);
+  };
+
+  const handleBlockConfirm = async () => {
+    await Promise.all(
+      checkedRows.map((id) =>
+        fetch(`/api/admin/users/${id}/ban`, {
+          method: 'PATCH',
+          credentials: 'include',
+        })
+      )
+    );
+    setShowBlockOverlay(false);
+    setCheckedRows([]);
+    setRefreshKey((k) => k + 1);
   };
 
   const getRoleImage = (user) => {
@@ -64,7 +115,7 @@ export default function UserManagement() {
       {showBlockOverlay && createPortal(
         <ConfirmModal
           message='선택한 유저를 차단하시겠어요?'
-          onConfirm={() => setShowBlockOverlay(false)}
+          onConfirm={handleBlockConfirm}
           onCancel={() => setShowBlockOverlay(false)}
         />,
         document.body
@@ -72,20 +123,46 @@ export default function UserManagement() {
       {showPromoteOverlay && createPortal(
         <ConfirmModal
           message='선택한 유저를 승격하시겠어요?'
-          onConfirm={() => setShowPromoteOverlay(false)}
+          onConfirm={handlePromoteConfirm}
           onCancel={() => setShowPromoteOverlay(false)}
         />,
         document.body
       )}
       <h1 className={styles.title}>유저 목록</h1>
       <div className={styles.controlsWrapper}>
-        <button className={styles.filterButton}>
-          <span className={styles.filterButtonText}>필터</span>
-          <Image src='/Images/Icon/ic_filter_black.png' alt='filter' width={16} height={16} />
-        </button>
+        <div ref={roleFilterRef} className={styles.filterWrapper}>
+          <button className={styles.filterButton}>
+            <span className={styles.filterButtonText}>{ROLE_FILTER_LABEL[roleFilter] ?? '필터'}</span>
+            <Image
+              src='/Images/Icon/ic_filter_black.png'
+              alt='filter'
+              width={16}
+              height={16}
+              style={{ cursor: 'pointer' }}
+              onClick={() => setIsRoleFilterOpen((prev) => !prev)}
+            />
+          </button>
+          {isRoleFilterOpen && (
+            <div className={styles.roleDropdownMenu}>
+              {['관리자', '전문가', '유저'].map((label) => (
+                <span
+                  key={label}
+                  className={styles.roleDropdownOption}
+                  onClick={() => {
+                    setPage(1);
+                    setRoleFilter(ROLE_FILTER_MAP[label]);
+                    setIsRoleFilterOpen(false);
+                  }}
+                >
+                  {label}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
         <div className={styles.searchBarWrapper}>
           <Suspense fallback={null}>
-            <SearchBar placeholder='유저의 닉네임을 검색해보세요' />
+            <SearchBar placeholder='유저의 닉네임을 검색해보세요' onChange={(v) => { setPage(1); setKeyword(v); }} />
           </Suspense>
         </div>
         <div className={styles.buttonGroup}>

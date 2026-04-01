@@ -24,7 +24,7 @@ export const filterButton = style({
   padding: '0.5rem 0.5rem 0.5rem 0.75rem',
   flexDirection: 'row',
   alignItems: 'center',
-  gap: '0.625rem',
+  justifyContent: 'space-between',
 
   borderRadius: '2rem',
   border: `1px solid ${vars.color.gray300}`,

@@ -32,11 +32,18 @@ const PRESET_MAP = {
     iconSrc: '/Images/Icon/icon_click.svg',
     iconSize: 24,
   },
+  participatedChallenge: {
+    label: '참여한 챌린지',
+    variant: styles.participatedChallenge,
+    color: styles.white,
+    iconSrc: '/Images/Icon/icon_arrow_right.svg',
+    iconSize: 24,
+  }
 };
 
 /**
  *
- * @typedef {'original' | 'continue' | 'mySubmission' | 'apply' | 'transparent'} PresetKey
+ * @typedef {'original' | 'continue' | 'mySubmission' | 'apply' | 'transparent' | 'participatedChallenge'} PresetKey
  */
 
 /**
