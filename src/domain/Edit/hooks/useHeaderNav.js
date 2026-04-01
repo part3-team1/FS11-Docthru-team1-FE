@@ -1,65 +1,73 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
-// import { queryKeys } from '@/lib/queryKeys';
-// import { editorApi } from '@/services/editorApi';
+import { queryKeys } from '@/lib/queryKeys';
+import * as draftApi from '@/api/drafts.api';
+import * as submissionApi from '@/api/submissions.api';
 
-// api, react-query 설정 완료 후 전체적으로 수정 예정
-export function useHeaderNav(editor) {
-  const { title, content, originalData, challengeId, submissionId } = editor;
+export function useHeaderNav(editorData) {
+  const { title, content, initialData, challengeId, submissionId } = editorData;
 
   const router = useRouter();
   const queryClient = useQueryClient();
 
   // 임시저장
   const saveDraftMutation = useMutation({
-    mutationFn: (data) => editorApi.saveDraft(data), // api 작성 후 수정
+    mutationFn: (data) => draftApi.saveDraft(challengeId, data),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.drafts.list(challengeId), // queryKeys 작성 후 수정
+        queryKey: queryKeys.drafts.list(challengeId),
       });
     },
-    onError: () => {
-      alert('임시저장 실패.');
+    onError: (error) => {
+      alert(error.message || '임시저장 실패.');
     },
   });
 
   // 최종 제출
   const submitMutation = useMutation({
-    mutationFn: (data) => editorApi.submitSubmission(data), // api 작성 후 수정
+    mutationFn: (data) => submissionApi.submitSubmission(challengeId, data),
     onSuccess: (response) => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.submissions.all,  // queryKeys 작성 후 수정
+        queryKey: queryKeys.submissions.all,
       });
       queryClient.invalidateQueries({
-        queryKey: queryKeys.challenges.detail(challengeId),  // queryKeys 작성 후 수정
+        queryKey: queryKeys.challenges.detail(challengeId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.drafts.list(challengeId),
       });
 
-      const newId = response.id || response.data?.id;
-      router.push(newId ? `/submission/${newId}` : '/submissions');
+      const submissionId = response.id || response.data?.id;
+      router.push(
+        submissionId
+          ? `/challenges/${challengeId}/submissions/${submissionId}`
+          : `/challenges/${challengeId}`,
+      );
     },
-    onError: () => {
-      alert('제출 실패.');
+    onError: (error) => {
+      alert(error.message || '제출 실패.');
     },
   });
 
   // 수정
   const updateMutation = useMutation({
-    mutationFn: (newData) => editorApi.updateSubmission(submissionId, newData), // api 작성 후 수정
+    mutationFn: (newData) =>
+      submissionApi.updateSubmission(submissionId, newData),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: queryKeys.submissions.detail(submissionId),  // queryKeys 작성 후 수정
+        queryKey: queryKeys.submissions.detail(submissionId),
       });
 
-      router.push(`/submission/${submissionId}`);
+      router.push(`/challenges/${challengeId}/submissions/${submissionId}`);
     },
-    onError: () => {
-      alert('수정 실패.');
+    onError: (error) => {
+      alert(error.message || '수정 실패.');
     },
   });
 
   // 핸들 로직
   const handleSaveDraft = () => {
-    saveDraftMutation.mutate({ title, content, challengeId });
+    saveDraftMutation.mutate({ title, content });
   };
 
   const handleSubmit = () => {
@@ -67,12 +75,12 @@ export function useHeaderNav(editor) {
       return alert('제목과 내용을 입력해주세요.');
     }
 
-    const body = { title, content, challengeId };
+    const body = { title, content };
     submissionId ? updateMutation.mutate(body) : submitMutation.mutate(body);
   };
 
   const handleExit = () => {
-    if (submissionId && !originalData) {
+    if (submissionId && !initialData) {
       return router.back();
     }
 

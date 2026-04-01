@@ -11,7 +11,7 @@ export default function DraftModal({ drafts, onSelect, onDelete, onClose }) {
       >
         <div className={styles.titleContainer}>
           <h2 className={styles.title}>임시저장 글</h2>
-          <button onClick={onClose}>
+          <button onClick={onClose} className={styles.closeBtn}>
             <Image
               src="/Images/Icon/close_btn.svg"
               alt="닫기"
