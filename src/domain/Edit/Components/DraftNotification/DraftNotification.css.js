@@ -36,6 +36,9 @@ export const text = style({
 });
 
 export const closeBtn = style({
+  border: 'none',
+  backgroundColor: 'transparent',
+
   cursor: 'pointer',
 });
 
