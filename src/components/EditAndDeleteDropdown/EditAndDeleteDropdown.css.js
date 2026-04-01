@@ -13,6 +13,7 @@ export const selectContainer = style({
   position: 'absolute',
   transform: 'translateX(-88%)',
   zIndex: 10,
+  backgroundColor:vars.color.white
 });
 
 export const btn = style({

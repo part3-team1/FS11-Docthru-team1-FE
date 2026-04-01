@@ -58,6 +58,11 @@ export async function challengeRequests(data) {
   return json;
 }
 
+//챌린지 참가
+
+
+
+
 //서브미션
 //서브미션 상세조회
 export async function submissionById(id) {
@@ -147,4 +152,17 @@ export async function deleteFeedback(id) {
     throw new Error(json.message);
   }
   return;
+}
+
+//피드백 블락 (어드민))
+export async function blockFeedback(id,isBlocked) {
+  const res = await fetch(`${BASE_URL}/admin/feedbacks/${id}/block`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ isBlocked }),
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }

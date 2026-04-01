@@ -51,6 +51,7 @@ export default function useDropdownActions({ currentUser, content }) {
 
   //작성자 본인 (피드백, 작업물)
   if (isOwner) {
+    if (isBlocked) return [];
     return [
       { label: '수정', action: 'edit' },
       { label: '삭제', action: 'delete' },

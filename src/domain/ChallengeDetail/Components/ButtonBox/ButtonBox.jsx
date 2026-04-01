@@ -4,12 +4,14 @@ import * as styles from './ButtonBox.css';
 import LinkButton from '@/components/LinkButton';
 import Link from 'next/link';
 
-export default function ButtonBox({ data, currentUser, isParticipating }) {
+export default function ButtonBox({ data, currentUser, isParticipating, hasSubmission }) {
+
   const isClosed = data.status === 'CLOSED';
 
   const challengeId = data.id;
 
   const randerButton = () => {
+     console.log('isParticipating:', isParticipating, 'hasSubmission:', hasSubmission);
     //챌린지 마감..
     if (isClosed) {
       return (
@@ -27,11 +29,11 @@ export default function ButtonBox({ data, currentUser, isParticipating }) {
       );
     }
 
-    if (isParticipating) {
+    if (hasSubmission) {
       return (
-        <Link href={`/challenges/${challengeId}/submissions/new`} className={styles.clickBtn}>
+        <button className={styles.hasBtn}>
           도전 계속하기
-        </Link>
+        </button>
       );
     }
     return (

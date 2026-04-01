@@ -65,3 +65,12 @@ export const clickBtn = style([
     color: vars.color.brandWhite,
   },
 ]);
+
+
+export const hasBtn = style([
+  baseBtn,
+  {
+    backgroundColor: vars.color.gray200,
+    color: vars.color.gray600,
+  },
+]);
