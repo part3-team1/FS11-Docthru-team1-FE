@@ -4,7 +4,7 @@ import Image from 'next/image';
 import * as styles from './CancelDropdown.css';
 import { useEffect, useRef, useState } from 'react';
 
-export default function CancelDropdown() {
+export default function CancelDropdown({onClick}) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
 
@@ -32,7 +32,7 @@ export default function CancelDropdown() {
 
       {isOpen && (
         <div className={styles.selectContainer}>
-          <div className={styles.btn}>취소하기</div>
+          <div onClick={onClick} className={styles.btn}>취소하기</div>
         </div>
       )}
     </div>
