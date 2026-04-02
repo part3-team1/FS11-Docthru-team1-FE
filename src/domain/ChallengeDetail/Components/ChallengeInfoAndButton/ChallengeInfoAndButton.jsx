@@ -5,7 +5,7 @@ import ButtonBox from '../ButtonBox/ButtonBox';
 import ChallengeInfo from '@/components/ChallengeInfo/ChallengeInfo';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 
-export function ChallengeInfoAndButton({ data, currentUser, isParticipating,hasSubmission }) {
+export function ChallengeInfoAndButton({ data, currentUser, isParticipating,hasSubmission,hasDrafts }) {
   const challengeUser = data?.request?.user
   return (
     <div className={styles.infoContainer}>
@@ -54,6 +54,7 @@ export function ChallengeInfoAndButton({ data, currentUser, isParticipating,hasS
           currentUser={currentUser}
           isParticipating={isParticipating}
           hasSubmission={hasSubmission}
+          hasDrafts={hasDrafts}
         />
       </div>
     </div>
