@@ -38,8 +38,11 @@ export async function signup(data) {
     body: JSON.stringify(data),
   });
   const json = await res.json();
-  if (!res.ok) throw new Error(json.message);
-
+  if (!res.ok) {
+    const err = new Error(json.message);
+    err.details = json.details;
+    throw err;
+  }
   return json;
 }
 
