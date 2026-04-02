@@ -71,7 +71,7 @@ export function useDeleteNotification() {
 
     onError: (error, id) => {
       console.log('delete error id: ', id);
-      console.log('d error message: ', error.message);
+      console.log('delete error message: ', error.message);
     },
   });
 }
