@@ -7,7 +7,7 @@ export default function FeatureSection() {
       <div className={styles.section}>
         <div className={styles.content}>
           <Image
-            src="/images/Icon/trophy.svg"
+            src="/Images/Icon/trophy.svg"
             alt="트로피 아이콘"
             width={24}
             height={24}
@@ -25,7 +25,7 @@ export default function FeatureSection() {
         </div>
 
         <Image
-          src="/images/home1.png"
+          src="/Images/home1.png"
           alt="챌린지카드 예시"
           width={400}
           height={300}
@@ -37,7 +37,7 @@ export default function FeatureSection() {
       <div className={styles.centerSection}>
         <div className={styles.content}>
           <Image
-            src="/images/Icon/heart.svg"
+            src="/Images/Icon/heart.svg"
             alt="트로피 아이콘"
             width={24}
             height={24}
@@ -54,7 +54,7 @@ export default function FeatureSection() {
           </div>
         </div>
         <Image
-          src="/images/home2.png"
+          src="/Images/home2.png"
           alt="챌린지카드 예시"
           width={400}
           height={300}
@@ -66,7 +66,7 @@ export default function FeatureSection() {
       <div className={styles.FeedbackSection}>
         <div className={styles.content}>
           <Image
-            src="/images/Icon/feedback.svg"
+            src="/Images/Icon/feedback.svg"
             alt="트로피 아이콘"
             width={24}
             height={24}
@@ -79,7 +79,7 @@ export default function FeatureSection() {
           </div>
         </div>
         <Image
-          src="/images/home3.png"
+          src="/Images/home3.png"
           alt="챌린지카드 예시"
           width={395}
           height={280}

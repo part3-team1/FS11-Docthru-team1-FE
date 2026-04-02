@@ -52,14 +52,14 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
             <div className={styles.infoContainer}>
               {feedbacks?.user.grade === 'NORMAL' ? (
                 <Image
-                  src="/images/icon/user.png"
+                  src="/Images/Icon/user.png"
                   alt="일반유저 아이콘"
                   width={24}
                   height={24}
                 />
               ) : (
                 <Image
-                  src="/images/icon/user_expert.png"
+                  src="/Images/Icon/user_expert.png"
                   alt="전문가 아이콘"
                   width={24}
                   height={24}
@@ -105,14 +105,14 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
             <div className={styles.infoContainer}>
               {feedbacks?.user.grade === 'NORMAL' ? (
                 <Image
-                  src="/images/icon/user.png"
+                  src="/Images/Icon/user.png"
                   alt="일반유저 아이콘"
                   width={24}
                   height={24}
                 />
               ) : (
                 <Image
-                  src="/images/icon/user_expert.png"
+                  src="/Images/Icon/user_expert.png"
                   alt="전문가 아이콘"
                   width={24}
                   height={24}

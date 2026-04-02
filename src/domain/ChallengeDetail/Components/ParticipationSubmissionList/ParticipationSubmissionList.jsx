@@ -4,17 +4,19 @@ import SubmissionsCard from '../SubmissionsCard/SubmissionsCard';
 import * as styles from './ParticipationSubmissionList.css';
 import Image from 'next/image';
 import clsx from 'clsx';
+import page_left from '@/../public/Images/Icon/page_left.svg';
+import page_right from '@/../public/Images/Icon/page_right.svg';
 
 export default function ParticipationSubmissionList({ data }) {
-  const items = (data ?? []).sort((a,b)=> b.heartCount - a.heartCount)
+  const items = (data ?? []).sort((a, b) => b.heartCount - a.heartCount);
   const itemsPerPage = 5;
-  const totalPage = Math.ceil(items.length / itemsPerPage)
+  const totalPage = Math.ceil(items.length / itemsPerPage);
   const [currentPage, setCurrentPage] = useState(1);
-  
+
   const paginatedItems = items.slice(
     (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  )
+    currentPage * itemsPerPage,
+  );
 
   return (
     <div className={styles.container}>
@@ -36,12 +38,7 @@ export default function ParticipationSubmissionList({ data }) {
                 currentPage === 1 && styles.paginationDisabled,
               )}
             >
-              <Image
-                src="/images/Icon/page_left.svg"
-                alt="왼쪽"
-                width={32}
-                height={32}
-              />
+              <Image src={page_left} alt="왼쪽" width={32} height={32} />
             </button>
             <button
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPage))}
@@ -52,12 +49,7 @@ export default function ParticipationSubmissionList({ data }) {
               )}
             >
               {' '}
-              <Image
-                src="/images/Icon/page_right.svg"
-                alt="오른쪽"
-                width={32}
-                height={32}
-              />
+              <Image src={page_right} alt="오른쪽" width={32} height={32} />
             </button>
           </div>
         </div>
@@ -68,7 +60,7 @@ export default function ParticipationSubmissionList({ data }) {
           <SubmissionsCard
             key={item.id}
             item={item}
-            rank={(currentPage - 1) * itemsPerPage + index +1}
+            rank={(currentPage - 1) * itemsPerPage + index + 1}
           />
         ))}
       </div>

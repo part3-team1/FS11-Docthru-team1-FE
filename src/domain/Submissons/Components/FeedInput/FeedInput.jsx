@@ -30,8 +30,8 @@ export default function FeedInput({
           <Image
             src={
               comment
-                ? '/images/icon/comentBtn-active.png'
-                : '/images/icon/comentBtn-inacitve.png'
+                ? '/Images/Icon/comentBtn-active.png'
+                : '/Images/Icon/comentBtn-inacitve.png'
             }
             alt="댓글등록버튼"
             width={40}
