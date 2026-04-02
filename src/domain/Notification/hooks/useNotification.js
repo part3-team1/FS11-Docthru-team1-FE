@@ -32,6 +32,7 @@ export function useReadNotification() {
 
   return useMutation({
     mutationFn: readNotification,
+    
     onSuccess: (_, id) => {
       console.log('read success id: ', id);
       queryClient.invalidateQueries({
