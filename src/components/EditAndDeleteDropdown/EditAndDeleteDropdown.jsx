@@ -26,10 +26,12 @@ export default function EditAndDeleteDropdown({
   editHref,
   onEdit,
   onDelete,
+  onBlock,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
-  const actions = useDropdownActions({ currentUser, content });
+  const allActions = useDropdownActions({ currentUser, content });
+  const actions = onBlock ? allActions : allActions.filter((a) => a.action !== 'hide');
   const handleToggle = () => setIsOpen((prev) => !prev);
 
   // 빈공간 누르면 dropdown접힘
@@ -52,7 +54,14 @@ export default function EditAndDeleteDropdown({
     if (action === 'edit') {
       onEdit?.();
     }
-    if (action === 'delete' || action === 'hide' || action === 'unhide') {
+    if (action === 'hide') {
+      try {
+        await onBlock?.();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    if (action === 'delete' || action === 'unhide') {
       try {
         await onDelete?.();
       } catch (e) {

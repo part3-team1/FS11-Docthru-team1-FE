@@ -2,9 +2,11 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import * as styles from './AdminChallengeDropdown.css.js';
+import DeleteModal from '@/components/Modal/DeleteModal/DeleteModal.jsx';
 
 export default function AdminChallengeDropdown({ onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const wrapperRef = useRef(null);
 
   useEffect(() => {
@@ -22,11 +24,15 @@ export default function AdminChallengeDropdown({ onDelete }) {
     setIsOpen((prev) => !prev);
   };
 
-  const handleDelete = (e) => {
+  const handleDeleteClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     setIsOpen(false);
-    onDelete?.();
+    setShowModal(true);
+  };
+
+  const handleModalSubmit = (reason) => {
+    onDelete?.(reason);
   };
 
   return (
@@ -41,10 +47,16 @@ export default function AdminChallengeDropdown({ onDelete }) {
       />
       {isOpen && (
         <div className={styles.selectContainer}>
-          <button className={styles.btn} onClick={handleDelete}>
+          <button className={styles.btn} onClick={handleDeleteClick}>
             삭제하기
           </button>
         </div>
+      )}
+      {showModal && (
+        <DeleteModal
+          onClose={() => setShowModal(false)}
+          onSubmit={handleModalSubmit}
+        />
       )}
     </div>
   );

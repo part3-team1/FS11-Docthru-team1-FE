@@ -5,7 +5,7 @@ import * as styles from './ParticipationSubmissionList.css';
 import Image from 'next/image';
 import clsx from 'clsx';
 
-export default function ParticipationSubmissionList({ data }) {
+export default function ParticipationSubmissionList({ data, getHref }) {
   const items = (data ?? []).sort((a,b)=> b.heartCount - a.heartCount)
   const itemsPerPage = 5;
   const totalPage = Math.ceil(items.length / itemsPerPage)
@@ -27,7 +27,7 @@ export default function ParticipationSubmissionList({ data }) {
               {totalPage}
             </div>
           </div>
-          <div>
+          <div className={styles.buttonGroup}>
             <button
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
@@ -51,7 +51,6 @@ export default function ParticipationSubmissionList({ data }) {
                 currentPage === totalPage && styles.paginationDisabled,
               )}
             >
-              {' '}
               <Image
                 src="/images/Icon/page_right.svg"
                 alt="오른쪽"
@@ -68,7 +67,8 @@ export default function ParticipationSubmissionList({ data }) {
           <SubmissionsCard
             key={item.id}
             item={item}
-            rank={(currentPage - 1) * itemsPerPage + index +1}
+            rank={(currentPage - 1) * itemsPerPage + index + 1}
+            getHref={getHref}
           />
         ))}
       </div>

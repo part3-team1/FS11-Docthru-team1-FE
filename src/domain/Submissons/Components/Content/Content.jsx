@@ -4,8 +4,9 @@ import * as styles from './Content.css';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 import { deleteSubmissionById } from '@/api/challenges.API';
 import { useRouter } from 'next/navigation';
+import AdminDropdown from '@/domain/AdminSubmissionDetail/AdminDropdown/AdminDropdown';
 
-export default function Content({ currentUser, submission }) {
+export default function Content({ currentUser, submission, isAdminPage }) {
   const router = useRouter()
   const formatDate = (dateStr) => {
     const date = new Date(dateStr);
@@ -33,18 +34,25 @@ export default function Content({ currentUser, submission }) {
             <div className={styles.submissionTitle}>{submission.title}</div>
           </div>
 
-          <EditAndDeleteDropdown
-            currentUser={currentUser}
-            content={{
-              type: 'submission',
-              authorId: submission.userId,
-              status: null,
-              current_participants: 0,
-              isBlocked: false,
-            }}
-            editHref={`/submissions/${submission.id}/edit`}
-            onDelete={() => handleDelete()} 
-          />
+          {isAdminPage ? (
+            <AdminDropdown
+              actions={[{ label: '삭제하기', action: 'delete' }]}
+              onDelete={handleDelete}
+            />
+          ) : (
+            <EditAndDeleteDropdown
+              currentUser={currentUser}
+              content={{
+                type: 'submission',
+                authorId: submission.userId,
+                status: null,
+                current_participants: 0,
+                isBlocked: false,
+              }}
+              editHref={`/submissions/${submission.id}/edit`}
+              onDelete={() => handleDelete()}
+            />
+          )}
         </div>
 
         <div className={styles.categoryContainer}>

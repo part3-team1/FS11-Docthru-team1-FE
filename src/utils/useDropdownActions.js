@@ -12,7 +12,7 @@ export default function useDropdownActions({ currentUser, content }) {
   } = content;
 
   // 어드민이니..?
-  const isAdmin = role === 'ADMIN';
+  const isAdmin = role === 'ADMIN' || role === 'MASTER';
   // 작성자이니...?
   const isOwner = userId === authorId;
   // 참여했니..?
@@ -22,10 +22,8 @@ export default function useDropdownActions({ currentUser, content }) {
   if (isAdmin) {
     //  만약 피드백이면
     if (type === 'feedback') {
-      // 이거 나옴 ( label: 드롭다운 아림 / action: 행동 )
-      return isBlocked
-        ? [{ label: '해제하기', action: 'unhide' }]
-        : [{ label: '가리기', action: 'hide' }];
+      if (isBlocked) return [];
+      return [{ label: '가리기', action: 'hide' }];
     }
     // 피드백 아니면
     return [{ label: '삭제', action: 'delete' }];

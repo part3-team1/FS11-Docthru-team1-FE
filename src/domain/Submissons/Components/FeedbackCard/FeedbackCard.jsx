@@ -1,19 +1,25 @@
 import Image from 'next/image';
 import * as styles from './FeedbackCard.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
+import AdminDropdown from '@/domain/AdminSubmissionDetail/AdminDropdown/AdminDropdown';
 import { useFeedback } from '../../hooks/useFeedback';
 
 
 export default function ComentCard({
   feedbacks,
   currentUser,
-  submissionId
+  submissionId,
+  isAdminPage,
 }) {
-  const { editFeedback, removeFeedback } = useFeedback(submissionId);
+  const { editFeedback, removeFeedback, hideFeedback } = useFeedback(submissionId);
   const [editValue, setEditValue] = useState(feedbacks?.content);
   const [isEditing, setIsEditing] = useState(false);
   const [isBlocked, setIsBlocked] = useState(feedbacks?.isBlocked);
+
+  useEffect(() => {
+    setIsBlocked(feedbacks?.isBlocked);
+  }, [feedbacks?.isBlocked]);
 
   const handleCancel = () => {
     setEditValue(feedbacks.content);
@@ -42,7 +48,6 @@ export default function ComentCard({
       {!isEditing && (
         <div className={isBlocked ? styles.blockedContainer : styles.container}>
           {/* 블러 오버레이 */}
-
           {isBlocked && (
             <div className={styles.blockOverlay}>
               <span className={styles.blockComent}>
@@ -82,16 +87,23 @@ export default function ComentCard({
                   : styles.dropdownWrapper
               }
             >
-              <EditAndDeleteDropdown
-                currentUser={currentUser}
-                content={{
-                  type: 'feedback',
-                  authorId: feedbacks?.userId,
-                  isBlocked: feedbacks?.isBlocked || isBlocked,
-                }}
-                onEdit={() => setIsEditing(true)}
-                onDelete={handleDelete}
-              />
+              {isAdminPage ? (
+                <AdminDropdown
+                  actions={isBlocked ? [] : [{ label: '가리기', action: 'hide' }]}
+                  onBlock={() => hideFeedback(feedbacks.id, { onSuccess: () => setIsBlocked(true) })}
+                />
+              ) : (
+                <EditAndDeleteDropdown
+                  currentUser={currentUser}
+                  content={{
+                    type: 'feedback',
+                    authorId: feedbacks?.userId,
+                    isBlocked: feedbacks?.isBlocked || isBlocked,
+                  }}
+                  onEdit={() => setIsEditing(true)}
+                  onDelete={handleDelete}
+                />
+              )}
             </div>
           </div>
 
