@@ -3,13 +3,10 @@ import RequestStatus from '../../../components/RequestStatus/RequestStatus';
 import * as styles from './MyChallengeDetailContainer.css';
 import DueDate from '@/components/DueDate';
 import { ChallengeParticipantCount } from '@/components/Participants';
-
-// mock data.
-import { data } from '@/mock/myChallengeDetailMockData';
 import LinkButton from '@/components/LinkButton';
 import CancelDropdown from '../Components/CancelDropdown/CancelDropdown';
 
-export default function MyChallengeDetail() {
+export default function MyChallengeDetail({id}) {
   const isPending = data.status === 'PENDING';
   return (
     <div>
