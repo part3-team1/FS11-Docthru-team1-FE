@@ -25,12 +25,17 @@ export const useChallengeDetail = (id) => {
   const isParticipating = currentUser
     ? data?.participations?.some((p) => p.user.id === currentUser.id)
     : false;
-  
-  //내가 서브미션 작성했는지 
-  const hasSubmission = currentUser ? data?.submissions?.some((s) => s.userId === currentUser.id)
+
+  //내가 서브미션 작성했는지
+  const hasSubmission = currentUser
+    ? data?.submissions?.some((s) => s.userId === currentUser.id)
     : false;
-  
-  console.log('participations:', data?.participations);
+
+  //임시저장이 있냐없냐
+  const hasDrafts = currentUser
+    ? data?.drafts?.some((d) => d.userId === currentUser.id)
+    : false;
+
   return {
     data,
     isLoading,
@@ -38,6 +43,7 @@ export const useChallengeDetail = (id) => {
     isClosed,
     isParticipating,
     currentUser,
-    hasSubmission
+    hasSubmission,
+    hasDrafts,
   };
 };

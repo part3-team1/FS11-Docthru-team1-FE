@@ -10,15 +10,18 @@ export default function ButtonBox({
   currentUser,
   isParticipating: initialIsParticipating,
   hasSubmission,
+  hasDrafts,
 }) {
   const isClosed = data.status === 'CLOSED';
+const mySubmission = data.submissions?.find((s) => s.userId === currentUser?.id);
+
 
   const challengeId = data.id;
 
   const { join, leave, isParticipating, currentParticipants } = useJoinLeave(
     challengeId,
     initialIsParticipating,
-    data.currentParticipants
+    data.currentParticipants,
   );
 
   const randerButton = () => {
@@ -47,12 +50,33 @@ export default function ButtonBox({
           <button onClick={() => leave()} className={styles.leaveBtn}>
             포기하기
           </button>
-          <button className={styles.cta} disabled>
-            도전중...
-          </button>
+          <Link
+            href={`/challenges/${challengeId}/submissions/${mySubmission?.id}`}
+            className={styles.clickBtn}
+          >
+            내 작업물 보기
+          </Link>
         </div>
       );
     }
+    
+    //임시저장만 된사람?
+    if (isParticipating && hasDrafts) {
+      return (
+        <div className={styles.twoBtn}>
+          <button onClick={() => leave()} className={styles.leaveBtn}>
+            포기하기
+          </button>
+          <Link
+            href={`/challenges/${challengeId}/submissions/new`}
+            className={styles.clickBtn}
+          >
+            도전 계속하기
+          </Link>
+        </div>
+      );
+    }
+
     //참가자
     if (isParticipating) {
       return (
@@ -70,7 +94,9 @@ export default function ButtonBox({
       );
     }
 
+
     return (
+      // 기본 유저
       <>
         <button onClick={() => join()} className={styles.clickBtn}>
           참가하기

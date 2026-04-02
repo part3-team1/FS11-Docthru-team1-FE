@@ -4,7 +4,11 @@ import { queryKeys } from '@/lib/queryKeys';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
-export const useJoinLeave = (challengeId, initialIsParticipating, initialParticipants) => {
+export const useJoinLeave = (
+  challengeId,
+  initialIsParticipating,
+  initialParticipants,
+) => {
   const queryClient = useQueryClient();
   const [isParticipating, setIsParticipating] = useState(
     initialIsParticipating,
@@ -14,7 +18,10 @@ export const useJoinLeave = (challengeId, initialIsParticipating, initialPartici
 
   const invalidate = () => {
     queryClient.invalidateQueries({
-      queryKey: queryKeys.challenges.detail(challengeId),
+      queryKey: [...queryKeys.challenges.detail(), challengeId],
+    });
+    queryClient.invalidateQueries({
+      queryKey: queryKeys.challenges.list(),
     });
   };
 
@@ -22,7 +29,7 @@ export const useJoinLeave = (challengeId, initialIsParticipating, initialPartici
     mutationFn: () => joinChallenge(challengeId),
     onSuccess: () => {
       setIsParticipating(true);
-      setCurrentParticipants((prev) => prev + 1)
+      setCurrentParticipants((prev) => prev + 1);
       invalidate();
     },
   });
@@ -31,14 +38,14 @@ export const useJoinLeave = (challengeId, initialIsParticipating, initialPartici
     mutationFn: () => leaveChallenge(challengeId),
     onSuccess: () => {
       setIsParticipating(false);
-      setCurrentParticipants((prev) => prev - 1)
+      setCurrentParticipants((prev) => prev - 1);
       invalidate();
     },
   });
 
   useEffect(() => {
-  setIsParticipating(initialIsParticipating);
-}, [initialIsParticipating]);
+    setIsParticipating(initialIsParticipating);
+  }, [initialIsParticipating]);
 
   return { join, leave, isParticipating, currentParticipants };
 };

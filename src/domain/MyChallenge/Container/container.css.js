@@ -10,5 +10,5 @@ export const container = style({
 export const barWrapper = style({
   display: 'flex',
   flexDirection: 'row',
-  gap: vars.space.md
+  gap: vars.space.md,
 });
