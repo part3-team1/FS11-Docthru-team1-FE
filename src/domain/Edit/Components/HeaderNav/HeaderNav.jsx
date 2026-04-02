@@ -24,7 +24,7 @@ export default function HeaderNav({ editor }) {
           width={17.55}
           height={20.25}
         />
-        <span className={styles.logoName}>DocThru</span>
+        <span className={styles.logoName}>Docthru</span>
       </Link>
 
       <div className={styles.buttonGroup}>
