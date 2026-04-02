@@ -2,7 +2,7 @@ import Link from 'next/link.js';
 import SignupForm from '../Components/SignupForm.jsx';
 import Image from 'next/image.js';
 import * as styles from './SignupContainer.css.js';
-import logo from '@/../public/Images/Logo/logi.svg';
+import logo from '@/../public/Images/Logo/logo.svg';
 
 export default function SignupContainer() {
   return (
