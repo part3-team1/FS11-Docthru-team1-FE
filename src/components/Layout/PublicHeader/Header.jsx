@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from '@/../public/Images/Logo/logi.svg';
+import logo from '@/../public/Images/Logo/logo.svg';
 import * as styles from './Header.css.jsx';
 
 export default function PublicHeader() {
