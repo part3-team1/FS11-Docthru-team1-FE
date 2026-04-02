@@ -7,9 +7,9 @@ import { useRouter } from 'next/navigation';
 import { submissionFormatDate } from '@/utils/format';
 import { useEffect, useState } from 'react';
 import { useHeart } from '../../hooks/useHeart';
-import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
 import LinkButton from '@/components/LinkButton';
+import { useEditor, EditorContent } from '@tiptap/react';
+import { commonExtensions } from '@/domain/Edit/Components/Editor/EditorExtensions';
 
 export default function Content({ currentUser, submission }) {
   const router = useRouter();
@@ -31,30 +31,30 @@ export default function Content({ currentUser, submission }) {
 
   const viewer = useEditor({
     editable: false,
-    extensions: [StarterKit],
+    extensions: [...commonExtensions],
     content: submission?.content,
     immediatelyRender: false,
   });
 
-useEffect(() => {
-  if (viewer && submission?.content) {
-    const content = submission.content;
-    
-    if (content?.blocks) {
-      // blocks 형식을 tiptap 형식으로 변환
-      const tiptapContent = {
-        type: 'doc',
-        content: content.blocks.map((block) => ({
-          type: 'paragraph',
-          content: block.text ? [{ type: 'text', text: block.text }] : [],
-        })),
-      };
-      viewer.commands.setContent(tiptapContent);
-    } else {
-      viewer.commands.setContent(content);
+  useEffect(() => {
+    if (viewer && submission?.content) {
+      const content = submission.content;
+
+      if (content?.blocks) {
+        // blocks 형식을 tiptap 형식으로 변환
+        const tiptapContent = {
+          type: 'doc',
+          content: content.blocks.map((block) => ({
+            type: 'paragraph',
+            content: block.text ? [{ type: 'text', text: block.text }] : [],
+          })),
+        };
+        viewer.commands.setContent(tiptapContent);
+      } else {
+        viewer.commands.setContent(content);
+      }
     }
-  }
-}, [submission?.content, viewer]);
+  }, [submission?.content, viewer]);
 
   const handleDelete = async () => {
     await deleteSubmissionById(submission.id);

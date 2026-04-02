@@ -1,42 +1,19 @@
 'use client';
 
-import { all, createLowlight } from 'lowlight';
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { Placeholder } from '@tiptap/extensions';
 import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Image from '@tiptap/extension-image';
-import TextAlign from '@tiptap/extension-text-align';
-import Color from '@tiptap/extension-color';
-import { TextStyle } from '@tiptap/extension-text-style';
-import Highlight from '@tiptap/extension-highlight';
 import MenuBar from '../MenuBar/MenuBar.jsx';
 import { useEffect } from 'react';
 import { useEditorStore } from '@/domain/Edit/store/editor.store.js';
+import { commonExtensions } from './EditorExtensions.js';
 import * as styles from './Editor.css.js';
-
-const lowlight = createLowlight(all);
 
 export default function Editor() {
   const { content, setContent } = useEditorStore();
 
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({
-        codeBlock: false,
-      }),
-      TextStyle,
-      Color,
-      Highlight.configure({
-        multicolor: true,
-      }),
-      TextAlign.configure({
-        types: ['heading', 'paragraph'],
-      }),
-      Image, // 아직 구현 안됨
-      CodeBlockLowlight.configure({
-        lowlight,
-      }),
+      ...commonExtensions,
       Placeholder.configure({
         placeholder: '번역 내용을 적어주세요.',
       }),
@@ -44,6 +21,13 @@ export default function Editor() {
     editorProps: {
       attributes: {
         class: 'docthru-editor',
+      },
+      handleKeyDown: (view, event) => {
+        if (event.key === 'Tab') {
+          editor.commands.insertContent('\t');
+          return true;
+        }
+        return false;
       },
     },
     content: content,
