@@ -12,12 +12,22 @@ export default function SubmissionsCard({ item, rank }) {
     };
     return gradeMap[grade] ?? grade;
   };
+
+  if (item.length === 0)
+    return (
+      <div className={styles.empty}>
+        아직 참여한 도전자가 없어요,
+        <br />
+        지금 바로 도전해보세요!
+      </div>
+    );
+  
   return (
     <div className={styles.container}>
       {/* 순위 */}
       <div className={styles.left}>
         <div className={styles.best}>
-          {isBest  ? (
+          {isBest ? (
             <Image
               src="/images/Icon/free-icon-gold-medal-1910528.png"
               alt="1등"
@@ -66,7 +76,10 @@ export default function SubmissionsCard({ item, rank }) {
 
           <div>{item.heartCount}</div>
         </div>
-        <Link href={`/challenges/${item.challengeId}/submissions/${item.id}`} className={styles.link}>
+        <Link
+          href={`/challenges/${item.challengeId}/submissions/${item.id}`}
+          className={styles.link}
+        >
           {' '}
           작업물 보기 &gt;
         </Link>

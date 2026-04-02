@@ -23,6 +23,5 @@ export const myActivityContainer = style({
 });
 
 export const childrenContainer = style({
-  border:`1px solid ${vars.color.black}`,
   width:'100%'
 });

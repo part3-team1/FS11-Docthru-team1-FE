@@ -23,7 +23,7 @@ export default function ChallengeRequestTable({ keyword, status, sortBy, sortOrd
 
   if (isLoading) return <div>로딩중...</div>;
 
-  if(list.length === 0) return <div>아직 신청한 챌린지가 없습니다</div>
+  if(list.length === 0) return <div className={styles.empty}>아직 신청한 챌린지가 없습니다</div>
   return (
     <div className={styles.container}>
       <div className={styles.columnScroll}>

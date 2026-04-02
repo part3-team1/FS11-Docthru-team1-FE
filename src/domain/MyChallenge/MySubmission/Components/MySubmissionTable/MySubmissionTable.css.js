@@ -32,7 +32,7 @@ export const columnScroll = style({
 
 export const empty = style({
   display: 'flex',
-  paddingTop:'10rem',
+  paddingTop:'20rem',
   alignItems: 'center',
   justifyContent: 'center',
   color:vars.color.gray500

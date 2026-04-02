@@ -84,3 +84,12 @@ export const link = style({
   position: 'relative',
   top: '0.1rem',
 });
+
+
+export const empty = style({
+  display: 'flex',
+  paddingTop:'20rem',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: vars.color.gray500,
+})
