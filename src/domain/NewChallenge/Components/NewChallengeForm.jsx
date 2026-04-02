@@ -4,11 +4,9 @@ import * as styles from './NewChallengeForm.css';
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useRequest } from '../hooks/useRequest';
-import { useRequireAuth } from '@/hooks/useRequireAuth';
 
 export default function NewChallengeForm() {
   const router = useRouter();
-  const { user, isLoading } = useRequireAuth();
 
   const { mutate: request, isPending } = useRequest();
   const {
@@ -18,8 +16,6 @@ export default function NewChallengeForm() {
     clearErrors,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ mode: 'onSubmit' });
-
-  if (isLoading || !user) return null;
 
   const onSubmit = (data) => {
     request(data, {
