@@ -27,7 +27,7 @@ export default function UserManagement() {
   const [users, setUsers] = useState([]);
   const [totalCount, setTotalCount] = useState(0);
 
-  const ROLE_FILTER_MAP = { '관리자': 'ADMIN', '전문가': 'EXPERT', '유저': 'USER' };
+  const ROLE_FILTER_MAP = { 관리자: 'ADMIN', 전문가: 'EXPERT', 유저: 'USER' };
   const ROLE_FILTER_LABEL = { ADMIN: '관리자', EXPERT: '전문가', USER: '유저' };
   const [isRoleFilterOpen, setIsRoleFilterOpen] = useState(false);
   const roleFilterRef = useRef(null);
@@ -71,7 +71,7 @@ export default function UserManagement() {
 
   const handleRowCheck = (id) => {
     setCheckedRows((prev) =>
-      prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id],
     );
   };
 
@@ -83,8 +83,8 @@ export default function UserManagement() {
           credentials: 'include',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ role: 'ADMIN' }),
-        })
-      )
+        }),
+      ),
     );
     setShowPromoteOverlay(false);
     setCheckedRows([]);
@@ -97,8 +97,8 @@ export default function UserManagement() {
         fetch(`/api/admin/users/${id}/ban`, {
           method: 'PATCH',
           credentials: 'include',
-        })
-      )
+        }),
+      ),
     );
     setShowBlockOverlay(false);
     setCheckedRows([]);
@@ -106,36 +106,41 @@ export default function UserManagement() {
   };
 
   const getRoleImage = (user) => {
-    if (user.role === 'ADMIN' || user.role === 'MASTER') return ROLE_IMAGE[user.role];
+    if (user.role === 'ADMIN' || user.role === 'MASTER')
+      return ROLE_IMAGE[user.role];
     return GRADE_IMAGE[user.grade] ?? ROLE_IMAGE['USER'];
   };
 
   return (
     <div className={styles.container}>
-      {showBlockOverlay && createPortal(
-        <ConfirmModal
-          message='선택한 유저를 차단하시겠어요?'
-          onConfirm={handleBlockConfirm}
-          onCancel={() => setShowBlockOverlay(false)}
-        />,
-        document.body
-      )}
-      {showPromoteOverlay && createPortal(
-        <ConfirmModal
-          message='선택한 유저를 승격하시겠어요?'
-          onConfirm={handlePromoteConfirm}
-          onCancel={() => setShowPromoteOverlay(false)}
-        />,
-        document.body
-      )}
+      {showBlockOverlay &&
+        createPortal(
+          <ConfirmModal
+            message="선택한 유저를 차단하시겠어요?"
+            onConfirm={handleBlockConfirm}
+            onCancel={() => setShowBlockOverlay(false)}
+          />,
+          document.body,
+        )}
+      {showPromoteOverlay &&
+        createPortal(
+          <ConfirmModal
+            message="선택한 유저를 승격하시겠어요?"
+            onConfirm={handlePromoteConfirm}
+            onCancel={() => setShowPromoteOverlay(false)}
+          />,
+          document.body,
+        )}
       <h1 className={styles.title}>유저 목록</h1>
       <div className={styles.controlsWrapper}>
         <div ref={roleFilterRef} className={styles.filterWrapper}>
           <button className={styles.filterButton}>
-            <span className={styles.filterButtonText}>{ROLE_FILTER_LABEL[roleFilter] ?? '필터'}</span>
+            <span className={styles.filterButtonText}>
+              {ROLE_FILTER_LABEL[roleFilter] ?? '필터'}
+            </span>
             <Image
-              src='/Images/Icon/ic_filter_black.png'
-              alt='filter'
+              src="/Images/Icon/ic_filter_black.png"
+              alt="filter"
               width={16}
               height={16}
               style={{ cursor: 'pointer' }}
@@ -161,9 +166,13 @@ export default function UserManagement() {
           )}
         </div>
         <div className={styles.searchBarWrapper}>
-          <Suspense fallback={null}>
-            <SearchBar placeholder='유저의 닉네임을 검색해보세요' onChange={(v) => { setPage(1); setKeyword(v); }} />
-          </Suspense>
+          <SearchBar
+            placeholder="유저의 닉네임을 검색해보세요"
+            onChange={(v) => {
+              setPage(1);
+              setKeyword(v);
+            }}
+          />
         </div>
         <div className={styles.buttonGroup}>
           <button
@@ -192,12 +201,23 @@ export default function UserManagement() {
         </colgroup>
         <thead className={styles.tableHead}>
           <tr>
-            <th className={`${styles.tableHeadCell} ${styles.tableHeadCellFirst} ${styles.checkboxCell}`}>
+            <th
+              className={`${styles.tableHeadCell} ${styles.tableHeadCellFirst} ${styles.checkboxCell}`}
+            >
               <label className={styles.checkboxLabel}>
-                <input type='checkbox' className={styles.hideDefault} checked={isAllChecked} onChange={handleAllCheck} />
+                <input
+                  type="checkbox"
+                  className={styles.hideDefault}
+                  checked={isAllChecked}
+                  onChange={handleAllCheck}
+                />
                 <Image
-                  src={isAllChecked ? '/Images/Icon/checkbox_checked.svg' : '/Images/Icon/checkbox_normal.svg'}
-                  alt='전체선택'
+                  src={
+                    isAllChecked
+                      ? '/Images/Icon/checkbox_checked.svg'
+                      : '/Images/Icon/checkbox_normal.svg'
+                  }
+                  alt="전체선택"
                   width={20}
                   height={20}
                 />
@@ -206,18 +226,38 @@ export default function UserManagement() {
             <th className={styles.tableHeadCell}>Role</th>
             <th className={styles.tableHeadCell}>Name</th>
             <th className={styles.tableHeadCell}>Email</th>
-            <th className={`${styles.tableHeadCell} ${styles.tableHeadCellLast}`}>Challenges</th>
+            <th
+              className={`${styles.tableHeadCell} ${styles.tableHeadCellLast}`}
+            >
+              Challenges
+            </th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
-            <tr key={user.id} className={checkedRows.includes(user.id) ? styles.tableBodyRowChecked : undefined}>
+            <tr
+              key={user.id}
+              className={
+                checkedRows.includes(user.id)
+                  ? styles.tableBodyRowChecked
+                  : undefined
+              }
+            >
               <td className={`${styles.tableBodyCell} ${styles.checkboxCell}`}>
                 <label className={styles.checkboxLabel}>
-                  <input type='checkbox' className={styles.hideDefault} checked={checkedRows.includes(user.id)} onChange={() => handleRowCheck(user.id)} />
+                  <input
+                    type="checkbox"
+                    className={styles.hideDefault}
+                    checked={checkedRows.includes(user.id)}
+                    onChange={() => handleRowCheck(user.id)}
+                  />
                   <Image
-                    src={checkedRows.includes(user.id) ? '/Images/Icon/checkbox_checked.svg' : '/Images/Icon/checkbox_normal.svg'}
-                    alt='선택'
+                    src={
+                      checkedRows.includes(user.id)
+                        ? '/Images/Icon/checkbox_checked.svg'
+                        : '/Images/Icon/checkbox_normal.svg'
+                    }
+                    alt="선택"
                     width={20}
                     height={20}
                   />
@@ -242,14 +282,19 @@ export default function UserManagement() {
                     {user.participations.length > 1 && (
                       <div className={styles.challengeDropdown}>
                         {user.participations.slice(1).map((p, idx) => (
-                          <div key={idx} className={styles.challengeDropdownItem}>
+                          <div
+                            key={idx}
+                            className={styles.challengeDropdownItem}
+                          >
                             {p.challenge?.title}
                           </div>
                         ))}
                       </div>
                     )}
                   </>
-                ) : '-'}
+                ) : (
+                  '-'
+                )}
               </td>
             </tr>
           ))}
