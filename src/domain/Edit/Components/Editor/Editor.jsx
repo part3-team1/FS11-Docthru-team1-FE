@@ -58,7 +58,11 @@ export default function Editor() {
   });
 
   useEffect(() => {
-    if (!editor || !content) {
+    if (!editor) {
+      return;
+    }
+    if (content === null) {
+      editor.commands.clearContent();
       return;
     }
     if (editor.isFocused) {
