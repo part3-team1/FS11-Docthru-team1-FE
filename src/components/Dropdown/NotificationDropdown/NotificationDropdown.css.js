@@ -42,6 +42,9 @@ export const dropdownBody = style({
 
   minHeight: 0,
   overflowY: 'auto',
+
+  scrollbarWidth: 'thin',
+  scrollbarColor: `${vars.color.gray200} transparent`,
 });
 
 export const dropdownContent = style({
