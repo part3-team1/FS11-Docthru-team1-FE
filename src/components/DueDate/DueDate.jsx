@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import ic_deadline from '@/../public/Images/Icon/ic_deadline';
+import ic_deadline from '@/../public/Images/Icon/ic_deadline.svg';
 import * as styles from './DueDate.css';
 
 export default function DueDate({ dueDate }) {
