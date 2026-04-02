@@ -20,7 +20,7 @@ export const logoContainer = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: vars.space.sm,
+  gap: '0.34rem',
 
   '@media': {
     [media.mobile]: {

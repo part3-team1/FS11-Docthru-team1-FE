@@ -11,13 +11,8 @@ import HeaderNav from '@/domain/Edit/Components/HeaderNav';
 import { useEditor } from '@/domain/Edit/hooks/useEditor';
 import * as styles from './EditContainer.css.js';
 
-export default function EditContainer({
-  initialData,
-  mode,
-  submissionId,
-  challengeId,
-}) {
-  const editor = useEditor({ initialData, mode, submissionId, challengeId });
+export default function EditContainer({ mode, submissionId, challengeId }) {
+  const editor = useEditor({ mode, submissionId, challengeId });
 
   return (
     <div className={styles.container}>
@@ -41,7 +36,7 @@ export default function EditContainer({
       {editor.isViewerOpen && (
         <div className={styles.viewerSection}>
           <OriginalViewer
-            url="https://ko.react.dev/reference/react/Fragment" // 수정 예정
+            url={editor.originalUrl}
             onClose={editor.toggleViewer}
           />
         </div>
