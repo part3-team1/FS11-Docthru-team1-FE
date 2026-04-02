@@ -16,7 +16,7 @@ export const useMySubmissions = ({ page = 1, pageSize = 10, keyword = '' }) => {
     enabled: !!user,
   });
 
-  const list = (data?.data?.submissions ?? []).map((submission) => ({
+  const list = (data?.data?.items ?? []).map((submission) => ({
     id: submission.id,
     challengeId: submission.challenge.id,
     title: submission.title,
