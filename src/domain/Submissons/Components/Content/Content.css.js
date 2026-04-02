@@ -28,9 +28,14 @@ export const submissionTitle = style({
 
 export const categoryContainer = style({
   display: 'flex',
-  gap: vars.space.sm,
+  justifyContent:'space-between',
   marginBottom: '1rem',
 });
+
+export const chip = style({
+  display: 'flex',
+  gap:vars.space.sm
+})
 
 export const infoContainer = style({
   borderTop: `1px solid ${vars.color.gray200}`,

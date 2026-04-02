@@ -4,16 +4,12 @@ import { useState } from 'react';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 import { useFeedback } from '../../hooks/useFeedback';
 
-
-export default function ComentCard({
-  feedbacks,
-  currentUser,
-  submissionId
-}) {
-  const { editFeedback, removeFeedback } = useFeedback(submissionId);
+export default function ComentCard({ feedbacks, currentUser, submissionId }) {
+  const { editFeedback, removeFeedback, feedbackBlock } =
+    useFeedback(submissionId);
   const [editValue, setEditValue] = useState(feedbacks?.content);
   const [isEditing, setIsEditing] = useState(false);
-  const [isBlocked, setIsBlocked] = useState(feedbacks?.isBlocked);
+  const isBlocked = feedbacks?.isBlocked;
 
   const handleCancel = () => {
     setEditValue(feedbacks.content);
@@ -26,7 +22,7 @@ export default function ComentCard({
 
   // 수정
   const handleEdit = () => {
-     console.log('handleEdit 실행', feedbacks.id, editValue) 
+    console.log('handleEdit 실행', feedbacks.id, editValue);
     editFeedback({ id: feedbacks.id, content: editValue });
     setIsEditing(false);
   };
@@ -91,6 +87,9 @@ export default function ComentCard({
                 }}
                 onEdit={() => setIsEditing(true)}
                 onDelete={handleDelete}
+                onBlock={() =>
+                  feedbackBlock({ id: feedbacks.id, isBlocked: !feedbacks.isBlocked })
+                }
               />
             </div>
           </div>

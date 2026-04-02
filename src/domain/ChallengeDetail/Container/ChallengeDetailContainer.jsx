@@ -7,7 +7,7 @@ import { useChallengeDetail } from '../hooks/useChallengeDetail.js';
 import * as styles from './ChallengeDetailContainer.css.js';
 
 export default function ChallengeDetailContainer({ id }) {
-  const { data, isLoading, bestItem, isClosed, isParticipating, currentUser } =
+  const { data, isLoading, bestItem, isClosed, isParticipating, currentUser, hasSubmission,hasDrafts } =
     useChallengeDetail(id);
 
   if (isLoading) return <div>로딩중...</div>;
@@ -19,6 +19,8 @@ export default function ChallengeDetailContainer({ id }) {
         data={data}
         currentUser={currentUser}
         isParticipating={isParticipating}
+        hasSubmission={hasSubmission}
+        hasDrafts={hasDrafts}
       />
 
       {isClosed && <BestSubmissionCard item={bestItem} />}
