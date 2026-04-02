@@ -19,6 +19,7 @@ export default function SubmissonsContainer({ id }) {
     feedbackError,
   } = useSubmissionDetail(id);
 
+
   if (isLoading) return <div>로딩중...</div>;
   if (!currentUser || !data || !user) return null;
 

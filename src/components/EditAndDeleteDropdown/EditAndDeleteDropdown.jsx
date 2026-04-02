@@ -6,8 +6,9 @@ import Link from 'next/link';
 import useDropdownActions from '@/utils/useDropdownActions.js';
 
 // 사용법
-// 첼린지 상세 
-{/* <EditAndDeleteDropdown
+// 첼린지 상세
+{
+  /* <EditAndDeleteDropdown
   currentUser={currentUser}
   content={{
     type: 'challenge',
@@ -18,7 +19,8 @@ import useDropdownActions from '@/utils/useDropdownActions.js';
   }}
   editHref={`/challenges/${challenge?.id}/edit`}
   onDelete={() => {}} // TODO: deleteChallenge 연결
-/> */}
+/> */
+}
 
 export default function EditAndDeleteDropdown({
   currentUser,
@@ -26,6 +28,7 @@ export default function EditAndDeleteDropdown({
   editHref,
   onEdit,
   onDelete,
+  onBlock,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
@@ -49,12 +52,17 @@ export default function EditAndDeleteDropdown({
     // 액션~ 하면 드롭다운 접음
     setIsOpen(false);
     // 상태가 수정이면 수정
-    if (action === 'edit') {
-      onEdit?.();
-    }
-    if (action === 'delete' || action === 'hide' || action === 'unhide') {
+    if (action === 'edit') onEdit?.();
+    if (action === 'delete') {
       try {
         await onDelete?.();
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    if (action === 'hide' || action === 'unhide') {
+      try {
+        await onBlock?.();
       } catch (e) {
         console.error(e);
       }

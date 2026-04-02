@@ -39,7 +39,7 @@ const baseBtn = style({
   display: 'flex',
   flex: 1,
   height: '2.5rem',
-  padding: '0.4375rem 0',
+  padding: '0.4375rem 0 0.2rem',
   justifyContent: 'center',
   alignItems: 'center',
   alignSelf: 'stretch',
@@ -49,6 +49,7 @@ const baseBtn = style({
   fontStyle: 'normal',
   fontWeight: '700',
   lineHeight: '1.625rem',
+
 });
 
 export const cta = style([
@@ -65,3 +66,23 @@ export const clickBtn = style([
     color: vars.color.brandWhite,
   },
 ]);
+
+
+export const leaveBtn = style([
+  baseBtn,
+  {
+    backgroundColor: '#f5caca',
+    color: vars.color.error,
+
+
+  },
+]);
+
+
+
+
+export const twoBtn = style({
+  display: 'flex', 
+  gap:vars.space.sm
+})
+

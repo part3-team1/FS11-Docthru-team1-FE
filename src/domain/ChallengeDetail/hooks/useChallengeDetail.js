@@ -25,7 +25,12 @@ export const useChallengeDetail = (id) => {
   const isParticipating = currentUser
     ? data?.participations?.some((p) => p.user.id === currentUser.id)
     : false;
-
+  
+  //내가 서브미션 작성했는지 
+  const hasSubmission = currentUser ? data?.submissions?.some((s) => s.userId === currentUser.id)
+    : false;
+  
+  console.log('participations:', data?.participations);
   return {
     data,
     isLoading,
@@ -33,5 +38,6 @@ export const useChallengeDetail = (id) => {
     isClosed,
     isParticipating,
     currentUser,
+    hasSubmission
   };
 };
