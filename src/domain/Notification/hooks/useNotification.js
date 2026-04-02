@@ -32,6 +32,7 @@ export function useReadNotification() {
 
   return useMutation({
     mutationFn: readNotification,
+
     onSuccess: (_, id) => {
       queryClient.invalidateQueries({
         queryKey: queryKeys.notifications.all,
@@ -42,6 +43,11 @@ export function useReadNotification() {
       queryClient.invalidateQueries({
         queryKey: queryKeys.notifications.detail(id),
       });
+    },
+
+    onError: (error, id) => {
+      console.log('read error id: ', id);
+      console.log('read error message: ', error.message);
     },
   });
 }
@@ -61,6 +67,11 @@ export function useDeleteNotification() {
       queryClient.removeQueries({
         queryKey: queryKeys.notifications.detail(id),
       });
+    },
+
+    onError: (error, id) => {
+      console.log('delete error id: ', id);
+      console.log('d error message: ', error.message);
     },
   });
 }

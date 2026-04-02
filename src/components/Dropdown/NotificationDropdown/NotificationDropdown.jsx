@@ -18,6 +18,7 @@ export default function NotificationDropdown() {
     skip: 0,
     take: 10,
   });
+
   const deleteMutation = useDeleteNotification();
   const readMutation = useReadNotification();
 
@@ -49,12 +50,12 @@ export default function NotificationDropdown() {
         {notifications.length === 0 ? (
           <div className={styles.emptyMessage}>알림이 없습니다.</div>
         ) : (
-          notifications.map(({ id, message, created_at, is_read }) => (
+          notifications.map(({ id, message, createdAt, isRead }) => (
             <div
-              className={`${styles.dropdownContent} ${!is_read ? styles.unread : ''}`}
+              className={`${styles.dropdownContent} ${!isRead ? styles.unread : ''}`}
               key={id}
               onClick={() => {
-                if (!is_read) {
+                if (!isRead) {
                   readMutation.mutate(id);
                 }
               }}
@@ -63,7 +64,7 @@ export default function NotificationDropdown() {
 
               <div className={styles.dateAndDeleteButton}>
                 <span className={styles.date}>
-                  {new Date(created_at).toLocaleDateString('ko-KR')}
+                  {new Date(createdAt).toLocaleDateString('ko-KR')}
                 </span>
 
                 <button

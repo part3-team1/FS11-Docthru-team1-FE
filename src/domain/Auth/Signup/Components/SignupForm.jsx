@@ -1,7 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import * as styles from './SignupForm.css';
 import { useRouter } from 'next/navigation';
 import { useSignup } from '../../hooks/useSignup';
@@ -13,6 +13,7 @@ export default function SignupForm() {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm();
   const passwordValue = watch('password');
@@ -26,7 +27,15 @@ export default function SignupForm() {
     const { passwordConfirm, ...rest } = data;
     signup(rest, {
       onSuccess: () => router.push('/challenges'),
-      onError: (error) => console.error(error),
+      onError: (error) => {
+        if (error.details) {
+          Object.entries(error.details).forEach(([field, messages]) => {
+            setError(field, { message: messages[0] });
+          });
+        } else {
+          setError('email', { message: error.message });
+        }
+      },
     });
   };
   return (

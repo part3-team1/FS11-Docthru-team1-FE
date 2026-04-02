@@ -8,6 +8,8 @@ export const dropdownContainer = style({
   width: '21.4375rem',
   maxHeight: '29.0625rem',
 
+  overflow: 'hidden',
+
   backgroundColor: vars.color.white,
   borderRadius: vars.radius.md,
   border: `2px solid ${vars.color.gray200}`,
@@ -37,6 +39,12 @@ export const dropdownTitle = style({
 export const dropdownBody = style({
   display: 'flex',
   flexDirection: 'column',
+
+  minHeight: 0,
+  overflowY: 'auto',
+
+  scrollbarWidth: 'thin',
+  scrollbarColor: `${vars.color.gray200} transparent`,
 });
 
 export const dropdownContent = style({
