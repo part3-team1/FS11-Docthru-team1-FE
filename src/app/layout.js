@@ -1,6 +1,8 @@
 import '@/styles/reset.css';
 import '@/styles/globals.css';
 import '@/styles/token.css';
+import Providers from '@/Providers/Providers';
+import BackgroundWrapper from '@/components/BackgroundWrapper';
 
 export const metadata = {
   title: 'Docthru',
@@ -13,7 +15,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body>
+        <Providers>
+          <BackgroundWrapper>{children}</BackgroundWrapper>
+        </Providers>
+      </body>
     </html>
   );
 }

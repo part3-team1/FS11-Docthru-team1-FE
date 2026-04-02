@@ -7,15 +7,15 @@ export const container = style({
   alignItems: 'center',
   gap: '1.25rem',
 
-  marginBottom: '7.69rem',
+  paddingBottom: '7.69rem',
 
   '@media': {
     [media.tablet]: {
-      marginBottom: '8.44rem',
+      paddingBottom: '8.44rem',
     },
     [media.mobile]: {
       gap: vars.space.md,
-      marginBottom: '5.56rem',
+      paddingBottom: '5.56rem',
     },
   },
 });

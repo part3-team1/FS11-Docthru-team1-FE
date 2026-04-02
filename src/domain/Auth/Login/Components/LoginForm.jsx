@@ -3,24 +3,45 @@ import { useForm } from 'react-hook-form';
 import * as styles from './LoginForm.css.js';
 import Image from 'next/image.js';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation.js';
+import { useLogin } from '../../hooks/useLogin.js';
+import { googleLogin } from '@/api/authAPI.js';
 
 export default function LoginForm() {
+  const router = useRouter();
+  const { mutate: login, isPending } = useLogin();
   const {
     register,
     handleSubmit,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm();
   const [showPassword, setShowPassword] = useState(false);
+  const [serverError, setServerError] = useState(false);
 
   const togglePassword = () => {
     setShowPassword((prev) => !prev);
+  };
+
+  const onSubmit = (data) => {
+    setServerError(false);
+    login(data, {
+      onSuccess: (data) => {
+        const role = data.data.role;
+        if (role === 'ADMIN' || role === 'MASTER') {
+          router.push('/admin/challenge-management');
+        } else {
+          router.push('/challenges');
+        }
+      },
+      onError: () => setServerError(true),
+    });
   };
 
   return (
     <form
       noValidate
       // 이거 확인용임.. 추후 지울예정
-      onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div className={styles.container}>
         {/* 이메일 */}
@@ -71,11 +92,16 @@ export default function LoginForm() {
                 value: 8,
                 message: '비밀번호가 틀렸습니다.',
               },
+              onChange: () => setServerError(false),
             })}
             // error이면 테두리 빨간색 짜잔
             // 맞는 양식이면 초록색 짜잔
             aria-invalid={
-              isSubmitted ? (errors.password ? 'true' : 'false') : undefined
+              isSubmitted
+                ? errors.password || serverError
+                  ? 'true'
+                  : 'false'
+                : undefined
             }
             className={styles.input}
           />
@@ -99,6 +125,11 @@ export default function LoginForm() {
               {errors.password.message}
             </small>
           )}
+          {serverError && (
+            <small role="alert" className={styles.message}>
+              이메일 또는 비밀번호가 올바르지 않습니다.
+            </small>
+          )}
         </div>
 
         {/* 로그인 버튼 */}
@@ -111,7 +142,7 @@ export default function LoginForm() {
         </button>
       </div>
       {/* 구글 */}
-      <button type="button" className={styles.googleBtn}>
+      <button type="button" onClick={()=>googleLogin()} className={styles.googleBtn}>
         <Image
           src="/images/icon/google.svg"
           alt="구글아이콘"

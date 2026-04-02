@@ -56,20 +56,65 @@ export const solid = {
   },
 };
 
+export const solidIcon = {
+  size: {
+    pcLarge: style({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+
+      color: vars.color.white,
+      textAlign: 'center',
+      borderRadius: '1.21875rem',
+      background: vars.color.brandBlack,
+    }),
+    pcMedium: style({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+
+      color: vars.color.white,
+      textAlign: 'center',
+      borderRadius: '1.21875rem',
+      background: vars.color.brandBlack,
+    }),
+    tablet: style({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+
+      color: vars.color.white,
+      textAlign: 'center',
+      borderRadius: '1.21875rem',
+      background: vars.color.brandBlack,
+    }),
+    mobile: style({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: '0.5rem',
+
+      color: vars.color.white,
+      textAlign: 'center',
+      borderRadius: '1.21875rem',
+      background: vars.color.brandBlack,
+    }),
+  },
+};
+
 export const outline = {
   size: {
     pcLarge: style({
-      padding: '0.125rem 1rem 0.1875rem 1rem',
+      padding: '0.90625rem 3.03125rem',
       border: `1px solid ${vars.color.gray800}`,
       color: vars.color.gray800,
     }),
     pcMedium: style({
-      padding: '0.125rem 1rem 0.1875rem 1rem',
+      padding: '0.65625rem 2.03125rem 0.65625rem 1.96875rem',
       border: `1px solid ${vars.color.gray800}`,
       color: vars.color.gray800,
     }),
     tablet: style({
-      padding: '0.125rem 1rem 0.1875rem 1rem',
+      padding: '0.4375rem 1.40625rem 0.4375rem 1.34375rem',
       border: `1px solid ${vars.color.gray800}`,
       color: vars.color.gray800,
     }),
