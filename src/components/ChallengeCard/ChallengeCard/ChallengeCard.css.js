@@ -11,7 +11,9 @@ export const challengeCard = style({
   background: vars.color.white,
   padding: '1.5rem',
   overflow: 'hidden',
-  width:'100%'
+  width: '100%',
+  cursor: 'pointer'
+
   },
 );
 
@@ -115,3 +117,11 @@ export const title = style({
   fontWeight: '600',
   lineHeight: 'normal',
 });
+
+export const empty = style({
+  display: 'flex',
+  paddingTop:'20rem',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: vars.color.gray500,
+})
