@@ -48,7 +48,7 @@ export default function NotificationDropdown() {
       </div>
       <div className={styles.dropdownBody}>
         {notifications.length === 0 ? (
-          <div className={styles.emptyMessage}>알림이 없습니다.</div>
+          <div>알림이 없습니다.</div>
         ) : (
           notifications.map(({ id, message, createdAt, isRead }) => (
             <div
