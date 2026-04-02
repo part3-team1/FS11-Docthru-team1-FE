@@ -53,6 +53,29 @@ export async function myChallengeRequest(params = {}) {
   return json;
 }
 
+//내가 신청한 챌린지 상세
+export async function myChallengeRequestDetail(id) {
+  const res = await fetch(`${BASE_URL}/users/me/challengeRequests/${id}`, {
+    credentials: 'include',
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
+}
+
+//내가 신청한 챌린지 취소
+export async function cancelChalleng(id) {
+  const res = await fetch(`${BASE_URL}/users/me/challengeRequests/${id}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+  if (!res.ok) {
+    const json = await res.json();
+    throw new Error(json.message);
+  }
+  return;
+}
+
 //내가 만든 작업물
 export async function mySubmissions(params = {}) {
   const query = new URLSearchParams(params).toString();

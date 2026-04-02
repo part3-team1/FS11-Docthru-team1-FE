@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import * as styles from './EditAndDeleteDropdown.css.js';
 import Image from 'next/image';
 import Link from 'next/link';
+import Meatballs_menu from '@/../public/Images/Icon/Meatballs_menu.svg';
 import useDropdownActions from '@/utils/useDropdownActions.js';
 
 // 사용법
@@ -72,7 +73,7 @@ export default function EditAndDeleteDropdown({
   return (
     <div ref={wrapperRef} className={styles.container}>
       <Image
-        src="/images/Icon/Meatballs_menu.svg"
+        src={Meatballs_menu}
         alt="수정 및 삭제"
         width={24}
         height={24}

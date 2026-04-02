@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import ic_deadline from '@/../public/Images/Icon/ic_deadline.svg';
 import * as styles from './DueDate.css';
 
 export default function DueDate({ dueDate }) {
@@ -11,7 +12,7 @@ export default function DueDate({ dueDate }) {
   return (
     <div className={styles.dueDate}>
       <Image
-        src="/Images/Icon/ic_deadline.svg"
+        src={ic_deadline}
         alt=""
         aria-hidden="true"
         width={24}

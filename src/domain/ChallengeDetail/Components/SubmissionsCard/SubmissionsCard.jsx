@@ -19,7 +19,7 @@ export default function SubmissionsCard({ item, rank }) {
         <div className={styles.best}>
           {isBest  ? (
             <Image
-              src="/images/Icon/free-icon-gold-medal-1910528.png"
+              src="/Images/Icon/free-icon-gold-medal-1910528.png"
               alt="1등"
               width={16}
               height={16}
@@ -33,14 +33,14 @@ export default function SubmissionsCard({ item, rank }) {
         <div className={styles.userBox}>
           {item.user.grade === 'EXPERT' ? (
             <Image
-              src="/images/Icon/user_expert.png"
+              src="/Images/Icon/user_expert.png"
               alt="유저 아이콘"
               width={24}
               height={24}
             />
           ) : (
             <Image
-              src="/images/Icon/user.png"
+              src="/Images/Icon/user.png"
               alt="유저 아이콘"
               width={24}
               height={24}
@@ -58,7 +58,7 @@ export default function SubmissionsCard({ item, rank }) {
         {/* 좋아요카운터 */}
         <div className={styles.like}>
           <Image
-            src="/images/Icon/icon_heart.svg"
+            src="/Images/Icon/icon_heart.svg"
             alt="좋아요"
             width={16}
             height={16}
