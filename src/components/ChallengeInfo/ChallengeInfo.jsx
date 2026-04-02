@@ -1,4 +1,3 @@
-import CancelDropdown from '@/domain/MyChallengeDetail/Components/CancelDropdown/CancelDropdown';
 import { CategoryChip, TypeChip } from '../Chip';
 import * as styles from './ChallengeInfo.css';
 
@@ -7,7 +6,6 @@ import * as styles from './ChallengeInfo.css';
 
 export default function ChallengeInfo({ data, dropdown }) {
   const showReason = data.status === 'DELETED' || data.status === 'REJECTED';
-
 
   return (
     <div className={styles.container}>
@@ -18,7 +16,7 @@ export default function ChallengeInfo({ data, dropdown }) {
 
       <div className={styles.chips}>
         <TypeChip type={data.category} />
-        <CategoryChip category={data.document_type} />
+        <CategoryChip category={data.documentType} />
       </div>
 
       <div className={styles.content}>{data.description}</div>

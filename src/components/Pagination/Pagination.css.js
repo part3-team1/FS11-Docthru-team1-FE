@@ -2,13 +2,12 @@ import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  marginTop: '2.69rem',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
   width: 'fit-content',
   gap: vars.space.sm,
-  margin: '2.69rem auto 0',
+  margin: '2.5rem auto 0',
   '@media': {
     [media.tablet]: {
       marginTop: '2.5rem',

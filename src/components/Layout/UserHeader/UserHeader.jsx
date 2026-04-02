@@ -9,6 +9,9 @@ import Image from 'next/image';
 import * as styles from './UserHeader.css.jsx';
 import { useEffect, useRef, useState } from 'react';
 import HeaderDropdown from '@/components/Dropdown/HeaderDropdown/HeaderDropdown.jsx';
+import NotificationDropdown from '@/components/Dropdown/NotificationDropdown/NotificationDropdown.jsx';
+import { useAuth } from '@/Providers/AuthProvider.js';
+import { useUnreadNotificationsCount } from '@/domain/Notification/hooks/useNotification.js';
 
 /*
   페이지 메인 부분, 
@@ -17,13 +20,27 @@ import HeaderDropdown from '@/components/Dropdown/HeaderDropdown/HeaderDropdown.
 */
 
 export default function UserHeader() {
+  // 로그인 유저 데이터 가져옴
+  const { user, logout } = useAuth()
+
+  const { data } = useUnreadNotificationsCount();
+  const unreadCount = data?.unreadCount ?? 0;
+  const hasNotification = unreadCount > 0;
+
+
   const wrapperRef = useRef();
-  const hasNotification = true;
-  const isExpert = true;
+  //api로 수정
+  const isExpert = user?.role === 'EXPERT';
+  
   const [isHeaderDropdownOpen, setIsHeaderDropdownOpen] = useState(false);
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   const handleClickUserHeaderDropdown = () => {
     setIsHeaderDropdownOpen((prev) => !prev);
+  };
+
+  const handleClickNotification = () => {
+    setIsNotificationOpen((prev) => !prev);
   };
 
   useEffect(() => {
@@ -32,6 +49,7 @@ export default function UserHeader() {
 
       if (!wrapperRef.current.contains(e.target)) {
         setIsHeaderDropdownOpen(false);
+        setIsNotificationOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -41,18 +59,22 @@ export default function UserHeader() {
     };
   }, []);
   return (
-    <div className={styles.container}>
-      <Link href="/" className={styles.logoContainer}>
+    <header className={styles.container}>
+      <Link href="/challenges" className={styles.logoContainer}>
         <Image src={logoImage} alt="logo.png" width={17.55} height={20.25} />
-        <span className={styles.logoName}>docThru</span>
+        <span className={styles.logoName}>Docthru</span>
       </Link>
-      <div className={styles.menuContainer}>
-        <Image
-          className={styles.notiImage}
-          src={hasNotification ? bell_noti : bell_empty}
-          alt="bell.png"
-        />
-        <div ref={wrapperRef} className={styles.dropdownWrapper}>
+      <div className={styles.menuContainer} ref={wrapperRef}>
+        <div className={styles.dropdownWrapper}>
+          <Image
+            className={styles.notificationImage}
+            src={hasNotification ? bell_noti : bell_empty}
+            alt="bell.png"
+            onClick={handleClickNotification}
+          />
+          {isNotificationOpen && <NotificationDropdown />}
+        </div>
+        <div className={styles.dropdownWrapper}>
           <Image
             className={styles.userImage}
             src={isExpert ? expert_img : user_img}
@@ -62,11 +84,11 @@ export default function UserHeader() {
           {isHeaderDropdownOpen && (
             <HeaderDropdown
               userStatus={isExpert ? 'expert' : 'user'}
-              nickname={'JohnDoe'}
+              nickname={user?.nickname}
             />
           )}
         </div>
       </div>
-    </div>
+    </header>
   );
 }

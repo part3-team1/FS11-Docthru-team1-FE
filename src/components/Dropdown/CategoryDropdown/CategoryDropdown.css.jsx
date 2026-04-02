@@ -11,7 +11,6 @@ export const dropdownContainer = style({
   position: 'relative',
   gap: '0.625rem',
   alignSelf: 'stretch',
-  // height: '3.5rem',
   width: '100%',
 
   fontFamily: 'Pretendard',
@@ -37,25 +36,38 @@ export const dropdownButton = style({
 
   width: '100%',
 
-  padding: `${vars.space.xs} 0 ${vars.space.xs} 0`,
+  padding: `0.69rem 1.25rem`,
   backgroundColor: vars.color.white,
 
   color: vars.color.gray400,
   fontFamily: 'Pretendard',
-  fontSize: '1rem',
+  fontSize: '0.875rem',
   fontStyle: 'normal',
   fontWeight: '400',
   lineHeight: 'normal',
 
   border: `1px solid ${vars.color.gray200}`,
-  borderRadius: '0.25rem 0.25rem 0 0 ',
+  borderRadius: vars.radius.xl,
+});
+
+export const arrowImage = style({
+  width: '0.875rem',
+  height: '0.875rem',
 });
 
 export const dropdownMenu = style({
   display: 'flex',
   flexDirection: 'column',
-  position: 'relative',
+  position: 'absolute',
   width: '100%',
+
+  top: '110%',
+  left: 0,
+  zIndex: 10,
+
+  border: `1px solid ${vars.color.gray200}`,
+  borderRadius: vars.radius.xl,
+  overflow: 'hidden',
 
   backgroundColor: `#FFF`,
 });
@@ -68,15 +80,15 @@ background: #FFF;
 */
 
 export const dropdownOption = style({
-  padding: '0.75rem 0',
+  padding: '0.69rem 1.25rem',
   gap: '0.625rem',
 
-  border: `1px solid ${vars.color.gray200}`,
+  borderBottom: `1px solid ${vars.color.gray200}`,
   backgroundColor: vars.color.white,
 
   color: vars.color.gray500,
   fontFamily: 'Pretendard',
-  fontSize: '1rem',
+  fontSize: '0.875rem',
   fontStyle: 'normal',
   fontWeight: '400',
   lineHeight: 'normal',

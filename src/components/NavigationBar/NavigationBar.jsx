@@ -2,77 +2,40 @@
 
 import Link from 'next/link.js';
 import * as styles from './NavigationBar.css.js';
-import { useState } from 'react';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
+import LinkButton from '../LinkButton/LinkButton.jsx';
 
-export default function NavigationBar() {
-  const [isParticipatedPage, setIsParticipatedPage] = useState(true);
-  const [isCompletedPage, setIsCompletedPage] = useState(false);
-  const [isRequestedPage, setIsRequestedPage] = useState(false);
-  const [isMySubmissionPage, setIsMySubmissionPage] = useState(false);
-
-  const handleClickParticipatedPage = () => {
-    setIsParticipatedPage(true);
-    setIsCompletedPage(false);
-    setIsRequestedPage(false);
-    setIsMySubmissionPage(false);
-  };
-
-  const handleClickCompletedPage = () => {
-    setIsParticipatedPage(false);
-    setIsCompletedPage(true);
-    setIsRequestedPage(false);
-    setIsMySubmissionPage(false);
-  };
-
-  const handleClickRequestedPage = () => {
-    setIsParticipatedPage(false);
-    setIsCompletedPage(false);
-    setIsRequestedPage(true);
-    setIsMySubmissionPage(false);
-  };
-
-  const handleClickMySubmissionPage = () => {
-    setIsParticipatedPage(false);
-    setIsCompletedPage(false);
-    setIsRequestedPage(false);
-    setIsMySubmissionPage(true);
-  };
+export default function NavigationBar({
+  title,
+  menus,
+  underBar = true,
+  hasButton,
+}) {
+  const pathname = usePathname();
 
   return (
-    <div className={styles.container}>
-      <div
-        className={`${styles.menu} ${isParticipatedPage ? styles.focused : ''}`}
-      >
-        <Link
-          href="/my-challenge/participated"
-          onClick={handleClickParticipatedPage}
-        >
-          참여중인 챌린지
-        </Link>
-      </div>
-      <div
-        className={`${styles.menu} ${isCompletedPage ? styles.focused : ''}`}
-      >
-        <Link href="/my-challenge/completed" onClick={handleClickCompletedPage}>
-          완료한 챌린지
-        </Link>
-      </div>
-      <div
-        className={`${styles.menu} ${isRequestedPage ? styles.focused : ''}`}
-      >
-        <Link href="/my-challenge/requested" onClick={handleClickRequestedPage}>
-          신청한 챌린지
-        </Link>
-      </div>
-      <div
-        className={`${styles.menu} ${isMySubmissionPage ? styles.focused : ''}`}
-      >
-        <Link
-          href="/my-challenge/my-submissions"
-          onClick={handleClickMySubmissionPage}
-        >
-          작업물 보기
-        </Link>
+    <div className={styles.wrapper}>
+      {title && <div className={styles.title}>{title}</div>}
+      <div className={clsx(styles.row, underBar && styles.underLine)}>
+        <div className={styles.container}>
+          {menus.map((menu) => (
+            <Link
+              key={menu.href}
+              href={menu.href}
+              className={clsx(
+                styles.menu,
+                pathname.startsWith(menu.href) && styles.focused,
+                underBar &&
+                  pathname.startsWith(menu.href) &&
+                  styles.focusedUnderline,
+              )}
+            >
+              {menu.label}
+            </Link>
+          ))}
+        </div>
+        {hasButton && <LinkButton preset="apply" href="/challenges/new" />}
       </div>
     </div>
   );

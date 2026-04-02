@@ -2,8 +2,15 @@
 import CategoryDropdown from '@/components/Dropdown/CategoryDropdown/CategoryDropdown';
 import * as styles from './NewChallengeForm.css';
 import { Controller, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { useRequest } from '../hooks/useRequest';
+import { useRequireAuth } from '@/hooks/useRequireAuth';
 
 export default function NewChallengeForm() {
+  const router = useRouter();
+  const { user, isLoading } = useRequireAuth();
+
+  const { mutate: request, isPending } = useRequest();
   const {
     register,
     handleSubmit,
@@ -12,32 +19,21 @@ export default function NewChallengeForm() {
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ mode: 'onSubmit' });
 
-  // 서버 연결시  이런 느낌스..
-  // const onSubmit = async (data) => {
-  //   try {
-  //     const response = await fetch('/challenge-requests', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
+  if (isLoading || !user) return null;
 
-  //     if (!response.ok) throw new Error('신청 실패');
-  //     alert('신청 완료!');
-  //      reset()
-  //   } catch (error) {
-  //     console.error(error);
-  //     alert('신청 중 오류가 발생했습니다.');
-  //   }
-  // };
+  const onSubmit = (data) => {
+    request(data, {
+      onSuccess: () => router.push('/my-page/my-challenge/participated'),
+      onError: (error) => console.error(error),
+    });
+  };
 
   return (
     <>
       <form
         noValidate
         // onSubmit={handleSubmit(onSubmit)} 연결시 수정
-        onSubmit={handleSubmit((data) => alert(JSON.stringify(data)))}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className={styles.container}>
           <div className={styles.title}>신규 챌린지 신청</div>
@@ -74,13 +70,13 @@ export default function NewChallengeForm() {
 
           {/* 원문링크 */}
           <div className={styles.section}>
-            <label htmlFor="doc_url" className={styles.label}>
+            <label htmlFor="docUrl" className={styles.label}>
               원문링크
             </label>
             <input
               type="url"
               placeholder="원문 링크를 입력해주세요"
-              {...register('doc_url', {
+              {...register('docUrl', {
                 required: '원문 링크는 필수 입니다.',
                 pattern: {
                   value: /^https?:\/\/.+/,
@@ -88,13 +84,13 @@ export default function NewChallengeForm() {
                 },
               })}
               aria-invalid={
-                isSubmitted ? (errors.doc_url ? 'true' : 'false') : undefined
+                isSubmitted ? (errors.docUrl ? 'true' : 'false') : undefined
               }
               className={styles.input}
             />
-            {errors.doc_url && (
+            {errors.docUrl && (
               <small role="alert" className={styles.message}>
-                {errors.doc_url.message}
+                {errors.docUrl.message}
               </small>
             )}
           </div>
@@ -127,39 +123,39 @@ export default function NewChallengeForm() {
 
           {/* 문서 타입 카테고리 */}
           <div className={styles.section}>
-            <label htmlFor="document_type" className={styles.label}>
+            <label htmlFor="documentType" className={styles.label}>
               문서타입
             </label>
             <Controller
-              name="document_type"
+              name="documentType"
               control={control}
               rules={{ required: '문서타입은 필수 입니다' }}
               render={({ field }) => (
                 <CategoryDropdown
                   onSelect={(value) => {
                     field.onChange(value);
-                    clearErrors('document_type');
+                    clearErrors('documentType');
                   }}
                   options={['공식문서', '블로그']}
                 />
               )}
             />
-            {errors.document_type && (
+            {errors.documentType && (
               <small role="alert" className={styles.message}>
-                {errors.document_type.message}
+                {errors.documentType.message}
               </small>
             )}
           </div>
 
           {/* 마감일 */}
           <div className={styles.section}>
-            <label htmlFor="due_date" className={styles.label}>
+            <label htmlFor="dueDate" className={styles.label}>
               마감일
             </label>
             <input
               type="date"
               placeholder="YY/MM/DD"
-              {...register('due_date', {
+              {...register('dueDate', {
                 required: '마감일은 필수 입니다',
                 validate: (value) => {
                   return (
@@ -169,26 +165,26 @@ export default function NewChallengeForm() {
                 },
               })}
               aria-invalid={
-                isSubmitted ? (errors.due_date ? 'true' : 'false') : undefined
+                isSubmitted ? (errors.dueDate ? 'true' : 'false') : undefined
               }
               className={styles.input}
             />
-            {errors.due_date && (
+            {errors.dueDate && (
               <small role="alert" className={styles.message}>
-                {errors.due_date.message}
+                {errors.dueDate.message}
               </small>
             )}
           </div>
 
           {/* 최대 인원 */}
           <div className={styles.section}>
-            <label htmlFor="max_participants" className={styles.label}>
+            <label htmlFor="maxParticipants" className={styles.label}>
               최대 인원
             </label>
             <input
               type="number"
               placeholder="인원을 입력해주세요"
-              {...register('max_participants', {
+              {...register('maxParticipants', {
                 required: '참여 인원수는 필수입니다',
                 min: {
                   value: 5,
@@ -201,16 +197,16 @@ export default function NewChallengeForm() {
               })}
               aria-invalid={
                 isSubmitted
-                  ? errors.max_participants
+                  ? errors.maxParticipants
                     ? 'true'
                     : 'false'
                   : undefined
               }
               className={styles.input}
             />
-            {errors.max_participants && (
+            {errors.maxParticipants && (
               <small role="alert" className={styles.message}>
-                {errors.max_participants.message}
+                {errors.maxParticipants.message}
               </small>
             )}
           </div>
@@ -247,7 +243,7 @@ export default function NewChallengeForm() {
           </div>
 
           {/* 신청하기 버튼 */}
-          <button type="submit" disabled={isSubmitting} className={styles.btn}>
+          <button type="submit" disabled={isPending} className={styles.btn}>
             신청하기
           </button>
         </div>
