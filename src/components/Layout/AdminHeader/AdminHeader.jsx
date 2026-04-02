@@ -6,6 +6,7 @@ import * as styles from './AdminHeader.css.jsx';
 import admin_img from '@/../public/Images/Icon/admin.png';
 import { useState, useEffect, useRef } from 'react';
 import HeaderDropdown from '@/components/Dropdown/HeaderDropdown/HeaderDropdown.jsx';
+import { useAuth } from '@/Providers/AuthProvider.js';
 
 /*
   페이지 메인 부분, 
@@ -14,7 +15,9 @@ import HeaderDropdown from '@/components/Dropdown/HeaderDropdown/HeaderDropdown.
 */
 
 export default function AdminHeader() {
+  const { user, logout } = useAuth();
   const wrapperRef = useRef();
+  const isAdmin = user?.role === 'ADMIN' || user?.role === 'MASTER';
   const [isManagementPage, setIsManagementPage] = useState(true);
   const [isListPage, setIsListPage] = useState(false);
   const [isUserListPage, setIsUserListPage] = useState(false);
@@ -60,7 +63,7 @@ export default function AdminHeader() {
   return (
     <div className={styles.container}>
       <div className={styles.leftWrapper}>
-        <Link href="/" className={styles.logoContainer}>
+        <Link href="/admin/challenge-management" className={styles.logoContainer}>
           <Image src={logoImage} alt="logo.png" width={17.55} height={20.25} />
           <span className={styles.logoName}>Docthru</span>
         </Link>
@@ -99,8 +102,12 @@ export default function AdminHeader() {
           className={styles.adminImage}
           onClick={handleClickAdminHeaderDropdown}
         />
-        {isHeaderDropdownOpen && <HeaderDropdown userStatus={'admin'} nickname={'AdminDoe'} />}
-        
+        {isHeaderDropdownOpen && (
+          <HeaderDropdown
+            userStatus={isAdmin && 'admin' }
+            nickname={user?.nickname}
+          />
+        )}
       </div>
     </div>
   );

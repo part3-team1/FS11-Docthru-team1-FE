@@ -18,6 +18,7 @@ export const dropdownButton = style({
   gap: '0.625rem',
   flexShrink: 0,
   width: '8.75rem',
+  height: '100%',
 
   fontSize: '1rem',
   color: vars.color.gray400,
@@ -46,7 +47,8 @@ export const sortContainer = style({
   paddingBottom: vars.space.lg,
 
   position: 'absolute',
-  left: 0,
+  top: '110%',
+  right: 0,
   zIndex: 10,
 });
 
@@ -123,6 +125,7 @@ export const labelText = style({
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
+  whiteSpace: 'nowrap',
 });
 
 export const resetButton = style({

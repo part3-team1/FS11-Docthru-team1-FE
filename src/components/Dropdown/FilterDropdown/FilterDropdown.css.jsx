@@ -46,6 +46,7 @@ export const filterContainer = style({
   paddingBottom: vars.space.lg,
 
   position: 'absolute',
+  top: '110%',
   left: 0,
   zIndex: 10,
 });

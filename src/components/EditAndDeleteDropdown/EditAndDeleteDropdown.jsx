@@ -3,11 +3,13 @@ import { useEffect, useRef, useState } from 'react';
 import * as styles from './EditAndDeleteDropdown.css.js';
 import Image from 'next/image';
 import Link from 'next/link';
+import Meatballs_menu from '@/../public/Images/Icon/Meatballs_menu.svg';
 import useDropdownActions from '@/utils/useDropdownActions.js';
 
 // 사용법
-// 첼린지 상세 
-{/* <EditAndDeleteDropdown
+// 첼린지 상세
+{
+  /* <EditAndDeleteDropdown
   currentUser={currentUser}
   content={{
     type: 'challenge',
@@ -18,7 +20,8 @@ import useDropdownActions from '@/utils/useDropdownActions.js';
   }}
   editHref={`/challenges/${challenge?.id}/edit`}
   onDelete={() => {}} // TODO: deleteChallenge 연결
-/> */}
+/> */
+}
 
 export default function EditAndDeleteDropdown({
   currentUser,
@@ -73,7 +76,7 @@ export default function EditAndDeleteDropdown({
   return (
     <div ref={wrapperRef} className={styles.container}>
       <Image
-        src="/images/Icon/Meatballs_menu.svg"
+        src={Meatballs_menu}
         alt="수정 및 삭제"
         width={24}
         height={24}

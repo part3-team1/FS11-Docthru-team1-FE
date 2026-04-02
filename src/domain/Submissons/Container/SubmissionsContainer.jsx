@@ -20,7 +20,7 @@ export default function SubmissonsContainer({ id }) {
   } = useSubmissionDetail(id);
 
   if (isAuthLoading || isLoading) return <div>로딩중...</div>;
-  if (!user || !data) return null;
+  if (!user || !currentUser || !data) return null;
 
   return (
     <div className={styles.container}>

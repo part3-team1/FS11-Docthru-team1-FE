@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import * as styles from './ConfirmModal.css.js';
+import check_round from '@/../public/Images/Icon/check_round.svg';
 
 export default function ConfirmModal({ message, onConfirm, onCancel }) {
   return (
@@ -9,12 +10,7 @@ export default function ConfirmModal({ message, onConfirm, onCancel }) {
         onClick={(event) => event.stopPropagation()}
       >
         <div className={styles.messageContainer}>
-          <Image
-            src="/Images/Icon/check_round.svg"
-            alt="확인"
-            width={24}
-            height={24}
-          />
+          <Image src={check_round} alt="확인" width={24} height={24} />
           <p className={styles.message}>{message}</p>
         </div>
 

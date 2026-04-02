@@ -5,7 +5,6 @@ import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDel
 import AdminDropdown from '@/domain/AdminSubmissionDetail/AdminDropdown/AdminDropdown';
 import { useFeedback } from '../../hooks/useFeedback';
 
-
 export default function ComentCard({
   feedbacks,
   currentUser,
@@ -15,7 +14,7 @@ export default function ComentCard({
   const { editFeedback, removeFeedback, hideFeedback } = useFeedback(submissionId);
   const [editValue, setEditValue] = useState(feedbacks?.content);
   const [isEditing, setIsEditing] = useState(false);
-  const [isBlocked, setIsBlocked] = useState(feedbacks?.isBlocked);
+  const [isBlocked, setIsBlocked] = useState(feedbacks?.isBlocked ?? false);
 
   useEffect(() => {
     setIsBlocked(feedbacks?.isBlocked);
@@ -32,7 +31,7 @@ export default function ComentCard({
 
   // 수정
   const handleEdit = () => {
-     console.log('handleEdit 실행', feedbacks.id, editValue) 
+    console.log('handleEdit 실행', feedbacks.id, editValue);
     editFeedback({ id: feedbacks.id, content: editValue });
     setIsEditing(false);
   };
@@ -61,14 +60,14 @@ export default function ComentCard({
             <div className={styles.infoContainer}>
               {feedbacks?.user.grade === 'NORMAL' ? (
                 <Image
-                  src="/images/icon/user.png"
+                  src="/Images/Icon/user.png"
                   alt="일반유저 아이콘"
                   width={24}
                   height={24}
                 />
               ) : (
                 <Image
-                  src="/images/icon/user_expert.png"
+                  src="/Images/Icon/user_expert.png"
                   alt="전문가 아이콘"
                   width={24}
                   height={24}
@@ -118,14 +117,14 @@ export default function ComentCard({
             <div className={styles.infoContainer}>
               {feedbacks?.user.grade === 'NORMAL' ? (
                 <Image
-                  src="/images/icon/user.png"
+                  src="/Images/Icon/user.png"
                   alt="일반유저 아이콘"
                   width={24}
                   height={24}
                 />
               ) : (
                 <Image
-                  src="/images/icon/user_expert.png"
+                  src="/Images/Icon/user_expert.png"
                   alt="전문가 아이콘"
                   width={24}
                   height={24}

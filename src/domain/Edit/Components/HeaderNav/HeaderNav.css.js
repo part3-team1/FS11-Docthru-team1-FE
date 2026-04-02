@@ -20,7 +20,7 @@ export const logoContainer = style({
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  gap: vars.space.sm,
+  gap: '0.34rem',
 
   '@media': {
     [media.mobile]: {
@@ -70,6 +70,8 @@ export const baseBtn = style({
   fontSize: '1rem',
   fontWeight: '600',
   color: vars.color.white,
+
+  cursor: 'pointer',
 
   '@media': {
     [media.mobile]: {

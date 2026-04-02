@@ -1,10 +1,13 @@
 'use client';
 import Image from 'next/image';
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { set, useForm } from 'react-hook-form';
 import * as styles from './SignupForm.css';
 import { useRouter } from 'next/navigation';
 import { useSignup } from '../../hooks/useSignup';
+import password_on_eye from '@/../public/Images/Icon/passwordOn-eye.svg';
+import password_eye from '@/../public/Images/Icon/password-eye.svg';
+import ic_google from '@/../public/Images/Icon/google.svg';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -13,6 +16,7 @@ export default function SignupForm() {
     register,
     handleSubmit,
     watch,
+    setError,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm();
   const passwordValue = watch('password');
@@ -26,7 +30,15 @@ export default function SignupForm() {
     const { passwordConfirm, ...rest } = data;
     signup(rest, {
       onSuccess: () => router.push('/challenges'),
-      onError: (error) => console.error(error),
+      onError: (error) => {
+        if (error.details) {
+          Object.entries(error.details).forEach(([field, messages]) => {
+            setError(field, { message: messages[0] });
+          });
+        } else {
+          setError('email', { message: error.message });
+        }
+      },
     });
   };
   return (
@@ -117,11 +129,7 @@ export default function SignupForm() {
             className={styles.input}
           />
           <Image
-            src={
-              showPassword
-                ? '/images/icon/passwordOn-eye.svg'
-                : '/images/icon/password-eye.svg'
-            }
+            src={showPassword ? { password_on_eye } : { password_eye }}
             alt="비밀번호 확인"
             width={24}
             height={24}
@@ -159,11 +167,7 @@ export default function SignupForm() {
             className={styles.input}
           />
           <Image
-            src={
-              showPassword
-                ? '/images/icon/passwordOn-eye.svg'
-                : '/images/icon/password-eye.svg'
-            }
+            src={showPassword ? { password_on_eye } : { password_eye }}
             alt="비밀번호 확인"
             width={24}
             height={24}
@@ -190,12 +194,7 @@ export default function SignupForm() {
       {/* 구글회원가입버튼 */}
 
       <button type="button" className={styles.googleBtn}>
-        <Image
-          src="/images/icon/google.svg"
-          alt="구글 회원가입"
-          width={19}
-          height={19}
-        />
+        <Image src={ic_google} alt="구글 회원가입" width={19} height={19} />
         Google 간편 회원가입
       </button>
     </form>

@@ -52,9 +52,12 @@ export default function AdminChallenges() {
       <div className={styles.controlsWrapper}>
         <FilterDropdown onApply={() => {}} />
         <div className={styles.searchBarWrapper}>
-          <Suspense fallback={null}>
-            <SearchBar onChange={(v) => { setPage(1); setKeyword(v); }} />
-          </Suspense>
+          <SearchBar
+            onChange={(v) => {
+              setPage(1);
+              setKeyword(v);
+            }}
+          />
         </div>
       </div>
       <ul className={styles.cardListWrapper}>

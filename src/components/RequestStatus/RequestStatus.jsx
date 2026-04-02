@@ -35,7 +35,7 @@ export default function RequestStatus({ status, rejectionReason }) {
             {isDelete ? '삭제 사유' : '신청 거절 사유'}
           </div>
           <div className={styles.reason}>{rejectionReason}</div>{' '}
-          {/* ✅ 2. styles.reason */}
+
         </div>
       )}
     </div>

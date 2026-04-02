@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import * as styles from './RejectModal.css.js';
+import ic_out from '@/../public/Images/Icon/ic_out.svg';
 
 const OPTIONS = [
   '혐오/ 차별적/ 생명경시/ 욕설 표현',
@@ -30,7 +31,7 @@ export default function RejectModal({ onClose, onSubmit }) {
         <div className={styles.header}>
           <span className={styles.title}>거절 사유</span>
           <button className={styles.closeButton} onClick={onClose}>
-            <Image src='/Images/Icon/ic_out.svg' alt='닫기' width={24} height={24} />
+            <Image src={ic_out} alt="닫기" width={24} height={24} />
           </button>
         </div>
         <span className={styles.contentLabel}>내용</span>
@@ -66,6 +67,6 @@ export default function RejectModal({ onClose, onSubmit }) {
         <button className={styles.submitButton} onClick={handleSubmit}>전송</button>
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }

@@ -43,6 +43,13 @@ export const title = style({
   color: vars.color.gray800,
 });
 
+export const closeBtn = style({
+  border: 'none',
+  backgroundColor: 'transparent',
+
+  cursor: 'pointer',
+});
+
 export const count = style({
   fontSize: '0.75rem',
   fontWeight: '400',
@@ -79,6 +86,9 @@ export const draftDate = style({
 export const deleteBtn = style({
   fontSize: '0.75rem',
   color: vars.color.gray800,
+
+  border: 'none',
+  backgroundColor: 'transparent',
 
   cursor: 'pointer',
 });

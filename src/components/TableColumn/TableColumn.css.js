@@ -2,10 +2,8 @@ import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
-  flex:1,
-})
-
-
+  flex: 1,
+});
 
 export const titleName = style({
   backgroundColor: vars.color.brandBlack,
@@ -27,7 +25,7 @@ export const list = style({
   color: vars.color.gray500,
   fontWeight: 500,
   whiteSpace: 'nowrap',
-  minHeight: '3rem',
+  minHeight: '3.7rem',
 
 });
 
@@ -43,7 +41,12 @@ export const title = style({
   minWidth: '22.375rem',
   '@media': {
     [media.tablet]: {
-      minWidth:'13.8125rem'
-    }
-  }
+      minWidth: '13.8125rem',
+    },
+  },
+});
+
+
+export const click = style({
+  cursor:'pointer'
 })

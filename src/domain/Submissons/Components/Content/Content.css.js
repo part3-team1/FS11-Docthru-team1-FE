@@ -1,3 +1,4 @@
+import { applyEditorTheme } from '@/domain/Edit/Components/Editor/EditorTheme.css.js';
 import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
@@ -28,9 +29,14 @@ export const submissionTitle = style({
 
 export const categoryContainer = style({
   display: 'flex',
-  gap: vars.space.sm,
+  justifyContent:'space-between',
   marginBottom: '1rem',
 });
+
+export const chip = style({
+  display: 'flex',
+  gap:vars.space.sm
+})
 
 export const infoContainer = style({
   borderTop: `1px solid ${vars.color.gray200}`,
@@ -68,6 +74,11 @@ export const like = style({
   alignItems: 'center',
 });
 
+export const heartIcon = style({
+  position: 'relative',
+  top:'0.1rem'
+})
+
 export const likeCount = style({
   fontSize: '0.875rem',
   fontWeight: 500,
@@ -97,3 +108,5 @@ export const content = style({
     },
   },
 });
+
+applyEditorTheme(content)

@@ -1,18 +1,21 @@
 import EditContainer from '@/domain/Edit/Container/EditContainer';
+import * as challengesApi from '@/api/challenges.API';
 
-export default function Page({ params }) {
-  const { challengeId, submissionId } = params;
+export default async function Page({ params }) {
+  const { challengeId, submissionId } = await params;
 
-    // api 작성 후 수정
-    // const initialData = await editorApi.getSubmission(submissionId)
-    const initialData = null;
+  // const initialData = await challengesApi.submissionById(submissionId);
+
+  // if (!initialData) {
+  //   return <div>데이터를 불러올 수 없습니다.</div>;
+  // }
 
   return (
     <EditContainer
       mode="edit"
       challengeId={challengeId}
       submissionId={submissionId}
-      initialData={initialData}
+      // initialData={initialData}
     />
   );
 }

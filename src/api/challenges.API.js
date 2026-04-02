@@ -1,4 +1,4 @@
-const BASE_URL = '/api';
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 
 //챌린지
 //챌린지 리스트 불러오기 + 페이지네이션
@@ -58,6 +58,28 @@ export async function challengeRequests(data) {
   return json;
 }
 
+//챌린지 참가
+export async function joinChallenge(id) {
+  const res = await fetch(`${BASE_URL}/challenges/${id}/join`, {
+    method: 'POST',
+    credentials: 'include',
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
+}
+
+//챌린지 포기
+export async function leaveChallenge(id) {
+  const res = await fetch(`${BASE_URL}/challenges/${id}/leave`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
+}
+
 //서브미션
 //서브미션 상세조회
 export async function submissionById(id) {
@@ -80,6 +102,18 @@ export async function deleteSubmissionById(id) {
     throw new Error(json.message);
   }
   return;
+}
+
+//좋아요
+export async function heartSubmissionById(id) {
+  const res = await fetch(`${BASE_URL}/submissions/${id}/heart`, {
+    method: 'POST',
+    credentials: 'include',
+  });
+
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }
 
 //feedback
@@ -135,4 +169,17 @@ export async function deleteFeedback(id) {
     throw new Error(json.message);
   }
   return;
+}
+
+//피드백 블락 (어드민))
+export async function blockFeedback(id, isBlocked) {
+  const res = await fetch(`${BASE_URL}/admin/feedbacks/${id}/block`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ isBlocked }),
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
 }

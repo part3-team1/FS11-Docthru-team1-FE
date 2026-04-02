@@ -15,6 +15,7 @@ export const selectContainer = style({
   top: '100%',
   right: 0,
   zIndex: 10,
+  backgroundColor:vars.color.white
 });
 
 export const btn = style({

@@ -5,6 +5,10 @@ import Image from 'next/image.js';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation.js';
 import { useLogin } from '../../hooks/useLogin.js';
+import { googleLogin } from '@/api/authAPI.js';
+import password_on_eye from '@/../public/Images/Icon/passwordOn-eye.svg';
+import password_on from '@/../public/Images/Icon/passwordOn-eye.svg';
+import ic_google from '@/../public/Images/Icon/google.svg';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -107,11 +111,7 @@ export default function LoginForm() {
           {/* 눈 아이콘 */}
 
           <Image
-            src={
-              showPassword
-                ? '/images/icon/passwordOn-eye.svg'
-                : '/images/icon/password-eye.svg'
-            }
+            src={showPassword ? { password_on_eye } : { password_on }}
             alt="비밀번호 확인"
             width={24}
             height={24}
@@ -141,13 +141,12 @@ export default function LoginForm() {
         </button>
       </div>
       {/* 구글 */}
-      <button type="button" className={styles.googleBtn}>
-        <Image
-          src="/images/icon/google.svg"
-          alt="구글아이콘"
-          width={19}
-          height={19}
-        />
+      <button
+        type="button"
+        onClick={() => googleLogin()}
+        className={styles.googleBtn}
+      >
+        <Image src={ic_google} alt="구글아이콘" width={19} height={19} />
         Google로 시작하기
       </button>
     </form>

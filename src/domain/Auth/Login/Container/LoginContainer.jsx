@@ -2,6 +2,7 @@ import Image from 'next/image.js';
 import LoginForm from '../Components/LoginForm.jsx';
 import * as styles from './LoginContainer.css.js';
 import Link from 'next/link.js';
+import logo from '@/../public/Images/Logo/logo.svg';
 
 export default function LoginContainer() {
   return (
@@ -9,7 +10,7 @@ export default function LoginContainer() {
       <Link href="/" className={styles.logoContainer}>
         {/* 로고 */}
         <Image
-          src="/images/Logo/logo.svg"
+          src={logo}
           alt="독스루 로고"
           width={47}
           height={54}
