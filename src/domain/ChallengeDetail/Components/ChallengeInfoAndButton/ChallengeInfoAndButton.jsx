@@ -26,12 +26,12 @@ export function ChallengeInfoAndButton({
                 currentUser={currentUser}
                 content={{
                   type: 'challenge',
-                  authorId: data?.id,
+                  authorId: data?.request?.requestedBy,
                   status: data?.status,
                   currentParticipants: data?.currentParticipants,
                   isBlocked: false,
                 }}
-                editHref={`/challenges/${data?.id}/edit-callenge`}
+                editHref={`/challenges/${data?.id}/edit`}
                 onDelete={() => {}}
               />
             ) : null
