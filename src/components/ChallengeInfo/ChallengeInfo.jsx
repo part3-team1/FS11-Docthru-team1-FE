@@ -12,10 +12,10 @@ export default function ChallengeInfo({ data, dropdown, reportButton }) {
     <div className={styles.container}>
       <div className={showReason ? styles.showReason : styles.title}>
         {data.title}
-        {dropdown && <div>{dropdown}</div>}
-        {reportButton && <Image src='/Images/Icon/report_icon.png' alt='신고' width={24} height={24} />}
-        <div>
 
+        <div className={styles.dropAndBtn}>
+          {reportButton && reportButton}
+          {dropdown && <div>{dropdown}</div>}
         </div>
       </div>
 

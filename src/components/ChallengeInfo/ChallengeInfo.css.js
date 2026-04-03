@@ -38,3 +38,7 @@ export const content = style({
 
   lineHeight: '130%',
 });
+
+export const dropAndBtn = style({
+  display:'flex',
+})

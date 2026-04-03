@@ -1,5 +1,5 @@
 'use client';
-
+import * as styles from './ReportBtn.css'
 import { createReport } from '@/api/report.api';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
@@ -28,12 +28,12 @@ export default function ReportBtn({ targetId, reportType }) {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>
+      <button onClick={() => setIsOpen(true)} className={styles.reportBtn}>
         <Image
           src="/Images/Icon/report_icon.png"
           alt="report"
-          width={24}
-          height={24}
+          width={30}
+          height={30}
         />
       </button>
 

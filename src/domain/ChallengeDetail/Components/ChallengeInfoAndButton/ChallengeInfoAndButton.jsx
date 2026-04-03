@@ -6,6 +6,7 @@ import ChallengeInfo from '@/components/ChallengeInfo/ChallengeInfo';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 import user_expert from '@/../public/Images/Icon/user_expert.png';
 import user from '@/../public/Images/Icon/user.png';
+import ReportBtn from '@/components/ReportBtn/ReportBtn';
 
 export function ChallengeInfoAndButton({
   data,
@@ -35,6 +36,11 @@ export function ChallengeInfoAndButton({
                 onDelete={() => {}}
               />
             ) : null
+          }
+          reportButton={
+            currentUser && data?.status === 'OPENED' ? (
+              <ReportBtn targetId={data?.id} reportType='CHALLENGE' />
+            ):null
           }
         />
         <div className={styles.nicknameContainer}>
