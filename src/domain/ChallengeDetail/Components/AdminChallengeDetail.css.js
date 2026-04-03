@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 
 export const container = style({
   paddingTop: 'calc(3.75rem + 2.13rem)',
@@ -7,10 +7,21 @@ export const container = style({
   flexDirection: 'column',
   width: '55.625rem',
   margin: '0 auto',
+
+  '@media': {
+    [media.tablet]: {
+      paddingTop: '5.25rem',
+      width: '43.5rem',
+    },
+    [media.mobile]: {
+      paddingTop: '4.5rem',
+      width: '21.4375rem',
+    },
+  },
 });
 
 export const rejectBanner = style({
-  width: '55.625rem',
+  width: '100%',
   height: '2.1875rem',
   flexShrink: 0,
   borderRadius: '1.09375rem',
@@ -28,7 +39,7 @@ export const rejectBanner = style({
 });
 
 export const approveBanner = style({
-  width: '55.625rem',
+  width: '100%',
   height: '2.1875rem',
   flexShrink: 0,
   borderRadius: '1.09375rem',
@@ -46,7 +57,7 @@ export const approveBanner = style({
 });
 
 export const rejectReasonBox = style({
-  width: '55.625rem',
+  width: '100%',
   height: '7.3125rem',
   borderRadius: '1rem',
   border: `1px solid ${vars.color.gray200}`,
@@ -91,7 +102,7 @@ export const rejectReasonDate = style({
 });
 
 export const rejectReasonDivider = style({
-  width: '55.625rem',
+  width: '100%',
   height: 0,
   border: 'none',
   borderTop: `1px solid ${vars.color.gray200}`,
@@ -130,16 +141,31 @@ export const linkPosition = style({
 export const frame = style({
   width: '100%',
   height: '30rem',
+
+  '@media': {
+    [media.mobile]: {
+      width: '23.4375rem',
+      height: '12.89738rem',
+      marginLeft: '-1rem',
+    },
+  },
 });
 
 export const linkBtn = style({
   position: 'absolute',
   zIndex: 3,
   right: vars.space.sm,
+
+  '@media': {
+    [media.mobile]: {
+      top: '0.75rem',
+      right: '1rem',
+    },
+  },
 });
 
 export const divider = style({
-  width: '55.625rem',
+  width: '100%',
   height: 0,
   border: 'none',
   borderTop: `1px solid ${vars.color.gray200}`,
@@ -151,6 +177,12 @@ export const buttonWrapper = style({
   justifyContent: 'flex-end',
   gap: '0.75rem',
   marginTop: '1.5rem',
+
+  '@media': {
+    [media.mobile]: {
+      justifyContent: 'center',
+    },
+  },
 });
 
 export const buttonReject = style({
@@ -170,6 +202,14 @@ export const buttonReject = style({
   fontWeight: 600,
   lineHeight: '1.625rem',
   color: '#F24744',
+
+  '@media': {
+    [media.mobile]: {
+      width: '10.375rem',
+      height: '2.5rem',
+      padding: '0.4375rem 3.46875rem 0.4375rem 3.40625rem',
+    },
+  },
 });
 
 export const buttonApprove = style({
@@ -189,6 +229,14 @@ export const buttonApprove = style({
   fontWeight: 600,
   lineHeight: 'normal',
   color: vars.color.white,
+
+  '@media': {
+    [media.mobile]: {
+      width: '10.375rem',
+      height: '2.5rem',
+      padding: '0.4375rem 3.46875rem 0.4375rem 3.40625rem',
+    },
+  },
 });
 
 export const topRow = style({
