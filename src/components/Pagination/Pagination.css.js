@@ -16,9 +16,9 @@ export const container = style({
 });
 
 export const moveBtn = style({
-  border:'none',
+  border: 'none',
   padding: '0.78rem',
-  backgroundColor: vars.color.white,
+  backgroundColor: 'transparent',
   cursor: 'pointer',
   color: vars.color.gray500,
   width: '2.5rem',
@@ -27,7 +27,6 @@ export const moveBtn = style({
   alignItems: 'center',
   justifyContent: 'center',
   fontSize: '1.5rem',
-
 });
 
 export const active = style({
@@ -47,7 +46,7 @@ export const active = style({
 export const pageBtn = style({
   borderRadius: vars.radius.xl,
   padding: '0.78rem',
-  backgroundColor: vars.color.white,
+  backgroundColor: 'transparent',
   color: vars.color.gray500,
   border: 'none',
   cursor: 'pointer',

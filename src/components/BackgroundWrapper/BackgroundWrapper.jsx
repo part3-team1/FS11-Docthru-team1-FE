@@ -30,7 +30,13 @@ export default function BackgroundWrapper({ children }) {
   }
 
   return (
-    <div style={{ backgroundColor: bgColor, minHeight: '100vh' }}>
+    <div
+      style={{
+        backgroundColor: bgColor,
+        minHeight: '100vh',
+        paddingBottom: '2.13rem',
+      }}
+    >
       {children}
     </div>
   );
