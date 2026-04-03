@@ -1,21 +1,19 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { ChallengeInfoAndButton } from '@/domain/ChallengeDetail/Components/ChallengeInfoAndButton/ChallengeInfoAndButton';
+import { useQuery } from '@tanstack/react-query';
+import { adminChallengeById } from '@/api/admin.API';
+import { queryKeys } from '@/lib/queryKeys';
+import AdminChallengeInfoSection from './AdminChallengeInfoSection.jsx';
 import BestSubmissionCard from '@/domain/ChallengeDetail/Components/BestSubmissionCard/BestSubmissionCard';
 import ParticipationSubmissionList from '@/domain/ChallengeDetail/Components/ParticipationSubmissionList/ParticipationSubmissionList';
-import * as styles from '@/domain/ChallengeDetail/Container/ChallengeDetailContainer.css.js';
+import * as styles from './AdminSubmissionsList.css.js';
 
 export default function AdminSubmissionsList({ id }) {
-  const [challenge, setChallenge] = useState(null);
-
-  useEffect(() => {
-    fetch(`/api/challenges/${id}`, { credentials: 'include' })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success) setChallenge(json.data);
-      })
-      .catch(console.error);
-  }, [id]);
+  const { data: challenge } = useQuery({
+    queryKey: queryKeys.admin.challenges.detail(id),
+    queryFn: () => adminChallengeById(id),
+    select: (json) => json.data,
+    enabled: !!id,
+  });
 
   if (!challenge) return null;
 
@@ -26,26 +24,22 @@ export default function AdminSubmissionsList({ id }) {
   const bestItem = bestSubmission
     ? {
         user: bestSubmission.user,
-        nickname: bestSubmission.user?.nickname,
-        submission: {
-          heart_count: bestSubmission.heartCount,
-          created_at: bestSubmission.createdAt,
-          content: bestSubmission.content,
-        },
+        heartCount: bestSubmission.heartCount,
+        createdAt: bestSubmission.createdAt,
+        content: bestSubmission.content,
       }
     : null;
 
   return (
     <div className={styles.container}>
-      <ChallengeInfoAndButton
-        data={challenge}
-        currentUser={null}
-        isParticipating={false}
-      />
+      <AdminChallengeInfoSection data={challenge} />
 
       {isClosed && <BestSubmissionCard item={bestItem} />}
 
-      <ParticipationSubmissionList data={submissions} />
+      <ParticipationSubmissionList
+        data={submissions}
+        getHref={(item) => `/admin/submissions/${item.id}`}
+      />
     </div>
   );
 }

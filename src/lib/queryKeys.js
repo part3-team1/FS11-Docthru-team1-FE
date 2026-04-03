@@ -104,6 +104,11 @@ export const queryKeys = {
   //어드민 쿼리키
   admin: {
     all: ['admin'],
+    //어드민 챌린지 목록
+    challenges: {
+      list: (params) => [...queryKeys.admin.all, 'challenges', 'list', params],
+      detail: (id) => [...queryKeys.admin.all, 'challenges', id],
+    },
     //신청 상세
     requests: {
       detail: (id) => [...queryKeys.admin.all, 'requests', id],

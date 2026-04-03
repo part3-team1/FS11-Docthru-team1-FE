@@ -1,5 +1,8 @@
 'use client';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { adminChallengeList, adminDeleteChallenge } from '@/api/admin.API';
+import { queryKeys } from '@/lib/queryKeys';
 import SearchBar from '@/components/SearchBar/SearchBar.jsx';
 import Pagination from '@/components/Pagination/Pagination.jsx';
 import ChallengeCard from '@/components/ChallengeCard/ChallengeCard/ChallengeCard.jsx';
@@ -12,8 +15,7 @@ const PAGE_SIZE = 5;
 export default function AdminChallenges() {
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState('');
-  const [challenges, setChallenges] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     document.body.style.backgroundColor = 'var(--gray-gray50, #FAFAFA)';
@@ -22,20 +24,23 @@ export default function AdminChallenges() {
     };
   }, []);
 
-  useEffect(() => {
-    const skip = (page - 1) * PAGE_SIZE;
-    const params = new URLSearchParams({ skip, take: PAGE_SIZE });
-    if (keyword) params.set('keyword', keyword);
-    fetch(`/api/challenges?${params}`, { credentials: 'include' })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success) {
-          setChallenges(json.data.challenges);
-          setTotalCount(json.data.totalCount);
-        }
-      })
-      .catch(console.error);
-  }, [page, keyword]);
+  const params = { skip: (page - 1) * PAGE_SIZE, take: PAGE_SIZE, ...(keyword && { keyword }) };
+
+  const { data } = useQuery({
+    queryKey: queryKeys.admin.challenges.list(params),
+    queryFn: () => adminChallengeList(params),
+    select: (json) => json.data,
+  });
+
+  const challenges = data?.challenges ?? [];
+  const totalCount = data?.totalCount ?? 0;
+
+  const { mutate: deleteChallenge } = useMutation({
+    mutationFn: ({ challengeId, reason }) => adminDeleteChallenge(challengeId, reason),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.admin.challenges.list(params) });
+    },
+  });
 
   return (
     <div className={styles.container}>
@@ -57,7 +62,11 @@ export default function AdminChallenges() {
             <ChallengeCard
               challenge={challenge}
               href={`/admin/challenges/${challenge.id}`}
-              topRight={<AdminChallengeDropdown onDelete={() => {}} />}
+              topRight={
+                <AdminChallengeDropdown
+                  onDelete={(reason) => deleteChallenge({ challengeId: challenge.id, reason })}
+                />
+              }
             />
           </li>
         ))}

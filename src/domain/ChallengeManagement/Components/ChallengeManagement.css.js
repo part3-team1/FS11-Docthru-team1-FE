@@ -1,13 +1,29 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 
 export const container = style({
   paddingTop: 'calc(3.75rem + 2.13rem)',
+  '@media': {
+    [media.tablet]: {
+      paddingTop: '5.25rem',
+    },
+    [media.mobile]: {
+      paddingTop: '4.5rem',
+    },
+  },
 });
 
 export const searchBarWrapper = style({
   width: '52.75rem',
   height: '2.5rem',
+  '@media': {
+    [media.tablet]: {
+      width: '100%',
+    },
+    [media.mobile]: {
+      width: '21.4375rem',
+    },
+  },
 });
 
 export const controlsWrapper = style({
@@ -46,6 +62,15 @@ export const table = style({
   width: '62.25rem',
   borderCollapse: 'collapse',
   marginTop: '1.5rem',
+
+  '@media': {
+    [media.tablet]: {
+      width: '100%',
+    },
+    [media.mobile]: {
+      width: '21.4375rem',
+    },
+  },
 });
 
 export const tableHeadCell = style({
@@ -94,6 +119,10 @@ export const colStatus = style({ width: '7.5rem' });
 
 export const tableHead = style({
   width: '62.25rem',
+  '@media': {
+    [media.tablet]: { width: '100%' },
+    [media.mobile]: { width: '21.4375rem' },
+  },
   height: '2.25rem',
   backgroundColor: vars.color.gray800,
 });

@@ -36,11 +36,28 @@ export const controlsWrapper = style({
   display: 'flex',
   alignItems: 'center',
   gap: '0.75rem',
+
+  '@media': {
+    [media.mobile]: {
+      width: '21.5rem',
+      height: '2.5rem',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      gap: '0.5rem',
+      flexDirection: 'row-reverse',
+    },
+  },
 });
 
 export const searchBarWrapper = style({
   width: '54.5rem',
   height: '2.5rem',
+
+  '@media': {
+    [media.mobile]: {
+      flex: 1,
+    },
+  },
 });
 
 export const title = style({

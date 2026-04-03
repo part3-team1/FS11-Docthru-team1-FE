@@ -23,7 +23,9 @@ export const container = style({
 
     [media.mobile]: {
       height: '3.5rem',
-      padding: `0 ${vars.space.lg}`,
+      padding: '0 1rem',
+      justifyContent: 'space-between',
+      alignItems: 'center',
     },
   },
 });
@@ -56,7 +58,7 @@ export const logoName = style({
   color: vars.color.gray600,
   '@media': {
     [media.mobile]: {
-      fontSize: '0.9rem',
+      display: 'none',
     },
   },
 });
@@ -75,6 +77,16 @@ export const headerMenu = style({
   fontStyle: 'normal',
   fontWeight: 600,
   lineHeight: 'normal',
+
+  '@media': {
+    [media.mobile]: {
+      height: '3.5rem',
+      padding: '1.3125rem 0.5rem',
+      color: vars.color.gray800,
+      fontSize: '0.8125rem',
+      fontWeight: 700,
+    },
+  },
 });
 
 export const focused = style({
