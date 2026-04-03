@@ -26,7 +26,11 @@ export const dropdownButton = style({
   border: `1px solid ${vars.color.gray300}`,
 
   '@media': {
+    [media.tablet]: {
+      width: '6.625rem',
+    },
     [media.mobile]: {
+      width: '6.1875rem',
       fontSize: '0.875rem',
     },
   },

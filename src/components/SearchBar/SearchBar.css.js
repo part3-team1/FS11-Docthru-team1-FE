@@ -1,4 +1,4 @@
-import { vars } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
@@ -26,5 +26,13 @@ export const searchInput = style({
     fontStyle: 'normal',
     fontWeight: 400,
     lineHeight: 'normal',
+  },
+
+  '@media': {
+    [media.mobile]: {
+      '::placeholder': {
+        fontSize: '0.875rem',
+      },
+    },
   },
 });
