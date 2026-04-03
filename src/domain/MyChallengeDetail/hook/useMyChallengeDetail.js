@@ -26,7 +26,9 @@ onSuccess: () => {
 },
   });
 
+  const data = myData?.data;
   return {
+    data,
     myData,
     isLoading,
     myChallengeRequestDelete,

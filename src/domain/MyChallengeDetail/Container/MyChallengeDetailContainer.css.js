@@ -1,6 +1,9 @@
 import { media, vars } from "@/styles/token.css";
 import { style } from "@vanilla-extract/css";
 
+export const container = style({
+  width:'100%'
+})
 
 
 export const dataAndPerson = style({

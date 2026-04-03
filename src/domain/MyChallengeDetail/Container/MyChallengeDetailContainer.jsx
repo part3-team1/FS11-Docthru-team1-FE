@@ -19,7 +19,7 @@ export default function MyChallengeDetail({ id }) {
   const isPending = detail.status === 'PENDING';
 
   return (
-    <div>
+    <div className={styles.container}>
       {/* 챌린지 상태 */}
       <RequestStatus
         status={detail.status}
@@ -30,7 +30,7 @@ export default function MyChallengeDetail({ id }) {
         data={detail}
         dropdown={
           isPending ? (
-            <CancelDropdown onClick={() => myChallengeRequestDelete(id)} />
+            <CancelDropdown onClick={() => myChallengeRequestDelete(id)} id={id} />
           ) : null
         }
       />
