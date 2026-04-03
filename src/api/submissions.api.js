@@ -45,3 +45,23 @@ export async function updateSubmission(submissionId, data) {
 
   return result;
 }
+
+// POST /image
+export async function uploadImage(file) {
+  const formData = new FormData();
+  formData.append('image', file);
+
+  const res = await fetch(`${BASE_URL}/images`, {
+    method: 'POST',
+    credentials: 'include',
+    body: formData,
+  });
+
+  const result = await res.json();
+
+  if (!res.ok) {
+    throw new Error(result.message || '이미지 업로드 실패.');
+  }
+
+  return result.data.imageUrl;
+}
