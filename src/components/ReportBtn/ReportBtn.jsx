@@ -1,0 +1,68 @@
+'use client';
+
+import { createReport } from '@/api/report.api';
+import { useMutation } from '@tanstack/react-query';
+import Image from 'next/image';
+import { useState } from 'react';
+
+const REPORT_REASON = [
+  '혐오/차별적/생명경시/욕설 표현입니다.',
+  '스팸홍보/도배입니다.',
+  '음란물입니다.',
+  '불법정보를 포함하고 있습니다.',
+  '개인정보가 노출되었습니다.',
+  '명예훼손 또는 저작권이 침해되었습니다.',
+  '이용의도와 전혀 상관없는 게시물',
+  '챌린지 주제와 원문이 일치하지 않습니다.',
+];
+
+export default function ReportBtn({ targetId, reportType }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedReason, setSelectedReason] = useState('');
+
+  const { mutate: report } = useMutation({
+    mutationFn: (reason) => createReport({ targetId, reportType, reason }),
+    onSuccess: () => alert('신고가 접수되었습니다.'),
+    onError: (error) => alert(error.message),
+  });
+
+  return (
+    <>
+      <button onClick={() => setIsOpen(true)}>
+        <Image
+          src="/Images/Icon/report_icon.png"
+          alt="report"
+          width={24}
+          height={24}
+        />
+      </button>
+
+      {isOpen && (
+        <div>
+          <div>신고 사유를 선택해주세요</div>
+          {REPORT_REASON.map((reason) => (
+            <div key={reason} onClick={() => setSelectedReason(reason)}>
+              <input
+                type="radio"
+                readOnly
+                checked={selectedReason === reason}
+              />
+              {reason}
+            </div>
+          ))}
+
+          <button onClick={() => setIsOpen(false)}>취소</button>
+          <button
+            disabled={!selectedReason}
+            onClick={() => {
+              report(selectedReason);
+              setIsOpen(false);
+            }}
+          >
+            신고하기
+          </button>
+        </div>
+      )}
+    </>
+  );
+}
