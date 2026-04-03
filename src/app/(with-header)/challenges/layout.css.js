@@ -7,8 +7,7 @@ export const challengesContainer = style({
   margin: '0 auto',
   paddingTop: '5.75rem',
   maxWidth: '62.25rem',
-  height:'100%',
-  gap: vars.space.xl,
+  height: '100%',
   alignItems: 'center',
 
   '@media': {
