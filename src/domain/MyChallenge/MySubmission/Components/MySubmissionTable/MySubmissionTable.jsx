@@ -4,6 +4,7 @@ import * as styles from './MySubmissionTable.css';
 import { useMySubmissions } from '@/domain/MyChallenge/hooks/useMySubmissions';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import Loading from '@/components/Loading/Loading';
 {
   /* 
   테이블설정 예시
@@ -22,9 +23,10 @@ export default function MySubmissionTable({ keyword }) {
     keyword,
   });
 
-  if (isLoading) return <div>로딩중...</div>;
+  if (isLoading) return <Loading />;
 
-  if (list.length === 0) return <div className={styles.empty}>아직 작성한 작업물이 없습니다</div>;
+  if (list.length === 0)
+    return <div className={styles.empty}>아직 작성한 작업물이 없습니다</div>;
   return (
     <div className={styles.container}>
       <div className={styles.columnScroll}>

@@ -7,12 +7,13 @@ import { ChallengeParticipantCount } from '@/components/Participants';
 import LinkButton from '@/components/LinkButton';
 import CancelDropdown from '../Components/CancelDropdown/CancelDropdown';
 import { useMyChallengeDetail } from '../hook/useMyChallengeDetail';
+import Loading from '@/components/Loading/Loading';
 
 export default function MyChallengeDetail({ id }) {
   const { myData, isLoading, myChallengeRequestDelete } =
     useMyChallengeDetail(id);
 
-    if (isLoading) return <div>로딩중...</div>;
+  if (isLoading) return <Loading />;
   const detail = myData?.data ?? null;
   if (!detail) return null;
   const isPending = detail.status === 'PENDING';
@@ -27,7 +28,11 @@ export default function MyChallengeDetail({ id }) {
       {/* 챌린지 정보 */}
       <ChallengeInfo
         data={detail}
-        dropdown={isPending ? <CancelDropdown onClick={()=>myChallengeRequestDelete(id)} /> : null}
+        dropdown={
+          isPending ? (
+            <CancelDropdown onClick={() => myChallengeRequestDelete(id)} />
+          ) : null
+        }
       />
 
       {/* 마감시간, 최대인원 */}

@@ -5,17 +5,18 @@ import { useState } from 'react';
 import Pagination from '@/components/Pagination/Pagination';
 import { useFeedbackSubmission } from '../hook/useFeedbackSubmission';
 import { useRouter } from 'next/navigation';
+import Loading from '@/components/Loading/Loading';
 
 export default function FeedbackSubmissionContainer() {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const pageSize = 10;
   const { list, totalCount, isLoading } = useFeedbackSubmission({
-    page,   
+    page,
     pageSize,
   });
 
-  if (isLoading) return <div>로딩중...</div>;
+  if (isLoading) return <Loading />;
 
   return (
     <div className={styles.container}>
@@ -29,7 +30,7 @@ export default function FeedbackSubmissionContainer() {
             field="challengeTitle"
             onClick={(item) => {
               console.log(item);
-              router.push(`/challenges/${item.challengeId}`)
+              router.push(`/challenges/${item.challengeId}`);
             }}
           />
           <TableColumn
