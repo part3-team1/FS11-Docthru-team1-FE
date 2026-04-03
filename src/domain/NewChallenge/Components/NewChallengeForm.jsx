@@ -23,7 +23,7 @@ export default function NewChallengeForm() {
 
   const onSubmit = (data) => {
     request(data, {
-      onSuccess: () => router.push('/my-page/my-challenge/participated'),
+      onSuccess: () => router.push('/my-page/my-challenge/requested'),
       onError: (error) => console.error(error),
     });
   };
