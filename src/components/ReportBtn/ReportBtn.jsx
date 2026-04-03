@@ -1,9 +1,10 @@
 'use client';
-import * as styles from './ReportBtn.css'
+import * as styles from './ReportBtn.css';
 import { createReport } from '@/api/report.api';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useState } from 'react';
+import { createPortal } from 'react-dom';
 
 const REPORT_REASON = [
   '혐오/차별적/생명경시/욕설 표현입니다.',
@@ -37,32 +38,53 @@ export default function ReportBtn({ targetId, reportType }) {
         />
       </button>
 
-      {isOpen && (
-        <div>
-          <div>신고 사유를 선택해주세요</div>
-          {REPORT_REASON.map((reason) => (
-            <div key={reason} onClick={() => setSelectedReason(reason)}>
-              <input
-                type="radio"
-                readOnly
-                checked={selectedReason === reason}
-              />
-              {reason}
-            </div>
-          ))}
+      {isOpen &&
+        createPortal(
+          <div className={styles.overlay}>
+            <div className={styles.modal}>
+              <div className={styles.title}>신고 사유를 선택해주세요</div>
+              {REPORT_REASON.map((reason) => (
+                <div
+                  key={reason}
+                  onClick={() => setSelectedReason(reason)}
+                  className={styles.reasonItem}
+                >
+                  <input
+                    type="radio"
+                    readOnly
+                    checked={selectedReason === reason}
+                    className={styles.radio}
+                  />
+                  <span className={styles.reasonText}>{reason}</span>
+                </div>
+              ))}
 
-          <button onClick={() => setIsOpen(false)}>취소</button>
-          <button
-            disabled={!selectedReason}
-            onClick={() => {
-              report(selectedReason);
-              setIsOpen(false);
-            }}
-          >
-            신고하기
-          </button>
-        </div>
-      )}
+              <div className={styles.btns}>
+                <button
+                  className={styles.btn}
+                  onClick={() => {
+                    setIsOpen(false);
+                    setSelectedReason('');
+                  }}
+                >
+                  취소
+                </button>
+                <button
+                  className={styles.btn}
+                  disabled={!selectedReason}
+                  onClick={() => {
+                    report(selectedReason);
+                    setIsOpen(false);
+                    setSelectedReason('');
+                  }}
+                >
+                  신고하기
+                </button>
+              </div>
+            </div>
+          </div>,
+          document.body,
+        )}
     </>
   );
 }
