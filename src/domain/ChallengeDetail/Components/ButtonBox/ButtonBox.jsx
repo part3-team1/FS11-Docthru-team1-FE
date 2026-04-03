@@ -47,9 +47,7 @@ const mySubmission = data.submissions?.find((s) => s.userId === currentUser?.id)
     if (isParticipating && hasSubmission) {
       return (
         <div className={styles.twoBtn}>
-          <button onClick={() => leave()} className={styles.leaveBtn}>
-            포기하기
-          </button>
+
           <Link
             href={`/challenges/${challengeId}/submissions/${mySubmission?.id}`}
             className={styles.clickBtn}

@@ -6,7 +6,7 @@
 // 추후 컨테이너 컴포넌트 이름 바뀔 가능성 있음
 
 'use client';
-
+import * as styles from './UserChallengesContainer.css'
 import {
   ChallengeCardList,
   ChallengeCardSkeletonList,
@@ -48,7 +48,7 @@ export default function UserChallengesContainer({}) {
         onKeywordChange={handleKeywordChange}
       />
       {isLoading && <ChallengeCardSkeletonList />}
-      {!isLoading && totalCount === 0 && <div>챌린지 없음</div>}
+      {!isLoading && totalCount === 0 && <div className={styles.empty}>아직 챌린지가 없어요,<br/>지금 바로 챌린지를 신청해보세요! </div>}
       {!isLoading && totalCount > 0 && (
         <>
           <ChallengeCardList challenges={challenges ?? []} />

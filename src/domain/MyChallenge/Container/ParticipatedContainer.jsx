@@ -1,16 +1,52 @@
+'use client';
 import { ChallengeCard, ChallengeCardList } from '@/components/ChallengeCard';
-import SearchBar from '@/components/SearchBar/SearchBar';
-import { mockChallenges } from '@/mock/mockChallenges';
 import * as styles from './container.css';
+import { useMyChallengeLists } from '../hooks/useMyChallengeLists';
+import SearchBar from '@/components/SearchBar/SearchBar';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export default function ParticipatedContainer({}) {
-  const challenges = mockChallenges;
+  const [keyword, setKeyword] = useState('');
+  const observerRef = useRef(null);
+  const isFetchingRef = useRef(false); 
+  const {
+    list,
+    totalCount,
+    fetchNextPage,
+    hasNextPage,
+    isLoading,
+    isFetchingNextPage,
+  } = useMyChallengeLists({ status: 'OPENED', keyword });
+
+  const handleKeywordChaeng = useCallback((newKeyword) => {
+    setKeyword(newKeyword);
+  }, []);
+
+useEffect(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting && hasNextPage && !isFetchingRef.current) {
+        isFetchingRef.current = true;
+        fetchNextPage().finally(() => {
+          isFetchingRef.current = false;
+        });
+      }
+    },
+    { threshold: 1 },
+  );
+
+  if (observerRef.current) observer.observe(observerRef.current);
+  return () => observer.disconnect();
+}, [hasNextPage, fetchNextPage]);
+
+
+  if (isLoading) return <div>로딩중...</div>;
 
   return (
     <div className={styles.container}>
-      <SearchBar />
+      <SearchBar onChange={handleKeywordChaeng} />
       <ChallengeCardList
-        challenges={challenges}
+        challenges={list}
         renderItem={(challenge) => (
           <ChallengeCard
             challenge={challenge}
@@ -20,6 +56,8 @@ export default function ParticipatedContainer({}) {
           />
         )}
       />
+      {hasNextPage && <div ref={observerRef} />}
+      {isFetchingNextPage && <div>로딩중...</div>}
     </div>
   );
 }

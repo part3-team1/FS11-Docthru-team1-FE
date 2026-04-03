@@ -3,7 +3,7 @@ import { TextStyle } from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 import TextAlign from '@tiptap/extension-text-align';
-import Image from '@tiptap/extension-image';
+import ResizeImage from 'tiptap-extension-resize-image';
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { all, createLowlight } from 'lowlight';
 
@@ -15,6 +15,6 @@ export const commonExtensions = [
   Color,
   Highlight.configure({ multicolor: true }),
   TextAlign.configure({ types: ['heading', 'paragraph'] }),
-  Image,
+  ResizeImage.configure({ allowBase64: true, display: 'block' }),
   CodeBlockLowlight.configure({ lowlight }),
 ];

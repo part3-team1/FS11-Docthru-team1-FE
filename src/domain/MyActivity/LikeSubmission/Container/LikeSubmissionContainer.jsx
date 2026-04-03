@@ -12,7 +12,10 @@ export default function LikeSubmissionContainer() {
   const [page, setPage] = useState(1);
   const pageSize = 10;
   const { list, totalCount, isLoading } = useLikeSubmission({ page, pageSize });
+
   if (isLoading) return <Loading />;
+  if (list.length === 0)
+    return <div className={styles.empty}>아직 좋아요한 작업물이 없습니다</div>;
 
   return (
     <div className={styles.container}>

@@ -58,6 +58,21 @@ export const applyEditorTheme = (parentSelector) => {
       margin: '1rem 0',
     });
 
+    // 이미지 기본 스타일
+    globalStyle(`${target} img`, {
+      maxWidth: '100%',
+      height: 'auto',
+      display: 'block',
+      cursor: 'pointer',
+      transition: 'outline 0.2s dotted',
+    });
+
+    // 이미지 선택 시(삭제에 필요)
+    globalStyle(`${target} .ProseMirror-selectednode`, {
+      outline: 'none',
+      boxShadow: 'none',
+    });
+
     // 인용구
     globalStyle(`${target} blockquote`, {
       borderLeft: `3px solid ${vars.color.gray900}`,

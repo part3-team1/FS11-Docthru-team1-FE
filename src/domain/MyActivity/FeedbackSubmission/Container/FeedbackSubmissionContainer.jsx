@@ -18,6 +18,10 @@ export default function FeedbackSubmissionContainer() {
 
   if (isLoading) return <Loading />;
 
+  if (list.length === 0)
+    return (
+      <div className={styles.empty}>아직 피드백 등록한 작업물이 없습니다</div>
+    );
   return (
     <div className={styles.container}>
       <div className={styles.columnScroll}>
