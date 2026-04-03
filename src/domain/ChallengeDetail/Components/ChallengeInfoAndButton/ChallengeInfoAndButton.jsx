@@ -18,7 +18,7 @@ export function ChallengeInfoAndButton({
   const challengeUser = data?.request?.user;
   return (
     <div className={styles.infoContainer}>
-      <div>
+      <div className={styles.infoLeft}>
         <ChallengeInfo
           data={data}
           dropdown={
