@@ -73,7 +73,7 @@ export const leaveBtn = style([
   {
     backgroundColor: '#f5caca',
     color: vars.color.error,
-
+    cursor:'pointer'
 
   },
 ]);

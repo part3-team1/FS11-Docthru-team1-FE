@@ -13,16 +13,14 @@ export default function ButtonBox({
   hasDrafts,
 }) {
   const isClosed = data.status === 'CLOSED';
-const mySubmission = data.submissions?.find((s) => s.userId === currentUser?.id);
-
+  const mySubmission = data.submissions?.find(
+    (s) => s.userId === currentUser?.id,
+  );
 
   const challengeId = data.id;
 
-  const { join, leave, isParticipating, currentParticipants } = useJoinLeave(
-    challengeId,
-    initialIsParticipating,
-    data.currentParticipants,
-  );
+  const { join, leave, deleteDraft, isParticipating, currentParticipants } =
+    useJoinLeave(challengeId, initialIsParticipating, data.currentParticipants);
 
   const randerButton = () => {
     //챌린지 마감..
@@ -47,7 +45,6 @@ const mySubmission = data.submissions?.find((s) => s.userId === currentUser?.id)
     if (isParticipating && hasSubmission) {
       return (
         <div className={styles.twoBtn}>
-
           <Link
             href={`/challenges/${challengeId}/submissions/${mySubmission?.id}`}
             className={styles.clickBtn}
@@ -57,12 +54,18 @@ const mySubmission = data.submissions?.find((s) => s.userId === currentUser?.id)
         </div>
       );
     }
-    
+
     //임시저장만 된사람?
     if (isParticipating && hasDrafts) {
       return (
         <div className={styles.twoBtn}>
-          <button onClick={() => leave()} className={styles.leaveBtn}>
+          <button
+            onClick={() => {
+              leave();
+              deleteDraft();
+            }}
+            className={styles.leaveBtn}
+          >
             포기하기
           </button>
           <Link
@@ -91,7 +94,6 @@ const mySubmission = data.submissions?.find((s) => s.userId === currentUser?.id)
         </div>
       );
     }
-
 
     return (
       // 기본 유저
