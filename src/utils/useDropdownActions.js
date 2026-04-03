@@ -6,7 +6,7 @@ export default function useDropdownActions({ currentUser, content }) {
   const {
     type,
     authorId,
-    current_participants = 0,
+    currentParticipants = 0,
     status,
     isBlocked,
   } = content;
@@ -16,7 +16,7 @@ export default function useDropdownActions({ currentUser, content }) {
   // 작성자이니...?
   const isOwner = userId === authorId;
   // 참여했니..?
-  const hasParticipants = current_participants > 0;
+  const hasParticipants = currentParticipants > 0;
 
   // 어드민
   if (isAdmin) {

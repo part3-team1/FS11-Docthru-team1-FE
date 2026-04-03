@@ -4,9 +4,17 @@ import * as styles from './ChallengeInfoAndButton.css';
 import ButtonBox from '../ButtonBox/ButtonBox';
 import ChallengeInfo from '@/components/ChallengeInfo/ChallengeInfo';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
+import user_expert from '@/../public/Images/Icon/user_expert.png';
+import user from '@/../public/Images/Icon/user.png';
 
-export function ChallengeInfoAndButton({ data, currentUser, isParticipating,hasSubmission,hasDrafts }) {
-  const challengeUser = data?.request?.user
+export function ChallengeInfoAndButton({
+  data,
+  currentUser,
+  isParticipating,
+  hasSubmission,
+  hasDrafts,
+}) {
+  const challengeUser = data?.request?.user;
   return (
     <div className={styles.infoContainer}>
       <div>
@@ -18,12 +26,12 @@ export function ChallengeInfoAndButton({ data, currentUser, isParticipating,hasS
                 currentUser={currentUser}
                 content={{
                   type: 'challenge',
-                  authorId: data?.id,
+                  authorId: data?.request?.requestedBy,
                   status: data?.status,
                   currentParticipants: data?.currentParticipants,
                   isBlocked: false,
                 }}
-                editHref={`/challenges/${data?.id}/edit-callenge`}
+                editHref={`/challenges/${data?.id}/edit`}
                 onDelete={() => {}}
               />
             ) : null
@@ -31,15 +39,10 @@ export function ChallengeInfoAndButton({ data, currentUser, isParticipating,hasS
         />
         <div className={styles.nicknameContainer}>
           {challengeUser?.grade === 'NORMAL' ? (
-            <Image
-              src="/images/icon/user.png"
-              alt="일반유저 아이콘"
-              width={24}
-              height={24}
-            />
+            <Image src={user} alt="일반유저 아이콘" width={24} height={24} />
           ) : (
             <Image
-              src="/images/icon/user_expert.png"
+              src={user_expert}
               alt="전문가 아이콘"
               width={24}
               height={24}

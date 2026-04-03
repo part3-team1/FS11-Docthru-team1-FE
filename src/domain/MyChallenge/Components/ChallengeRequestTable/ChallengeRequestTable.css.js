@@ -1,4 +1,4 @@
-import { media } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
@@ -29,3 +29,11 @@ export const columnScroll = style({
   overflowX: 'auto',
   width:'100%'
 });
+
+export const empty = style({
+  display: 'flex',
+  paddingTop:'20rem',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color:vars.color.gray500
+})

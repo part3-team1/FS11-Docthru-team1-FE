@@ -1,42 +1,21 @@
 'use client';
 
-import { all, createLowlight } from 'lowlight';
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { Placeholder } from '@tiptap/extensions';
 import { useEditor, EditorContent } from '@tiptap/react';
-import StarterKit from '@tiptap/starter-kit';
-import Image from '@tiptap/extension-image';
-import TextAlign from '@tiptap/extension-text-align';
-import Color from '@tiptap/extension-color';
-import { TextStyle } from '@tiptap/extension-text-style';
-import Highlight from '@tiptap/extension-highlight';
 import MenuBar from '../MenuBar/MenuBar.jsx';
 import { useEffect } from 'react';
 import { useEditorStore } from '@/domain/Edit/store/editor.store.js';
+import { commonExtensions } from './EditorExtensions.js';
+import { useImageUpload } from '@/domain/Edit/hooks/useImageUpload.js';
 import * as styles from './Editor.css.js';
-
-const lowlight = createLowlight(all);
 
 export default function Editor() {
   const { content, setContent } = useEditorStore();
+  const { handleImageUpload } = useImageUpload();
 
   const editor = useEditor({
     extensions: [
-      StarterKit.configure({
-        codeBlock: false,
-      }),
-      TextStyle,
-      Color,
-      Highlight.configure({
-        multicolor: true,
-      }),
-      TextAlign.configure({
-        types: ['heading', 'paragraph'],
-      }),
-      Image, // 아직 구현 안됨
-      CodeBlockLowlight.configure({
-        lowlight,
-      }),
+      ...commonExtensions,
       Placeholder.configure({
         placeholder: '번역 내용을 적어주세요.',
       }),
@@ -44,6 +23,13 @@ export default function Editor() {
     editorProps: {
       attributes: {
         class: 'docthru-editor',
+      },
+      handleKeyDown: (view, event) => {
+        if (event.key === 'Tab') {
+          editor.commands.insertContent('\t');
+          return true;
+        }
+        return false;
       },
     },
     content: content,
@@ -57,8 +43,38 @@ export default function Editor() {
     immediatelyRender: false,
   });
 
+  const handleDrop = async (event) => {
+    event.preventDefault();
+
+    const files = Array.from(event.dataTransfer.files);
+    const imageFiles = files.filter((file) => file.type.startsWith('image/'));
+
+    if (imageFiles.length === 0) {
+      return;
+    }
+
+    for (const file of imageFiles) {
+      const imageUrl = await handleImageUpload(file);
+
+      if (imageUrl && editor) {
+        editor
+          .chain()
+          .focus()
+          .setImage({ src: imageUrl })
+          .createParagraphNear()
+          .run();
+      }
+    }
+  };
+
+  const handleDragOver = (event) => event.preventDefault();
+
   useEffect(() => {
-    if (!editor || !content) {
+    if (!editor) {
+      return;
+    }
+    if (content === null) {
+      editor.commands.clearContent();
       return;
     }
     if (editor.isFocused) {
@@ -75,7 +91,11 @@ export default function Editor() {
   return (
     <div className={styles.editorWrapper}>
       <MenuBar editor={editor} />
-      <div className={styles.scrollArea}>
+      <div
+        className={styles.scrollArea}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+      >
         <EditorContent editor={editor} />
       </div>
     </div>

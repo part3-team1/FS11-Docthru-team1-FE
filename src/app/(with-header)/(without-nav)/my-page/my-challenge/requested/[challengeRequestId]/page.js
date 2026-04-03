@@ -4,5 +4,5 @@ import MyChallengeDetail from "@/domain/MyChallengeDetail/Container/MyChallengeD
 
 export default async function Page({ params }) {
   const { challengeRequestId } = await params;
-  return <MyChallengeDetail/>;
+  return <MyChallengeDetail id={challengeRequestId} />;
 }

@@ -12,14 +12,24 @@ export default function SubmissionsCard({ item, rank }) {
     };
     return gradeMap[grade] ?? grade;
   };
+
+  if (item.length === 0)
+    return (
+      <div className={styles.empty}>
+        아직 참여한 도전자가 없어요,
+        <br />
+        지금 바로 도전해보세요!
+      </div>
+    );
+  
   return (
     <div className={styles.container}>
       {/* 순위 */}
       <div className={styles.left}>
         <div className={styles.best}>
-          {isBest  ? (
+          {isBest ? (
             <Image
-              src="/images/Icon/free-icon-gold-medal-1910528.png"
+              src="/Images/Icon/free-icon-gold-medal-1910528.png"
               alt="1등"
               width={16}
               height={16}
@@ -33,14 +43,14 @@ export default function SubmissionsCard({ item, rank }) {
         <div className={styles.userBox}>
           {item.user.grade === 'EXPERT' ? (
             <Image
-              src="/images/Icon/user_expert.png"
+              src="/Images/Icon/user_expert.png"
               alt="유저 아이콘"
               width={24}
               height={24}
             />
           ) : (
             <Image
-              src="/images/Icon/user.png"
+              src="/Images/Icon/user.png"
               alt="유저 아이콘"
               width={24}
               height={24}
@@ -58,7 +68,7 @@ export default function SubmissionsCard({ item, rank }) {
         {/* 좋아요카운터 */}
         <div className={styles.like}>
           <Image
-            src="/images/Icon/icon_heart.svg"
+            src="/Images/Icon/icon_heart.svg"
             alt="좋아요"
             width={16}
             height={16}
@@ -66,7 +76,10 @@ export default function SubmissionsCard({ item, rank }) {
 
           <div>{item.heartCount}</div>
         </div>
-        <Link href={`/challenges/${item.challengeId}/submissions/${item.id}`} className={styles.link}>
+        <Link
+          href={`/challenges/${item.challengeId}/submissions/${item.id}`}
+          className={styles.link}
+        >
           {' '}
           작업물 보기 &gt;
         </Link>

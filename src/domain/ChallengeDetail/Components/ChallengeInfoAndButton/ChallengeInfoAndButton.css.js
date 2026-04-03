@@ -4,7 +4,6 @@ import { style } from '@vanilla-extract/css';
 export const infoContainer = style({
   display: 'flex',
   gap: vars.space.xl,
-  borderTop: `1px solid ${vars.color.gray100}`,
   borderBottom: `1px solid ${vars.color.gray100}`,
   padding: '1.5rem 0',
   marginBottom: vars.space.xl,

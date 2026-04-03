@@ -49,8 +49,7 @@ export default function ChallengeCard({
 
   const handleClick = () => router.push(`/challenges/${challenge.id}`);
 
-  console.log(challenge.status);
-  console.log(challenge.dueDate);
+
   return (
     <div
       role="button"
