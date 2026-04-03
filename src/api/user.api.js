@@ -1,3 +1,5 @@
+import { formatChallengePayload } from "@/utils/challegePayload";
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 
 //내가 참여한 챌린지 , 완료된챌린지 + 더보기 버튼 + 서치바
@@ -57,6 +59,34 @@ export async function myChallengeRequest(params = {}) {
 export async function myChallengeRequestDetail(id) {
   const res = await fetch(`${BASE_URL}/users/me/challengeRequests/${id}`, {
     credentials: 'include',
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
+}
+
+//내가 신청한 챌린지 수정
+export async function myChallengeRequestUpdate(id, data) {
+    const payload = formatChallengePayload(data);
+  const res = await fetch(`${BASE_URL}/users/me/challengeRequests/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(payload),
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
+}
+
+//나의 챌린지 수정
+export async function myChallengeUpdate(id, data) {
+  const payload = formatChallengePayload(data);
+  const res = await fetch(`${BASE_URL}/challenges/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify(payload),
   });
   const json = await res.json();
   if (!res.ok) throw new Error(json.message);
