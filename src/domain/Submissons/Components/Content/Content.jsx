@@ -75,7 +75,9 @@ export default function Content({ currentUser, submission }) {
           </div>
 
           <div className={styles.dropAndReport}>
-            <ReportBtn targetId={submission?.id} reportType="SUBMISSION" />
+            {currentUser?.id !== submission?.userId && (
+              <ReportBtn targetId={submission?.id} reportType="SUBMISSION" />
+            )}
             <EditAndDeleteDropdown
               currentUser={currentUser}
               content={{

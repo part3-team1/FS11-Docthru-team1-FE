@@ -38,9 +38,11 @@ export function ChallengeInfoAndButton({
             ) : null
           }
           reportButton={
-            currentUser && data?.status === 'OPENED' ? (
-              <ReportBtn targetId={data?.id} reportType='CHALLENGE' />
-            ):null
+            currentUser &&
+            data?.status === 'OPENED' &&
+            currentUser?.id !== data?.request?.requestedBy ? (
+              <ReportBtn targetId={data?.id} reportType="CHALLENGE" />
+            ) : null
           }
         />
         <div className={styles.nicknameContainer}>

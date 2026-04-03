@@ -3,6 +3,7 @@ import * as styles from './FeedbackCard.css';
 import { useState } from 'react';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 import { useFeedback } from '../../hooks/useFeedback';
+import ReportBtn from '@/components/ReportBtn/ReportBtn';
 
 export default function ComentCard({ feedbacks, currentUser, submissionId }) {
   const { editFeedback, removeFeedback, feedbackBlock } =
@@ -78,19 +79,27 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
                   : styles.dropdownWrapper
               }
             >
-              <EditAndDeleteDropdown
-                currentUser={currentUser}
-                content={{
-                  type: 'feedback',
-                  authorId: feedbacks?.userId,
-                  isBlocked: feedbacks?.isBlocked || isBlocked,
-                }}
-                onEdit={() => setIsEditing(true)}
-                onDelete={handleDelete}
-                onBlock={() =>
-                  feedbackBlock({ id: feedbacks.id, isBlocked: !feedbacks.isBlocked })
-                }
-              />
+              <div className={styles.dropAndReport}>
+                {currentUser?.id !== feedbacks?.userId && (
+                  <ReportBtn targetId={feedbacks?.id} reportType="FEEDBACK" />
+                )}
+                <EditAndDeleteDropdown
+                  currentUser={currentUser}
+                  content={{
+                    type: 'feedback',
+                    authorId: feedbacks?.userId,
+                    isBlocked: feedbacks?.isBlocked || isBlocked,
+                  }}
+                  onEdit={() => setIsEditing(true)}
+                  onDelete={handleDelete}
+                  onBlock={() =>
+                    feedbackBlock({
+                      id: feedbacks.id,
+                      isBlocked: !feedbacks.isBlocked,
+                    })
+                  }
+                />
+              </div>
             </div>
           </div>
 
