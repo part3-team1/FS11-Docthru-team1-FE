@@ -6,10 +6,12 @@ import MenuBar from '../MenuBar/MenuBar.jsx';
 import { useEffect } from 'react';
 import { useEditorStore } from '@/domain/Edit/store/editor.store.js';
 import { commonExtensions } from './EditorExtensions.js';
+import { useImageUpload } from '@/domain/Edit/hooks/useImageUpload.js';
 import * as styles from './Editor.css.js';
 
 export default function Editor() {
   const { content, setContent } = useEditorStore();
+  const { handleImageUpload } = useImageUpload();
 
   const editor = useEditor({
     extensions: [
@@ -41,6 +43,32 @@ export default function Editor() {
     immediatelyRender: false,
   });
 
+  const handleDrop = async (event) => {
+    event.preventDefault();
+
+    const files = Array.from(event.dataTransfer.files);
+    const imageFiles = files.filter((file) => file.type.startsWith('image/'));
+
+    if (imageFiles.length === 0) {
+      return;
+    }
+
+    for (const file of imageFiles) {
+      const imageUrl = await handleImageUpload(file);
+
+      if (imageUrl && editor) {
+        editor
+          .chain()
+          .focus()
+          .setImage({ src: imageUrl })
+          .createParagraphNear()
+          .run();
+      }
+    }
+  };
+
+  const handleDragOver = (event) => event.preventDefault();
+
   useEffect(() => {
     if (!editor) {
       return;
@@ -63,7 +91,11 @@ export default function Editor() {
   return (
     <div className={styles.editorWrapper}>
       <MenuBar editor={editor} />
-      <div className={styles.scrollArea}>
+      <div
+        className={styles.scrollArea}
+        onDrop={handleDrop}
+        onDragOver={handleDragOver}
+      >
         <EditorContent editor={editor} />
       </div>
     </div>

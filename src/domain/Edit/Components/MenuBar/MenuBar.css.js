@@ -16,6 +16,10 @@ export const btnGroup = style({
   display: 'flex',
 });
 
+export const imgInput = style({
+  display: 'none',
+});
+
 globalStyle(`${menuBar} button`, {
   display: 'inline-flex',
   alignItems: 'center',

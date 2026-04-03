@@ -4,10 +4,10 @@ import Content from '../Components/Content/Content.jsx';
 import FeedInput from '../Components/FeedInput/FeedInput.jsx';
 import { useSubmissionDetail } from '../hooks/useSubmissionDetail.js';
 import * as styles from './SubmissonsContainer.css.js';
-
+import Loading from '@/components/Loading/Loading.jsx';
 
 export default function SubmissonsContainer({ id }) {
-    const { user } = useRequireAuth();
+  const { user } = useRequireAuth();
   const {
     currentUser,
     data,
@@ -19,8 +19,7 @@ export default function SubmissonsContainer({ id }) {
     feedbackError,
   } = useSubmissionDetail(id);
 
-
-  if (isLoading) return <div>로딩중...</div>;
+  if (isLoading) return <Loading />;
   if (!currentUser || !data || !user) return null;
 
   return (
