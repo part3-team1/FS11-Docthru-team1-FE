@@ -1,3 +1,4 @@
+import { applyEditorTheme } from '@/domain/Edit/Components/Editor/EditorTheme.css.js';
 import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
@@ -107,3 +108,5 @@ export const content = style({
     },
   },
 });
+
+applyEditorTheme(content)

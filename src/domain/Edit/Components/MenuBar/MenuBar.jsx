@@ -7,24 +7,42 @@ import { IoCodeSlash, IoCode } from 'react-icons/io5';
 import { FiUnderline, FiImage } from 'react-icons/fi';
 import { FaListUl, FaListOl } from 'react-icons/fa';
 import { HiBold } from 'react-icons/hi2';
-import { useCallback } from 'react';
+import { useRef } from 'react';
 import { useEditorState } from '@tiptap/react';
 import { useMenuBar } from '@/domain/Edit/hooks/useMenuBar.js';
+import { useImageUpload } from '@/domain/Edit/hooks/useImageUpload.js';
 import * as styles from './MenuBar.css.js';
 
 export default function MenuBar({ editor }) {
+  const imgInputRef = useRef(null);
+  const { handleImageUpload, isUploading } = useImageUpload();
+
   const editorState = useEditorState({
     editor,
     selector: useMenuBar,
   });
 
-  const addImage = useCallback(() => {
-    const url = window.prompt('URL');
+  const addImage = () => {
+    imgInputRef.current?.click();
+  };
 
-    if (url) {
-      editor.chain().focus().setImage({ src: url }).run();
+  const uploadFile = async (event) => {
+    const files = Array.from(event.target.files || []);
+
+    if (files.length === 0) {
+      return;
     }
-  }, [editor]);
+
+    for (const file of files) {
+      const imageUrl = await handleImageUpload(file);
+
+      if (imageUrl && editor) {
+        editor.chain().focus().setImage({ src: imageUrl }).run();
+      }
+    }
+
+    event.target.value = '';
+  };
 
   if (!editor) {
     return null;
@@ -102,7 +120,15 @@ export default function MenuBar({ editor }) {
       </div>
 
       <div className={styles.btnGroup}>
-        <button onClick={addImage}>
+        <input
+          type="file"
+          accept="image/*"
+          ref={imgInputRef}
+          onChange={uploadFile}
+          className={styles.imgInput}
+          multiple
+        />
+        <button onClick={addImage} disabled={isUploading}>
           <FiImage />
         </button>
       </div>

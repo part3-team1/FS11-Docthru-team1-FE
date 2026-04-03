@@ -25,7 +25,7 @@ export default function CancelDropdown({ onClick }) {
   return (
     <div ref={wrapperRef} className={styles.container}>
       <Image
-        src="/images/Icon/Meatballs_menu.svg"
+        src="/Images/Icon/Meatballs_menu.svg"
         alt="수정 및 삭제"
         width={24}
         height={24}

@@ -9,11 +9,17 @@ export default function BackgroundWrapper({ children }) {
   const exactGray100Paths = ['/'];
   const exactGray50Paths = ['/challenges', '/admin/challenges'];
   const startsWithGray50Paths = ['/my-page'];
+  const whitePaths = [
+    /^\/my-page\/my-challenge\/requested\/[^/]+$/,
+    /^\/my-page\/my-challenge\/requested\/[^/]+\/edit$/,
+  ];
 
+  const isWhite = whitePaths.some((regex) => regex.test(pathname));
   const isGray100 = exactGray100Paths.includes(pathname);
   const isGray50 =
-    exactGray50Paths.includes(pathname) ||
-    startsWithGray50Paths.some((path) => pathname.startsWith(path));
+    !isWhite &&
+    (exactGray50Paths.includes(pathname) ||
+      startsWithGray50Paths.some((path) => pathname.startsWith(path)));
 
   let bgColor = vars.color.white;
 
@@ -24,7 +30,13 @@ export default function BackgroundWrapper({ children }) {
   }
 
   return (
-    <div style={{ backgroundColor: bgColor, minHeight: '100vh' }}>
+    <div
+      style={{
+        backgroundColor: bgColor,
+        minHeight: '100vh',
+        paddingBottom: '2.13rem',
+      }}
+    >
       {children}
     </div>
   );

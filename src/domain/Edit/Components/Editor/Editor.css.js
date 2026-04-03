@@ -1,5 +1,6 @@
 import { vars } from '@/styles/token.css';
 import { style, globalStyle } from '@vanilla-extract/css';
+import { applyEditorTheme } from './EditorTheme.css.js';
 
 export const editorWrapper = style({
   height: '100%',
@@ -15,6 +16,7 @@ export const scrollArea = style({
   flex: 1,
   overflowY: 'auto',
   scrollbarGutter: 'stable',
+  paddingRight: '1rem',
 });
 
 globalStyle(`${scrollArea} > div`, {
@@ -37,10 +39,6 @@ globalStyle(`${scrollArea} .ProseMirror`, {
   flexDirection: 'column',
   flex: 1,
 
-  fontSize: '1rem',
-  lineHeight: '1.6',
-  color: vars.color.gray800,
-
   outline: 'none',
   overflowAnchor: 'none',
   cursor: 'text',
@@ -58,4 +56,4 @@ globalStyle(
   },
 );
 
-// 코드 스타일 추가 예정
+applyEditorTheme(scrollArea);

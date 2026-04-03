@@ -5,8 +5,10 @@ import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { useRequest } from '../hooks/useRequest';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
+import { useEffect } from 'react';
 
-export default function NewChallengeForm() {
+
+export default function NewChallengeForm({ defaultData, onEdit }) {
   const router = useRouter();
   const { user, isLoading } = useRequireAuth();
 
@@ -16,16 +18,34 @@ export default function NewChallengeForm() {
     handleSubmit,
     control,
     clearErrors,
+    setValue,
     formState: { isSubmitting, isSubmitted, errors },
   } = useForm({ mode: 'onSubmit' });
+
+  useEffect(() => {
+    if (defaultData) {
+      setValue('title', defaultData.title);
+      setValue('docUrl', defaultData.docUrl);
+      setValue('description', defaultData.description);
+      setValue('category', defaultData.category);
+      setValue('documentType', defaultData.documentType === 'DOCUMENTATION' ? '공식문서' : '블로그');
+      setValue('dueDate', defaultData.dueDate?.slice(0, 10));
+      setValue('maxParticipants', defaultData.maxParticipants);
+    }
+  }, [defaultData]);
 
   if (isLoading || !user) return null;
 
   const onSubmit = (data) => {
-    request(data, {
-      onSuccess: () => router.push('/my-page/my-challenge/participated'),
-      onError: (error) => console.error(error),
-    });
+    console.log('제출 데이터', data);
+    if (onEdit) {
+      onEdit(data);
+    } else {
+      request(data, {
+        onSuccess: () => router.push('/my-page/my-challenge/participated'),
+        onError: (error) => console.error(error),
+      });
+    }
   };
 
   return (
@@ -36,7 +56,10 @@ export default function NewChallengeForm() {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className={styles.container}>
-          <div className={styles.title}>신규 챌린지 신청</div>
+
+          
+          <div className={styles.title}>{onEdit ? '챌린지 수정' : '신규 챌린지 신청' }</div>
+
           <div className={styles.section}>
             {/* 제목 */}
             <label htmlFor="title" className={styles.label}>
@@ -106,6 +129,7 @@ export default function NewChallengeForm() {
               rules={{ required: '분야 선택은 필수입니다' }}
               render={({ field }) => (
                 <CategoryDropdown
+                  value={field.value}
                   onSelect={(value) => {
                     field.onChange(value);
                     clearErrors('category');
@@ -132,6 +156,7 @@ export default function NewChallengeForm() {
               rules={{ required: '문서타입은 필수 입니다' }}
               render={({ field }) => (
                 <CategoryDropdown
+                  value={field.value}
                   onSelect={(value) => {
                     field.onChange(value);
                     clearErrors('documentType');
@@ -242,9 +267,9 @@ export default function NewChallengeForm() {
             )}
           </div>
 
-          {/* 신청하기 버튼 */}
+          {/* 신청,수정하기 버튼 */}
           <button type="submit" disabled={isPending} className={styles.btn}>
-            신청하기
+            {onEdit ? '수정하기' : '신청하기' }
           </button>
         </div>
       </form>

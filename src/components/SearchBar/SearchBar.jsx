@@ -1,9 +1,10 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import * as styles from './SearchBar.css';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import ic_search from '@/../public/Images/Icon/ic_search.svg';
 
 // 사용법
 // 부모에서 handleKeywordChange 를 받음
@@ -16,7 +17,10 @@ return(
      </Suspense> */
 }
 
-export default function SearchBar({ onChange, placeholder = '챌린지 이름을 검색해보세요' }) {
+function SearchBarInner({
+  onChange,
+  placeholder = '챌린지 이름을 검색해보세요',
+}) {
   const searchParams = useSearchParams();
   const keywordUrl = searchParams.get('keyword') || '';
   const [search, setSearch] = useState(keywordUrl);
@@ -47,7 +51,7 @@ export default function SearchBar({ onChange, placeholder = '챌린지 이름을
   return (
     <div className={styles.container}>
       <Image
-        src="/images/Icon/ic_search.svg"
+        src={ic_search}
         alt="검색창"
         width={24}
         height={24}
@@ -61,5 +65,13 @@ export default function SearchBar({ onChange, placeholder = '챌린지 이름을
         className={styles.searchInput}
       />
     </div>
+  );
+}
+
+export default function SearchBar(props) {
+  return (
+    <Suspense fallback={null}>
+      <SearchBarInner {...props} />
+    </Suspense>
   );
 }

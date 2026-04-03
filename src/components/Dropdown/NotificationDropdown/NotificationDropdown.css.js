@@ -66,7 +66,6 @@ export const unread = style({
   backgroundColor: vars.color.gray100,
 });
 
-export const message = style({});
 
 export const dateAndDeleteButton = style({
   display: 'flex',
