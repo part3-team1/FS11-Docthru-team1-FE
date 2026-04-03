@@ -27,6 +27,10 @@ export const submissionTitle = style({
   marginTop:vars.space.sm
 });
 
+export const dropAndReport = style({
+  display:'flex',
+})
+
 export const categoryContainer = style({
   display: 'flex',
   justifyContent:'space-between',
