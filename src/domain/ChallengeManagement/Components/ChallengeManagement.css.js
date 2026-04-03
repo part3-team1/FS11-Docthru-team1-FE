@@ -47,28 +47,46 @@ export const filterButton = style({
   backgroundColor: vars.color.white,
 
   cursor: 'pointer',
+
+  '@media': {
+    [media.tablet]: {
+      width: '6.625rem',
+    },
+    [media.mobile]: {
+      width: '6.1875rem',
+      fontSize: '0.875rem',
+    },
+  },
 });
 
 export const filterButtonText = style({
   color: vars.color.gray400,
   fontFamily: 'Pretendard',
-  fontSize: '1rem',
+  fontSize: '0.875rem',
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
 });
 
-export const table = style({
-  width: '62.25rem',
-  borderCollapse: 'collapse',
+export const tableWrapper = style({
+  overflowX: 'auto',
+  width: '100%',
   marginTop: '1.5rem',
 
   '@media': {
-    [media.tablet]: {
-      width: '100%',
-    },
     [media.mobile]: {
-      width: '21.4375rem',
+      marginTop: '1rem',
+    },
+  },
+});
+
+export const table = style({
+  width: '62.25rem',
+  borderCollapse: 'collapse',
+
+  '@media': {
+    [media.tablet]: {
+      fontSize: '0.7rem',
     },
   },
 });
@@ -118,11 +136,6 @@ export const colDeadline = style({ width: '5.875rem' });
 export const colStatus = style({ width: '7.5rem' });
 
 export const tableHead = style({
-  width: '62.25rem',
-  '@media': {
-    [media.tablet]: { width: '100%' },
-    [media.mobile]: { width: '21.4375rem' },
-  },
   height: '2.25rem',
   backgroundColor: vars.color.gray800,
 });

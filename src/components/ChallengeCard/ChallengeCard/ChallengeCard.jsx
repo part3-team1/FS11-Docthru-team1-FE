@@ -76,7 +76,7 @@ export default function ChallengeCard({
               {topRight}
             </div>
           )}
-          <h2 className={styles.title}>{challenge.title}</h2>
+          <h2 className={clsx(styles.title, topRight && styles.titleWithTopRight)}>{challenge.title}</h2>
           <div className={styles.chipWrapper}>
             <TypeChip type={challenge.category} />
             <CategoryChip category={challenge.documentType} />
