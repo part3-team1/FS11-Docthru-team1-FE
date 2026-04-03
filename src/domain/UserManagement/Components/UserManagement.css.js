@@ -6,6 +6,8 @@ export const container = style({
   '@media': {
     [media.tablet]: {
       paddingTop: '5.25rem',
+      paddingLeft: '1.5rem',
+      paddingRight: '1.5rem',
     },
     [media.mobile]: {
       paddingTop: '4.5rem',
@@ -78,12 +80,22 @@ export const filterButton = style({
   backgroundColor: vars.color.white,
 
   cursor: 'pointer',
+
+  '@media': {
+    [media.tablet]: {
+      width: '6.625rem',
+    },
+    [media.mobile]: {
+      width: '6.1875rem',
+      fontSize: '0.875rem',
+    },
+  },
 });
 
 export const filterButtonText = style({
   color: vars.color.gray400,
   fontFamily: 'Pretendard',
-  fontSize: '1rem',
+  fontSize: '0.875rem',
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
@@ -105,6 +117,20 @@ export const searchBarWrapper = style({
 export const buttonGroup = style({
   display: 'flex',
   gap: '0.5rem',
+
+  '@media': {
+    [media.mobile]: {
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      width: '100%',
+      padding: '0.75rem 1rem',
+      backgroundColor: vars.color.white,
+      boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.08)',
+      zIndex: 100,
+      boxSizing: 'border-box',
+    },
+  },
 });
 
 export const promoteButton = style({
@@ -135,19 +161,37 @@ export const promoteButton = style({
       color: vars.color.white,
     },
   },
+
+  '@media': {
+    [media.mobile]: {
+      width: '10.375rem',
+      height: '2.5rem',
+      padding: '0.4375rem 3.34rem 0.4375rem 3.34rem',
+      fontSize: '1rem',
+      marginBottom: '1.5rem',
+    },
+  },
+});
+
+export const tableWrapper = style({
+  overflowX: 'auto',
+  width: '100%',
+  marginTop: '1.5rem',
+
+  '@media': {
+    [media.mobile]: {
+      marginTop: '1rem',
+    },
+  },
 });
 
 export const table = style({
   width: '62.25rem',
   borderCollapse: 'collapse',
-  marginTop: '1.5rem',
 
   '@media': {
     [media.tablet]: {
-      width: '100%',
-    },
-    [media.mobile]: {
-      width: '21.4375rem',
+      fontSize: '0.7rem',
     },
   },
 });
@@ -306,6 +350,18 @@ export const blockButton = style({
     '&:active': {
       backgroundColor: vars.color.brandBlack,
       border: `1px solid ${vars.color.brandBlack}`,
+      color: vars.color.white,
+    },
+  },
+
+  '@media': {
+    [media.mobile]: {
+      width: '10.375rem',
+      height: '2.5rem',
+      padding: '0.4375rem 3.34rem 0.4375rem 3.34rem',
+      fontSize: '1rem',
+      marginBottom: '1.5rem',
+      backgroundColor: vars.color.brandBlack,
       color: vars.color.white,
     },
   },

@@ -191,6 +191,7 @@ export default function UserManagement() {
           </button>
         </div>
       </div>
+      <div className={styles.tableWrapper}>
       <table className={styles.table}>
         <colgroup>
           <col className={styles.colCheckbox} />
@@ -300,6 +301,7 @@ export default function UserManagement() {
           ))}
         </tbody>
       </table>
+      </div>
       <Pagination
         page={page}
         totalCount={totalCount}

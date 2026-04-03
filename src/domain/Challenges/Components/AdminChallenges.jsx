@@ -46,7 +46,11 @@ export default function AdminChallenges() {
     <div className={styles.container}>
       <h1 className={styles.title}>챌린지 목록</h1>
       <div className={styles.controlsWrapper}>
-        <FilterDropdown onApply={() => {}} />
+        <FilterDropdown
+          onApply={() => {}}
+          overlayClassName={styles.filterOverlay}
+          containerClassName={styles.filterContainerMobile}
+        />
         <div className={styles.searchBarWrapper}>
           <SearchBar
             onChange={(v) => {

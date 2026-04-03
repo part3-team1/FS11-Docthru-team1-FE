@@ -1,0 +1,12 @@
+[     920ms] [WARNING] ./src/components/Dropdown/NotificationDropdown/NotificationDropdown.jsx
+Attempted import error: 'emptyMessage' is not exported from './NotificationDropdown.css.js' (imported as 'styles'). @ webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_babel-plugin-react-compiler@1.0.0_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[     943ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5005/auth/me:0
+[   14607ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5005/auth/login:0
+[  100730ms] [WARNING] ./src/components/Dropdown/NotificationDropdown/NotificationDropdown.jsx
+Attempted import error: 'emptyMessage' is not exported from './NotificationDropdown.css.js' (imported as 'styles').
+
+Import trace for requested module:
+./src/components/Dropdown/NotificationDropdown/NotificationDropdown.jsx
+./src/components/Layout/UserHeader/UserHeader.jsx
+./src/components/Layout/AdaptiveHeader/AdaptiveHeader.jsx @ webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_babel-plugin-react-compiler@1.0.0_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/next-devtools/shared/forward-logs-shared.js:27
+[  100803ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://localhost:5005/auth/me:0

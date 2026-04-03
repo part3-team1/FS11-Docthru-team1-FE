@@ -132,9 +132,10 @@ export default function ChallengeManagement() {
           </button>
 
           {isFilterOpen && (
+            <>
+            <div className={styles.filterOverlay} onClick={() => setIsFilterOpen(false)} />
             <div
-              className={filterStyles.filterContainer}
-              style={{ left: 'auto', right: 0 }}
+              className={`${filterStyles.filterContainer} ${styles.filterContainerMobile}`}
             >
               <div className={filterStyles.filterHeader}>
                 <span className={filterStyles.filterTitle}>필터</span>
@@ -280,6 +281,7 @@ export default function ChallengeManagement() {
                 </Button>
               </div>
             </div>
+            </>
           )}
         </div>
       </div>
