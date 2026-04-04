@@ -29,7 +29,6 @@ export const btnContainer = style({
   gap: vars.space.sm,
   '@media': {
     [media.mobile]: {
-      flexDirection: 'row',
       gap: vars.space.sm,
     },
   },
