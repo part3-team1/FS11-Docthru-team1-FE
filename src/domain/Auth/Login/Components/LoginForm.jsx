@@ -111,7 +111,7 @@ export default function LoginForm() {
           {/* 눈 아이콘 */}
 
           <Image
-            src={showPassword ? { password_on_eye } : { password_eye }}
+            src={showPassword ? password_on_eye : password_eye }
             alt="비밀번호 확인"
             width={24}
             height={24}

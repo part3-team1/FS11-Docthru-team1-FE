@@ -2,6 +2,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 
 // POST /challenges/:challengeId/submissions
 export async function submitSubmission(challengeId, data) {
+  console.log('POST content:', data.content);
   const res = await fetch(`${BASE_URL}/challenges/${challengeId}/submissions`, {
     method: 'POST',
     headers: {
@@ -10,7 +11,7 @@ export async function submitSubmission(challengeId, data) {
     credentials: 'include',
     body: JSON.stringify({
       title: data.title,
-      content: data.content,
+       content: data.content,
     }),
   });
 

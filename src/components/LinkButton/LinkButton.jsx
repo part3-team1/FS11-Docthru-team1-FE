@@ -4,7 +4,7 @@ import * as styles from './LinkButton.css';
 import Image from 'next/image';
 
 const PRESET_MAP = {
-  original: { label: '원문 보기', variant: styles.cta},
+  original: { label: '원문 보기', variant: styles.cta, newTab: true },
   continue: {
     label: '도전 계속하기',
     variant: styles.secondary,
@@ -31,6 +31,7 @@ const PRESET_MAP = {
     variant: styles.transparent,
     iconSrc: '/Images/Icon/icon_click.svg',
     iconSize: 24,
+    newTab: true,
   },
   participatedChallenge: {
     label: '참여한 챌린지',
@@ -38,7 +39,7 @@ const PRESET_MAP = {
     color: styles.white,
     iconSrc: '/Images/Icon/icon_arrow_right.svg',
     iconSize: 24,
-  }
+  },
 };
 
 /**
@@ -55,7 +56,12 @@ export default function LinkButton({ href, preset }) {
   const button = PRESET_MAP[preset];
 
   return (
-    <Link href={href} className={clsx(button.variant, button.color)}>
+    <Link
+      href={href}
+      target={button.newTab ? '_blank' : undefined}
+      rel={button.newTab ? 'noopener noreferrer' : undefined}
+      className={clsx(button.variant, button.color)}
+    >
       <span className={styles.content}>{button.label}</span>
       {button.iconSrc && (
         <Image
