@@ -16,6 +16,7 @@ export function useAdminChallengeRequest({ page = 1, pageSize = 10, keyword = ''
         sortOrder,
       }),
   });
+console.log('data.data:', JSON.stringify(data?.data));
 
   const list = (data?.data?.requests ?? []).map((request) => ({
     id: request.id,
