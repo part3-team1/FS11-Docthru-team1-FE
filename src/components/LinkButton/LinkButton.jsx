@@ -4,7 +4,7 @@ import * as styles from './LinkButton.css';
 import Image from 'next/image';
 
 const PRESET_MAP = {
-  original: { label: '원문 보기', variant: styles.cta},
+  original: { label: '원문 보기', variant: styles.cta },
   continue: {
     label: '도전 계속하기',
     variant: styles.secondary,
@@ -38,7 +38,7 @@ const PRESET_MAP = {
     color: styles.white,
     iconSrc: '/Images/Icon/icon_arrow_right.svg',
     iconSize: 24,
-  }
+  },
 };
 
 /**
@@ -51,11 +51,15 @@ const PRESET_MAP = {
  * @param {{ href: string, preset: PresetKey }} props
  */
 
-export default function LinkButton({ href, preset }) {
+export default function LinkButton({ href, preset, onClick }) {
   const button = PRESET_MAP[preset];
 
   return (
-    <Link href={href} className={clsx(button.variant, button.color)}>
+    <Link
+      href={href}
+      className={clsx(button.variant, button.color)}
+      onClick={onClick}
+    >
       <span className={styles.content}>{button.label}</span>
       {button.iconSrc && (
         <Image
