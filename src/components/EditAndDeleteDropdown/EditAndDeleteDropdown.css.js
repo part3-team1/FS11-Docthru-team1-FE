@@ -10,8 +10,10 @@ export const selectContainer = style({
   flexDirection: 'column',
   border: `1px solid ${vars.color.gray300}`,
   borderRadius: '0.5rem',
+  backgroundColor: vars.color.white,
   position: 'absolute',
-  transform: 'translateX(-88%)',
+  top: '100%',
+  right: 0,
   zIndex: 10,
   backgroundColor:vars.color.white
 });

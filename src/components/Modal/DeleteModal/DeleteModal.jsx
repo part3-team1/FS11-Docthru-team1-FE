@@ -2,8 +2,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
-import * as styles from './RejectModal.css.js';
-import ic_out from '@/../public/Images/Icon/ic_out.svg';
+import * as styles from '../RejectModal/RejectModal.css.js';
 
 const OPTIONS = [
   '혐오/ 차별적/ 생명경시/ 욕설 표현',
@@ -16,7 +15,7 @@ const OPTIONS = [
   '챌린지 주제와 원문 불일치',
 ];
 
-export default function RejectModal({ onClose, onSubmit }) {
+export default function DeleteModal({ onClose, onSubmit }) {
   const [selected, setSelected] = useState('');
   const [etc, setEtc] = useState('');
 
@@ -29,9 +28,9 @@ export default function RejectModal({ onClose, onSubmit }) {
     <div className={styles.overlay} onClick={onClose}>
       <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
-          <span className={styles.title}>거절 사유</span>
+          <span className={styles.title}>삭제 사유</span>
           <button className={styles.closeButton} onClick={onClose}>
-            <Image src={ic_out} alt="닫기" width={24} height={24} />
+            <Image src='/Images/Icon/ic_out.svg' alt='닫기' width={24} height={24} />
           </button>
         </div>
         <span className={styles.contentLabel}>내용</span>
@@ -67,6 +66,6 @@ export default function RejectModal({ onClose, onSubmit }) {
         <button className={styles.submitButton} onClick={handleSubmit}>전송</button>
       </div>
     </div>,
-    document.body,
+    document.body
   );
 }

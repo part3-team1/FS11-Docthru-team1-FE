@@ -33,6 +33,7 @@ export default function ChallengeCard({
   preset,
   submissionId,
   topRight,
+  href,
 }) {
   const router = useRouter();
 
@@ -47,7 +48,7 @@ export default function ChallengeCard({
 
   const action = getAction(challenge, preset, submissionId);
 
-  const handleClick = () => router.push(`/challenges/${challenge.id}`);
+  const handleClick = () => router.push(href ?? `/challenges/${challenge.id}`);
 
 
   return (

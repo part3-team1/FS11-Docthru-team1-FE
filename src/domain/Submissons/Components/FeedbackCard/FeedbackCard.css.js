@@ -42,8 +42,9 @@ export const content = style({
 export const blockedContainer = style({
   padding: vars.space.lg,
   borderRadius: vars.radius.xl,
-  backgroundColor: vars.color.gray50,
+  backgroundColor: '#E7E7EA',
   position: 'relative',
+  overflow: 'hidden',
 });
 
 export const blockOverlay = style({
@@ -61,9 +62,12 @@ export const blockOverlay = style({
 });
 
 export const blockComent = style({
-  fontSize: '1.25rem',
-  color: vars.color.gray500,
+  fontSize: '0.875rem',
+  fontWeight: 500,
+  color: vars.color.gray800,
+  lineHeight: 'normal',
   zIndex: 3,
+  textShadow: '0 0 8px #ffffff',
 });
 
 export const dropdownWrapperBlocked = style({

@@ -1,5 +1,6 @@
 'use client';
 import { Suspense, useEffect, useState } from 'react';
+import { adminChallengeList, adminDeleteChallenge } from '@/api/admin.API';
 import SearchBar from '@/components/SearchBar/SearchBar.jsx';
 import Pagination from '@/components/Pagination/Pagination.jsx';
 import ChallengeCard from '@/components/ChallengeCard/ChallengeCard/ChallengeCard.jsx';
@@ -22,12 +23,11 @@ export default function AdminChallenges() {
     };
   }, []);
 
-  useEffect(() => {
+  const fetchChallenges = () => {
     const skip = (page - 1) * PAGE_SIZE;
-    const params = new URLSearchParams({ skip, take: PAGE_SIZE });
-    if (keyword) params.set('keyword', keyword);
-    fetch(`/api/challenges?${params}`, { credentials: 'include' })
-      .then((res) => res.json())
+    const params = { skip, take: PAGE_SIZE };
+    if (keyword) params.keyword = keyword;
+    adminChallengeList(params)
       .then((json) => {
         if (json.success) {
           setChallenges(json.data.challenges);
@@ -35,7 +35,16 @@ export default function AdminChallenges() {
         }
       })
       .catch(console.error);
+  };
+
+  useEffect(() => {
+    fetchChallenges();
   }, [page, keyword]);
+
+  const handleDelete = async (challengeId, reason) => {
+    await adminDeleteChallenge(challengeId, reason);
+    fetchChallenges();
+  };
 
   return (
     <div className={styles.container}>
@@ -57,7 +66,11 @@ export default function AdminChallenges() {
             <ChallengeCard
               challenge={challenge}
               href={`/admin/challenges/${challenge.id}`}
-              topRight={<AdminChallengeDropdown onDelete={() => {}} />}
+              topRight={
+                <AdminChallengeDropdown
+                  onDelete={(reason) => handleDelete(challenge.id, reason)}
+                />
+              }
             />
           </li>
         ))}

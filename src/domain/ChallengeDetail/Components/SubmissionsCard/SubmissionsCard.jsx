@@ -3,7 +3,7 @@ import * as styles from './SubmissionsCard.css';
 
 import Image from 'next/image';
 
-export default function SubmissionsCard({ item, rank }) {
+export default function SubmissionsCard({ item, rank, getHref }) {
   const isBest = rank === 1;
   const formatGrade = (grade) => {
     const gradeMap = {
@@ -76,10 +76,7 @@ export default function SubmissionsCard({ item, rank }) {
 
           <div>{item.heartCount}</div>
         </div>
-        <Link
-          href={`/challenges/${item.challengeId}/submissions/${item.id}`}
-          className={styles.link}
-        >
+        <Link href={getHref ? getHref(item) : `/challenges/${item.challengeId}/submissions/${item.id}`} className={styles.link}>
           {' '}
           작업물 보기 &gt;
         </Link>

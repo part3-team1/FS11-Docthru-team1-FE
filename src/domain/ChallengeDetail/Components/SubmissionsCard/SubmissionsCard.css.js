@@ -9,6 +9,11 @@ export const container = style({
   padding: '0.75rem 0',
   borderBottom: `1px solid ${vars.color.gray200}`,
   marginTop: vars.space.md,
+  selectors: {
+    '&:last-child': {
+      borderBottom: 'none',
+    },
+  },
 });
 
 export const left = style({

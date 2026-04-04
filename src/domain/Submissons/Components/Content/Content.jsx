@@ -4,6 +4,7 @@ import * as styles from './Content.css';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 import { deleteSubmissionById } from '@/api/challenges.API';
 import { useRouter } from 'next/navigation';
+import AdminDropdown from '@/domain/AdminSubmissionDetail/AdminDropdown/AdminDropdown';
 import { submissionFormatDate } from '@/utils/format';
 import { useEffect, useState } from 'react';
 import { useHeart } from '../../hooks/useHeart';
@@ -12,7 +13,7 @@ import { useEditor, EditorContent } from '@tiptap/react';
 import { commonExtensions } from '@/domain/Edit/Components/Editor/EditorExtensions';
 import ReportBtn from '@/components/ReportBtn/ReportBtn';
 
-export default function Content({ currentUser, submission }) {
+export default function Content({ currentUser, submission, isAdminPage }) {
   const router = useRouter();
   const [isHeart, setIsHeart] = useState(submission.isHearted ?? false);
   const [heartCount, setHeartCount] = useState(submission.heartCount);
@@ -74,10 +75,12 @@ export default function Content({ currentUser, submission }) {
             <div className={styles.submissionTitle}>{submission.title}</div>
           </div>
 
-          <div className={styles.dropAndReport}>
-            {currentUser?.id !== submission?.userId && (
-              <ReportBtn targetId={submission?.id} reportType="SUBMISSION" />
-            )}
+          {isAdminPage ? (
+            <AdminDropdown
+              actions={[{ label: '삭제하기', action: 'delete' }]}
+              onDelete={handleDelete}
+            />
+          ) : (
             <EditAndDeleteDropdown
               currentUser={currentUser}
               content={{
@@ -90,7 +93,7 @@ export default function Content({ currentUser, submission }) {
               editHref={`/challenges/${submission.challengeId}/submissions/${submission.id}/edit`}
               onDelete={() => handleDelete()}
             />
-          </div>
+          )}
         </div>
 
         <div className={styles.categoryContainer}>

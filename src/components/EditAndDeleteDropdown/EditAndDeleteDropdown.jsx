@@ -33,7 +33,8 @@ export default function EditAndDeleteDropdown({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef(null);
-  const actions = useDropdownActions({ currentUser, content });
+  const allActions = useDropdownActions({ currentUser, content });
+  const actions = onBlock ? allActions : allActions.filter((a) => a.action !== 'hide');
   const handleToggle = () => setIsOpen((prev) => !prev);
 
   // 빈공간 누르면 dropdown접힘
@@ -53,17 +54,19 @@ export default function EditAndDeleteDropdown({
     // 액션~ 하면 드롭다운 접음
     setIsOpen(false);
     // 상태가 수정이면 수정
-    if (action === 'edit') onEdit?.();
-    if (action === 'delete') {
+    if (action === 'edit') {
+      onEdit?.();
+    }
+    if (action === 'hide') {
       try {
-        await onDelete?.();
+        await onBlock?.();
       } catch (e) {
         console.error(e);
       }
     }
-    if (action === 'hide' || action === 'unhide') {
+    if (action === 'delete' || action === 'unhide') {
       try {
-        await onBlock?.();
+        await onDelete?.();
       } catch (e) {
         console.error(e);
       }

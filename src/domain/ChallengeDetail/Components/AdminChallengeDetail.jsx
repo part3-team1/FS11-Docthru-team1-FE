@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
+import { adminRequestById, adminApproveRequest, adminRejectRequest } from '@/api/admin.API';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import RejectModal from '@/components/Modal/RejectModal/RejectModal.jsx';
@@ -39,8 +40,7 @@ export default function AdminChallengeDetail({ id, no, totalCount }) {
   };
 
   useEffect(() => {
-    fetch(`/api/admin/requests/${id}`, { credentials: 'include' })
-      .then((res) => res.json())
+    adminRequestById(id)
       .then((json) => {
         if (json.success) setRequest(json.data);
       })
@@ -48,11 +48,7 @@ export default function AdminChallengeDetail({ id, no, totalCount }) {
   }, [id]);
 
   const handleApprove = () => {
-    fetch(`/api/admin/requests/${id}/approve`, {
-      method: 'PATCH',
-      credentials: 'include',
-    })
-      .then((res) => res.json())
+    adminApproveRequest(id)
       .then((json) => {
         if (json.success) setRequest((prev) => ({ ...prev, status: 'APPROVED' }));
       })
@@ -60,13 +56,7 @@ export default function AdminChallengeDetail({ id, no, totalCount }) {
   };
 
   const handleReject = (reason) => {
-    fetch(`/api/admin/requests/${id}/reject`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body: JSON.stringify({ reason }),
-    })
-      .then((res) => res.json())
+    adminRejectRequest(id, reason)
       .then((json) => {
         if (json.success)
           setRequest((prev) => ({ ...prev, status: 'REJECTED', rejectionReason: reason }));

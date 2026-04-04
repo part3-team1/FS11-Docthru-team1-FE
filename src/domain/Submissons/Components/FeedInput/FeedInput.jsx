@@ -12,6 +12,7 @@ export default function FeedInput({
   hasNextPage,
   isLoading,
   submissionId,
+  isAdminPage,
 }) {
   const { comment, isPending, handleSubmit, handleChange } =
     useFeedback(submissionId);
@@ -50,6 +51,7 @@ export default function FeedInput({
           challengeId={data.id}
           submission={data}
           submissionId={submissionId}
+          isAdminPage={isAdminPage}
         />
       ))}
 

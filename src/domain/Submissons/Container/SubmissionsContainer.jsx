@@ -7,7 +7,7 @@ import * as styles from './SubmissonsContainer.css.js';
 import Loading from '@/components/Loading/Loading.jsx';
 
 export default function SubmissonsContainer({ id }) {
-  const { user } = useRequireAuth();
+  const { user, isLoading: isAuthLoading } = useRequireAuth();
   const {
     currentUser,
     data,
@@ -19,8 +19,8 @@ export default function SubmissonsContainer({ id }) {
     feedbackError,
   } = useSubmissionDetail(id);
 
-  if (isLoading) return <Loading />;
-  if (!currentUser || !data || !user) return null;
+  if (isAuthLoading || isLoading) return <div>로딩중...</div>;
+  if (!user || !currentUser || !data) return null;
 
   return (
     <div className={styles.container}>

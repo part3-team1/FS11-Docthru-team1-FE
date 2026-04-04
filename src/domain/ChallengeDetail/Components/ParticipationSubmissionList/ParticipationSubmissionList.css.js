@@ -4,7 +4,7 @@ import { style } from '@vanilla-extract/css';
 export const container = style({
   border: `2px solid ${vars.color.gray800}`,
   borderRadius: vars.radius.xl,
-  padding: vars.space.xl,
+  padding: '1rem 1.5rem 1.5rem 1.5rem',
   fontSize: '1.125rem',
   fontWeight: 600,
 });
@@ -12,7 +12,7 @@ export const container = style({
 export const titleAndPagination = style({
   display: 'flex',
   justifyContent: 'space-between',
-  alignItems:'center'
+  alignItems: 'center',
 });
 
 export const pageContainer = style({
@@ -43,10 +43,18 @@ export const totalPage = style({
 
 
 
+export const buttonGroup = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: 0,
+})
+
 export const pagination = style({
+  display: 'flex',
+  alignItems: 'center',
   border: 'none',
   backgroundColor: 'transparent',
-  
+  padding: 0,
 })
 
 export const paginationDisabled = style({

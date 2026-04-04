@@ -7,7 +7,7 @@ import clsx from 'clsx';
 import page_left from '@/../public/Images/Icon/page_left.svg';
 import page_right from '@/../public/Images/Icon/page_right.svg';
 
-export default function ParticipationSubmissionList({ data }) {
+export default function ParticipationSubmissionList({ data, getHref }) {
   const items = (data ?? []).sort((a, b) => b.heartCount - a.heartCount);
   const itemsPerPage = 5;
   const totalPage = Math.ceil(items.length / itemsPerPage);
@@ -29,7 +29,7 @@ export default function ParticipationSubmissionList({ data }) {
               {totalPage}
             </div>
           </div>
-          <div>
+          <div className={styles.buttonGroup}>
             <button
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
@@ -48,7 +48,6 @@ export default function ParticipationSubmissionList({ data }) {
                 currentPage === totalPage && styles.paginationDisabled,
               )}
             >
-              {' '}
               <Image src={page_right} alt="오른쪽" width={32} height={32} />
             </button>
           </div>
@@ -61,6 +60,7 @@ export default function ParticipationSubmissionList({ data }) {
             key={item.id}
             item={item}
             rank={(currentPage - 1) * itemsPerPage + index + 1}
+            getHref={getHref}
           />
         ))}
       </div>
