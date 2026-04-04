@@ -58,7 +58,7 @@ export default function NotificationDropdown({ onClose }) {
                 }
               }}
             >
-              <span className={styles.message}>{message}</span>
+              <span>{message}</span>
 
               <div className={styles.dateAndDeleteButton}>
                 <span className={styles.date}>
