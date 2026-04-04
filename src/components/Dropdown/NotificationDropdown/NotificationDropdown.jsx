@@ -1,19 +1,14 @@
 'use client';
-import { useState } from 'react';
 import * as styles from './NotificationDropdown.css.js';
-import { notificationMock } from '@/mock/notificationMockData.js';
 import {
   useDeleteNotification,
   useNotifications,
   useReadNotification,
 } from '@/domain/Notification/hooks/useNotification.js';
+import Image from 'next/image.js';
+import ic_out from '@/../public/Images/Icon/ic_out.svg';
 
-export default function NotificationDropdown() {
-  //const [data, setData] = useState(notificationMock);
-  // const handleDelete = (id) => {
-  //   setData((prev) => prev.filter((elem) => elem.id !== id));
-  // };
-
+export default function NotificationDropdown({ onClose }) {
   const { data, isLoading, isError, error } = useNotifications({
     skip: 0,
     take: 10,
@@ -45,6 +40,9 @@ export default function NotificationDropdown() {
     <div className={styles.dropdownContainer}>
       <div className={styles.dropdownHeader}>
         <span className={styles.dropdownTitle}>알림</span>
+        <button type="button" className={styles.closeButton} onClick={onClose}>
+          <Image src={ic_out} alt="" />
+        </button>
       </div>
       <div className={styles.dropdownBody}>
         {notifications.length === 0 ? (

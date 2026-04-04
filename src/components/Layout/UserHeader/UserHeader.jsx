@@ -21,17 +21,16 @@ import { useUnreadNotificationsCount } from '@/domain/Notification/hooks/useNoti
 
 export default function UserHeader() {
   // 로그인 유저 데이터 가져옴
-  const { user, logout } = useAuth()
+  const { user, logout } = useAuth();
 
   const { data } = useUnreadNotificationsCount();
   const unreadCount = data?.unreadCount ?? 0;
   const hasNotification = unreadCount > 0;
 
-
   const wrapperRef = useRef();
   //api로 수정
   const isExpert = user?.role === 'EXPERT';
-  
+
   const [isHeaderDropdownOpen, setIsHeaderDropdownOpen] = useState(false);
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
@@ -58,6 +57,15 @@ export default function UserHeader() {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    document.body.style.overflow =
+      isNotificationOpen || isHeaderDropdownOpen ? 'hidden' : '';
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isNotificationOpen, isHeaderDropdownOpen]);
   return (
     <header className={styles.container}>
       <Link href="/challenges" className={styles.logoContainer}>
@@ -72,7 +80,7 @@ export default function UserHeader() {
             alt="bell.png"
             onClick={handleClickNotification}
           />
-          {isNotificationOpen && <NotificationDropdown />}
+          {isNotificationOpen && <NotificationDropdown onClose={() => setIsNotificationOpen(false)}/>}
         </div>
         <div className={styles.dropdownWrapper}>
           <Image
