@@ -33,3 +33,7 @@ globalStyle('body', {
   fontFamily: 'Pretendard, sans-serif',
   fontWeight: 400,
 });
+
+globalStyle('html', {
+  overflowY: 'scroll', // 스크롤바 공간을 항상 유지
+});
