@@ -8,6 +8,7 @@ import * as styles from './ChallengeCard.css';
 import InfoLabel from '@/components/InfoLabel';
 import LinkButton from '@/components/LinkButton';
 import { useRouter } from 'next/navigation';
+import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 
 function getAction(challenge, preset, submissionId) {
   if (!preset) return null;
@@ -16,7 +17,6 @@ function getAction(challenge, preset, submissionId) {
     console.warn('submissionId is missing');
     return null;
   }
-
 
   const presetToHref = {
     continue: `/challenges/${challenge.id}/submissions/${submissionId}/edit`,
@@ -33,6 +33,10 @@ export default function ChallengeCard({
   preset,
   submissionId,
   topRight,
+  isAdmin,
+  currentUser,
+  onDelete,
+  onBlock,
 }) {
   const router = useRouter();
 
@@ -48,7 +52,6 @@ export default function ChallengeCard({
   const action = getAction(challenge, preset, submissionId);
 
   const handleClick = () => router.push(`/challenges/${challenge.id}`);
-
 
   return (
     <div
@@ -76,8 +79,26 @@ export default function ChallengeCard({
             </div>
           )}
           <h2 className={styles.title}>{challenge.title}</h2>
-  
-
+          {/* 어드민이면 나옴 */}
+          {isAdmin && (
+            <div
+              className={styles.topRight}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <EditAndDeleteDropdown
+                currentUser={currentUser}
+                content={{
+                  type: 'challenge',
+                  authorId: challenge.requestedBy,
+                  status: challenge.status,
+                  current_participants: challenge.currentParticipants,
+                  isBlocked: challenge.isBlocked ?? false,
+                }}
+                onDelete={onDelete}
+                onBlock={onBlock}
+              />
+            </div>
+          )}
 
           <div className={styles.chipWrapper}>
             <TypeChip type={challenge.category} />
