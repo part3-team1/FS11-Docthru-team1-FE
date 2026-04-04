@@ -44,14 +44,14 @@ export default function ButtonBox({
     //작업물 작성한사람
     if (isParticipating && hasSubmission) {
       return (
-        <div className={styles.twoBtn}>
+
           <Link
             href={`/challenges/${challengeId}/submissions/${mySubmission?.id}`}
             className={styles.clickBtn}
           >
             내 작업물 보기
           </Link>
-        </div>
+
       );
     }
 
