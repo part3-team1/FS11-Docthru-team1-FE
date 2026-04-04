@@ -12,6 +12,7 @@ import HeaderDropdown from '@/components/Dropdown/HeaderDropdown/HeaderDropdown.
 import NotificationDropdown from '@/components/Dropdown/NotificationDropdown/NotificationDropdown.jsx';
 import { useAuth } from '@/Providers/AuthProvider.js';
 import { useUnreadNotificationsCount } from '@/domain/Notification/hooks/useNotification.js';
+import { usePathname } from 'next/navigation';
 
 /*
   페이지 메인 부분, 
@@ -22,6 +23,7 @@ import { useUnreadNotificationsCount } from '@/domain/Notification/hooks/useNoti
 export default function UserHeader() {
   // 로그인 유저 데이터 가져옴
   const { user, logout } = useAuth();
+  const pathname = usePathname();
 
   const { data } = useUnreadNotificationsCount();
   const unreadCount = data?.unreadCount ?? 0;
@@ -66,6 +68,12 @@ export default function UserHeader() {
       document.body.style.overflow = '';
     };
   }, [isNotificationOpen, isHeaderDropdownOpen]);
+
+  useEffect(() => {
+  setIsHeaderDropdownOpen(false);
+  setIsNotificationOpen(false);
+}, [pathname]);
+
   return (
     <header className={styles.container}>
       <Link href="/challenges" className={styles.logoContainer}>

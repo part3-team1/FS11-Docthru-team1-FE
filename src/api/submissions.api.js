@@ -17,7 +17,9 @@ export async function submitSubmission(challengeId, data) {
   const result = await res.json();
 
   if (!res.ok) {
-    throw new Error(result.message || '작업물 제출 실패.');
+    const error =  new Error(result.message || '작업물 제출 실패.');
+    error.details = result.details;
+    throw error;
   }
 
   return result;
@@ -40,7 +42,9 @@ export async function updateSubmission(submissionId, data) {
   const result = await res.json();
 
   if (!res.ok) {
-    throw new Error(result.message || '작업물 수정 실패.');
+    const error =  new Error(result.message || '작업물 수정 실패.');
+    error.details = result.details;
+    throw error;
   }
 
   return result;
