@@ -143,3 +143,4 @@ globalStyle('table', {
   borderCollapse: 'collapse',
   borderSpacing: 0,
 });
+

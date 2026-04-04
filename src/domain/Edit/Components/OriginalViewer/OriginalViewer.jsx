@@ -2,6 +2,8 @@ import Image from 'next/image';
 import * as styles from './OriginalViewer.css.js';
 
 export default function OriginalViewer({ url, onClose }) {
+  const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`;
+
   return (
     <div className={styles.originalViewer}>
       <div className={styles.viewerHeader}>
@@ -31,7 +33,7 @@ export default function OriginalViewer({ url, onClose }) {
 
       <div className={styles.iframeWrapper}>
         <iframe
-          src={url}
+          src={proxyUrl}
           loading="lazy"
           className={styles.iframe}
           title="원본 문서"

@@ -8,6 +8,7 @@ import { useSignup } from '../../hooks/useSignup';
 import password_on_eye from '@/../public/Images/Icon/passwordOn-eye.svg';
 import password_eye from '@/../public/Images/Icon/password-eye.svg';
 import ic_google from '@/../public/Images/Icon/google.svg';
+import { googleLogin } from '@/api/authAPI';
 
 export default function SignupForm() {
   const router = useRouter();
@@ -129,7 +130,7 @@ export default function SignupForm() {
             className={styles.input}
           />
           <Image
-            src={showPassword ? { password_on_eye } : { password_eye }}
+            src={showPassword ? password_on_eye : password_eye}
             alt="비밀번호 확인"
             width={24}
             height={24}
@@ -167,7 +168,7 @@ export default function SignupForm() {
             className={styles.input}
           />
           <Image
-            src={showPassword ? { password_on_eye } : { password_eye }}
+            src={showPassword ?  password_on_eye  :  password_eye }
             alt="비밀번호 확인"
             width={24}
             height={24}
@@ -193,7 +194,7 @@ export default function SignupForm() {
       </div>
       {/* 구글회원가입버튼 */}
 
-      <button type="button" className={styles.googleBtn}>
+      <button type="button" onClick={() => googleLogin()} className={styles.googleBtn}>
         <Image src={ic_google} alt="구글 회원가입" width={19} height={19} />
         Google 간편 회원가입
       </button>

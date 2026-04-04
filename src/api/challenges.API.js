@@ -1,3 +1,5 @@
+import { formatChallengePayload } from '@/utils/challegePayload';
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 
 //챌린지

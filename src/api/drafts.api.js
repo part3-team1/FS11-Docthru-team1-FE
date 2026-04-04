@@ -64,3 +64,18 @@ export async function deleteDraft(id) {
 
   return;
 }
+
+// DELETE /drafts/challenges/:challengeId
+export async function deleteDraftList(challengeId) {
+  const res = await fetch(`${BASE_URL}/drafts/challenges/${challengeId}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+
+  if (!res.ok) {
+    const error = await res.json();
+    throw new Error(error.message);
+  }
+
+  return;
+}

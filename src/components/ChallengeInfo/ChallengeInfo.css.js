@@ -13,6 +13,7 @@ const baseTitle = style({
   marginTop: vars.space.lg,
   display: 'flex',
   justifyContent: 'space-between',
+
 });
 
 export const title = baseTitle;
@@ -35,6 +36,10 @@ export const content = style({
   fontSize: '1rem',
   fontWeight: 400,
   fontStyle: 'normal',
-
+  
   lineHeight: '130%',
 });
+
+export const dropAndBtn = style({
+  display:'flex',
+})
