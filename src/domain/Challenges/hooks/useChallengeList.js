@@ -16,6 +16,7 @@ export const useChallengeList = ({ filter, keyword, page }) => {
     }),
   });
 
+
   return {
     challenges: data?.data?.challenges ?? [],
     totalCount: data?.data?.totalCount ?? 0,

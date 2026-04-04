@@ -11,6 +11,7 @@ export default function ChallengeCardList({
 }) {
   if (challenges.length === 0)
     return <div className={styles.empty}>아직 완료된 챌린지가 없습니다</div>;
+
   return (
     <ul className={styles.challengeCardList}>
       {challenges.map((challenge) => (

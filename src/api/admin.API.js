@@ -89,3 +89,16 @@ export async function blockFeedback(id, isBlocked) {
   if (!res.ok) throw new Error(json.message);
   return json;
 }
+
+// 어드민 - 챌린지 삭제
+export async function deleteChallenge(id) {
+  const res = await fetch(`${BASE_URL}/challenges/${id}`, {
+    method: 'DELETE',
+    credentials: 'include',
+  });
+  if (!res.ok) {
+    const json = await res.json();
+    throw new Error(json.message);
+  }
+  return;
+}

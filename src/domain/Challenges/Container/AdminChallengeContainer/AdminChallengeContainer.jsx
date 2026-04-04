@@ -9,9 +9,9 @@ import { useState } from 'react';
 import ChallengeListHeader from '../../Components/ChallengeListHeader';
 import { useChallengeList } from '../../hooks/useChallengeList';
 import { useAuth } from '@/Providers/AuthProvider';
-import { deleteAdminRequest } from '@/api/admin.API';
+import {  deleteChallenge } from '@/api/admin.API';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-
+import ReasonModal from '@/components/ReasonModal/ReasonModal';
 
 export default function AdminChallengeContainer({}) {
   const { user } = useAuth();
@@ -30,15 +30,16 @@ export default function AdminChallengeContainer({}) {
     page,
   });
 
-  const { mutate: deleteMutate, isPending: isDeleting } = useMutation({
-    mutationFn: ({ id, reason }) => deleteAdminRequest(id, reason),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['challenges'] });
-      setIsDeleteModalOpen(false);
-      setTargetId(null);
-    },
-    onError: (error) => alert(error.message),
-  });
+const { mutate: deleteMutate, isPending: isDeleting } = useMutation({
+  mutationFn: ({ id, reason }) => deleteChallenge(id), 
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ['challenges'] });
+    setIsDeleteModalOpen(false);
+    setTargetId(null);
+    alert('삭제되었습니다.');
+  },
+  onError: (error) => alert(error.message),
+});
 
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
@@ -87,7 +88,7 @@ export default function AdminChallengeContainer({}) {
         </>
       )}
 
-      {/* <ReasonModa
+      <ReasonModal
         mode="delete"
         isOpen={isDeleteModalOpen}
         onClose={() => {
@@ -96,7 +97,7 @@ export default function AdminChallengeContainer({}) {
         }}
         onConfirm={(reason) => deleteMutate({ id: targetId, reason })}
         isLoading={isDeleting}
-      /> */}
+      />
     </div>
   );
 }
