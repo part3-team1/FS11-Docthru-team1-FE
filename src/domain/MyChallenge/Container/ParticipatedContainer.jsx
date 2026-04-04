@@ -18,7 +18,7 @@ export default function ParticipatedContainer({}) {
     isFetchingNextPage,
   } = useMyChallengeLists({ status: 'OPENED', keyword });
 
-  const handleKeywordChaeng = useCallback((newKeyword) => {
+  const handleKeywordChange = useCallback((newKeyword) => {
     setKeyword(newKeyword);
   }, []);
 
@@ -44,7 +44,7 @@ useEffect(() => {
 
   return (
     <div className={styles.container}>
-      <SearchBar onChange={handleKeywordChaeng} />
+      <SearchBar onChange={handleKeywordChange} />
       <ChallengeCardList
         challenges={list}
         renderItem={(challenge) => (

@@ -52,7 +52,7 @@ const PRESET_MAP = {
  * @param {{ href: string, preset: PresetKey }} props
  */
 
-export default function LinkButton({ href, preset }) {
+export default function LinkButton({ href, preset, onClick }) {
   const button = PRESET_MAP[preset];
 
   return (
@@ -61,6 +61,7 @@ export default function LinkButton({ href, preset }) {
       target={button.newTab ? '_blank' : undefined}
       rel={button.newTab ? 'noopener noreferrer' : undefined}
       className={clsx(button.variant, button.color)}
+      onClick={onClick}
     >
       <span className={styles.content}>{button.label}</span>
       {button.iconSrc && (
