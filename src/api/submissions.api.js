@@ -11,7 +11,7 @@ export async function submitSubmission(challengeId, data) {
     credentials: 'include',
     body: JSON.stringify({
       title: data.title,
-       content: data.content,
+      content: data.content,
     }),
   });
 
