@@ -6,6 +6,8 @@ export const container = style({
   '@media': {
     [media.tablet]: {
       paddingTop: '5.25rem',
+      paddingLeft: '1.5rem',
+      paddingRight: '1.5rem',
     },
     [media.mobile]: {
       paddingTop: '4.5rem',
@@ -146,6 +148,38 @@ export const tableHeadCellFirst = style({
 
 export const tableHeadCellLast = style({
   borderRadius: '0 0.5rem 0.5rem 0',
+});
+
+export const filterContainerMobile = style({
+  left: 'auto',
+  right: 0,
+  '@media': {
+    [media.mobile]: {
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      right: 'auto',
+      zIndex: 100,
+    },
+  },
+});
+
+export const filterOverlay = style({
+  display: 'none',
+
+  '@media': {
+    [media.mobile]: {
+      display: 'block',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: 'rgba(0, 0, 0, 0.50)',
+      zIndex: 99,
+    },
+  },
 });
 
 export const title = style({

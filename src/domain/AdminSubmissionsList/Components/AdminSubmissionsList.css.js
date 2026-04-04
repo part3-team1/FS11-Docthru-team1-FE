@@ -9,11 +9,11 @@ export const container = style({
   '@media': {
     [media.tablet]: {
       maxWidth: '43.5rem',
-      padding: '1.5rem 0',
+      paddingTop: '5.25rem',
     },
     [media.mobile]: {
       maxWidth: '21.4375rem',
-      padding: '1rem 0',
+      paddingTop: '4.5rem',
     },
   },
 });

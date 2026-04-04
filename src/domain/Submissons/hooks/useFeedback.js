@@ -1,8 +1,12 @@
-import { addFeedback, deleteFeedback, patchFeedback } from "@/api/challenges.API";
-import { blockFeedback } from "@/api/admin.API";
-import { queryKeys } from "@/lib/queryKeys";
-import { useMutation, useQueryClient } from "@tanstack/react-query"
-import { useState } from "react";
+import {
+  addFeedback,
+  deleteFeedback,
+  patchFeedback,
+} from '@/api/challenges.API';
+import { blockFeedback } from '@/api/admin.API';
+import { queryKeys } from '@/lib/queryKeys';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 
 export const useFeedback = (submissionId) => {
   const queryClient = useQueryClient();
@@ -78,5 +82,5 @@ export const useFeedback = (submissionId) => {
     editFeedback,
     removeFeedback,
     hideFeedback,
-  }
-}
+  };
+};

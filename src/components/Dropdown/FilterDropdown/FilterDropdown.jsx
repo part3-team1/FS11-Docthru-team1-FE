@@ -54,7 +54,7 @@ const radioStatus = [
   { label: '마감', value: 'FINISHED' },
 ];
 
-export default function FilterDropdown({ onApply }) {
+export default function FilterDropdown({ onApply, overlayClassName, containerClassName }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isFilterSelected, setIsFilterSelected] = useState(false);
   const [filterCount, setFilterCount] = useState(0);
@@ -114,7 +114,9 @@ export default function FilterDropdown({ onApply }) {
       </button>
 
       {isOpen && (
-        <div className={styles.filterContainer}>
+        <>
+        {overlayClassName && <div className={overlayClassName} onClick={handleClickClose} />}
+        <div className={`${styles.filterContainer}${containerClassName ? ` ${containerClassName}` : ''}`}>
           <div className={styles.filterHeader}>
             <span className={styles.filterTitle}>필터</span>
             <Image
@@ -220,6 +222,7 @@ export default function FilterDropdown({ onApply }) {
             </Button>
           </div>
         </div>
+        </>
       )}
     </div>
   );

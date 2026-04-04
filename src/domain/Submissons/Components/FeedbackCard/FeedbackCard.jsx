@@ -6,13 +6,9 @@ import AdminDropdown from '@/domain/AdminSubmissionDetail/AdminDropdown/AdminDro
 import { useFeedback } from '../../hooks/useFeedback';
 import ReportBtn from '@/components/ReportBtn/ReportBtn';
 
-export default function ComentCard({
-  feedbacks,
-  currentUser,
-  submissionId,
-  isAdminPage,
-}) {
-  const { editFeedback, removeFeedback, hideFeedback } = useFeedback(submissionId);
+export default function ComentCard({ feedbacks, currentUser, submissionId, isAdminPage }) {
+  const { editFeedback, removeFeedback, hideFeedback } =
+    useFeedback(submissionId);
   const [editValue, setEditValue] = useState(feedbacks?.content);
   const [isEditing, setIsEditing] = useState(false);
   const [isBlocked, setIsBlocked] = useState(feedbacks?.isBlocked ?? false);

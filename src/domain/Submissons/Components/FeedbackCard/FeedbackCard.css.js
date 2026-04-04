@@ -1,4 +1,4 @@
-import { vars } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const container = style({
@@ -67,7 +67,12 @@ export const blockComent = style({
   color: vars.color.gray800,
   lineHeight: 'normal',
   zIndex: 3,
-  textShadow: '0 0 8px #ffffff',
+
+  '@media': {
+    [media.mobile]: {
+      fontSize: '0.875rem',
+    },
+  },
 });
 
 export const dropdownWrapperBlocked = style({

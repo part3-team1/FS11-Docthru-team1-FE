@@ -60,3 +60,33 @@ export const title = style({
   fontWeight: 600,
   lineHeight: 'normal',
 });
+
+export const filterContainerMobile = style({
+  '@media': {
+    [media.mobile]: {
+      position: 'fixed',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      right: 'auto',
+      zIndex: 100,
+    },
+  },
+});
+
+export const filterOverlay = style({
+  display: 'none',
+
+  '@media': {
+    [media.mobile]: {
+      display: 'block',
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100vw',
+      height: '100vh',
+      backgroundColor: 'rgba(0, 0, 0, 0.50)',
+      zIndex: 99,
+    },
+  },
+});
