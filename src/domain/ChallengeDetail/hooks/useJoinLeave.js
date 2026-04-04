@@ -1,5 +1,6 @@
 'use client';
 import { joinChallenge, leaveChallenge } from '@/api/challenges.API';
+import { deleteDraftList } from '@/api/drafts.api';
 import { queryKeys } from '@/lib/queryKeys';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
@@ -43,9 +44,13 @@ export const useJoinLeave = (
     },
   });
 
+  const { mutate: deleteDraft } = useMutation({
+    mutationFn: () => deleteDraftList(challengeId),
+  });
+
   useEffect(() => {
     setIsParticipating(initialIsParticipating);
   }, [initialIsParticipating]);
 
-  return { join, leave, isParticipating, currentParticipants };
+  return { join, leave, deleteDraft, isParticipating, currentParticipants };
 };

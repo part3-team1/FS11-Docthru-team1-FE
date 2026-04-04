@@ -35,6 +35,7 @@ export const creatDate = style({
 
 export const content = style({
   marginTop: vars.space.md,
+  lineHeight: vars.space.xl,
 });
 
 // isBlocked
@@ -114,4 +115,8 @@ export const btn = style({
     backgroundColor: vars.color.brandBlack,
     color: vars.color.brandYellow,
   },
+});
+
+export const dropAndReport = style({
+  display: 'flex',
 });

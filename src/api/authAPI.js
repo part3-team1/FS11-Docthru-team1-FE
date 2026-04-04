@@ -48,7 +48,7 @@ export async function signup(data) {
 
 //소셜 로그인 + 회원가입
 export function googleLogin(next = '/challenges') {
-  window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/auth/social/google/login?next=${next}`;
+  window.location.href = `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/social/google/login?next=${next}`;
 }
 
 //로그아웃

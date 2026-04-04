@@ -7,11 +7,10 @@ import { useRequest } from '../hooks/useRequest';
 import { useRequireAuth } from '@/hooks/useRequireAuth';
 import { useEffect } from 'react';
 
-
 export default function NewChallengeForm({ defaultData, onEdit }) {
   const router = useRouter();
   const { user, isLoading } = useRequireAuth();
-
+  const today = new Date().toISOString().slice(0, 10);
   const { mutate: request, isPending } = useRequest();
   const {
     register,
@@ -28,7 +27,10 @@ export default function NewChallengeForm({ defaultData, onEdit }) {
       setValue('docUrl', defaultData.docUrl);
       setValue('description', defaultData.description);
       setValue('category', defaultData.category);
-      setValue('documentType', defaultData.documentType === 'DOCUMENTATION' ? '공식문서' : '블로그');
+      setValue(
+        'documentType',
+        defaultData.documentType === 'DOCUMENTATION' ? '공식문서' : '블로그',
+      );
       setValue('dueDate', defaultData.dueDate?.slice(0, 10));
       setValue('maxParticipants', defaultData.maxParticipants);
     }
@@ -42,7 +44,7 @@ export default function NewChallengeForm({ defaultData, onEdit }) {
       onEdit(data);
     } else {
       request(data, {
-        onSuccess: () => router.push('/my-page/my-challenge/participated'),
+        onSuccess: () => router.push('/my-page/my-challenge/requested'),
         onError: (error) => console.error(error),
       });
     }
@@ -56,9 +58,9 @@ export default function NewChallengeForm({ defaultData, onEdit }) {
         onSubmit={handleSubmit(onSubmit)}
       >
         <div className={styles.container}>
-
-          
-          <div className={styles.title}>{onEdit ? '챌린지 수정' : '신규 챌린지 신청' }</div>
+          <div className={styles.title}>
+            {onEdit ? '챌린지 수정' : '신규 챌린지 신청'}
+          </div>
 
           <div className={styles.section}>
             {/* 제목 */}
@@ -180,12 +182,16 @@ export default function NewChallengeForm({ defaultData, onEdit }) {
             <input
               type="date"
               placeholder="YY/MM/DD"
+              min={today}
+              max="9999-12-31"
               {...register('dueDate', {
                 required: '마감일은 필수 입니다',
                 validate: (value) => {
+                  const selected = new Date(value);
+                  const maxDate = new Date('9999-12-31');
+                  if (selected > maxDate) return '올바른 날짜를 입력해주세요';
                   return (
-                    new Date(value) > new Date() ||
-                    '마감일은 오늘 이후여야 합니다.'
+                    selected > new Date() || '마감일은 오늘 이후여야 합니다.'
                   );
                 },
               })}
@@ -269,7 +275,7 @@ export default function NewChallengeForm({ defaultData, onEdit }) {
 
           {/* 신청,수정하기 버튼 */}
           <button type="submit" disabled={isPending} className={styles.btn}>
-            {onEdit ? '수정하기' : '신청하기' }
+            {onEdit ? '수정하기' : '신청하기'}
           </button>
         </div>
       </form>

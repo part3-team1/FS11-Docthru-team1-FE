@@ -6,6 +6,7 @@ import ChallengeInfo from '@/components/ChallengeInfo/ChallengeInfo';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 import user_expert from '@/../public/Images/Icon/user_expert.png';
 import user from '@/../public/Images/Icon/user.png';
+import ReportBtn from '@/components/ReportBtn/ReportBtn';
 
 export function ChallengeInfoAndButton({
   data,
@@ -17,7 +18,7 @@ export function ChallengeInfoAndButton({
   const challengeUser = data?.request?.user;
   return (
     <div className={styles.infoContainer}>
-      <div>
+      <div className={styles.infoLeft}>
         <ChallengeInfo
           data={data}
           dropdown={
@@ -34,6 +35,13 @@ export function ChallengeInfoAndButton({
                 editHref={`/challenges/${data?.id}/edit`}
                 onDelete={() => {}}
               />
+            ) : null
+          }
+          reportButton={
+            currentUser &&
+            data?.status === 'OPENED' &&
+            currentUser?.id !== data?.request?.requestedBy ? (
+              <ReportBtn targetId={data?.id} reportType="CHALLENGE" />
             ) : null
           }
         />

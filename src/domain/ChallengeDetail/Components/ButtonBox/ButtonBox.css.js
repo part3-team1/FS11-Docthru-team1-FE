@@ -29,7 +29,6 @@ export const btnContainer = style({
   gap: vars.space.sm,
   '@media': {
     [media.mobile]: {
-      flexDirection: 'row',
       gap: vars.space.sm,
     },
   },
@@ -73,7 +72,7 @@ export const leaveBtn = style([
   {
     backgroundColor: '#f5caca',
     color: vars.color.error,
-
+    cursor:'pointer'
 
   },
 ]);
@@ -83,6 +82,7 @@ export const leaveBtn = style([
 
 export const twoBtn = style({
   display: 'flex', 
-  gap:vars.space.sm
+  gap: vars.space.sm,
+  flex:1,
 })
 

@@ -3,6 +3,8 @@ import * as styles from './FeedbackCard.css';
 import { useState } from 'react';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 import { useFeedback } from '../../hooks/useFeedback';
+import ReportBtn from '@/components/ReportBtn/ReportBtn';
+import { formatDate } from '@/utils/format';
 
 export default function ComentCard({ feedbacks, currentUser, submissionId }) {
   const { editFeedback, removeFeedback, feedbackBlock } =
@@ -10,6 +12,7 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
   const [editValue, setEditValue] = useState(feedbacks?.content);
   const [isEditing, setIsEditing] = useState(false);
   const isBlocked = feedbacks?.isBlocked;
+  const createDate = formatDate(feedbacks.createdAt)
 
   const handleCancel = () => {
     setEditValue(feedbacks.content);
@@ -67,7 +70,7 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
               )}
               <div className={styles.info}>
                 <div className={styles.nickName}>{feedbacks.user.nickname}</div>
-                <div className={styles.creatDate}>{feedbacks.createdAt}</div>
+                <div className={styles.creatDate}>{createDate}</div>
               </div>
             </div>
 
@@ -78,19 +81,27 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
                   : styles.dropdownWrapper
               }
             >
-              <EditAndDeleteDropdown
-                currentUser={currentUser}
-                content={{
-                  type: 'feedback',
-                  authorId: feedbacks?.userId,
-                  isBlocked: feedbacks?.isBlocked || isBlocked,
-                }}
-                onEdit={() => setIsEditing(true)}
-                onDelete={handleDelete}
-                onBlock={() =>
-                  feedbackBlock({ id: feedbacks.id, isBlocked: !feedbacks.isBlocked })
-                }
-              />
+              <div className={styles.dropAndReport}>
+                {currentUser?.id !== feedbacks?.userId && (
+                  <ReportBtn targetId={feedbacks?.id} reportType="FEEDBACK" />
+                )}
+                <EditAndDeleteDropdown
+                  currentUser={currentUser}
+                  content={{
+                    type: 'feedback',
+                    authorId: feedbacks?.userId,
+                    isBlocked: feedbacks?.isBlocked || isBlocked,
+                  }}
+                  onEdit={() => setIsEditing(true)}
+                  onDelete={handleDelete}
+                  onBlock={() =>
+                    feedbackBlock({
+                      id: feedbacks.id,
+                      isBlocked: !feedbacks.isBlocked,
+                    })
+                  }
+                />
+              </div>
             </div>
           </div>
 

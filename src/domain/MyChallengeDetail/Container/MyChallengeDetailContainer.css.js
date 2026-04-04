@@ -40,6 +40,6 @@ export const frame = style({
 export const linkBtn = style({
   position: 'absolute',
   zIndex:3,
-  right:vars.space.sm
-
+  top:vars.space.sm,
+right:vars.space.lg
 })
