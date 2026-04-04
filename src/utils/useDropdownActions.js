@@ -12,7 +12,7 @@ export default function useDropdownActions({ currentUser, content }) {
   } = content;
 
   // 어드민이니..?
-  const isAdmin = role === 'ADMIN';
+  const isAdmin = role === 'ADMIN' || role === 'MASTER';
   // 작성자이니...?
   const isOwner = userId === authorId;
   // 참여했니..?
