@@ -13,19 +13,31 @@ import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDel
 function getAction(challenge, preset, submissionId) {
   if (!preset) return null;
 
-  if (!submissionId) {
-    console.warn('submissionId is missing');
-    return null;
+  if (preset === 'mySubmission' && !submissionId) {
+    return (
+      <LinkButton
+        href="#"
+        preset={preset}
+        onClick={(e) => {
+          e.preventDefault();
+          alert('작업물을 제출하지 않았습니다!');
+        }}
+      />
+    );
   }
 
   const presetToHref = {
-    continue: `/challenges/${challenge.id}/submissions/${submissionId}/edit`,
+    // submissionId 있으면 edit, null이면 new로 분기
+    continue: submissionId
+      ? `/challenges/${challenge.id}/submissions/${submissionId}/edit`
+      : `/challenges/${challenge.id}/submissions/new`,
+
     mySubmission: `/challenges/${challenge.id}/submissions/${submissionId}`,
   };
 
-  const href = presetToHref[preset];
+  const buttonHref = presetToHref[preset];
 
-  return <LinkButton href={href} preset={preset} />;
+  return <LinkButton href={buttonHref} preset={preset} />;
 }
 
 export default function ChallengeCard({
