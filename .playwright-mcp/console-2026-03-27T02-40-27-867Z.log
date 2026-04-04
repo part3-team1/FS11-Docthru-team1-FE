@@ -1,5 +1,0 @@
-[   18000ms] [ERROR] Failed to load resource: the server responded with a status of 500 (Internal Server Error) @ http://localhost:3001/api/auth/login:0
-[   18005ms] [ERROR] Error: 서버 오류가 발생했습니다.
-    at userLogin (webpack-internal:///(app-pages-browser)/./src/api/authAPI.js:33:15)
-    at async LoginForm[onSubmit] (webpack-internal:///(app-pages-browser)/./src/domain/Auth/Login/Components/LoginForm.jsx:56:21)
-    at async eval (webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/react-hook-form@7.71.2_react@19.2.3/node_modules/react-hook-form/dist/index.esm.mjs:2227:17) @ webpack-internal:///(app-pages-browser)/./node_modules/.pnpm/next@16.1.6_@babel+core@7.29.0_babel-plugin-react-compiler@1.0.0_react-dom@19.2.3_react@19.2.3__react@19.2.3/node_modules/next/dist/next-devtools/userspace/app/errors/intercept-console-error.js:51
