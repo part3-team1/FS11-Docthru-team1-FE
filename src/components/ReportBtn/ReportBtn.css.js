@@ -20,6 +20,7 @@ export const reportBtn = style({
   backgroundColor: 'transparent',
   position: 'relative',
   bottom: '0.3rem',
+  cursor: 'pointer',
   '@media': {
     [media.tablet]: {
       bottom: '0.68rem',
