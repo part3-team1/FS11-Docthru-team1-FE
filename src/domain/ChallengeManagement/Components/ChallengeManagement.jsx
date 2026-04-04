@@ -283,6 +283,7 @@ export default function ChallengeManagement() {
           )}
         </div>
       </div>
+      <div className={styles.tableWrapper}>
       <table className={styles.table}>
         <colgroup>
           <col className={styles.colNo} />
@@ -359,6 +360,7 @@ export default function ChallengeManagement() {
           })}
         </tbody>
       </table>
+      </div>
       <Pagination
         page={page}
         totalCount={totalCount}

@@ -118,6 +118,10 @@ export const title = style({
   lineHeight: 'normal',
 });
 
+export const titleWithTopRight = style({
+  paddingRight: 'calc(1.5rem + 0.25rem)',
+});
+
 export const empty = style({
   display: 'flex',
   paddingTop:'20rem',

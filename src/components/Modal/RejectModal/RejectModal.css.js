@@ -124,6 +124,70 @@ export const etcTextarea = style({
   },
 });
 
+export const optionContainer = style({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '13.6875rem',
+  width: '100%',
+  marginTop: '0.5rem',
+});
+
+export const optionGrid = style({
+  display: 'flex',
+  justifyContent: 'space-between',
+  width: 'calc(100% - 1rem)',
+  margin: '0 0.5rem',
+});
+
+export const optionColumn = style({
+  display: 'flex',
+  flexDirection: 'column',
+});
+
+export const optionItem = style({
+  display: 'flex',
+  alignItems: 'center',
+  gap: '0.25rem',
+  marginTop: '0.3rem',
+  marginBottom: '0.3rem',
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  padding: 0,
+  textAlign: 'left',
+  width: '100%',
+});
+
+export const etcTextarea = style({
+  flex: 1,
+  marginTop: '1.25rem',
+  width: '100%',
+  padding: '1rem 1.25rem',
+  alignItems: 'flex-start',
+  gap: '0.625rem',
+  alignSelf: 'stretch',
+  borderRadius: '0.75rem',
+  border: `1px solid ${vars.color.gray300}`,
+  backgroundColor: vars.color.white,
+  resize: 'none',
+  fontFamily: 'Pretendard',
+  fontSize: '1rem',
+  fontStyle: 'normal',
+  fontWeight: 400,
+  lineHeight: '1.625rem',
+  color: vars.color.gray700,
+  outline: 'none',
+  boxSizing: 'border-box',
+  '::placeholder': {
+    color: vars.color.gray500,
+    fontFamily: 'Pretendard',
+    fontSize: '1rem',
+    fontStyle: 'normal',
+    fontWeight: 400,
+    lineHeight: '1.625rem',
+  },
+});
+
 export const optionText = style({
   color: vars.color.gray800,
   fontFamily: 'Pretendard',

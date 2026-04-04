@@ -41,6 +41,15 @@ export const controlsWrapper = style({
 export const searchBarWrapper = style({
   width: '54.5rem',
   height: '2.5rem',
+
+  '@media': {
+    [media.tablet]: {
+      width: '36.125rem',
+    },
+    [media.mobile]: {
+      width: '14.5rem',
+    },
+  },
 });
 
 export const title = style({

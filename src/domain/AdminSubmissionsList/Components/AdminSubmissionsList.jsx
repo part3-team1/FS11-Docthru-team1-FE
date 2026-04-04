@@ -1,21 +1,19 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { adminChallengeById } from '@/api/admin.API';
+import { queryKeys } from '@/lib/queryKeys';
 import AdminChallengeInfoSection from './AdminChallengeInfoSection.jsx';
 import BestSubmissionCard from '@/domain/ChallengeDetail/Components/BestSubmissionCard/BestSubmissionCard';
 import ParticipationSubmissionList from '@/domain/ChallengeDetail/Components/ParticipationSubmissionList/ParticipationSubmissionList';
 import * as styles from './AdminSubmissionsList.css.js';
 
 export default function AdminSubmissionsList({ id }) {
-  const [challenge, setChallenge] = useState(null);
-
-  useEffect(() => {
-    adminChallengeById(id)
-      .then((json) => {
-        if (json.success) setChallenge(json.data);
-      })
-      .catch(console.error);
-  }, [id]);
+  const { data: challenge } = useQuery({
+    queryKey: queryKeys.admin.challenges.detail(id),
+    queryFn: () => adminChallengeById(id),
+    select: (json) => json.data,
+    enabled: !!id,
+  });
 
   if (!challenge) return null;
 

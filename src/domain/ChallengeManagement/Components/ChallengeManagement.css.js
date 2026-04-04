@@ -1,13 +1,29 @@
 import { style } from '@vanilla-extract/css';
-import { vars } from '@/styles/token.css';
+import { media, vars } from '@/styles/token.css';
 
 export const container = style({
   paddingTop: 'calc(3.75rem + 2.13rem)',
+  '@media': {
+    [media.tablet]: {
+      paddingTop: '5.25rem',
+    },
+    [media.mobile]: {
+      paddingTop: '4.5rem',
+    },
+  },
 });
 
 export const searchBarWrapper = style({
   width: '52.75rem',
   height: '2.5rem',
+  '@media': {
+    [media.tablet]: {
+      width: '100%',
+    },
+    [media.mobile]: {
+      width: '21.4375rem',
+    },
+  },
 });
 
 export const controlsWrapper = style({
@@ -31,21 +47,48 @@ export const filterButton = style({
   backgroundColor: vars.color.white,
 
   cursor: 'pointer',
+
+  '@media': {
+    [media.tablet]: {
+      width: '6.625rem',
+    },
+    [media.mobile]: {
+      width: '6.1875rem',
+      fontSize: '0.875rem',
+    },
+  },
 });
 
 export const filterButtonText = style({
   color: vars.color.gray400,
   fontFamily: 'Pretendard',
-  fontSize: '1rem',
+  fontSize: '0.875rem',
   fontStyle: 'normal',
   fontWeight: 400,
   lineHeight: 'normal',
 });
 
+export const tableWrapper = style({
+  overflowX: 'auto',
+  width: '100%',
+  marginTop: '1.5rem',
+
+  '@media': {
+    [media.mobile]: {
+      marginTop: '1rem',
+    },
+  },
+});
+
 export const table = style({
   width: '62.25rem',
   borderCollapse: 'collapse',
-  marginTop: '1.5rem',
+
+  '@media': {
+    [media.tablet]: {
+      fontSize: '0.7rem',
+    },
+  },
 });
 
 export const tableHeadCell = style({
@@ -93,7 +136,6 @@ export const colDeadline = style({ width: '5.875rem' });
 export const colStatus = style({ width: '7.5rem' });
 
 export const tableHead = style({
-  width: '62.25rem',
   height: '2.25rem',
   backgroundColor: vars.color.gray800,
 });

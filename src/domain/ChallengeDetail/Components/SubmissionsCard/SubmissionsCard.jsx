@@ -76,7 +76,10 @@ export default function SubmissionsCard({ item, rank, getHref }) {
 
           <div>{item.heartCount}</div>
         </div>
-        <Link href={getHref ? getHref(item) : `/challenges/${item.challengeId}/submissions/${item.id}`} className={styles.link}>
+        <Link
+          href={getHref ? getHref(item) : `/challenges/${item.challengeId}/submissions/${item.id}`}
+          className={styles.link}
+        >
           {' '}
           작업물 보기 &gt;
         </Link>
