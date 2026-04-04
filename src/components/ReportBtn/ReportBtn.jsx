@@ -34,7 +34,7 @@ export default function ReportBtn({ targetId, reportType }) {
           src="/Images/Icon/report_icon.png"
           alt="report"
           width={30}
-          height={30}
+          height={20}
         />
       </button>
 
