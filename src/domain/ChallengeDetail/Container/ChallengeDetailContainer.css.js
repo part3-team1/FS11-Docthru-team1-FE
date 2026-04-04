@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   maxWidth: '55.5625rem',
-
+  width:'100%',
   //padding: '5.25rem 32.19rem 0',
   '@media': {
     [media.tablet]: {

@@ -4,8 +4,9 @@ import Image from 'next/image';
 import * as styles from './CancelDropdown.css';
 import { useEffect, useRef, useState } from 'react';
 import ConfirmModal from '@/components/Modal/ConfirmModal';
+import Link from 'next/link';
 
-export default function CancelDropdown({ onClick }) {
+export default function CancelDropdown({ onClick,id }) {
   const [isOpen, setIsOpen] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const wrapperRef = useRef(null);
@@ -34,6 +35,12 @@ export default function CancelDropdown({ onClick }) {
 
       {isOpen && (
         <div className={styles.selectContainer}>
+          <Link
+            href={`/my-page/my-challenge/requested/${id}/edit`}
+            className={styles.edtiBtn}
+          >
+            수정하기
+          </Link>
           <div
             onClick={() => {
               setIsOpen(false);

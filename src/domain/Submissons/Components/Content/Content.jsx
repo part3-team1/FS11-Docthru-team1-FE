@@ -11,6 +11,7 @@ import { useHeart } from '../../hooks/useHeart';
 import LinkButton from '@/components/LinkButton';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { commonExtensions } from '@/domain/Edit/Components/Editor/EditorExtensions';
+import ReportBtn from '@/components/ReportBtn/ReportBtn';
 
 export default function Content({ currentUser, submission, isAdminPage }) {
   const router = useRouter();

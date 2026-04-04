@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import EditAndDeleteDropdown from '@/components/EditAndDeleteDropdown/EditAndDeleteDropdown';
 import AdminDropdown from '@/domain/AdminSubmissionDetail/AdminDropdown/AdminDropdown';
 import { useFeedback } from '../../hooks/useFeedback';
+import ReportBtn from '@/components/ReportBtn/ReportBtn';
 
 export default function ComentCard({ feedbacks, currentUser, submissionId, isAdminPage }) {
   const { editFeedback, removeFeedback, hideFeedback } =

@@ -7,7 +7,7 @@ export const challengesContainer = style({
   margin: '0 auto',
   paddingTop: '5.25rem',
   maxWidth: '62.25rem',
-  height:'100%',
+  height: '100%',
   gap: vars.space.xl,
   alignItems: 'center',
 
@@ -25,8 +25,8 @@ export const challengesContainer = style({
 });
 
 export const childrenContainer = style({
-  border:`1px solid ${vars.color.black}`,
-  width:'100%'
+  border: `1px solid ${vars.color.black}`,
+  width: '100%',
 });
 
 export const challengesHeader = style({
