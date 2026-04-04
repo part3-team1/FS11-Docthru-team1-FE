@@ -45,7 +45,12 @@ export function useHeaderNav(editorData) {
       );
     },
     onError: (error) => {
-      alert(error.message || '제출 실패.');
+      if (error.details) {
+        const message = Object.values(error.details).flat().join('\n');
+        alert(message);
+      } else {
+        alert(error.message || '제출 실패.');
+      }
     },
   });
 
@@ -61,7 +66,12 @@ export function useHeaderNav(editorData) {
       router.push(`/challenges/${challengeId}/submissions/${submissionId}`);
     },
     onError: (error) => {
-      alert(error.message || '수정 실패.');
+      if (error.details) {
+        const message = Object.values(error.values).flat().join('\n');
+        alert(message);
+      } else {
+        alert(error.message || '수정 실패.');
+      }
     },
   });
 
@@ -73,6 +83,10 @@ export function useHeaderNav(editorData) {
   const handleSubmit = () => {
     if (!title || !content) {
       return alert('제목과 내용을 입력해주세요.');
+    }
+
+    if (title.length < 10) {
+      return alert('제목은 최소 10자 이상이여야 합니다.')
     }
 
     const body = { title, content };
