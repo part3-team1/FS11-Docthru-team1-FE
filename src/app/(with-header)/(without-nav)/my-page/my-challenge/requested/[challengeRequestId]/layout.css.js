@@ -5,14 +5,15 @@ export const challengesContainer = style({
   display: 'flex',
   flexDirection: 'column',
   margin: '0 auto',
-  paddingTop: '5.75rem',
+  paddingTop: '5.25rem',
   maxWidth: '62.25rem',
-  height: '100%',
+  height:'100%',
+  gap: vars.space.xl,
   alignItems: 'center',
 
   '@media': {
     [media.tablet]: {
-      paddingTop: '5.25rem',
+      paddingTop: '4.5rem',
       width: '100%',
     },
     [media.mobile]: {

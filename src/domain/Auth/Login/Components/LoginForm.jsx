@@ -6,8 +6,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation.js';
 import { useLogin } from '../../hooks/useLogin.js';
 import { googleLogin } from '@/api/authAPI.js';
+import password_eye from '@/../public/Images/Icon/password-eye.svg';
 import password_on_eye from '@/../public/Images/Icon/passwordOn-eye.svg';
-import password_on from '@/../public/Images/Icon/passwordOn-eye.svg';
 import ic_google from '@/../public/Images/Icon/google.svg';
 
 export default function LoginForm() {
@@ -111,7 +111,7 @@ export default function LoginForm() {
           {/* 눈 아이콘 */}
 
           <Image
-            src={showPassword ? { password_on_eye } : { password_on }}
+            src={showPassword ? password_on_eye : password_eye }
             alt="비밀번호 확인"
             width={24}
             height={24}

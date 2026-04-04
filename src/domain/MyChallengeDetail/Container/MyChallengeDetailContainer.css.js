@@ -1,6 +1,9 @@
 import { media, vars } from "@/styles/token.css";
 import { style } from "@vanilla-extract/css";
 
+export const container = style({
+  width:'100%'
+})
 
 
 export const dataAndPerson = style({
@@ -37,6 +40,6 @@ export const frame = style({
 export const linkBtn = style({
   position: 'absolute',
   zIndex:3,
-  right:vars.space.sm
-
+  top:vars.space.sm,
+right:vars.space.lg
 })

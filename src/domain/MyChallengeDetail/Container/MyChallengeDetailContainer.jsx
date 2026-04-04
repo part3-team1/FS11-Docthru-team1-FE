@@ -18,8 +18,10 @@ export default function MyChallengeDetail({ id }) {
   if (!detail) return null;
   const isPending = detail.status === 'PENDING';
 
+  const proxyUrl = `/api/proxy?url=${encodeURIComponent(detail.docUrl)}`;
+
   return (
-    <div>
+    <div className={styles.container}>
       {/* 챌린지 상태 */}
       <RequestStatus
         status={detail.status}
@@ -30,7 +32,10 @@ export default function MyChallengeDetail({ id }) {
         data={detail}
         dropdown={
           isPending ? (
-            <CancelDropdown onClick={() => myChallengeRequestDelete(id)} />
+            <CancelDropdown
+              onClick={() => myChallengeRequestDelete(id)}
+              id={id}
+            />
           ) : null
         }
       />
@@ -48,7 +53,7 @@ export default function MyChallengeDetail({ id }) {
           <div className={styles.linkBtn}>
             <LinkButton href={detail.docUrl} preset="transparent" />
           </div>
-          <iframe src={detail.docUrl} className={styles.frame} />
+          <iframe src={proxyUrl} className={styles.frame} />
         </div>
       </div>
     </div>

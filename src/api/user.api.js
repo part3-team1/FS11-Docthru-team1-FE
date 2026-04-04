@@ -68,7 +68,7 @@ export async function myChallengeRequestDetail(id) {
 //내가 신청한 챌린지 수정
 export async function myChallengeRequestUpdate(id, data) {
     const payload = formatChallengePayload(data);
-  const res = await fetch(`${BASE_URL}/users/me/challengeRequests/${id}`, {
+  const res = await fetch(`${BASE_URL}/challengeRequests/${id}`, {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
