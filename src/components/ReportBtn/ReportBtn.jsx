@@ -4,7 +4,8 @@ import { createReport } from '@/api/report.api';
 import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
 import { useState } from 'react';
-import ReasonModal from '@/components/Modal/ReasonModal/ReasonModal';
+import ReasonModal from '../ReasonModal/ReasonModal';
+
 
 export default function ReportBtn({ targetId, reportType }) {
   const [isOpen, setIsOpen] = useState(false);

@@ -27,6 +27,8 @@ export const dataAndPerson = style({
 
 export const linkContainer = style({
   paddingTop: vars.space.lg,
+  paddingBottom: vars.space.xl,
+  borderBottom: `1px solid ${vars.color.gray200}`,
 });
 
 export const link = style({
@@ -54,7 +56,7 @@ export const linkBtn = style({
 export const navButton = style({
   cursor: 'pointer',
   opacity: 1,
-  cursor:'pointer'
+  cursor: 'pointer',
 });
 
 export const navButtonDisabled = style({
@@ -62,15 +64,12 @@ export const navButtonDisabled = style({
   opacity: 0.3,
 });
 
-
 export const btnContainer = style({
   display: 'flex',
   gap: vars.space.md,
   marginTop: vars.space.xl,
-  justifyContent:'flex-end'
-})
-
-
+  justifyContent: 'flex-end',
+});
 
 const base = style({
   display: 'flex',
@@ -81,8 +80,7 @@ const base = style({
   alignItems: 'center',
   borderRadius: vars.radius.lg,
   border: 'none',
-  cursor:'pointer'
-
+  cursor: 'pointer',
 });
 
 export const rejectBtn = style([
@@ -90,6 +88,10 @@ export const rejectBtn = style([
   {
     backgroundColor: '#FFE7E7',
     color: vars.color.error,
+    fontSize: '1rem',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: '1.625rem',
   },
 ]);
 
@@ -98,5 +100,15 @@ export const approveBtn = style([
   {
     backgroundColor: vars.color.brandBlack,
     color: vars.color.brandWhite,
+    fontSize: '1rem',
+    fontStyle: 'normal',
+    fontWeight: '600',
+    lineHeight: '1.625rem',
   },
 ]);
+
+export const wrapper = style({
+  display:'flex',
+  flexDirection:'column',
+  gap: vars.space.lg
+});

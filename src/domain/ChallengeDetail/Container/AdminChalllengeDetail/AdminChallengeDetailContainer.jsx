@@ -82,12 +82,15 @@ export default function AdminChallengeDetailContainer({ id }) {
         rejectionReason={detail.rejectionReason}
       />
 
+<div className={styles.wrapper}>
+
       <ChallengeInfo data={detail} />
 
       <div className={styles.dataAndPerson}>
         <DueDate dueDate={detail.dueDate} />
         <ChallengeParticipantCount max={detail.maxParticipants} />
       </div>
+</div>
 
       <div className={styles.linkContainer}>
         <div className={styles.link}>원문링크</div>
