@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
 import * as styles from './ReasonModal.css';
+import Image from 'next/image';
 
 const REPORT_REASON = [
   '혐오/차별적/생명경시/욕설 표현입니다.',
@@ -16,37 +17,33 @@ const REPORT_REASON = [
 
 const MODAL_CONFIG = {
   report: {
-    title: '신고 사유를 선택해주세요',
+    title: '신고 사유',
     confirmText: '신고하기',
-    type: 'radio',
   },
   reject: {
-    title: '거절 사유를 입력해주세요',
-    placeholder: '거절 사유를 입력해주세요',
+    title: '거절 사유',
     confirmText: '거절하기',
-    type: 'textarea',
+  },
+  delete: {
+    title: '삭제 사유',
+    confirmText: '삭제하기',
   },
 };
 
 export default function ReasonModal({ isOpen, onClose, onConfirm, isLoading, mode = 'report' }) {
   const [selectedReason, setSelectedReason] = useState('');
-  const [reason, setReason] = useState('');
 
   const config = MODAL_CONFIG[mode];
-  const isDisabled = mode === 'report' ? !selectedReason : !reason.trim();
-  const value = mode === 'report' ? selectedReason : reason;
 
   const handleClose = () => {
     setSelectedReason('');
-    setReason('');
     onClose();
   };
 
   const handleConfirm = () => {
-    if (isDisabled) return;
-    onConfirm(value);
+    if (!selectedReason) return;
+    onConfirm(selectedReason);
     setSelectedReason('');
-    setReason('');
     onClose();
   };
 
@@ -55,10 +52,22 @@ export default function ReasonModal({ isOpen, onClose, onConfirm, isLoading, mod
   return createPortal(
     <div className={styles.overlay}>
       <div className={styles.modal}>
-        <div className={styles.title}>{config.title}</div>
+        <div className={styles.title}>
+          {config.title}
+          <div>
+            <Image
+              src="/Images/Icon/ic_out.svg"
+              alt="cancle"
+              width={24}
+              height={24}
+              className={styles.cancleBtn}
+              onClick={handleClose}
+            />
+          </div>
+        </div>
 
-        {mode === 'report' ? (
-          REPORT_REASON.map((r) => (
+        <div className={styles.reasonItemContainer}>
+          {REPORT_REASON.map((r) => (
             <div
               key={r}
               onClick={() => setSelectedReason(r)}
@@ -72,23 +81,13 @@ export default function ReasonModal({ isOpen, onClose, onConfirm, isLoading, mod
               />
               <span className={styles.reasonText}>{r}</span>
             </div>
-          ))
-        ) : (
-          <textarea
-            value={reason}
-            onChange={(e) => setReason(e.target.value)}
-            placeholder={config.placeholder}
-            className={styles.textarea}
-          />
-        )}
+          ))}
+        </div>
 
-        <div className={styles.btns}>
-          <button className={styles.btn} onClick={handleClose}>
-            취소
-          </button>
+        <div>
           <button
             className={styles.btn}
-            disabled={isDisabled || isLoading}
+            disabled={!selectedReason || isLoading}
             onClick={handleConfirm}
           >
             {config.confirmText}

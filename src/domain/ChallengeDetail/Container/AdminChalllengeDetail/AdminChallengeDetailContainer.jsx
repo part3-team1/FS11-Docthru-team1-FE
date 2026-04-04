@@ -11,13 +11,15 @@ import RequestStatus from '@/components/RequestStatus/RequestStatus';
 import { useAdminChallengeDetail } from '../../hooks/useAdminChallengeDetail';
 import { getAdjacentIds } from '@/utils/adminNo';
 import Image from 'next/image';
+import ReasonModal from '@/components/ReasonModal/ReasonModal';
+
 
 export default function AdminChallengeDetailContainer({ id }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentNo = Number(searchParams.get('no'));
   const total = Number(searchParams.get('totalCount'));
-  const [rejectReason, setRejectReason] = useState('');
+  const [isRejectModalOpen, setIsRejectModalOpen] = useState(false);
 
   const {
     data: detail,
@@ -49,14 +51,6 @@ export default function AdminChallengeDetailContainer({ id }) {
         `/admin/challenge-management/${nextId}?no=${currentNo - 1}&totalCount=${total}`,
       );
     }
-  };
-
-  const handleReject = () => {
-    if (!rejectReason.trim()) {
-      alert('거절 사유를 입력해주세요.');
-      return;
-    }
-    reject(rejectReason);
   };
 
   return (
@@ -107,14 +101,29 @@ export default function AdminChallengeDetailContainer({ id }) {
 
       {isPending && (
         <div className={styles.btnContainer}>
-          <button onClick={handleReject} disabled={isRejecting} className={styles.rejectBtn}>
+          <button
+            onClick={() => setIsRejectModalOpen(true)}
+            className={styles.rejectBtn}
+          >
             거절하기
           </button>
-          <button onClick={() => approve()} disabled={isApproving} className={styles.approveBtn}>
+          <button
+            onClick={() => approve()}
+            disabled={isApproving}
+            className={styles.approveBtn}
+          >
             승인하기
           </button>
         </div>
       )}
+
+      <ReasonModal
+        mode="reject"
+        isOpen={isRejectModalOpen}
+        onClose={() => setIsRejectModalOpen(false)}
+        onConfirm={(reason) => reject(reason)}
+        isLoading={isRejecting}
+      />
     </div>
   );
 }
