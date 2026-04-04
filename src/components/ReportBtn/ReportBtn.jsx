@@ -42,33 +42,41 @@ export default function ReportBtn({ targetId, reportType }) {
         createPortal(
           <div className={styles.overlay}>
             <div className={styles.modal}>
-              <div className={styles.title}>신고 사유를 선택해주세요</div>
-              {REPORT_REASON.map((reason) => (
-                <div
-                  key={reason}
-                  onClick={() => setSelectedReason(reason)}
-                  className={styles.reasonItem}
-                >
-                  <input
-                    type="radio"
-                    readOnly
-                    checked={selectedReason === reason}
-                    className={styles.radio}
+              <div className={styles.title}>
+                삭제 사유
+                <div>
+                  <Image
+                    src="/Images/Icon/ic_out.svg"
+                    alt="cancle"
+                    width={24}
+                    height={24}
+                    className={styles.cancleBtn}
+                    onClick={() => {
+                      setIsOpen(false);
+                      setSelectedReason('');
+                    }}
                   />
-                  <span className={styles.reasonText}>{reason}</span>
                 </div>
-              ))}
+              </div>
+              <div className={styles.reasonItemContainer}>
+                {REPORT_REASON.map((reason) => (
+                  <div
+                    key={reason}
+                    onClick={() => setSelectedReason(reason)}
+                    className={styles.reasonItem}
+                  >
+                    <input
+                      type="radio"
+                      readOnly
+                      checked={selectedReason === reason}
+                      className={styles.radio}
+                    />
+                    <span className={styles.reasonText}>{reason}</span>
+                  </div>
+                ))}
+              </div>
 
-              <div className={styles.btns}>
-                <button
-                  className={styles.btn}
-                  onClick={() => {
-                    setIsOpen(false);
-                    setSelectedReason('');
-                  }}
-                >
-                  취소
-                </button>
+              <div>
                 <button
                   className={styles.btn}
                   disabled={!selectedReason}
