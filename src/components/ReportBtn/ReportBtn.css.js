@@ -18,19 +18,12 @@ export const reportBtn = style({
   border: 'none',
   borderRadius: vars.radius.md,
   backgroundColor: 'transparent',
-  position: 'relative',
-  bottom: '0.3rem',
   cursor: 'pointer',
-  '@media': {
-    [media.tablet]: {
-      bottom: '0.68rem',
-    },
-  },
 });
 
 export const modal = style({
-  width: '23rem',
-  height: '26.5rem',
+  width: '31rem',
+  height: '26.9rem',
   borderRadius: '0.5rem',
   border: `2px solid ${vars.color.gray800}`,
   backgroundColor: vars.color.white,
@@ -40,31 +33,34 @@ export const modal = style({
 });
 
 export const title = style({
-  fontSize: vars.space.xl,
-  fontWeight: 600,
-  textAlign: 'center',
-  marginBottom: vars.space.sm,
-  color: vars.color.error,
-  borderBottom: `1px solid ${vars.color.gray300}`,
-  paddingBottom: vars.space.md,
+  fontSize: '1.125rem',
+  fontWeight: 700,
+  color: vars.color.gray800,
+  marginBottom: vars.space.md,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent:'space-between'
 });
 
-export const btns = style({
-  display: 'flex',
-  gap: vars.space.md,
-  borderTop: `1px solid ${vars.color.gray300}`,
-  marginTop: vars.space.sm,
-});
+export const cancleBtn = style({
+  color:vars.color.gray900
+})
+
 
 export const btn = style({
   width: '100%',
+  height:vars.space.xxl,
   borderRadius: vars.radius.md,
-  backgroundColor: vars.color.gray200,
+  backgroundColor: vars.color.brandBlack,
   marginTop: vars.space.md,
-  padding: '0.5rem 0',
+  padding: '1rem 0',
   fontWeight: 600,
   fontSize: '1rem',
-  cursor:'pointer'
+  cursor: 'pointer',
+  color: vars.color.brandWhite,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent:'center'
 });
 
 export const radio = style({
@@ -81,6 +77,12 @@ export const radio = style({
     },
   },
 });
+
+export const reasonItemContainer = style({
+  border: `1px solid ${vars.color.gray200}`,
+  borderRadius:vars.radius.md,
+  padding:vars.space.sm,
+})
 
 export const reasonItem = style({
   display: 'flex',
