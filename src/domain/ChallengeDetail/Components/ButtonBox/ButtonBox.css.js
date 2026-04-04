@@ -83,6 +83,7 @@ export const leaveBtn = style([
 
 export const twoBtn = style({
   display: 'flex', 
-  gap:vars.space.sm
+  gap: vars.space.sm,
+  flex:1,
 })
 

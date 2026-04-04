@@ -3,7 +3,7 @@ import { vars } from '@/styles/token.css.js';
 
 export const cta = style({
   display: 'flex',
-  flex: '1 0 auto',
+  flex: 1,
   height: '2.5rem',
   padding: '0.4375rem 0',
   justifyContent: 'center',
