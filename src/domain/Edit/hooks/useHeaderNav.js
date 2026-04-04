@@ -85,6 +85,10 @@ export function useHeaderNav(editorData) {
       return alert('제목과 내용을 입력해주세요.');
     }
 
+    if (title.length < 10) {
+      return alert('제목은 최소 10자 이상이여야 합니다.')
+    }
+
     const body = { title, content };
     submissionId ? updateMutation.mutate(body) : submitMutation.mutate(body);
   };
