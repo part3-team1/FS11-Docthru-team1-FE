@@ -76,6 +76,9 @@ export default function ChallengeCard({
             </div>
           )}
           <h2 className={styles.title}>{challenge.title}</h2>
+  
+
+
           <div className={styles.chipWrapper}>
             <TypeChip type={challenge.category} />
             <CategoryChip category={challenge.documentType} />
