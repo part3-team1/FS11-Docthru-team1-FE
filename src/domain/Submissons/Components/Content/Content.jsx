@@ -10,6 +10,7 @@ import { useHeart } from '../../hooks/useHeart';
 import LinkButton from '@/components/LinkButton';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { commonExtensions } from '@/domain/Edit/Components/Editor/EditorExtensions';
+import ReportBtn from '@/components/ReportBtn/ReportBtn';
 
 export default function Content({ currentUser, submission }) {
   const router = useRouter();
@@ -73,18 +74,23 @@ export default function Content({ currentUser, submission }) {
             <div className={styles.submissionTitle}>{submission.title}</div>
           </div>
 
-          <EditAndDeleteDropdown
-            currentUser={currentUser}
-            content={{
-              type: 'submission',
-              authorId: submission.userId,
-              status: null,
-              current_participants: 0,
-              isBlocked: false,
-            }}
-            editHref={`/challenges/${submission.challengeId}/submissions/${submission.id}/edit`}
-            onDelete={() => handleDelete()}
-          />
+          <div className={styles.dropAndReport}>
+            {currentUser?.id !== submission?.userId && (
+              <ReportBtn targetId={submission?.id} reportType="SUBMISSION" />
+            )}
+            <EditAndDeleteDropdown
+              currentUser={currentUser}
+              content={{
+                type: 'submission',
+                authorId: submission.userId,
+                status: null,
+                current_participants: 0,
+                isBlocked: false,
+              }}
+              editHref={`/challenges/${submission.challengeId}/submissions/${submission.id}/edit`}
+              onDelete={() => handleDelete()}
+            />
+          </div>
         </div>
 
         <div className={styles.categoryContainer}>

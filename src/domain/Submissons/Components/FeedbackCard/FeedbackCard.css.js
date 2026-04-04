@@ -115,3 +115,8 @@ export const btn = style({
     color: vars.color.brandYellow,
   },
 });
+
+
+export const dropAndReport = style({
+  display:'flex',
+})
