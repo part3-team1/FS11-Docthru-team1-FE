@@ -89,12 +89,14 @@ export default function FilterDropdown({ onApply }) {
     setCategory([]);
     setType('');
     setStatus('');
+    setIsFilterSelected(false);
   };
 
   const handleClickApply = () => {
-    console.log('apply button clicked');
-
+    const count = category.length + (type ? 1 : 0) + (status ? 1 : 0);
+    setFilterCount(count);
     onApply?.({ category, type, status });
+    setIsFilterSelected(count > 0);
     setIsOpen(false);
   };
 
