@@ -12,7 +12,8 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
   const [editValue, setEditValue] = useState(feedbacks?.content);
   const [isEditing, setIsEditing] = useState(false);
   const isBlocked = feedbacks?.isBlocked;
-  const createDate = formatDate(feedbacks.createdAt)
+  const createDate = formatDate(feedbacks.createdAt);
+  const isAdmin = ['ADMIN', 'MASTER'].includes(currentUser?.role);
 
   const handleCancel = () => {
     setEditValue(feedbacks.content);
@@ -23,25 +24,23 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
     setEditValue(e.target.value);
   };
 
-  // 수정
   const handleEdit = () => {
-    console.log('handleEdit 실행', feedbacks.id, editValue);
     editFeedback({ id: feedbacks.id, content: editValue });
     setIsEditing(false);
   };
 
-  //삭제
   const handleDelete = () => {
     removeFeedback(feedbacks.id);
   };
 
+  const handleBlock = () => {
+    feedbackBlock({ id: feedbacks.id, isBlocked: !feedbacks.isBlocked });
+  };
+
   return (
     <>
-      {/*  가리기 */}
       {!isEditing && (
         <div className={isBlocked ? styles.blockedContainer : styles.container}>
-          {/* 블러 오버레이 */}
-
           {isBlocked && (
             <div className={styles.blockOverlay}>
               <span className={styles.blockComent}>
@@ -50,7 +49,6 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
             </div>
           )}
 
-          {/* 기본 feedback */}
           <div className={styles.infoContainer}>
             <div className={styles.infoContainer}>
               {feedbacks?.user.grade === 'NORMAL' ? (
@@ -82,7 +80,7 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
               }
             >
               <div className={styles.dropAndReport}>
-                {currentUser?.id !== feedbacks?.userId && (
+                {!isAdmin && currentUser?.id !== feedbacks?.userId && (
                   <ReportBtn targetId={feedbacks?.id} reportType="FEEDBACK" />
                 )}
                 <EditAndDeleteDropdown
@@ -94,12 +92,7 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
                   }}
                   onEdit={() => setIsEditing(true)}
                   onDelete={handleDelete}
-                  onBlock={() =>
-                    feedbackBlock({
-                      id: feedbacks.id,
-                      isBlocked: !feedbacks.isBlocked,
-                    })
-                  }
+                  onBlock={handleBlock}
                 />
               </div>
             </div>
@@ -109,7 +102,6 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
         </div>
       )}
 
-      {/* 수정 */}
       {isEditing && (
         <div className={styles.editContainer}>
           <div className={styles.infoTotalContainer}>
@@ -131,19 +123,14 @@ export default function ComentCard({ feedbacks, currentUser, submissionId }) {
               )}
               <div className={styles.info}>
                 <div className={styles.nickName}>{feedbacks.user.nickname}</div>
-                <div className={styles.creatDate}> {feedbacks.createdAt}</div>
+                <div className={styles.creatDate}>{feedbacks.createdAt}</div>
               </div>
             </div>
 
             <div className={styles.btnContainer}>
-              <button
-                type="button"
-                onClick={handleCancel}
-                className={styles.btn}
-              >
+              <button type="button" onClick={handleCancel} className={styles.btn}>
                 취소
               </button>
-
               <button type="button" onClick={handleEdit} className={styles.btn}>
                 수정
               </button>

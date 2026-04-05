@@ -11,12 +11,16 @@ import LinkButton from '@/components/LinkButton';
 import { useEditor, EditorContent } from '@tiptap/react';
 import { commonExtensions } from '@/domain/Edit/Components/Editor/EditorExtensions';
 import ReportBtn from '@/components/ReportBtn/ReportBtn';
+import ReasonModal from '@/components/ReasonModal/ReasonModal';
+
 
 export default function Content({ currentUser, submission }) {
   const router = useRouter();
   const [isHeart, setIsHeart] = useState(submission.isHearted ?? false);
   const [heartCount, setHeartCount] = useState(submission.heartCount);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const { mutate: toggleHeart } = useHeart(submission.id);
+  const isAdmin = ['ADMIN', 'MASTER'].includes(currentUser?.role);
 
   const handleHeart = () => {
     toggleHeart(undefined, {
@@ -40,9 +44,7 @@ export default function Content({ currentUser, submission }) {
   useEffect(() => {
     if (viewer && submission?.content) {
       const content = submission.content;
-
       if (content?.blocks) {
-        // blocks 형식을 tiptap 형식으로 변환
         const tiptapContent = {
           type: 'doc',
           content: content.blocks.map((block) => ({
@@ -64,7 +66,6 @@ export default function Content({ currentUser, submission }) {
 
   return (
     <div className={styles.container}>
-      {/* top */}
       <div className={styles.titleContainer}>
         <div className={styles.totalTitle}>
           <div>
@@ -75,7 +76,7 @@ export default function Content({ currentUser, submission }) {
           </div>
 
           <div className={styles.dropAndReport}>
-            {currentUser?.id !== submission?.userId && (
+            {!isAdmin && currentUser?.id !== submission?.userId && (
               <ReportBtn targetId={submission?.id} reportType="SUBMISSION" />
             )}
             <EditAndDeleteDropdown
@@ -88,7 +89,7 @@ export default function Content({ currentUser, submission }) {
                 isBlocked: false,
               }}
               editHref={`/challenges/${submission.challengeId}/submissions/${submission.id}/edit`}
-              onDelete={() => handleDelete()}
+              onDelete={() => isAdmin ? setIsDeleteModalOpen(true) : handleDelete()}
             />
           </div>
         </div>
@@ -98,7 +99,6 @@ export default function Content({ currentUser, submission }) {
             <TypeChip type={submission.challenge.category} />
             <CategoryChip category={submission.challenge.documentType} />
           </div>
-
           <div>
             <LinkButton
               href={`/challenges/${submission.challengeId}`}
@@ -107,7 +107,7 @@ export default function Content({ currentUser, submission }) {
           </div>
         </div>
       </div>
-      {/* middle */}
+
       <div className={styles.infoContainer}>
         <div className={styles.leftContainer}>
           <div className={styles.user}>
@@ -130,11 +130,7 @@ export default function Content({ currentUser, submission }) {
           </div>
           <div onClick={handleHeart} className={styles.like}>
             <Image
-              src={
-                !isHeart
-                  ? '/Images/Icon/heart_white.svg'
-                  : '/Images/Icon/love.png'
-              }
+              src={!isHeart ? '/Images/Icon/heart_white.svg' : '/Images/Icon/love.png'}
               alt="좋아요"
               width={16}
               height={16}
@@ -143,7 +139,6 @@ export default function Content({ currentUser, submission }) {
             <div className={styles.likeCount}>{heartCount}</div>
           </div>
         </div>
-
         <div className={styles.creatDate}>
           {submissionFormatDate(submission.createdAt)}
         </div>
@@ -152,6 +147,16 @@ export default function Content({ currentUser, submission }) {
       <div className={styles.content}>
         <EditorContent editor={viewer} />
       </div>
+
+      <ReasonModal
+        mode="delete"
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={async () => {
+          await handleDelete();
+          setIsDeleteModalOpen(false);
+        }}
+      />
     </div>
   );
 }
