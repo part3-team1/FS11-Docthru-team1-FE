@@ -2,7 +2,7 @@ import { vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const challengeListHeader = style({
-  width:'100%',
+  width: '100%',
 });
 
 export const titleBar = style({
@@ -21,6 +21,7 @@ export const title = style({
 
 export const filterBar = style({
   display: 'flex',
+  alignItems: 'center',
   gap: vars.space.md,
-  margin: `${vars.space.lg} auto ${vars.space.xl}`
+  margin: `${vars.space.lg} auto ${vars.space.xl}`,
 });

@@ -2,8 +2,8 @@ import {
   addFeedback,
   deleteFeedback,
   patchFeedback,
-  blockFeedback,
 } from '@/api/challenges.API';
+import { blockFeedback } from '@/api/admin.API';
 import { queryKeys } from '@/lib/queryKeys';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
@@ -15,34 +15,31 @@ export const useFeedback = (submissionId) => {
   const invalidate = () => {
     queryClient.invalidateQueries({
       queryKey: queryKeys.submissions.withFeedback(submissionId),
+      refetchType: 'all',
     });
   };
 
-  //댓글추가
   const { mutate: addComment, isPending } = useMutation({
     mutationFn: (content) => addFeedback(submissionId, content),
     onSuccess: () => {
       setComment('');
       queryClient.invalidateQueries({
         queryKey: queryKeys.submissions.withFeedback(submissionId),
+        refetchType: 'all',
       });
     },
   });
 
-  // 피드백 수정
   const { mutate: editFeedback } = useMutation({
     mutationFn: ({ id, content }) => patchFeedback(id, content),
-
     onSuccess: invalidate,
   });
 
-  // 피드백 삭제
   const { mutate: removeFeedback } = useMutation({
     mutationFn: (id) => deleteFeedback(id),
     onSuccess: invalidate,
   });
 
-  //피드백 블락
   const { mutate: feedbackBlock } = useMutation({
     mutationFn: ({ id, isBlocked }) => blockFeedback(id, isBlocked),
     onSuccess: invalidate,

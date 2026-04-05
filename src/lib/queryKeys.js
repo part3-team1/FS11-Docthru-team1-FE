@@ -110,6 +110,7 @@ export const queryKeys = {
     },
     //유저상세
     users: {
+      list: (params = {}) => [...queryKeys.admin.all, 'users', 'list', params],
       detail: (id) => [...queryKeys.admin.all, 'users', id],
     },
     //피드백상세

@@ -48,13 +48,15 @@ const baseBtn = style({
   fontStyle: 'normal',
   fontWeight: '700',
   lineHeight: '1.625rem',
-
+  cursor: 'pointer',
 });
 
 export const cta = style([
   baseBtn,
   {
+    border: `none`,
     color: vars.color.gray500,
+    backgroundColor: vars.color.gray200,
   },
 ]);
 
@@ -66,23 +68,16 @@ export const clickBtn = style([
   },
 ]);
 
-
 export const leaveBtn = style([
   baseBtn,
   {
     backgroundColor: '#f5caca',
     color: vars.color.error,
-    cursor:'pointer'
-
   },
 ]);
 
-
-
-
 export const twoBtn = style({
-  display: 'flex', 
+  display: 'flex',
   gap: vars.space.sm,
-  flex:1,
-})
-
+  flex: 1,
+});

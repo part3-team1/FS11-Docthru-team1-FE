@@ -7,13 +7,15 @@ export const useChallengeList = ({ filter, keyword, page }) => {
 
   const { data, isLoading } = useQuery({
     queryKey: [...queryKeys.challenges.list(), { filter, keyword, page }],
-    queryFn: ()=> challengeList({
-      skip: (page - 1) * PAGESIZE,
-      take: PAGESIZE,
-      category: filter.category.join(','),
-      status: filter.status,
-      keyword,
-    }),
+    queryFn: () =>
+      challengeList({
+        skip: (page - 1) * PAGESIZE,
+        take: PAGESIZE,
+        category: filter.category.join(','),
+        documentType: filter.type,
+        status: filter.status,
+        keyword,
+      }),
   });
 
   return {

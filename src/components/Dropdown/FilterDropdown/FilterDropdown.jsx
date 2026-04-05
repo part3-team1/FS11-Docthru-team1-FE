@@ -12,32 +12,6 @@ import radio_checked from '@/../public/Images/Icon/radio_checked.svg';
 import radio_normal from '@/../public/Images/Icon/radio_normal.svg';
 import Button from '@/components/Button/Button.jsx';
 
-/*
- - return 형식 => 
-  { 
-    category: ['NEXTJS', 'MODERNJS', 'API', 'WEB', 'CAREER'],
-    type: "BLOG" | "DOCUMENTATION",
-    status: "ONGOING" | "FINISHED",
-  } 
-
- - 사용 예시 => 
-  'use client';
-  import FilterDropdown from ...;
-  ...
-  return ( 
-  ...
-  <FilterDropdown
-        onApply={({ category, type, status }) => {
-          console.log({
-            category,
-            type,
-            status,
-          });
-        }}
-      />
-  ...
-  )
-*/
 const checkboxCategory = [
   { label: 'Next.js', value: 'NEXTJS' },
   { label: 'Modern JS', value: 'MODERNJS' },
@@ -45,23 +19,25 @@ const checkboxCategory = [
   { label: 'Web', value: 'WEB' },
   { label: 'Career', value: 'CAREER' },
 ];
+
 const radioType = [
   { label: '공식문서', value: 'DOCUMENTATION' },
   { label: '블로그', value: 'BLOG' },
 ];
+
 const radioStatus = [
-  { label: '진행중', value: 'ONGOING' },
-  { label: '마감', value: 'FINISHED' },
+  { label: '진행중', value: 'OPENED' },
+  { label: '마감', value: 'CLOSED' },
 ];
 
 export default function FilterDropdown({ onApply }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isFilterSelected, setIsFilterSelected] = useState(false);
-  const [filterCount, setFilterCount] = useState(0);
   const [category, setCategory] = useState([]);
   const [type, setType] = useState('');
   const [status, setStatus] = useState('');
   const wrapperRef = useRef(null);
+
+  const filterCount = category.length + (type ? 1 : 0) + (status ? 1 : 0);
 
   const handleToggle = () => {
     setIsOpen((prev) => !prev);
@@ -94,10 +70,7 @@ export default function FilterDropdown({ onApply }) {
   };
 
   const handleClickApply = () => {
-    console.log('apply button clicked');
-    setFilterCount(category.length + (type ? 1 : 0) + (status ? 1 : 0));
     onApply?.({ category, type, status });
-    setIsFilterSelected(true);
     setIsOpen(false);
   };
 
@@ -105,11 +78,11 @@ export default function FilterDropdown({ onApply }) {
     <div ref={wrapperRef} className={styles.dropdownContainer}>
       <button
         onClick={handleToggle}
-        className={`${styles.dropdownButton} ${isFilterSelected ? styles.filterSelected : ''}`}
+        className={`${styles.dropdownButton} ${filterCount > 0 ? styles.filterSelected : ''}`}
       >
         <span>{filterCount === 0 ? '필터' : `필터(${filterCount})`}</span>
         <span>
-          <Image src={isFilterSelected ? filter_white : filter_black} alt="" />
+          <Image src={filterCount > 0 ? filter_white : filter_black} alt="" />
         </span>
       </button>
 
@@ -126,6 +99,7 @@ export default function FilterDropdown({ onApply }) {
               style={{ cursor: 'pointer' }}
             />
           </div>
+
           <div className={styles.filterBoxWrapper}>
             <div>
               <span className={styles.categoryLabel}>분야</span>
@@ -153,6 +127,7 @@ export default function FilterDropdown({ onApply }) {
               </div>
             </div>
           </div>
+
           <div className={styles.filterBoxWrapper}>
             <div>
               <span className={styles.categoryLabel}>문서타입</span>
@@ -177,6 +152,7 @@ export default function FilterDropdown({ onApply }) {
               </div>
             </div>
           </div>
+
           <div className={`${styles.filterBoxWrapper} ${styles.lastBox}`}>
             <div>
               <span className={styles.categoryLabel}>상태</span>
@@ -201,6 +177,7 @@ export default function FilterDropdown({ onApply }) {
               </div>
             </div>
           </div>
+
           <div className={styles.buttonContainer}>
             <Button
               variant="outline"

@@ -15,6 +15,7 @@ export const controlsWrapper = style({
 export const filterWrapper = style({
   position: 'relative',
   flexShrink: 0,
+  cursor: 'pointer',
 });
 
 export const roleDropdownMenu = style({
@@ -293,4 +294,18 @@ export const title = style({
   fontStyle: 'normal',
   fontWeight: 600,
   lineHeight: 'normal',
+});
+
+export const tableBodyRowBanned = style({
+  backgroundColor: vars.color.gray200,
+  textDecoration: 'line-through',
+});
+
+export const filterButtonActive = style({
+  backgroundColor: vars.color.gray800,
+  border: `1px solid ${vars.color.gray800}`,
+});
+
+export const filterButtonTextActive = style({
+  color: vars.color.gray50,
 });

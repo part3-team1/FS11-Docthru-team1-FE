@@ -10,7 +10,7 @@ export const container = style({
 const baseTitle = style({
   fontSize: '1.5rem',
   fontWeight: 600,
-  marginTop: vars.space.lg,
+  // marginTop: vars.space.lg,
   display: 'flex',
   justifyContent: 'space-between',
 

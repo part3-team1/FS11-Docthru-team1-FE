@@ -155,15 +155,3 @@ export async function deleteFeedback(id) {
   return;
 }
 
-//피드백 블락 (어드민))
-export async function blockFeedback(id, isBlocked) {
-  const res = await fetch(`${BASE_URL}/admin/feedbacks/${id}/block`, {
-    method: 'PATCH',
-    headers: { 'Content-Type': 'application/json' },
-    credentials: 'include',
-    body: JSON.stringify({ isBlocked }),
-  });
-  const json = await res.json();
-  if (!res.ok) throw new Error(json.message);
-  return json;
-}

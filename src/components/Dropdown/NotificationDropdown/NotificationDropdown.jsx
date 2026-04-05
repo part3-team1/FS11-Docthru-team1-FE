@@ -17,24 +17,11 @@ export default function NotificationDropdown({ onClose }) {
   const deleteMutation = useDeleteNotification();
   const readMutation = useReadNotification();
 
-  if (isLoading) {
-    return (
-      <div className={styles.dropdownContainer}>
-        <span>로딩중...</span>
-      </div>
-    );
-  }
+  const notifications = data?.items ?? [];
 
   if (isError) {
     console.log(error.message);
-    return (
-      <div className={styles.dropdownContainer}>
-        <span>문제가 발생했습니다.</span>
-      </div>
-    );
   }
-
-  const notifications = data?.items ?? [];
 
   return (
     <div className={styles.dropdownContainer}>
@@ -44,9 +31,14 @@ export default function NotificationDropdown({ onClose }) {
           <Image src={ic_out} alt="" />
         </button>
       </div>
+
       <div className={styles.dropdownBody}>
-        {notifications.length === 0 ? (
-          <div>알림이 없습니다.</div>
+        {isLoading ? (
+          <div className={styles.statusMessage}>로딩중...</div>
+        ) : isError ? (
+          <div className={styles.statusMessage}>문제가 발생했습니다.</div>
+        ) : notifications.length === 0 ? (
+          <div className={styles.statusMessage}>알림이 없습니다.</div>
         ) : (
           notifications.map(({ id, message, createdAt, isRead }) => (
             <div

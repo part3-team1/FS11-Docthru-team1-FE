@@ -88,8 +88,8 @@ export const content = style({
   justifyContent: 'center',
   alignItems: 'center',
   alignSelf: 'stretch',
-  paddingLeft: '0.4rem',
-  paddingTop: '0.15rem',
+  // paddingLeft: '0.4rem',
+  // paddingTop: '0.15rem',
 });
 
 export const participatedChallenge = style({

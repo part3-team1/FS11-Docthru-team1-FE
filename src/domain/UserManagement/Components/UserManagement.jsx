@@ -1,13 +1,17 @@
 'use client';
-import { Suspense, useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import SearchBar from '@/components/SearchBar/SearchBar.jsx';
 import Pagination from '@/components/Pagination/Pagination.jsx';
 import ConfirmModal from '@/components/Modal/ConfirmModal/ConfirmModal.jsx';
-import * as styles from './UserManagement.css.js';
 
-const PAGE_SIZE = 10;
+import * as styles from './UserManagement.css.js';
+import { promoteUser } from '@/api/admin.API.js';
+import { useBlockFlow } from '../hooks/useBlockFlow.js';
+import { useUserManagement } from '../hooks/useUserManagement.js';
+import ReasonModal from '@/components/ReasonModal/ReasonModal.jsx';
+import clsx from 'clsx';
 
 const ROLE_IMAGE = {
   ADMIN: '/Images/Icon/admin.png',
@@ -20,23 +24,38 @@ const GRADE_IMAGE = {
   NORMAL: '/Images/Icon/user.png',
 };
 
-export default function UserManagement() {
-  const [page, setPage] = useState(1);
-  const [keyword, setKeyword] = useState('');
-  const [roleFilter, setRoleFilter] = useState('');
-  const [users, setUsers] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
+const ROLE_FILTER_MAP = { 관리자: 'ADMIN', 전문가: 'EXPERT', 일반: 'USER' };
+const ROLE_FILTER_LABEL = { ADMIN: '관리자', EXPERT: '전문가', USER: '일반' };
 
-  const ROLE_FILTER_MAP = { 관리자: 'ADMIN', 전문가: 'EXPERT', 유저: 'USER' };
-  const ROLE_FILTER_LABEL = { ADMIN: '관리자', EXPERT: '전문가', USER: '유저' };
+export default function UserManagement() {
+  const {
+    page,
+    setPage,
+    roleFilter,
+    users,
+    totalCount,
+    checkedRows,
+    setCheckedRows,
+    isAllChecked,
+    handleAllCheck,
+    handleRowCheck,
+    handleKeywordChange,
+    handleRoleFilterChange,
+    refresh,
+    PAGE_SIZE,
+  } = useUserManagement();
+
+  const blockFlow = useBlockFlow({
+    checkedRows,
+    onSuccess: () => {
+      setCheckedRows([]);
+      refresh();
+    },
+  });
+
   const [isRoleFilterOpen, setIsRoleFilterOpen] = useState(false);
   const roleFilterRef = useRef(null);
-  const [checkedRows, setCheckedRows] = useState([]);
-  const [showBlockOverlay, setShowBlockOverlay] = useState(false);
   const [showPromoteOverlay, setShowPromoteOverlay] = useState(false);
-  const [refreshKey, setRefreshKey] = useState(0);
-
-  const isAllChecked = users.length > 0 && checkedRows.length === users.length;
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -48,61 +67,11 @@ export default function UserManagement() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    const skip = (page - 1) * PAGE_SIZE;
-    const params = new URLSearchParams({ skip, take: PAGE_SIZE });
-    if (keyword) params.set('keyword', keyword);
-    if (roleFilter) params.set('role', roleFilter);
-    fetch(`/api/users?${params}`, { credentials: 'include' })
-      .then((res) => res.json())
-      .then((json) => {
-        if (json.success) {
-          setUsers(json.data.users);
-          setTotalCount(json.data.totalCount);
-          setCheckedRows([]);
-        }
-      })
-      .catch(console.error);
-  }, [page, keyword, roleFilter, refreshKey]);
-
-  const handleAllCheck = () => {
-    setCheckedRows(isAllChecked ? [] : users.map((u) => u.id));
-  };
-
-  const handleRowCheck = (id) => {
-    setCheckedRows((prev) =>
-      prev.includes(id) ? prev.filter((r) => r !== id) : [...prev, id],
-    );
-  };
-
   const handlePromoteConfirm = async () => {
-    await Promise.all(
-      checkedRows.map((id) =>
-        fetch(`/api/users/${id}/role`, {
-          method: 'PATCH',
-          credentials: 'include',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ role: 'ADMIN' }),
-        }),
-      ),
-    );
+    await Promise.all(checkedRows.map((id) => promoteUser(id, 'ADMIN')));
     setShowPromoteOverlay(false);
     setCheckedRows([]);
-    setRefreshKey((k) => k + 1);
-  };
-
-  const handleBlockConfirm = async () => {
-    await Promise.all(
-      checkedRows.map((id) =>
-        fetch(`/api/admin/users/${id}/ban`, {
-          method: 'PATCH',
-          credentials: 'include',
-        }),
-      ),
-    );
-    setShowBlockOverlay(false);
-    setCheckedRows([]);
-    setRefreshKey((k) => k + 1);
+    refresh();
   };
 
   const getRoleImage = (user) => {
@@ -113,15 +82,15 @@ export default function UserManagement() {
 
   return (
     <div className={styles.container}>
-      {showBlockOverlay &&
-        createPortal(
-          <ConfirmModal
-            message="선택한 유저를 차단하시겠어요?"
-            onConfirm={handleBlockConfirm}
-            onCancel={() => setShowBlockOverlay(false)}
-          />,
-          document.body,
-        )}
+      {/* 차단 사유 입력 모달 */}
+      <ReasonModal
+        isOpen={blockFlow.isOpen}
+        onClose={blockFlow.handleClose}
+        onConfirm={blockFlow.handleConfirm}
+        mode="ban"
+      />
+
+      {/* 승격 확인 모달 */}
       {showPromoteOverlay &&
         createPortal(
           <ConfirmModal
@@ -131,31 +100,50 @@ export default function UserManagement() {
           />,
           document.body,
         )}
-      <h1 className={styles.title}>유저 목록</h1>
+
+      <h1 className={styles.title}>유저 관리</h1>
       <div className={styles.controlsWrapper}>
-        <div ref={roleFilterRef} className={styles.filterWrapper}>
-          <button className={styles.filterButton}>
-            <span className={styles.filterButtonText}>
+        <div
+          ref={roleFilterRef}
+          className={styles.filterWrapper}
+          onClick={() => setIsRoleFilterOpen((prev) => !prev)}
+        >
+          <button
+            className={clsx(
+              styles.filterButton,
+              roleFilter ? styles.filterButtonActive : '',
+            )}
+          >
+            <span
+              className={clsx(
+                styles.filterButtonText,
+                roleFilter ? styles.filterButtonTextActive : '',
+              )}
+            >
               {ROLE_FILTER_LABEL[roleFilter] ?? '필터'}
             </span>
             <Image
-              src="/Images/Icon/ic_filter_black.png"
+              src={
+                roleFilter
+                  ? '/Images/Icon/ic_filter_white.png'
+                  : '/Images/Icon/ic_filter_black.png'
+              }
               alt="filter"
               width={16}
               height={16}
-              style={{ cursor: 'pointer' }}
-              onClick={() => setIsRoleFilterOpen((prev) => !prev)}
             />
           </button>
           {isRoleFilterOpen && (
             <div className={styles.roleDropdownMenu}>
-              {['관리자', '전문가', '유저'].map((label) => (
+              {['관리자', '전문가', '일반'].map((label) => (
                 <span
                   key={label}
                   className={styles.roleDropdownOption}
                   onClick={() => {
-                    setPage(1);
-                    setRoleFilter(ROLE_FILTER_MAP[label]);
+                    const newRole = ROLE_FILTER_MAP[label];
+                    handleRoleFilterChange(
+                      roleFilter === newRole ? '' : newRole,
+                    );
                     setIsRoleFilterOpen(false);
                   }}
                 >
@@ -168,10 +156,7 @@ export default function UserManagement() {
         <div className={styles.searchBarWrapper}>
           <SearchBar
             placeholder="유저의 닉네임을 검색해보세요"
-            onChange={(v) => {
-              setPage(1);
-              setKeyword(v);
-            }}
+            onChange={handleKeywordChange}
           />
         </div>
         <div className={styles.buttonGroup}>
@@ -184,13 +169,14 @@ export default function UserManagement() {
           </button>
           <button
             className={styles.blockButton}
-            onClick={() => setShowBlockOverlay(true)}
+            onClick={blockFlow.openBlockFlow}
             disabled={checkedRows.length === 0}
           >
             차단하기
           </button>
         </div>
       </div>
+
       <table className={styles.table}>
         <colgroup>
           <col className={styles.colCheckbox} />
@@ -238,9 +224,11 @@ export default function UserManagement() {
             <tr
               key={user.id}
               className={
-                checkedRows.includes(user.id)
-                  ? styles.tableBodyRowChecked
-                  : undefined
+                user.isBanned
+                  ? styles.tableBodyRowBanned
+                  : checkedRows.includes(user.id)
+                    ? styles.tableBodyRowChecked
+                    : undefined
               }
             >
               <td className={`${styles.tableBodyCell} ${styles.checkboxCell}`}>
@@ -300,6 +288,7 @@ export default function UserManagement() {
           ))}
         </tbody>
       </table>
+
       <Pagination
         page={page}
         totalCount={totalCount}

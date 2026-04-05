@@ -51,6 +51,12 @@ export const btnDelete = style({
   textAlign: 'center',
   position: 'relative',
   top: '0.1rem',
+
+  selectors: {
+    '&:first-child': {
+      borderTop: `none`,
+    }
+  },
   '@media': {
     [media.mobile]: {
       padding: '0.5rem 0.75rem',
