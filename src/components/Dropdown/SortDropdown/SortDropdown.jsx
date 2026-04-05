@@ -28,7 +28,6 @@ const radioOrderBy = [
 
 export default function SortDropdown({ onApply }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
   const [status, setStatus] = useState('');
   const [orderBy, setOrderBy] = useState('');
   const wrapperRef = useRef(null);
@@ -57,19 +56,20 @@ export default function SortDropdown({ onApply }) {
   const handleClickApply = () => {
     const [sortBy, sortOrder] = orderBy ? orderBy.split('_') : [];
     onApply?.({ status, sortBy, sortOrder });
-    setIsSelected(true);
     setIsOpen(false);
   };
+
+  const isFilterSelected = status !== '' || orderBy !== '';
 
   return (
     <div ref={wrapperRef} className={styles.dropdownContainer}>
       <button
         onClick={handleToggle}
-        className={`${styles.dropdownButton} ${isSelected ? styles.selected : ''}`}
+        className={`${styles.dropdownButton} ${isFilterSelected ? styles.selected : ''}`}
       >
         <span>정렬</span>
         <span>
-          <Image src={isSelected ? filter_white : filter_black} alt="" />
+          <Image src={isFilterSelected ? filter_white : filter_black} alt="" />
         </span>
       </button>
 
