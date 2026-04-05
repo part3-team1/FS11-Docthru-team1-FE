@@ -55,9 +55,8 @@ export async function deleteNotification(id) {
     credentials: 'include',
   });
 
-  const data = response.json();
   if (!response.ok) {
-    throw new Error(data.message || '알림 삭제 실패');
+    throw new Error('알림 삭제 실패');
   }
 
   return;

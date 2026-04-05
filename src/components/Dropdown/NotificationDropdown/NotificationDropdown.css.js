@@ -90,6 +90,15 @@ export const dropdownBody = style({
   scrollbarColor: `${vars.color.gray200} transparent`,
 });
 
+export const statusMessage = style({
+  display: 'flex',
+  //alignItems: 'center',
+  justifyContent: 'center',
+  minHeight: '6.5rem',
+  padding: vars.space.lg,
+  color: vars.color.gray400,
+});
+
 export const dropdownContent = style({
   display: 'flex',
   flexDirection: 'column',
