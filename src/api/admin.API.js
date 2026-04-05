@@ -1,5 +1,33 @@
 const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api';
 
+
+// 어드민 - 유저 목록 조회 (추가)
+export async function getUsers(params = {}) {
+  const filtered = Object.fromEntries(
+    Object.entries(params).filter(([, v]) => v !== '' && v !== undefined && v !== null)
+  );
+  const query = new URLSearchParams(filtered).toString();
+  const res = await fetch(`${BASE_URL}/users?${query}`, {
+    credentials: 'include',
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
+}
+
+// 어드민 - 유저 승격 (추가)
+export async function promoteUser(id, role = 'ADMIN') {
+  const res = await fetch(`${BASE_URL}/users/${id}/role`, {
+    method: 'PATCH',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ role }),
+  });
+  const json = await res.json();
+  if (!res.ok) throw new Error(json.message);
+  return json;
+}
+
 // 어드민 - 챌린지 신청 목록 조회
 export async function getAdminRequests(params = {}) {
   // 빈 문자열 제거
@@ -64,7 +92,7 @@ export async function deleteAdminRequest(id, reason) {
   return;
 }
 
-// 어드민 - 유저 밴
+// 어드민 - 유저 밴 (reason 포함)
 export async function banUser(id, reason) {
   const res = await fetch(`${BASE_URL}/admin/users/${id}/ban`, {
     method: 'PATCH',

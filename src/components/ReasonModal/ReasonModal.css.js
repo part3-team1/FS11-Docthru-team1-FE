@@ -92,3 +92,11 @@ export const reasonText = style({
   fontSize: '1rem',
   color: vars.color.gray800,
 });
+
+
+export const textarea = style({
+  height: '33rem',
+  borderRadius: vars.radius.md,
+  padding: vars.space.md,
+  lineHeight:vars.space.lg,
+})
