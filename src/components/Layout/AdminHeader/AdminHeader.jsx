@@ -87,7 +87,7 @@ export default function AdminHeader() {
         </div>
         <div className={styles.headerMenu}>
           <Link
-            href="/admin/users"
+            href="/admin/user-management"
             onClick={handleClickAdminUserList}
             className={isUserListPage ? styles.focused : ''}
           >
