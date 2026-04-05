@@ -26,8 +26,8 @@ const radioType = [
 ];
 
 const radioStatus = [
-  { label: '진행중', value: 'ONGOING' },
-  { label: '마감', value: 'FINISHED' },
+  { label: '진행중', value: 'OPENED' },
+  { label: '마감', value: 'CLOSED' },
 ];
 
 export default function FilterDropdown({ onApply }) {
