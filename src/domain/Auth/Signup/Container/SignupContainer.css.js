@@ -3,7 +3,7 @@ import { style } from '@vanilla-extract/css';
 
 export const container = style({
   backgroundColor: vars.color.gray50,
-  padding: '7.5rem 43.81rem',
+  padding: '7.5rem 0',
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

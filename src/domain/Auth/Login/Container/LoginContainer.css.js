@@ -6,7 +6,7 @@ export const container = style({
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '7.78rem 0 30.8rem',
+  padding: '7.5rem 0',
   backgroundColor: vars.color.gray50,
   '@media': {
     [media.tablet]: {
@@ -20,6 +20,7 @@ export const container = style({
 
 export const logoContainer = style({
   display: 'flex',
+  alignItems: 'flex-start',
   gap: vars.space.lg,
   '@media': {
     [media.mobile]: {
