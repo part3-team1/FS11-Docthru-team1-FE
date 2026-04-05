@@ -87,11 +87,11 @@ export default function AdminHeader() {
         </div>
         <div className={styles.headerMenu}>
           <Link
-            href="/admin/users"
+            href="/admin/user-management"
             onClick={handleClickAdminUserList}
             className={isUserListPage ? styles.focused : ''}
           >
-            유저 목록
+            유저 관리
           </Link>
         </div>
       </div>
