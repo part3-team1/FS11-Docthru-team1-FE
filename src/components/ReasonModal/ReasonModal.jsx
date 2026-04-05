@@ -44,7 +44,7 @@ export default function ReasonModal({
   const [selectedReason, setSelectedReason] = useState('');
 
   const config = MODAL_CONFIG[mode];
-  const isBan = mode === 'ban';
+  
 
   const handleClose = () => {
     setSelectedReason('');
@@ -77,17 +77,7 @@ export default function ReasonModal({
           </div>
         </div>
 
-        {isBan ? (
-          // 밴 모드: 직접 작성
-          <textarea
-            className={styles.textarea}
-            value={selectedReason}
-            onChange={(e) => setSelectedReason(e.target.value)}
-            placeholder="차단 사유를 입력해주세요"
-            rows={5}
-          />
-        ) : (
-          // 기존 라디오 선택
+        
           <div className={styles.reasonItemContainer}>
             {REPORT_REASON.map((r) => (
               <div
@@ -105,7 +95,7 @@ export default function ReasonModal({
               </div>
             ))}
           </div>
-        )}
+        
 
         <div>
           <button

@@ -1,5 +1,5 @@
 'use client';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import SearchBar from '@/components/SearchBar/SearchBar.jsx';
@@ -11,6 +11,7 @@ import { promoteUser } from '@/api/admin.API.js';
 import { useBlockFlow } from '../hooks/useBlockFlow.js';
 import { useUserManagement } from '../hooks/useUserManagement.js';
 import ReasonModal from '@/components/ReasonModal/ReasonModal.jsx';
+import clsx from 'clsx';
 
 const ROLE_IMAGE = {
   ADMIN: '/Images/Icon/admin.png',
@@ -23,18 +24,23 @@ const GRADE_IMAGE = {
   NORMAL: '/Images/Icon/user.png',
 };
 
-const ROLE_FILTER_MAP = { 관리자: 'ADMIN', 전문가: 'EXPERT', 유저: 'USER' };
-const ROLE_FILTER_LABEL = { ADMIN: '관리자', EXPERT: '전문가', USER: '유저' };
+const ROLE_FILTER_MAP = { 관리자: 'ADMIN', 전문가: 'EXPERT', 일반: 'USER' };
+const ROLE_FILTER_LABEL = { ADMIN: '관리자', EXPERT: '전문가', USER: '일반' };
 
 export default function UserManagement() {
   const {
-    page, setPage,
+    page,
+    setPage,
     roleFilter,
-    users, totalCount,
-    checkedRows, setCheckedRows,
+    users,
+    totalCount,
+    checkedRows,
+    setCheckedRows,
     isAllChecked,
-    handleAllCheck, handleRowCheck,
-    handleKeywordChange, handleRoleFilterChange,
+    handleAllCheck,
+    handleRowCheck,
+    handleKeywordChange,
+    handleRoleFilterChange,
     refresh,
     PAGE_SIZE,
   } = useUserManagement();
@@ -50,6 +56,16 @@ export default function UserManagement() {
   const [isRoleFilterOpen, setIsRoleFilterOpen] = useState(false);
   const roleFilterRef = useRef(null);
   const [showPromoteOverlay, setShowPromoteOverlay] = useState(false);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (roleFilterRef.current && !roleFilterRef.current.contains(e.target)) {
+        setIsRoleFilterOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handlePromoteConfirm = async () => {
     await Promise.all(checkedRows.map((id) => promoteUser(id, 'ADMIN')));
@@ -85,19 +101,33 @@ export default function UserManagement() {
           document.body,
         )}
 
-      <h1 className={styles.title}>유저 목록</h1>
+      <h1 className={styles.title}>유저 관리</h1>
       <div className={styles.controlsWrapper}>
         <div
           ref={roleFilterRef}
           className={styles.filterWrapper}
           onClick={() => setIsRoleFilterOpen((prev) => !prev)}
         >
-          <button className={styles.filterButton}>
-            <span className={styles.filterButtonText}>
+          <button
+            className={clsx(
+              styles.filterButton,
+              roleFilter ? styles.filterButtonActive : '',
+            )}
+          >
+            <span
+              className={clsx(
+                styles.filterButtonText,
+                roleFilter ? styles.filterButtonTextActive : '',
+              )}
+            >
               {ROLE_FILTER_LABEL[roleFilter] ?? '필터'}
             </span>
             <Image
-              src="/Images/Icon/ic_filter_black.png"
+              src={
+                roleFilter
+                  ? '/Images/Icon/ic_filter_white.png'
+                  : '/Images/Icon/ic_filter_black.png'
+              }
               alt="filter"
               width={16}
               height={16}
@@ -105,12 +135,15 @@ export default function UserManagement() {
           </button>
           {isRoleFilterOpen && (
             <div className={styles.roleDropdownMenu}>
-              {['관리자', '전문가', '유저'].map((label) => (
+              {['관리자', '전문가', '일반'].map((label) => (
                 <span
                   key={label}
                   className={styles.roleDropdownOption}
                   onClick={() => {
-                    handleRoleFilterChange(ROLE_FILTER_MAP[label]);
+                    const newRole = ROLE_FILTER_MAP[label];
+                    handleRoleFilterChange(
+                      roleFilter === newRole ? '' : newRole,
+                    );
                     setIsRoleFilterOpen(false);
                   }}
                 >
@@ -154,7 +187,9 @@ export default function UserManagement() {
         </colgroup>
         <thead className={styles.tableHead}>
           <tr>
-            <th className={`${styles.tableHeadCell} ${styles.tableHeadCellFirst} ${styles.checkboxCell}`}>
+            <th
+              className={`${styles.tableHeadCell} ${styles.tableHeadCellFirst} ${styles.checkboxCell}`}
+            >
               <label className={styles.checkboxLabel}>
                 <input
                   type="checkbox"
@@ -163,7 +198,11 @@ export default function UserManagement() {
                   onChange={handleAllCheck}
                 />
                 <Image
-                  src={isAllChecked ? '/Images/Icon/checkbox_checked.svg' : '/Images/Icon/checkbox_normal.svg'}
+                  src={
+                    isAllChecked
+                      ? '/Images/Icon/checkbox_checked.svg'
+                      : '/Images/Icon/checkbox_normal.svg'
+                  }
                   alt="전체선택"
                   width={20}
                   height={20}
@@ -173,14 +212,24 @@ export default function UserManagement() {
             <th className={styles.tableHeadCell}>Role</th>
             <th className={styles.tableHeadCell}>Name</th>
             <th className={styles.tableHeadCell}>Email</th>
-            <th className={`${styles.tableHeadCell} ${styles.tableHeadCellLast}`}>Challenges</th>
+            <th
+              className={`${styles.tableHeadCell} ${styles.tableHeadCellLast}`}
+            >
+              Challenges
+            </th>
           </tr>
         </thead>
         <tbody>
           {users.map((user) => (
             <tr
               key={user.id}
-              className={checkedRows.includes(user.id) ? styles.tableBodyRowChecked : undefined}
+              className={
+                user.isBanned
+                  ? styles.tableBodyRowBanned
+                  : checkedRows.includes(user.id)
+                    ? styles.tableBodyRowChecked
+                    : undefined
+              }
             >
               <td className={`${styles.tableBodyCell} ${styles.checkboxCell}`}>
                 <label className={styles.checkboxLabel}>
@@ -191,7 +240,11 @@ export default function UserManagement() {
                     onChange={() => handleRowCheck(user.id)}
                   />
                   <Image
-                    src={checkedRows.includes(user.id) ? '/Images/Icon/checkbox_checked.svg' : '/Images/Icon/checkbox_normal.svg'}
+                    src={
+                      checkedRows.includes(user.id)
+                        ? '/Images/Icon/checkbox_checked.svg'
+                        : '/Images/Icon/checkbox_normal.svg'
+                    }
                     alt="선택"
                     width={20}
                     height={20}
@@ -199,7 +252,12 @@ export default function UserManagement() {
                 </label>
               </td>
               <td className={styles.tableBodyCell}>
-                <Image src={getRoleImage(user)} alt={user.role} width={37} height={37} />
+                <Image
+                  src={getRoleImage(user)}
+                  alt={user.role}
+                  width={37}
+                  height={37}
+                />
               </td>
               <td className={styles.tableBodyCell}>{user.nickname}</td>
               <td className={styles.tableBodyCell}>{user.email}</td>
@@ -212,14 +270,19 @@ export default function UserManagement() {
                     {user.participations.length > 1 && (
                       <div className={styles.challengeDropdown}>
                         {user.participations.slice(1).map((p, idx) => (
-                          <div key={idx} className={styles.challengeDropdownItem}>
+                          <div
+                            key={idx}
+                            className={styles.challengeDropdownItem}
+                          >
                             {p.challenge?.title}
                           </div>
                         ))}
                       </div>
                     )}
                   </>
-                ) : '-'}
+                ) : (
+                  '-'
+                )}
               </td>
             </tr>
           ))}

@@ -91,7 +91,7 @@ export default function AdminHeader() {
             onClick={handleClickAdminUserList}
             className={isUserListPage ? styles.focused : ''}
           >
-            유저 목록
+            유저 관리
           </Link>
         </div>
       </div>
