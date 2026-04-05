@@ -92,11 +92,12 @@ export const dropdownBody = style({
 
 export const statusMessage = style({
   display: 'flex',
-  //alignItems: 'center',
+  alignItems: 'center',
   justifyContent: 'center',
   minHeight: '6.5rem',
-  padding: vars.space.lg,
+  // padding: vars.space.lg,
   color: vars.color.gray400,
+  transform: 'translateY(-1rem)',
 });
 
 export const dropdownContent = style({
