@@ -5,7 +5,7 @@ export const infoContainer = style({
   display: 'flex',
   gap: vars.space.xl,
   borderBottom: `1px solid ${vars.color.gray100}`,
-  padding: '1.5rem 0',
+  paddingBottom: '1.5rem',
   marginBottom: vars.space.xl,
   justifyContent: 'space-between',
   '@media': {

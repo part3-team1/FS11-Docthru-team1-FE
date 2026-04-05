@@ -13,6 +13,8 @@ export default function ButtonBox({
   hasDrafts,
 }) {
   const isClosed = data.status === 'CLOSED';
+  const isFull = data.currentParticipants >= data.maxParticipants;
+
   const mySubmission = data.submissions?.find(
     (s) => s.userId === currentUser?.id,
   );
@@ -44,14 +46,12 @@ export default function ButtonBox({
     //작업물 작성한사람
     if (isParticipating && hasSubmission) {
       return (
-
-          <Link
-            href={`/challenges/${challengeId}/submissions/${mySubmission?.id}`}
-            className={styles.clickBtn}
-          >
-            내 작업물 보기
-          </Link>
-
+        <Link
+          href={`/challenges/${challengeId}/submissions/${mySubmission?.id}`}
+          className={styles.clickBtn}
+        >
+          내 작업물 보기
+        </Link>
       );
     }
 
@@ -93,6 +93,10 @@ export default function ButtonBox({
           </Link>
         </div>
       );
+    }
+
+    if (isFull) {
+      return <button className={styles.cta}>모집 인원 마감</button>;
     }
 
     return (
