@@ -48,6 +48,7 @@ const baseBtn = style({
   fontStyle: 'normal',
   fontWeight: '700',
   lineHeight: '1.625rem',
+  cursor: 'pointer',
 });
 
 export const cta = style([
@@ -72,7 +73,6 @@ export const leaveBtn = style([
   {
     backgroundColor: '#f5caca',
     color: vars.color.error,
-    cursor: 'pointer',
   },
 ]);
 
