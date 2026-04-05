@@ -15,8 +15,9 @@ import { useRef, useState } from 'react';
 
 const radioStatus = [
   { label: '승인 대기', value: 'PENDING' },
-  { label: '신청 승인', value: 'ACCEPTED' },
-  { label: '신청 거절', value: 'DENIED' },
+  { label: '신청 승인', value: 'APPROVED' },
+  { label: '신청 거절', value: 'REJECTED' },
+  { label: '챌린지 삭제', value: 'DELETED'},
 ];
 
 const radioOrderBy = [
