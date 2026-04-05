@@ -29,6 +29,7 @@ export const dropdownButton = style({
 
   '@media': {
     [media.mobile]: {
+      width: '6.1875rem',
       fontSize: '0.875rem',
     },
   },
