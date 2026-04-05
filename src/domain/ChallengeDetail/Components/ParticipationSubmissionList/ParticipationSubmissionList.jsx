@@ -18,6 +18,18 @@ export default function ParticipationSubmissionList({ data }) {
     currentPage * itemsPerPage,
   );
 
+  if (items.length === 0) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.titleAndPagination}>참여 현황</div>
+        <div className={styles.empty}>
+          아직 참여한 도전자가 없어요,
+          <br />
+          지금 바로 도전해보세요!
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={styles.container}>
       <div className={styles.titleAndPagination}>
