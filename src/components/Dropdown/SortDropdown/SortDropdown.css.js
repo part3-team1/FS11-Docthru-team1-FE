@@ -26,6 +26,8 @@ export const dropdownButton = style({
   borderRadius: '2rem',
   border: `1px solid ${vars.color.gray300}`,
 
+  cursor: 'pointer',
+
   '@media': {
     [media.mobile]: {
       fontSize: '0.875rem',
