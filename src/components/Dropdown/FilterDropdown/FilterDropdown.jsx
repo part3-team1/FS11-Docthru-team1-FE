@@ -74,8 +74,6 @@ export default function FilterDropdown({ onApply }) {
     setIsOpen(false);
   };
 
-  const filterCount = category.length + (type ? 1 : 0) + (status ? 1 : 0);
-
   return (
     <div ref={wrapperRef} className={styles.dropdownContainer}>
       <button
