@@ -15,6 +15,7 @@ export const controlsWrapper = style({
 export const filterWrapper = style({
   position: 'relative',
   flexShrink: 0,
+  cursor: 'pointer',
 });
 
 export const roleDropdownMenu = style({

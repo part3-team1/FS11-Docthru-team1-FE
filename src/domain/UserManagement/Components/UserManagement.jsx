@@ -133,7 +133,11 @@ export default function UserManagement() {
         )}
       <h1 className={styles.title}>유저 목록</h1>
       <div className={styles.controlsWrapper}>
-        <div ref={roleFilterRef} className={styles.filterWrapper}>
+        <div
+          ref={roleFilterRef}
+          className={styles.filterWrapper}
+          onClick={() => setIsRoleFilterOpen((prev) => !prev)}
+        >
           <button className={styles.filterButton}>
             <span className={styles.filterButtonText}>
               {ROLE_FILTER_LABEL[roleFilter] ?? '필터'}
@@ -143,8 +147,6 @@ export default function UserManagement() {
               alt="filter"
               width={16}
               height={16}
-              style={{ cursor: 'pointer' }}
-              onClick={() => setIsRoleFilterOpen((prev) => !prev)}
             />
           </button>
           {isRoleFilterOpen && (
