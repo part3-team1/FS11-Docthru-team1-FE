@@ -7,6 +7,7 @@ export const container = style({
   border: `1px solid ${vars.color.gray100}`,
   borderRadius: vars.radius.xl,
   marginBottom: vars.space.xl,
+  backgroundColor: vars.color.gray50
 });
 
 export const first = style({
