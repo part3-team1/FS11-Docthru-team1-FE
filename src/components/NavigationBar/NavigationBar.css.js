@@ -2,9 +2,9 @@ import { media, vars } from '@/styles/token.css';
 import { style } from '@vanilla-extract/css';
 
 export const wrapper = style({
-  display:'flex',
-  flexDirection:'column',
-  width:'100%'
+  display: 'flex',
+  flexDirection: 'column',
+  width: '100%',
 });
 
 export const title = style({
@@ -43,9 +43,9 @@ export const menu = style({
 
   '@media': {
     [media.mobile]: {
-      fontSize: '1rem',
-
-      width: '7.5rem',
+      fontSize: '0.75rem',
+      padding: `${vars.space.sm} ${vars.space.sm}`,
+      width: '5rem',
       height: '3rem',
     },
   },
@@ -67,5 +67,4 @@ export const row = style({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  
-  });
+});
