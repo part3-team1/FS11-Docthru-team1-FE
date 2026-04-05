@@ -28,12 +28,23 @@ const MODAL_CONFIG = {
     title: '삭제 사유',
     confirmText: '삭제하기',
   },
+  ban: {
+    title: '차단 사유',
+    confirmText: '차단하기',
+  },
 };
 
-export default function ReasonModal({ isOpen, onClose, onConfirm, isLoading, mode = 'report' }) {
+export default function ReasonModal({
+  isOpen,
+  onClose,
+  onConfirm,
+  isLoading,
+  mode = 'report',
+}) {
   const [selectedReason, setSelectedReason] = useState('');
 
   const config = MODAL_CONFIG[mode];
+  const isBan = mode === 'ban';
 
   const handleClose = () => {
     setSelectedReason('');
@@ -66,28 +77,40 @@ export default function ReasonModal({ isOpen, onClose, onConfirm, isLoading, mod
           </div>
         </div>
 
-        <div className={styles.reasonItemContainer}>
-          {REPORT_REASON.map((r) => (
-            <div
-              key={r}
-              onClick={() => setSelectedReason(r)}
-              className={styles.reasonItem}
-            >
-              <input
-                type="radio"
-                readOnly
-                checked={selectedReason === r}
-                className={styles.radio}
-              />
-              <span className={styles.reasonText}>{r}</span>
-            </div>
-          ))}
-        </div>
+        {isBan ? (
+          // 밴 모드: 직접 작성
+          <textarea
+            className={styles.textarea}
+            value={selectedReason}
+            onChange={(e) => setSelectedReason(e.target.value)}
+            placeholder="차단 사유를 입력해주세요"
+            rows={5}
+          />
+        ) : (
+          // 기존 라디오 선택
+          <div className={styles.reasonItemContainer}>
+            {REPORT_REASON.map((r) => (
+              <div
+                key={r}
+                onClick={() => setSelectedReason(r)}
+                className={styles.reasonItem}
+              >
+                <input
+                  type="radio"
+                  readOnly
+                  checked={selectedReason === r}
+                  className={styles.radio}
+                />
+                <span className={styles.reasonText}>{r}</span>
+              </div>
+            ))}
+          </div>
+        )}
 
         <div>
           <button
             className={styles.btn}
-            disabled={!selectedReason || isLoading}
+            disabled={!selectedReason.trim() || isLoading}
             onClick={handleConfirm}
           >
             {config.confirmText}
