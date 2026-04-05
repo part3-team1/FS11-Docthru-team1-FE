@@ -56,8 +56,6 @@ const radioStatus = [
 
 export default function FilterDropdown({ onApply }) {
   const [isOpen, setIsOpen] = useState(false);
-  const [isFilterSelected, setIsFilterSelected] = useState(false);
-  const [filterCount, setFilterCount] = useState(0);
   const [category, setCategory] = useState([]);
   const [type, setType] = useState('');
   const [status, setStatus] = useState('');
@@ -95,21 +93,22 @@ export default function FilterDropdown({ onApply }) {
 
   const handleClickApply = () => {
     console.log('apply button clicked');
-    setFilterCount(category.length + (type ? 1 : 0) + (status ? 1 : 0));
+
     onApply?.({ category, type, status });
-    setIsFilterSelected(true);
     setIsOpen(false);
   };
+
+  const filterCount = category.length + (type ? 1 : 0) + (status ? 1 : 0);
 
   return (
     <div ref={wrapperRef} className={styles.dropdownContainer}>
       <button
         onClick={handleToggle}
-        className={`${styles.dropdownButton} ${isFilterSelected ? styles.filterSelected : ''}`}
+        className={`${styles.dropdownButton} ${filterCount ? styles.filterSelected : ''}`}
       >
         <span>{filterCount === 0 ? '필터' : `필터(${filterCount})`}</span>
         <span>
-          <Image src={isFilterSelected ? filter_white : filter_black} alt="" />
+          <Image src={filterCount ? filter_white : filter_black} alt="" />
         </span>
       </button>
 
